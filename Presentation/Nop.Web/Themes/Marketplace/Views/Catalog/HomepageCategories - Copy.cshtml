@@ -1,0 +1,35 @@
+﻿@model IList<CategoryModel>
+
+@using Nop.Web.Models.Catalog;
+@if (Model.Count > 0)
+{
+      <div class="prodUX15 wrap ">
+        <div class="lined-header " style="width:100%;">
+            <h2><span class="lined-header-text">CATEGORIES</span></h2>
+        </div>
+    </div>
+    <div class="row text-center">
+        @foreach (var item in Model)
+{
+    @*<div class="col-xs-4 col-sm-4 col-md-4 custompadding">*@
+    <div class=" col-xs-6 col-lg-4 custompadding">
+        <div class="thumbnail">
+            <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                @*<div class="category-thumb" style="background-image: url(@item.PictureModel.ImageUrl)">
+
+                    </div>*@
+                <img src="@item.PictureModel.ImageUrl" class="img-responsive" />
+            </a>
+            <div class="caption">
+                <h4>
+                    <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                        @item.Name
+                    </a>
+                </h4>
+            </div>
+
+        </div>
+    </div>
+}
+    </div>
+}

@@ -1,0 +1,142 @@
+﻿@model IList<CategoryModel>
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@{
+    var themeName = EngineContext.Current.Resolve<IThemeContext>
+    ().WorkingThemeName;
+    var css = string.Format("Themes/{0}/Content/css", themeName);
+    var js = string.Format("Themes/{0}/Content/js", themeName);
+    var img = string.Format("Themes/{0}/Content/images", themeName);
+    var video = string.Format("Themes/{0}/Content/Video", themeName);
+}
+@Html.Widget("body_end_html_tag_News")
+<div style="position: relative; overflow: hidden;" class="mos-container isotope scroll-cont" >
+    @if (Model.Count > 0)
+    {
+        int counter = 0;
+        int numberOfDiv = 5;
+        <div class="row text-center">
+            @foreach (var item in Model)
+            {
+                if (counter % numberOfDiv == 0)
+                {
+                    <div class="mos-item block-2428 item-w2 item-sm-w2 item-sm-h2 img-center-horizontal slide-box item-width ">
+                        @Html.Widget("paranda_home_pom_pom_catagory")
+			@Html.Widget("home_page_Mobile_Jewellery_banner")
+                        <div class="mos-panel animate ">
+				@* @Url.RouteUrl("Product", new { SeName = item.SeName }) *@
+                            <a class="mos-inner" href="@Url.RouteUrl("Product", new { SeName = item.SeName })">
+                               @* <i style="padding-top:20px;" class="fa fa-chevron-right pull-right mobile-obj"></i>*@
+                                <h2 class="mob-tit tit-slide-box">@item.Name</h2>
+                                <div class="sep-line animate "></div>
+                                <div id="catimg" >
+                                   @Html.Raw(@item.Description)
+                                </div>
+                                <button class="btn btn-white-trasp">discover</button>
+                            </a>
+                        </div>
+                    </div>
+                }
+                else if (counter % numberOfDiv == 1)
+                {
+                    <div class="mos-item block-2569 item-h2 item-sm-w2 item-sm-h2 slide-box home_banner">
+                            @Html.Widget("paranda_home_banner")
+			    @Html.Widget("home_page_Mobile_banner")
+                    </div>
+                    <div class="mos-item block-2435 item-df item-sm-w2 item-sm-h2 slide-box item-width">
+                        @Html.Widget("paranda_home_beads_catagory")
+                        <div class="mos-panel animate">
+				@* @Url.RouteUrl("Product", new { SeName = item.SeName }) *@ 
+                            <a class="mos-inner" href="@Url.RouteUrl("Product", new { SeName = item.SeName })">
+                                @*<i style="padding-top:20px;" class="fa fa-chevron-right pull-right mobile-obj"></i>*@
+                                <h2 class="mob-tit tit-slide-box">@item.Name</h2>
+                                <div class="sep-line animate "></div>
+                                <div id="catimg1">
+                                    @Html.Raw(@item.Description)
+                                </div>
+                                <button class="btn btn-white-trasp">discover</button>
+                            </a>
+                        </div>
+                    </div>
+                }
+                else if (counter % numberOfDiv == 2)
+                {
+                    <div class="mos-item block-2442 item-df item-sm-w2 item-sm-h2 slide-box item-width">
+                        @Html.Widget("paranda_home_coins_catagory")
+                        <div class="mos-panel animate">
+				@*@Url.RouteUrl("Product", new { SeName = item.SeName })*@
+                            <a class="mos-inner" href="@Url.RouteUrl("Product", new { SeName = item.SeName })">
+                                @*<i style="padding-top:20px;" class="fa fa-chevron-right pull-right mobile-obj"></i>*@
+                                <h2 class="mob-tit tit-slide-box">@item.Name</h2>
+                                <div class="sep-line animate "></div>
+                                <div id="catimg2">
+                                    @Html.Raw(@item.Description)
+                                   
+                                </div>
+                                <button class="btn btn-white-trasp">discover</button>
+                            </a>
+                        </div>
+                    </div>
+                }
+                else if (counter % numberOfDiv == 3)
+                {
+                    <div class="mos-item block-2446 item-w2 item-sm-w2 item-sm-h2 img-center-horizontal slide-box item-width">
+                        @Html.Widget("paranda_home_mirrors_catagory")
+			@Html.Widget("home_page_Mobile_Paranda_banner")
+                        <div class="mos-panel animate">
+				@* @Url.RouteUrl("Product", new { SeName = item.SeName }) *@
+                            <a class="mos-inner" href="@Url.RouteUrl("Product", new { SeName = item.SeName })">
+                                @*<i style="padding-top:20px;" class="fa fa-chevron-right pull-right mobile-obj"></i> *@
+                                <h2 class="mob-tit tit-slide-box">@item.Name</h2>
+                                <div class="sep-line animate "></div>
+                                <div id="catimg3">
+                                    @Html.Raw(@item.Description)
+                                </div>
+                                <button class="btn btn-white-trasp">discover</button>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+                else if (counter % numberOfDiv == 4)
+                {
+                    <div class="mos-item block-2449 item-df item-sm-w2 item-sm-h2 slide-box item-width">
+                        @Html.Widget("paranda_home_accessories_catagory")
+                        <div class="mos-panel animate">
+				@*@Url.RouteUrl("Product", new { SeName = item.SeName })*@
+                            <a class="mos-inner" href="@Url.RouteUrl("Product", new { SeName = item.SeName })">
+                               @* <i style="padding-top:20px;" class="fa fa-chevron-right pull-right mobile-obj"></i>*@
+                                <h2 class="mob-tit tit-slide-box">@item.Name</h2>
+                                <div class="sep-line animate "></div>
+                                <div id="catimg4">
+                                   @Html.Raw(@item.Description)
+                                </div>
+                                <script>
+                                    $("#catimg").find("img").remove();
+                                    $("#catimg1").find("img").remove();
+                                    $("#catimg2").find("img").remove();
+                                    $("#catimg3").find("img").remove();
+                                    $("#catimg4").find("img").remove();
+                                </script>
+                                <button class="btn btn-white-trasp">discover</button>
+                            </a>
+                        </div>
+                    </div>
+                }
+                counter++;
+            }
+            </div>
+	@* <div class="mos-item block-2449 item-df item-sm-w2 item-sm-h2 slide-box item-width">
+                <img style="max-width:100%" src="//cdn.thinglink.me/api/image/1093164983413374979/1024/10/scaletowidth#tl-1093164983413374979;'" class="alwaysThinglink" />
+                <script async charset="utf-8" src="//cdn.thinglink.me/jse/embed.js"></script>
+            </div> *@
+        }
+</div>
+
+<script type='text/javascript' src='@js/jquery.mobile.custom.min.js'></script>
+<script type='text/javascript' src='@js/bootstrap.min.js'></script>
+<script type='text/javascript' src='@js/jquery.magnific-popup.min.js'></script>
+<script type='text/javascript' src='@js/isotope.pkgd.min.js'></script>
+<script type='text/javascript' src='@js/jquery.tooltipster.min.js'></script>
+<script type='text/javascript' src='@js/script.js'></script>

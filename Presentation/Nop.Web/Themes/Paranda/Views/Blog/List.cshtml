@@ -1,0 +1,738 @@
+﻿@*@model BlogPostListModel
+    @using Nop.Web.Models.Blogs;
+    @{
+        Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+        //title
+        Html.AddTitleParts(T("Men handmade shoes in Pakistan | Blog").Text);
+    }
+    @section left {
+        @Html.Action("BlogMonths", "Blog")
+        @Html.Action("BlogTags", "Blog")
+    }*@
+@*<div class="page-header page-header-custom">
+        <a href="@Url.RouteUrl("BlogRSS", new { languageId = Model.WorkingLanguageId })" class="pull-right tooltipOn" title="@T("Blog.RSS.Hint")">
+            <i class="fa fa-rss-square fa-2x colorRss"></i>
+        </a>
+        <h3>
+            @if (String.IsNullOrEmpty(Model.PagingFilteringContext.Tag))
+                {
+                    if (Model.PagingFilteringContext.GetParsedMonth().HasValue)
+                    {
+                    @String.Format(T("Blog.FilteredByMonth").Text, Model.PagingFilteringContext.GetParsedMonth().Value.Year, Model.PagingFilteringContext.GetParsedMonth().Value.ToString("MMMM"))
+                }
+                else
+                {
+                    @T("Blog")
+                }
+            }
+            else
+            {
+                @String.Format(T("Blog.TaggedWith").Text, Model.PagingFilteringContext.Tag)
+            }
+        </h3>
+    </div>*@
+@*<div class="page-body">
+        @Html.Widget("bloglist_page_before_posts")
+        @foreach (var item in Model.BlogPosts)
+    {
+        <div class="row no-margin">
+            <div class="col-md-12" style="text-align:center;margin-bottom:22px">
+                <h4 style="margin-top:50px"><a style="font-size: 33px; color: #051C3B" class="post-title" href="@Url.RouteUrl("BlogPost", new { SeName = item.SeName })">@item.Title</a></h4>
+                <div style="margin-top:20px;margin-bottom:20px"><small class="text-muted" style="margin-top:30px;margin-bottom:30px"><i>@item.CreatedOn.ToString("D")</i></small></div>
+                <center>
+                    <p class="marginTop10 text-justify" style="text-align:center;width:91%">
+                        @Html.Raw(!String.IsNullOrEmpty(item.BodyOverview) ? item.BodyOverview : item.Body)
+                    </p>
+                </center>
+            </div>
+        </div>
+            <div class="row no-margin">
+                <div class="col-sm-8 pull-right">
+                    @if (item.Tags.Count > 0)
+                    {
+                        <label>@T("Blog.Tags"):</label>
+                                <ul class="list-inline">
+                                    @for (int i = 0; i < item.Tags.Count; i++)
+                                    {
+                                        var tag = item.Tags[i];
+                                        <li><a href="@Url.RouteUrl("BlogByTag", new { tag = tag })">@tag</a></li>
+                                        if (i != item.Tags.Count - 1)
+                                        {
+                                            <li>-</li>
+                                        }
+                                    }
+                                </ul>
+                    }
+                </div>
+                <div class="col-sm-12">
+                    <center>
+                        <div class="buttons" style="margin-bottom:40px">
+                            @if (item.AllowComments)
+    {
+        <a style=" color: #051C3B" href="@Url.RouteUrl("BlogPost", new { SeName = item.SeName })" class="read-comments">@string.Format(T("Blog.CommentsLink").Text, item.NumberOfComments)</a>
+    }
+                            <div class="marginTop20 marginBottom30" style="margin-top:42px">
+                                <a href="@Url.RouteUrl("BlogPost", new { SeName = item.SeName })" class="btn-med">@T("Blog.MoreInfo")</a>
+                            </div>
+
+                        </div>
+                    </center>
+                    <hr>
+                </div>
+            </div>
+                    <div class="post">
+
+
+                        @Html.Widget("bloglist_page_inside_post", item.Id)
+                    </div>
+        }
+    </div>
+    @{
+        var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+    }
+    @if (!pager.IsEmpty())
+    {
+        <div class="pager">
+            @pager
+        </div>
+    }
+    @Html.Widget("bloglist_page_after_posts")*@
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@using Nop.Web.Framework.Themes
+
+@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    string dir = "/Themes/BootstrapDC/content/brand";
+
+}
+<link href="~/Themes/bootstrapdc/Content/css/blogs.css" rel="stylesheet" />
+<link href="~/Themes/bootstrapdc/Content/flexslider/css/flexslider2.css" rel="stylesheet" />
+<script src="~/Themes/bootstrapdc/Content/flexslider/js/jquery.flexslider2-min.js"></script>
+<style>
+    .data-thumb-alt {
+        width: 192px;
+        margin-right: 0px;
+        float: left;
+        display: block;
+    }
+
+
+
+    hr.style15 {
+        border-top: 3px solid #8da7a8;
+        text-align: center;
+        LINE-HEIGHT: 15PX;
+    }
+
+
+    hr.style16 {
+        border-top: 3px solid #8da7a8;
+        text-align: center;
+        LINE-HEIGHT: 15PX;
+    }
+
+    .flex-direction-nav .flex-prev {
+        left: 0px;
+    }
+
+    .flex-direction-nav .flex-next {
+        right: 0px;
+    }
+
+
+    .flexslider .slides {
+        padding: 30px 0px;
+        box-sizing: border-box;
+    }
+
+    .flex-control-paging li a {
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+        width: 15px;
+        height: 15px;
+    }
+</style>
+
+<div class="container-fluid3">
+    <div class="row frtopspace">
+        <div class="col-md-7  ig" style="    padding-bottom: 16%;">
+            <img src="~/Themes/BootstrapDC/Content/blog/5.jpg" class="img-responsive " width="100%">
+
+            <br>
+            <hr class="style15">
+            <a href="/quick" style="color:black;text-decoration:none">
+                <div class="col-md-12 hidden-xs  nopadding">
+                    <div class="col-md-5  nopadding">
+                        <img src="~/Themes/BootstrapDC/Content/blog/3a.jpg" class="img-responsive" width="100%" style="    padding-top: 25px;">
+                    </div>
+                    <div class="col-md-7 mdc1" style="position:absolute;">
+
+                        <h1 class="btex">
+                            MEN's
+                            </BR>QUICK TIPS
+                        </h1>
+
+                        <p class="parablog uppercase">
+                            ON DRESSING
+                            LIKE A BOSS
+
+                        </p>
+                    </div>
+                </div>
+            </a>
+            @*formobile*@
+            <a href="/quick" style="color:black;text-decoration:none">
+                <div class="col-xs-12 hidden-lg hidden-md nopadding ffmobile">
+                    <div class="col-xs-5  nopadding">
+                        <img src="~/Themes/BootstrapDC/Content/blog/3a.jpg" class="img-responsive" width="100%" style=" padding-top 25px;">
+                    </div>
+                    <div class="col-xs-7 mdc1">
+
+                        <h1 class="btex">
+                            MEN IN
+                            </BR>BLACK
+                        </h1>
+                        <p class="parablog uppercase">
+                            The 8 Pairs Of Black Shoes
+                            You’ll Need This Year
+
+                        </p>
+                    </div>
+                </div>
+            </a>@*formobile*@
+
+            <a href="/footprint" style="color:black;text-decoration:none">
+                <div class="col-md-12 hidden-xs nopadding">
+                    <div class="col-md-7 mdc2" style="position:absolute;">
+
+                        <h1 class="btex uppercase">
+                            Seasonal style</BR> forecast
+                        </h1>
+
+                        <p class="parablog uppercase">
+                            The Must-Have Trends To
+                            Incorporate In Your Footwear
+
+                        </p>
+                    </div>
+                    <div class="col-md-5  nopadding rim" style="float:right;">
+                        <img src="~/Themes/BootstrapDC/Content/blog/3b.jpg" class="img-responsive" width="100%" style=" padding-top 25px;">
+                    </div>
+                </div>
+            </a>
+
+            @*formobile*@
+            <a href="/footprint" style="color:black;text-decoration:none">
+                <div class="col-xs-12 hidden-lg hidden-md nopadding">
+                    <div class="col-xs-7 mdc2 nopadding">
+
+                        <h1 class="btex uppercase">
+                            Seasonal style</BR> forecast
+                        </h1>
+
+                        <p class="parablog uppercase">
+                            The Must-Have Trends To
+                            Incorporate In Your Footwear
+
+                        </p>
+                    </div>
+                    <div class="col-xs-5  nopadding rim" style="float:right;">
+                        <img src="~/Themes/BootstrapDC/Content/blog/3b.jpg" class="img-responsive" width="100%" style=" padding-top 25px;">
+                    </div>
+                </div>
+            </a>@*formobile*@
+
+
+            <a href="/test" style="color:black;text-decoration:none">
+                <div class="col-md-12 hidden-xs  nopadding">
+                    <div class="col-md-5  nopadding">
+                        <img src="~/Themes/BootstrapDC/Content/blog/3c.jpg" class="img-responsive" width="100%" style=" padding-top 25px;">
+                    </div>
+                    <div class="col-md-7 mdc1" style="position:absolute;">
+
+                        <h1 class="btex uppercase">
+                            The<br>
+                            top 5
+
+                        </h1>
+                        <p class="parablog uppercase">
+                            The Official Leather Power
+                            Lace-ups Every Man Should
+                            Own This Spell.docx
+
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+
+            @*formobile*@
+            <a href="/test" style="color:black;text-decoration:none">
+                <div class="col-xs-12 hidden-lg hidden-md  nopadding">
+                    <div class="col-xs-5  nopadding">
+                        <img src="~/Themes/BootstrapDC/Content/blog/3c.jpg" class="img-responsive" width="100%" style=" padding-top 25px;">
+                    </div>
+                    <div class="col-xs-7 mdc1">
+
+                        <h1 class="btex uppercase">
+                            The<br>
+                            top 5
+
+                        </h1>
+                        <p class="parablog uppercase">
+                            The Official Leather Power
+                            Lace-ups Every Man Should
+                            Own This Spell.docx
+
+                        </p>
+                    </div>
+                </div>
+            </a>@*formobile*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <hr style="color:black">
+
+
+
+
+        </div>
+
+        <div class="col-md-5 col-xs-12">
+            <br>
+            <hr class="style16">
+
+        </div>
+
+
+        <a href="/footprint" style="color: #8da7a8; text-decoration: none">
+            <div class="col-md-5" style="z-index:-1">
+                <img src="~/Themes/BootstrapDC/Content/blog/2a.jpg" class="img-responsive jj" width="100%">
+
+            </div>
+            <div class="col-md-4 bleft">
+                <div class="textbx" style="margin-left: 5%;">
+                    <span>
+                        Easy Rules To Choosing<br>
+                        The Right Shoes
+                    </span>
+                </div>
+            </div>
+        </a>
+
+        <a href="/36-reason" style="color: #8da7a8; text-decoration: none">
+            <div class="col-md-5">
+                <img src="~/Themes/BootstrapDC/Content/blog/2b.jpg" class="img-responsive jj" width="100%">
+
+            </div>
+            <div class="col-md-4 bleft">
+                <div class="textbx" style="margin-left: 5%;">
+                    <span>
+                        36 Reasons Why You<br>
+                        Should Wear Footprint
+                    </span>
+                </div>
+            </div>
+        </a>
+
+        <a href="/town-brown" style="color: #8da7a8; text-decoration: none">
+            <div class="col-md-5">
+                <img src="~/Themes/BootstrapDC/Content/blog/2c.jpg" class="img-responsive jj" width="100%">
+
+            </div>
+            <div class="col-md-4 bleft">
+                <div class="textbx" style="margin-left: 5%;"><span>Color The Town Brown</span></div>
+            </div>
+        </a>
+
+        <a href="/footwear" style="color: #8da7a8; text-decoration: none">
+            <div class="col-md-5">
+                <img src="~/Themes/BootstrapDC/Content/blog/2d.jpg" class="img-responsive jj" width="100%">
+
+            </div>
+            <div class="col-md-4 bleft">
+                <div class="textbx" style="margin-left: 5%;">
+                    <span>
+                        Footwear Etiquettes – 17
+                    </span><br>Ways To NOT Look Like A Circus Clown
+                </div>
+            </div>
+
+        </a>
+        <a href="/reason-to-buy" style="color: #8da7a8; text-decoration: none">
+            <div class="col-md-5">
+                <img src="~/Themes/BootstrapDC/Content/blog/2e.jpg" class="img-responsive jj" width="100%">
+
+            </div>
+            <div class="col-md-4 bleft">
+                <div class="textbx" style="margin-left: 5%;">
+                    <span>
+                        Reasons to buy footprint
+                    </span><br>tbc
+                </div>
+            </div>
+        </a>
+        <a href="/uptown-funk" style="color: #8da7a8; text-decoration: none">
+            <div>
+                <div class="col-md-5">
+                    <img src="~/Themes/BootstrapDC/Content/blog/2f.jpg" class="img-responsive jj" width="100%">
+
+                </div>
+                <div class="col-md-4 bleft">
+                    <div class="textbx" style="margin-left: 5%;"><span> Uptown Funk – </span><br>How To Choose Your Leather</div>
+                </div>
+            </div>
+        </a>
+
+
+    </div>
+    <hr class="hrforblog hidden-xs">
+    <div class="col-md-12 hidden-xs" style="padding:0;">
+        <img src="~/Themes/BootstrapDC/Content/blog/11.jpg" class="img-responsive" width="100%">
+        <div class="col-md-4 sbbox" style="left:20%;position:absolute;">
+            <h1 class="sbheadin">SUBSCRIBE TO <span style="border-bottom:1px solid #051C3B;"><br>FOOTPRINT</span></h1>
+            <p class="sbpara">THE STYLISH GIFT LASTS ALL YEAR</p>
+            <a href="#" id="authBtn3" onclick="Newsletter();"> <div class="BT">SUBSCRIBE NOW</div></a>
+        </div>
+    </div>
+
+    <div class="col-md-12 hidden-md hidden-lg" style="padding:0;">
+
+        <div class="col-md-4 sbbox">
+            <h1 class="sbheadin">SUBSCRIBE TO <span style="border-bottom:1px solid #051C3B;"><br>FOOTPRINT</span></h1>
+            <p class="sbpara">THE STYLISH GIFT LASTS ALL YEAR</p>
+            <a href="JAVASCRIPT:"> <div class="BT">SUBSCRIBE NOW</div></a>
+        </div>
+    </div>
+    @*<div class="col-md-12 grbox">
+
+
+        </div>*@
+    <div class="col-md-12" style="text-align:center;">
+        <h1 class="flive">
+            FOOTPRINT LIVE
+        </h1>
+        <p>47729 SHOPPERS ONLINE</p>
+        <p>SHOW CASE WHAT THE WORLD MOST STYLISH WOMEN ARE BUSING RIGHT NOW</p>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <div class="flexslider">
+            <ul class="slides">
+
+
+                <li class="">
+                    <p class="hppimg">
+                        <a href="http://footprint.pk/americas-butler">
+                            <img src="~/Themes/BootstrapDC/Content/blog/bslider/1b.jpeg" class="img-responsive">
+                        </a>
+                    </p>
+                    <div class="hppdtl">
+                        <div>
+                            <h3 class="shd">
+                                ARISTOCRAT GOLDEN ROYAL PUMP<br>
+                                PKR 7,000
+                            </h3>
+                        </div>
+                        <div>
+                            @*<p class="shd">
+                                    Added to basket<br>
+                                    Barrow in furness<br>
+                                    united kingdom
+                                </p>*@
+                        </div>
+                    </div>
+                </li>
+
+                <li class="">
+                    <p class="hppimg">
+                        <a href="http://footprint.pk/chester">
+                            <img src="~/Themes/BootstrapDC/Content/blog/bslider/2b.jpeg" class="img-responsive">
+                        </a>
+                    </p>
+                    <div class="hppdtl">
+                        <div>
+                            <h3 class="shd">
+                                CHESTER BOOT<br>
+                                PKR 11,500
+                            </h3>
+                        </div>
+                        <div>
+                            @*<p class="shd">
+                                    Added to basket
+                                </p>*@
+                        </div>
+                    </div>
+                </li>
+
+                <li class="">
+                    <p class="hppimg">
+                        <a href="http://footprint.pk/azerbaijan">
+                            <img src="~/Themes/BootstrapDC/Content/blog/bslider/3b.jpeg" class="img-responsive">
+                        </a>
+                    </p>
+                    <div class="hppdtl">
+                        <h3 class="shd">
+                            AZERBAIJAN BROGUE<br>
+                            PKR 7,750
+                        </h3>
+                        <div>
+                            @*<p class="shd">
+                                    Added to basket<br>
+                                    Shenzhen | china
+                                </p>*@
+                        </div>
+                    </div>
+                </li>
+
+                <li class="">
+                    <p class="hppimg">
+                        <a href="http://footprint.pk/glasgow">
+                            <img src="~/Themes/BootstrapDC/Content/blog/bslider/4b.jpeg" class="img-responsive">
+                        </a>
+                    </p>
+                    <div class="hppdtl">
+                        <div>
+                            <h3 class="shd">
+                                GLASGOW LACED MONK<br>
+                                PKR 7,000
+                            </h3>
+                        </div>
+                        <div>
+                            @*<p class="shd">
+                                    Added to basket<br>
+                                    williamstown | Australia
+                                </p>*@
+                        </div>
+                    </div>
+                </li>
+
+                <li class="">
+                    <p class="hppimg">
+                        <a href="http://footprint.pk/airistrocrat">
+                            <img src="~/Themes/BootstrapDC/Content/blog/bslider/5b.jpeg" class="img-responsive">
+                        </a>
+                    </p>
+                    <div class="hppdtl">
+                        <div>
+                            <h3 class="shd">
+                                ARISTOCRAT GOLDEN ROYAL PUMP<br>
+                                PKR 7,000
+                            </h3>
+                        </div>
+                        <div>
+                            @*<p class="shd">
+                                    Added to basket<br>
+                                    Nicosia | Cyprus
+                                </p>*@
+                        </div>
+                    </div>
+                </li>
+
+                <li class="">
+                    <p class="hppimg">
+                        <a href="http://footprint.pk/bendico-2">
+                            <img src="~/Themes/BootstrapDC/Content/blog/bslider/6b.jpeg" class="img-responsive">
+                        </a>
+                    </p>
+                    <div class="hppdtl">
+                        <div>
+                            <h3 class="shd">
+                                BENDICO LACE UP<br>
+                                PKR 9,000
+                            </h3>
+                        </div>
+
+                        <div>
+                            @*<p class="shd">
+                                    Added to basket
+                                </p>*@
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="">
+                    <p class="hppimg">
+                        <a href="http://footprint.pk/liverpool">
+                            <img src="~/Themes/BootstrapDC/Content/blog/bslider/7b.jpeg" class="img-responsive">
+                        </a>
+                    </p>
+                    <div class="hppdtl">
+                        <div><h3 class="shd">LIVERPOOL TUSSLED PUMP<br>PKR 6,500</h3></div>
+
+                        <div>
+                            @*<p class="shd">
+                                    Added to basket
+                                </p>*@
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="">
+                    <p class="hppimg">
+                        <a href="http://footprint.pk/brighton-black">
+                            <img src="~/Themes/BootstrapDC/Content/blog/bslider/8b.jpeg" class="img-responsive">
+                        </a>
+                    </p>
+                    <div class="hppdtl">
+                        <div><h3 class="shd">BRIGHTON BLACK TUSSLED LOAFER<br>PKR 7,000</h3></div>
+
+                        <div>
+                            @*<p class="shd">
+                                    Added to basket
+                                </p>*@
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="">
+                    <p class="hppimg">
+                        <a href="http://footprint.pk/bergamo">
+                            <img src="~/Themes/BootstrapDC/Content/blog/bslider/9b.jpeg" class="img-responsive">
+                        </a>
+                    </p>
+                    <div class="hppdtl">
+                        <div><h3 class="shd">BERGAMO LACE UP <br>PKR 7,600</h3></div>
+
+                        <div>
+                            @*<p class="shd">
+                                    Added to basket
+                                </p>*@
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="">
+                    <p class="hppimg">
+                        <a href="http://footprint.pk/derby">
+                            <img src="~/Themes/BootstrapDC/Content/blog/bslider/10b.jpeg" class="img-responsive">
+                        </a>
+                    </p>
+                    <div class="hppdtl">
+                        <div><h3 class="shd">DERBY CLASSIC<br>PKR 7,000</h3></div>
+
+                        <div>
+                            @*<p class="shd">
+                                    Added to basket
+                                </p>*@
+                        </div>
+                    </div>
+                </li>
+
+
+                @*<li class="">
+                        <p class="hppimg">
+                            <a href="">
+                                <img src="~/Themes/BootstrapDC/Content/blog/bslider/11b.jpeg" class="img-responsive">
+                            </a>
+                        </p>
+                        <div class="hppdtl">
+                            <div><h3 class="shd">Aesop</h3></div>
+
+                            <div>
+                                <p class="shd">
+                                    Added to basket
+                                </p>
+                            </div>
+                        </div>
+                    </li>*@
+
+
+                <!-- items mirrored twice, total of 12 -->
+            </ul>
+        </div>
+    </div>
+
+    @*<div class="tab-content">
+            <div id="fp" class="tab-pane fade in active">
+                @Html.Action("HomepageProducts", "Product")
+            </div>
+        </div>*@
+</div>
+
+
+
+
+<script>
+
+
+    (function () {
+
+        // store the slider in a local variable
+        var $window = $(window),
+            flexslider = { vars: {} };
+
+        // tiny helper function to add breakpoints
+        function getGridSize() {
+            return (window.innerWidth < 600) ? 2 :
+                   (window.innerWidth < 900) ? 3 : 4;
+        }
+
+        $(function () {
+            SyntaxHighlighter.all();
+        });
+
+        $window.load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                animationLoop: false,
+                itemWidth: 210,
+                itemMargin: 5,
+                minItems: getGridSize(), // use function to pull in initial value
+                maxItems: getGridSize() // use function to pull in initial value
+            });
+        });
+
+        // check grid size on resize event
+        $window.resize(function () {
+            var gridSize = getGridSize();
+
+            flexslider.vars.minItems = gridSize;
+            flexslider.vars.maxItems = gridSize;
+        });
+    }());
+</script>
+
+<script>
+
+    
+    function Newsletter() {
+            if (document.getElementById("AuthPanel3").style.display == "none") {
+
+                closeIfOpened("SearchPanel");
+                $("#AuthPanel3").show("slow");
+                $("#AuthPanel").hide("slow")
+                return;
+            }
+            $("#AuthPanel3").hide("slow");
+        }
+       
+  
+</script>
+
+
+
+
+

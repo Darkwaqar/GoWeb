@@ -1,0 +1,392 @@
+﻿@model LocationNotificationModel
+@using Nop.Admin.Models.Fcm
+@using Nop.Core.Domain.Fcm
+@using Nop.Services
+@{
+
+    //page title
+    ViewBag.Title = T("Admin.Fcm.Notification").Text;
+
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("Location Notification");
+    Html.AddScriptParts("https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=places&amp;key=AIzaSyBzFDtqMUf4Hd6b2iQ25VxeHE2CgvyWXhM");
+    Html.AddScriptParts("~/Administration/Scripts/distancewidget.js");
+    Html.AddScriptParts("~/Administration/Scripts/mapswidget.js");
+}
+
+<style>
+    #map {
+        height: 300px;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#@Html.FieldIdFor(model => model.Notification.FcmType)").change(toggleFcmType);
+       $("#@Html.FieldIdFor(model => model.Notification.SendImmediately)").click(sendImmediately);
+         toggleFcmType();
+         sendImmediately();
+    });
+
+    function toggleFcmType() {
+        var simpleId = "@((int)FcmType.Simple)";
+        var imageId = "@((int)FcmType.Image)";
+        var webActivityId = "@((int)FcmType.WebActivity)";
+        var newsId = "@((int)FcmType.News)";
+
+        var selectedFcmTypeId = $("#@Html.FieldIdFor(model => model.Notification.FcmType)").val();
+        if (!selectedFcmTypeId || selectedFcmTypeId == simpleId) {
+            $('#group-image').hide();
+            $('#group-directimagelink').hide();
+            $('#group-intent').hide();
+            $('#preview').attr("src", "/Content/images/fcm/simple.png");
+        } else if (!selectedFcmTypeId || selectedFcmTypeId == imageId) {
+            $('#group-image').show();
+            $('#group-directimagelink').show();
+            $('#group-intent').show();
+            $('#preview').attr("src", "/Content/images/fcm/dialog_push.png");
+        } else if (!selectedFcmTypeId || selectedFcmTypeId == webActivityId) {
+            $('#group-image').hide();
+            $('#group-directimagelink').hide();
+            $('#group-intent').show();
+            $('#preview').attr("src", "/Content/images/fcm/webview.png");
+        } else if (selectedFcmTypeId == newsId) {
+            $('#group-image').show();
+            $('#group-directimagelink').show();
+            $('#group-intent').show();
+            $('#preview').attr("src", "/Content/images/fcm/news_push.png");
+        }
+    }
+    function sendImmediately() {
+        if ($('#@Html.FieldIdFor(model => model.Notification.SendImmediately)').is(':checked'))
+            $('#pnl-send-date').hide();
+        else
+            $('#pnl-send-date').show();
+    }
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Admin.Fcm.Topic.Notification")
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn bg-blue">
+                <i class="fa fa-envelope"></i>
+                @T("Admin.Common.Send")
+            </button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="form-horizontal">
+            <div id="Notification-edit" class="nav-tabs-custom">
+                <div class="tab-content">
+                    <div class="raw clearfix">
+                        <div class="col-md-8">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        @T("Admin.Fcm.Select.Location")
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                @Html.NopLabelFor(model => model.Latitude)
+                                            </div>
+                                            <div class="col-md-9">
+                                                @Html.NopEditorFor(model => model.Latitude)
+                                                @Html.ValidationMessageFor(model => model.Latitude)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                @Html.NopLabelFor(model => model.Longitude)
+                                            </div>
+                                            <div class="col-md-9">
+                                                @Html.NopEditorFor(model => model.Longitude)
+                                                @Html.ValidationMessageFor(model => model.Longitude)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                @Html.NopLabelFor(model => model.Radius)
+                                            </div>
+                                            <div class="col-md-9">
+                                                @Html.NopEditorFor(model => model.Radius)
+                                                @Html.ValidationMessageFor(model => model.Radius)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                @Html.NopLabelFor(model => model.SearchLocation)
+                                            </div>
+                                            <div class="col-md-9">
+                                                @Html.NopEditorFor(model => model.SearchLocation)
+                                                @Html.ValidationMessageFor(model => model.SearchLocation)
+                                            </div>
+                                        </div>
+                                        @Html.HiddenFor(model => model.SeletedId)
+                                        @Html.ValidationMessageFor(model => model.SeletedId)
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div id="map"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="pull-right">
+                                                    <label>
+                                                        within <span id="Radiusist"></span> km
+                                                        <span id="of"></span>
+                                                    </label>
+                                                    <button type="button" id="search" class="btn bg-blue">
+                                                        <i class="fa fa-search"></i>
+                                                        @T("Admin.Common.Search")
+                                                    </button>
+                                                    <label class="pull-right">Found <span id="countUser">0</span> user(s)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <div class="panel-heading">
+                                            @T("Admin.Fcm.Notification")
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.FcmApplicationType)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopDropDownListFor(model => model.Notification.FcmApplicationType, ((FcmApplicationType)Model.Notification.FcmApplicationType).ToSelectList())
+                                                    @Html.ValidationMessageFor(model => model.Notification.FcmApplicationType)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.ApplicationId)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopDropDownListFor(model => model.Notification.ApplicationId, Model.Notification.AvailableApplications)
+                                                    @Html.ValidationMessageFor(model => model.Notification.ApplicationId)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.FcmType)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopDropDownListFor(model => model.Notification.FcmType, ((FcmType)Model.Notification.FcmType).ToSelectList())
+                                                    @Html.ValidationMessageFor(model => model.Notification.FcmType)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.Title)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopEditorFor(model => model.Notification.Title, required: true)
+                                                    @Html.ValidationMessageFor(model => model.Notification.Title)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.Message)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopTextAreaFor(model => model.Notification.Message, required: true)
+                                                    @Html.ValidationMessageFor(model => model.Notification.Message)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.Icon)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopEditorFor(model => model.Notification.Icon)
+                                                    @Html.ValidationMessageFor(model => model.Notification.Icon)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.DirectIconLink)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopEditorFor(model => model.Notification.DirectIconLink)
+                                                    @Html.ValidationMessageFor(model => model.Notification.DirectIconLink)
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="group-image">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.Image)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopEditorFor(model => model.Notification.Image)
+                                                    @Html.ValidationMessageFor(model => model.Notification.Image)
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="group-directimagelink">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.DirectImageLink)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopEditorFor(model => model.Notification.DirectImageLink)
+                                                    @Html.ValidationMessageFor(model => model.Notification.DirectImageLink)
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="group-intent">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.ActionId)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopDropDownListFor(model => model.Notification.ActionId, Model.Notification.AvailableActions)
+                                                    @Html.ValidationMessageFor(model => model.Notification.ActionId)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.VendorId)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopDropDownListFor(model => model.Notification.VendorId, Model.Notification.AvailableVendors)
+                                                    @Html.ValidationMessageFor(model => model.Notification.VendorId)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.SendImmediately)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopEditorFor(model => model.Notification.SendImmediately)
+                                                    @Html.ValidationMessageFor(model => model.Notification.SendImmediately)
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="pnl-send-date">
+                                                <div class="col-md-3">
+                                                    @Html.NopLabelFor(model => model.Notification.DontSendBeforeDate)
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @Html.NopEditorFor(model => model.Notification.DontSendBeforeDate)
+                                                    @Html.ValidationMessageFor(model => model.Notification.DontSendBeforeDate)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        @T("Admin.Fcm.Preview")
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <img class="img-responsive" id="preview" src="#" alt="Alternate Text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+                 $("#@Html.FieldIdFor(model => model.SearchLocation)").keydown(function (event) {
+                                if (event.keyCode == 13) {
+                                    $("#search").click();
+                                    return false;
+                                }
+                   });
+
+                $("#@Html.FieldIdFor(model => model.Notification.FcmApplicationType)").change(function() {
+                    var selectedItem = $(this).val();
+                    var ddlStates = $("#@Html.FieldIdFor(model => model.Notification.ApplicationId)");
+
+                    var postData = {
+                        type: selectedItem
+                    };
+
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: "@(Url.Action("GetApplicationByFcmApplicationType", "Fcm"))",
+                        data: postData,
+                        success: function(data) {
+                            ddlStates.html('');
+                            $.each(data, function(id, option) {
+                                ddlStates.append($('<option></option>').val(option.id).html(option.name));
+                            });
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            alert('Failed to retrieve states.');
+                        }
+                    });
+                });
+            });
+</script>
+<script>
+            function search() {
+                var d = distanceWidget.get('distance');
+                var p = distanceWidget.get('position');
+                var data = {};
+                var postData1 = {
+                    Latitude: p.lat(),
+                    Longitude: p.lng(),
+                    distance: d
+                };
+                var selectedids = $("#@Html.FieldIdFor(model => model.SeletedId)");
+                var arry = [];
+
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "@(Url.Action("GetCustomerInDistance", "Fcm"))",
+                    data: postData1,
+                    success: function (data, textStatus, xhr) {
+                        clearMarkers();
+                        if (data && data.length) {
+                            for (var i = 0, marker; marker = data[i]; i++) {
+                                var lat = marker.Latitute;
+                                var long = marker.Longitude;
+                                arry.unshift(marker.Id);
+                                var point = new google.maps.LatLng(parseFloat(lat, 10),
+                                    parseFloat(long, 10));
+                                var marker = new google.maps.Marker({
+                                    position: point,
+                                    title: "time",
+                                    map: map,
+                                    animation: google.maps.Animation.BOUNCE,
+                                    icon: 'https://maps.gstatic.com/tactile/minimap/pegman-offscreen-1x.png'
+                                });
+                                profileMarkers.push(marker);
+                                google.maps.visualRefresh = true; // Enable the visual refresh
+                                // show data:
+                                $('#countUser').html(data.length);
+                            }
+                            selectedids.val(arry.toString());
+                        } else {
+                            $('#countUser').html(0);
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+
+                    }
+                });
+            }
+</script>

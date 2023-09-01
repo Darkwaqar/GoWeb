@@ -1,0 +1,145 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsTwoMyAccount.cshtml";
+}
+
+<div class="page-body ">
+    <div id="qview" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content" id="quickviewContent">
+            </div>
+        </div>
+    </div>
+    <div class="row no-margin">
+        <div id="catalog-carousel" class="carousel slide" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <a href="/eveninger">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\1.jpeg" alt="Chania" />
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\1.jpeg" alt="Chania" />
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="/casual">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\2.jpeg" alt="Chania" />
+
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\2.jpeg" alt="Chania" />
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="/casual">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\3.jpeg" alt="Chania" />
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\3.jpeg" alt="Chania" />
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="/classic">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\4.jpeg" alt="Chania" />
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\4.jpeg" alt="Chania" />
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="/formal">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\5.jpeg" alt="Chania" />
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\5.jpeg" alt="Chania" />
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="/classic">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\6.jpeg" alt="Chania" />
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\6.jpeg" alt="Chania" />
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="/formal">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\7.jpeg" alt="Chania" />
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\7.jpeg" alt="Chania" />
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="/fashion-3">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\8.jpeg" alt="Chania" />
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\8.jpeg" alt="Chania" />
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="/classic">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\9.jpeg" alt="Chania" />
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\9.jpeg" alt="Chania" />
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="/douglas-brogue-boot">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\10.jpg" alt="Chania" />
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\10.jpg" alt="Chania" />
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="/avesta">
+                        <img class="hidden-xs" src="\Themes\FootPrint\Content\catalog-banners\11.jpg" alt="Chania" />
+                        <img class="hidden-md hidden-lg" src="\Themes\FootPrint\Content\catalog-banners\11.jpg" alt="Chania" />
+                    </a>
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control hidden-xs" href="#catalog-carousel" role="button" data-slide="prev" style="top:50%">
+                <img src="/themes/FootPrint/content/images/arrow-left.png" />
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="left hidden-lg hidden-md hidden-sm carousel-control" href="#catalog-carousel" role="button" data-slide="prev" style="top:50%">
+                <img src="/themes/FootPrint/content/images/left1.png" width="78%" />
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <a class="right carousel-control  hidden-xs" href="#catalog-carousel" role="button" data-slide="next" style="top:50%">
+                <img src="/themes/FootPrint/content/images/arrow-right.png" />
+                <span class="sr-only">Next</span>
+            </a>
+
+            <a class="right hidden-lg hidden-md hidden-sm carousel-control" href="#catalog-carousel" role="button" data-slide="next" style="top:50%">
+                <img src="/themes/FootPrint/content/images/right1.png" width="78%" />
+                <span class="sr-only">Next</span>
+            </a>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+
+<script>
+    var loading = "<div class='text-center'><img src='theme/content/images/loading2.gif' /></div>";
+
+
+
+    function quickView_close() {
+    }
+    function QuickView(sname, id) {
+        $("#quickviewContent").html(loading);
+        $.get("/" + sname, function (r) {
+            $("#quickviewContent").html(r);
+        })
+    }
+    $(".filter-bar").on("click", function () {
+        $(".filter-panel").slideToggle("normal", function () {
+            var isVisible = $(this).is(":visible");
+            if (isVisible) {
+                $("#filterArrow").removeClass("fa-angle-down");
+                $("#filterArrow").addClass("fa-angle-up");
+                $("#filter-close").removeClass("hide");
+                return;
+            }
+            $("#filterArrow").removeClass("fa-angle-up");
+            $("#filterArrow").addClass("fa-angle-down");
+            $("#filter-close").addClass("hide");
+
+            // Animation complete.
+        });
+    });
+</script>

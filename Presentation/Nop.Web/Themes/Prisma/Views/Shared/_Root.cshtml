@@ -1,0 +1,108 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Configuration
+@using Nop.Services.Orders
+@using Nop.Web.Models.ShoppingCart;
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+
+    var storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+
+    var controllerName = HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+
+    var customer = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer;
+
+    var shoppingCartItems = customer.ShoppingCartItems
+        .Where(sci => sci.ShoppingCartType == Nop.Core.Domain.Orders.ShoppingCartType.ShoppingCart)
+        .LimitPerStore(storeId)
+        .ToList()
+        .GetTotalProducts();
+
+    var wishlistItems = customer.ShoppingCartItems
+        .Where(s => s.ShoppingCartType == Nop.Core.Domain.Orders.ShoppingCartType.Wishlist)
+        .LimitPerStore(storeId)
+        .ToList()
+        .GetTotalProducts();
+
+    string sliderType = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("prismathemesettings.slidertype", "full-width-slider", storeId, true);
+}
+
+@*@Html.Widget("body_start_html_tag_after")
+    @Html.Partial("_Notifications")
+    @Html.Action("JavaScriptDisabledWarning", "Common")
+    @Html.Partial("OldInternetExplorerWarning")*@
+<div class="flow"></div>
+<div class="master-wrapper-page">
+    <div class="master-header">
+
+
+
+        @Html.Action("AdminHeaderLinks", "Common")
+        <div class="header-wrapper">
+            @Html.Partial("Header")
+            <script type="text/javascript">
+                (function () {
+                    AjaxCart.init(false, '.cart-qty', '.wishlist-qty');
+                })();
+            </script>
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+    @if (isHomePage)
+    {
+        if (sliderType == "full-width-slider")
+        {
+            @Html.Widget("home_page_main_slider")
+        }
+        else if (sliderType == "standard-slider")
+        {
+            <div class="home-page-top-banner-wrapper">
+                <div class="slider-left">
+                    @Html.Widget("home_page_main_slider")
+                </div>
+                <div class="banners-right">
+                    <div>@Html.Widget("home_page_right_banner_1")</div>
+                </div>
+            </div>
+        }
+        else
+        {
+            @*<div class="slider-gallery">
+                    @Html.Widget("home_page_main_slider")
+                </div>*@
+        }
+    }
+    <div class="page-content">
+        @Html.Widget("content_before")
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb")
+        }
+        <div class="master-column-wrapper">
+            @RenderBody()
+        </div>
+        @Html.Widget("content_after")
+    </div>
+    @Html.Action("Footer", "Common")
+    <div class="filter-options">
+        <div class="filters-button">
+            <span>@T("SevenSpikes.Themes.Common.Filters")</span>
+        </div>
+        <div class="product-sorting-mobile">
+            Sort
+        </div>
+        <div class="product-display-mobile">
+            display
+        </div>
+    </div>
+</div>
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")

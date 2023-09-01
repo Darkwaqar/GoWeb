@@ -1,0 +1,52 @@
+﻿@model IList<ProductOverviewModel>
+
+@using Nop.Web.Models.Catalog;
+@if (Model.Count > 0)
+{
+
+
+
+
+
+    <section class="productDetail__related grid-x align-center">
+        <div class="productDetails__relatedWrap cell small-28 ">
+            <div class="title">People also like...</div>
+            <div class="productsWrap" data-component="RelatedProducts">
+                <div class="productsGrid grid-x flickity-enabled" tabindex="0">
+                    <div class="flickity-viewport" >
+                        <div class="">
+                            @*<div class="productsGrid__product cell small-14 related post-2897 product type-product status-publish has-post-thumbnail product_cat-rings pa_material-natural-bronze product_collection-ivy first instock purchasable product-type-simple is-selected" data-link="https://madinavisconti.com/product/the-leaf-ring-2/" data-sku="AN 119 BR NR" data-id="2897" data-component="CatalogProduct" aria-selected="true" style="position: absolute; left: 0%;">
+                                    <div class="productsGrid__product__image">
+                                        <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/AN119BRNR.jpg" class="" alt="" sizes="(max-width: 600px) 100vw, 600px">
+                                    </div>
+                                    <a href="" class="productsGrid__product__details">
+                                        <div class="productName override">
+                                            The Leaf Ring
+                                        </div>
+                                        <div class="priceWrap">
+
+                                            <span class="woocommerce-Price-amount amount">240,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+                                        </div>
+                                        <div class="cta">
+                                            Shop Now
+                                        </div>
+                                    </a>
+                                </div>*@
+                            @foreach (var item in Model)
+                            {
+                                @Html.Partial("_ProductBoxC", item)
+                            }
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

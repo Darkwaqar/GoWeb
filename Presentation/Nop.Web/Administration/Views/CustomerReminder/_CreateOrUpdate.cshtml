@@ -1,0 +1,470 @@
+﻿@model CustomerReminderModel
+@using Nop.Services
+@Html.ValidationSummary(false)
+@Html.HiddenFor(model => model.Id)
+
+<script>
+    $(document).ready(function () {
+        bindBootstrapTabSelectEvent('customerreminder-edit');
+    });
+</script>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div id="customerreminder-edit" class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                @Html.RenderBootstrapTabHeader("tab-info", @T("Admin.Customers.CustomerReminder.Info"), true)
+                @Html.RenderBootstrapTabHeader("tab-conditions", @T("Admin.Customers.CustomerReminder.Conditions"))
+                @Html.RenderBootstrapTabHeader("tab-level", @T("Admin.Customers.CustomerReminder.Levels"))
+                @Html.RenderBootstrapTabHeader("tab-history", @T("Admin.Customers.CustomerReminder.History"))
+
+            </ul>
+            <div class="tab-content">
+                @Html.RenderBootstrapTabContent("tab-info", @TabInfo(), true)
+                @Html.RenderBootstrapTabContent("tab-conditions", @TabConditions())
+                @Html.RenderBootstrapTabContent("tab-level", @TabLevel())
+                @Html.RenderBootstrapTabContent("tab-history", @TabHistory())
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    //custom tabs
+    var eventMessage = new AdminTabStripCreated(this.Html, "customerreminder-edit");
+    EngineContext.Current.Resolve<IEventPublisher>().Publish(eventMessage);
+    foreach (var eventBlock in eventMessage.BlocksToRender)
+    {
+        @eventBlock
+    }
+}
+
+@*save selected tab name*@
+<input type="hidden" id="selected-tab-name" name="selected-tab-name" value="@(Html.GetSelectedTabName())">
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#@Html.FieldIdFor(model => model.AllowRenew)").change(toggleAllowRenew);
+        toggleAllowRenew();
+        function toggleAllowRenew() {
+            if ($('#@Html.FieldIdFor(model => model.AllowRenew)').is(':checked')) {
+                $('#pnlAllowRenew').show();
+            } else {
+                $('#pnlAllowRenew').hide();
+            }
+        }
+    });
+</script>
+
+@helper TabInfo()
+{
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Name)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Name)
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Active)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Active)
+                        @Html.ValidationMessageFor(model => model.Active)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.StartDateTime)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.StartDateTime)
+                        @Html.ValidationMessageFor(model => model.StartDateTime)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.EndDateTime)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.EndDateTime)
+                        @Html.ValidationMessageFor(model => model.EndDateTime)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.DisplayOrder)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.DisplayOrder)
+                        @Html.ValidationMessageFor(model => model.DisplayOrder)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AllowRenew)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AllowRenew)
+                        @Html.ValidationMessageFor(model => model.AllowRenew)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlAllowRenew">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.RenewedDay)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.RenewedDay)
+                        @Html.ValidationMessageFor(model => model.RenewedDay)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ReminderRuleId)
+                    </div>
+                    <div class="col-md-9">
+                        @if (Model.ConditionCount > 0)
+                        {
+                            @Html.NopDropDownListFor(model => model.ReminderRuleId, ((Nop.Core.Domain.Customers.CustomerReminderRuleEnum)Model.ReminderRuleId).ToSelectList(), htmlAttributes: new { @disabled = "disabled" })
+                        }
+                        else
+                        {
+                            @Html.NopDropDownListFor(model => model.ReminderRuleId, ((Nop.Core.Domain.Customers.CustomerReminderRuleEnum)Model.ReminderRuleId).ToSelectList())
+                        }
+                        @Html.ValidationMessageFor(model => model.ReminderRuleId)
+                        <div class="note note-info margin-top-10">
+                            @T("admin.customers.customerreminder.text1")
+                        </div>
+                        <div class="note note-warning">
+                            @T("admin.customers.customerreminder.text2")
+                        </div>
+                        <div class="note note-info">
+                            @T("admin.customers.customerreminder.text3")
+                        </div>
+                        <div class="note note-warning">
+                            @T("admin.customers.customerreminder.text4")
+                        </div>
+                        <div class="note note-info">
+                            @T("admin.customers.customerreminder.text5")
+                        </div>
+                        <div class="note note-warning">
+                            @T("admin.customers.customerreminder.text6")
+                        </div>
+                        <div class="note note-info">
+                            @T("admin.customers.customerreminder.text7")
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ConditionId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopDropDownListFor(model => model.ConditionId, ((Nop.Core.Domain.Customers.CustomerActionConditionEnum)Model.ConditionId).ToSelectList())
+                        @Html.ValidationMessageFor(model => model.ConditionId)
+                        <div class="note note-info margin-top-10">
+                            @T("admin.customers.actiontype.helpText.OneOfThem")
+                        </div>
+                        <div class="note note-warning">
+                            @T("admin.customers.actiontype.helpText.AllOfThem")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabConditions()
+{
+    <div class="panel-group">
+        @if (Model.Id > 0)
+        {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="conditions-grid"></div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#conditions-grid").kendoGrid({
+                                dataSource: {
+                                    type: "json",
+                                    transport: {
+                                        read: {
+                                                url: "@Html.Raw(Url.Action("Conditions", "CustomerReminder", new { customerReminderId = Model.Id }))",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: addAntiForgeryToken
+                                        },
+                                        destroy: {
+                                                url: "@Html.Raw(Url.Action("ConditionDelete", "CustomerReminder", new { customerReminderId = Model.Id }))",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: addAntiForgeryToken
+                                        }
+                                    },
+                                    schema: {
+                                        data: "Data",
+                                        total: "Total",
+                                        errors: "Errors",
+                                        model: {
+                                            id: "Id"
+                                        }
+                                    },
+                                    error: function(e) {
+                                        display_kendoui_grid_error(e);
+                                        // Cancel the changes
+                                        this.cancelChanges();
+                                    },
+                                    serverPaging: true,
+                                    serverFiltering: true,
+                                    serverSorting: true
+                                },
+                                pageable: {
+                                    refresh: true,
+                                    numeric: false,
+                                    previousNext: false,
+                                    info: false,
+                                    @Html.Partial("_GridPagerMessages")
+                                },
+                                editable: {
+                                    confirmation: "@T("Admin.Common.DeleteConfirmation")",
+                                    mode: "inline"
+                                },
+                                scrollable: false,
+                                columns: [
+                                {
+                                    field: "Name",
+                                    title: "@T("Admin.Customers.CustomerReminder.Fields.Name")",
+                                    width: 300,
+                                    template: '<a class="k-link" >#=kendo.htmlEncode(Name)#</a>',
+                                },
+                                {
+                                    field: "Condition",
+                                    title: "@T("Admin.Customers.CustomerReminder.Fields.ConditionType")",
+                                    width: 100,
+                                },
+                                {
+                                    field: "Id",
+                                    title: "@T("Admin.Common.Edit")",
+                                    width: 80,
+                                    headerAttributes: { style: "text-align:center" },
+                                    attributes: { style: "text-align:center" },
+                                    template: '<a class="btn btn-default" href="@Url.Content("~/Admin/CustomerReminder/EditCondition")?customerReminderId=@(Model.Id)&cid=#=Id#"><i class="fa fa-pencil"></i>@T("Admin.Common.Edit")</a>'
+                                },
+                                {
+                                    command: { name: "destroy", text: "@T("Admin.Common.Delete")" },
+                                    title: "@T("Admin.Common.Delete")",
+                                    width: 100
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" id="btnAddNewCondition" name="btnAddNewCondition" onclick="javascript:setLocation('@(Url.Action("AddCondition", "CustomerReminder", new { customerReminderId = Model.Id }))'); return false;" class="k-button"><i class="fa fa-plus"></i>&nbsp;@T("Admin.Customers.CustomerReminder.Conditions.AddNew")</button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="panel-body">
+                @T("Admin.Customers.CustomerAction.SaveBeforeEdit")
+            </div>
+        }
+    </div>
+}
+@helper TabLevel()
+{
+    <div class="panel-group">
+        @if (Model.Id > 0)
+        {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="levels-grid"></div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#levels-grid").kendoGrid({
+                                dataSource: {
+                                    type: "json",
+                                    transport: {
+                                        read: {
+                                                url: "@Html.Raw(Url.Action("Levels", "CustomerReminder", new { customerReminderId = Model.Id }))",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: addAntiForgeryToken
+                                        },
+                                        destroy: {
+                                                url: "@Html.Raw(Url.Action("DeleteLevel", "CustomerReminder", new { customerReminderId = Model.Id }))",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: addAntiForgeryToken
+                                        }
+                                    },
+                                    schema: {
+                                        data: "Data",
+                                        total: "Total",
+                                        errors: "Errors",
+                                        model: {
+                                            id: "Id"
+                                        }
+                                    },
+                                    error: function(e) {
+                                        display_kendoui_grid_error(e);
+                                        // Cancel the changes
+                                        this.cancelChanges();
+                                    },
+                                    serverPaging: true,
+                                    serverFiltering: true,
+                                    serverSorting: true
+                                },
+                                pageable: {
+                                    refresh: true,
+                                    numeric: false,
+                                    previousNext: false,
+                                    info: false,
+                                    @Html.Partial("_GridPagerMessages")
+                                },
+                                editable: {
+                                    confirmation: "@T("Admin.Common.DeleteConfirmation")",
+                                    mode: "inline"
+                                },
+                                scrollable: false,
+                                columns: [
+                                {
+                                    field: "Name",
+                                    title: "@T("Admin.Customers.CustomerReminder.Fields.Name")",
+                                    width: 300,
+                                    template: '<a class="k-link" >#=kendo.htmlEncode(Name)#</a>',
+                                },
+                                {
+                                    field: "Level",
+                                    title: "@T("Admin.Customers.CustomerReminder.Fields.Level")",
+                                    width: 100,
+                                },
+                                {
+                                    field: "Id",
+                                    title: "@T("Admin.Common.Edit")",
+                                    width: 80,
+                                    headerAttributes: { style: "text-align:center" },
+                                    attributes: { style: "text-align:center" },
+                                    template: '<a class="btn btn-default" href="@Url.Content("~/Admin/CustomerReminder/EditLevel")?customerReminderId=@(Model.Id)&cid=#=Id#"><i class="fa fa-pencil"></i>@T("Admin.Common.Edit")</a>'
+                                },
+                                {
+                                    command: { name: "destroy", text: "@T("Admin.Common.Delete")" },
+                                    title: "@T("Admin.Common.Delete")",
+                                    width: 100
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" id="btnAddNewLevel" name="btnAddNewLevel" onclick="javascript:setLocation('@(Url.Action("AddLevel", "CustomerReminder", new { customerReminderId = Model.Id }))'); return false;" class="k-button"><i class="fa fa-plus"></i>&nbsp;@T("Admin.Customers.CustomerReminder.Levels.AddNew")</button>                </div>
+            </div>
+        }
+        else
+        {
+            <div class="panel-body">
+                @T("Admin.Customers.CustomerReminder.SaveBeforeEdit")
+            </div>
+        }
+    </div>
+}
+@helper TabHistory()
+{
+    <div class="panel-group">
+        @if (Model.Id > 0)
+        {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="history-grid"></div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#history-grid").kendoGrid({
+                                dataSource: {
+                                    type: "json",
+                                    transport: {
+                                        read: {
+                                                url: "@Html.Raw(Url.Action("History", "CustomerReminder", new { customerReminderId = Model.Id }))",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: addAntiForgeryToken
+                                        }
+                                    },
+                                    schema: {
+                                        data: "Data",
+                                        total: "Total",
+                                        errors: "Errors",
+                                        model: {
+                                            id: "Id"
+                                        }
+                                    },
+                                    error: function(e) {
+                                        display_kendoui_grid_error(e);
+                                        // Cancel the changes
+                                        this.cancelChanges();
+                                    },
+                                    serverPaging: true,
+                                    serverFiltering: true,
+                                    serverSorting: true
+                                },
+                                pageable: {
+                                    refresh: true,
+                                    numeric: false,
+                                    previousNext: false,
+                                    info: false,
+                                    @Html.Partial("_GridPagerMessages")
+                                },
+                                editable: {
+                                    confirmation: "@T("Admin.Common.DeleteConfirmation")",
+                                    mode: "inline"
+                                },
+                                scrollable: false,
+                                columns: [
+                                {
+                                    field: "SendDate",
+                                    title: "@T("Admin.Customers.CustomerReminder.History.Fields.SendDate")",
+                                    width: 200,
+                                    type: "date",
+                                    format: "{0:G}"
+                                },
+                                {
+                                    field: "Email",
+                                    title: "@T("Admin.Customers.CustomerReminder.History.Fields.Customer")",
+                                    width: 100,
+                                },
+                                {
+                                    field: "Level",
+                                    title: "@T("Admin.Customers.CustomerReminder.History.Fields.Level")",
+                                    width: 50,
+                                },
+                                {
+                                    field: "OrderId",
+                                    title: "@T("Admin.Customers.CustomerReminder.History.Fields.Order")",
+                                    width: 50,
+                                    headerAttributes: { style: "text-align:center" },
+                                    attributes: { style: "text-align:center" },
+                                    template: '# if(OrderId) {# <i class="fa fa-check" aria-hidden="true" style="color:green"></i> #} else {# <i class="fa fa-times" aria-hidden="true" style="color:red"></i> #} #'
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="panel-body">
+                @T("Admin.Customers.CustomerReminder.SaveBeforeEdit")
+            </div>
+        }
+    </div>
+}

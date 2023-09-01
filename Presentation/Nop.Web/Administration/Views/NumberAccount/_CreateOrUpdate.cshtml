@@ -1,0 +1,77 @@
+﻿@model NumberAccountModel
+
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.Id)
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Number)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Number, required: true)
+                            @Html.ValidationMessageFor(model => model.Number)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.DisplayName)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.DisplayName, required: true)
+                            @Html.ValidationMessageFor(model => model.DisplayName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.AccountSid)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.AccountSid, required: true)
+                            @Html.ValidationMessageFor(model => model.AccountSid)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.AuthToken)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.AuthToken, required: true)
+                            @Html.ValidationMessageFor(model => model.AuthToken)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (Model.Id > 0)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("Admin.Configuration.NumberAccounts.SendTestNumber")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.SendTestSMSTo)
+                            </div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    @Html.NopEditorFor(model => model.SendTestSMSTo)
+                                    <div class="input-group-btn">
+                                        <button type="submit" name="sendtestemail" class="btn btn-info">
+                                            @T("Admin.Configuration.NumberAccounts.SendTestSMSTo.Button")
+                                        </button>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.SendTestSMSTo)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

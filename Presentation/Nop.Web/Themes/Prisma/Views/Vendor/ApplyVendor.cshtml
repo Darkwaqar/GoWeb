@@ -1,0 +1,208 @@
+﻿@model ApplyVendorModel
+@using Nop.Web.Models.Vendors;
+@{
+    Layout = "~/Views/Shared/_BlankColumn.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Vendors.Apply").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-apply-vendor-page");
+}
+
+
+
+<div class="row">
+
+    <div class="col-md-12 img-bg">
+        <div class="header-inner ">
+
+            <div class="logo-placeholder">
+                <a class="home-main" href="/">
+                    <span class="logo"></span>
+                    <span class="moto"></span>
+                </a>
+
+
+            </div>
+        </div>
+
+        <div class="row padding-20">
+            <div class="col-md-3">
+
+          
+
+
+            </div>
+            <div class="col-md-6 opc state ">
+
+                <div class="register-form opc">
+
+
+                 
+
+
+                    @*@Html.Action("TopicBlock", "Topic", new { systemName = "ApplyVendor" })*@
+                    @Html.Widget("applyvendor_top")
+                    @if (Model.DisableFormInput)
+                    {
+                        <div class="result">
+                            @Model.Result
+                        </div>
+                    }
+                    else
+                    {
+                        using (Html.BeginForm(null, null, FormMethod.Post, new RouteValueDictionary { { "enctype", "multipart/form-data" } }))
+                        {
+                            @Html.AntiForgeryToken()
+                            var validationSummary = Html.ValidationSummary(true);
+                            if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                            {
+                                <div class="message-error">@validationSummary</div>
+                            }
+                                <div class="fieldset">
+                                    
+                                    <div class="form-fields">
+                                        <div class="title">
+                                            <h1>Create your store in 60 sec</h1>
+
+                                        </div>
+
+
+                                        <div class="input-field">
+                                            @Html.LabelFor(model => model.Name)
+                                            @Html.TextBoxFor(model => model.Name, new { @class = "name", placeholder = T("Vendors.ApplyAccount.Name.Hint") })
+                                            @*@Html.RequiredHint()*@
+                                            @Html.ValidationMessageFor(model => model.Name)
+                                        </div>
+                                        <div class="input-field">
+                                            @Html.LabelFor(model => model.Email)
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "email", placeholder = T("Vendors.ApplyAccount.Email.Hint") })
+                                            @*@Html.RequiredHint()*@
+                                            @Html.ValidationMessageFor(model => model.Email)
+                                        </div>
+                                        <div class="input-field-text">
+                                            @Html.LabelFor(model => model.Description)
+                                            @Html.TextAreaFor(model => model.Description, new { @class = "description" })
+                                        </div>
+                                        <div class="input-field">
+                                            @Html.LabelFor(model => model.AboutUsPageUrl)
+                                            @Html.TextBoxFor(model => model.AboutUsPageUrl, new { @class = "email", placeholder = T("Vendors.ApplyAccount.AboutUsPageUrl.Hint") })
+                                            @*@Html.RequiredHint()*@
+                                            @Html.ValidationMessageFor(model => model.AboutUsPageUrl)
+                                        </div>
+                                        <div class="input-field">
+                                            @Html.LabelFor(model => model.BlogUrl)
+                                            @Html.TextBoxFor(model => model.BlogUrl, new { @class = "BlogUrl", placeholder = T("Vendors.ApplyAccount.BlogUrl.Hint") })
+                                            @*@Html.RequiredHint()*@
+                                            @Html.ValidationMessageFor(model => model.BlogUrl)
+                                        </div>
+                                        <div class="input-field">
+                                            @Html.LabelFor(model => model.ContactNumber)
+                                            @Html.TextBoxFor(model => model.ContactNumber, new { @class = "ContactNumber", placeholder = T("Vendors.ApplyAccount.ContactNumber.Hint") })
+                                            @*@Html.RequiredHint()*@
+                                            @Html.ValidationMessageFor(model => model.ContactNumber)
+                                        </div>
+                                        <div class="input-field">
+                                            @Html.LabelFor(model => model.LinkedInPage)
+                                            @Html.TextBoxFor(model => model.LinkedInPage, new { @class = "LinkedInPage", placeholder = T("Vendors.ApplyAccount.LinkedInPage.Hint") })
+                                            @*@Html.RequiredHint()*@
+                                            @Html.ValidationMessageFor(model => model.LinkedInPage)
+                                        </div>
+                                        <div class="input-check">
+                                            @Html.LabelFor(model => model.Brand)
+                                            @Html.CheckBoxFor(model => model.Brand, new { @class = "Brand", placeholder = T("Vendors.ApplyAccount.Brand.Hint") })
+                                            @*@Html.RequiredHint()*@
+                                            @Html.ValidationMessageFor(model => model.Brand)
+                                        </div>
+                                        <div class="input-check">
+                                            @Html.LabelFor(model => model.Designer)
+                                            @Html.CheckBoxFor(model => model.Designer, new { @class = "Designer", placeholder = T("Vendors.ApplyAccount.Designer.Hint") })
+                                            @*@Html.RequiredHint()*@
+                                            @Html.ValidationMessageFor(model => model.Designer)
+                                        </div>
+                                        <div class="input-field">
+                                            @Html.Label(T("Vendors.ApplyAccount.Picture").Text)
+                                            <input name="uploadedFile" type="file" />
+                                        </div>
+                                        <div class="input-field">
+                                            @Html.Label(T("Vendors.ApplyAccount.CoverPicture").Text)
+                                            <input name="coverPicture" type="file" />
+                                        </div>
+                                        <div class="input-field">
+                                            @Html.Label(T("Vendors.ApplyAccount.MarketPlaceLogo").Text)
+                                            <input name="marketPlaceLogo" type="file" />
+                                        </div>
+                                        <div class="input-field">
+                                            @Html.Label(T("Vendors.ApplyAccount.ShopBanner").Text)
+                                            <input name="shopBanner" type="file" />
+                                        </div>
+                                        <div class=" input-field">
+                                            @Html.LabelFor(model => model.Categories)
+                                            
+                                            <div class="select-style">
+                                                @Html.DropDownListFor(model => model.Categories, Model.AvailableCategories, new { @class = "Categories" })
+                                                @*@Html.RequiredHint()*@
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.Categories)
+                                        </div>
+
+                                        @*<div class="inputs categories-checkbox-list">
+            @Html.LabelFor(model => model.Categories)
+            <ul>
+                @foreach (var cat in Model.AvailableCategories)
+                {
+                <li>
+                    <input type="checkbox" class="checkbox" name="Categories" value="@cat.Value" id="Category_@cat.Value" />
+                    <label for="Category_@cat.Value">@cat.Text</label>
+                </li>
+                }
+            </ul>
+        </div>*@
+
+
+
+                                        <div class="buttons">
+                                            <input type="submit" name="send-email" style="width:100%" class="button-1 apply-vendor-button" value="Create Shop" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            if (Model.DisplayCaptcha)
+                            {
+                                <div class="captcha-box">
+                                    @Html.Raw(Html.GenerateCaptcha())
+                                </div>
+                            }
+                          
+                        }
+                    }
+                    @Html.Widget("applyvendor_bottom")
+
+
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+

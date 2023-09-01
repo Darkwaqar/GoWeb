@@ -1,0 +1,131 @@
+﻿@using Nop.Core.Infrastructure;
+@using Nop.Services.Catalog;
+@using Nop.Web.Factories;
+@using Nop.Services.Media;
+@using Nop.Services.Vendors;
+@{
+    bool firstli = true;
+    bool firstdiv = true;
+    var Model = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesDisplayedOnHomePage().Where(x => x.Collection).ToList();
+    var AllVendor = EngineContext.Current.Resolve<IVendorService>().GetAllVendors().ToList();
+}
+
+<div id="content">
+    <ul id="tabs " class="nav nav-tabs" data-tabs="tabs">
+        @foreach (var item in Model)
+        {
+            var cat = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(item.Id);
+            while (cat != null && cat.ParentCategoryId != 0)
+            {
+                cat = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(cat.ParentCategoryId);
+            };
+
+            var CurrentVendor = AllVendor.Where(x => x.MapedCatagory == cat.Id).FirstOrDefault();
+
+            <li class="@(firstli ? "active" : "")">
+                @{ firstli = false;}
+                <a href="#@item.Id" data-toggle="tab">
+                    @if (CurrentVendor ==null)
+                    {
+                        @cat.Name;
+                    }
+                    else
+                    {
+                        <img src=" @(EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(CurrentVendor.mpLogo))" alt="" class="img-responsive">
+                    }
+                </a>
+            </li>
+         }
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        @foreach (var item in Model)
+        {
+            var categories = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(item.Id);
+            IList<int> catagoriesid = new List<int>();
+            catagoriesid.Add(categories.Id);
+            var products = EngineContext.Current.Resolve<IProductService>().SearchProducts(categoryIds: catagoriesid);
+            var productmodel = EngineContext.Current.Resolve<IProductModelFactory>().PrepareProductOverviewModels(products,productThumbPictureSize:360).ToList();
+            var firstproductinview = true;
+
+
+            <div class="tab-pane @(firstdiv ? "active": "")" id="@item.Id">
+                @{ firstdiv = false;}
+                <div class="row">
+                 
+                   
+                    <div class="col-sm-7 col-md-7 home-page-box" id="catalog-banner">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <h2 class="text-center">
+                                @item.CollectionName
+                            </h2>
+                            <p class="text-center">
+                                @Html.Raw(item.CollectionDiscription)
+                            </p>
+                        </div>
+                        <img src=" @(EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(item.CollectionPrictureId))" alt="" class="img-responsive">
+                    </div>
+                    <div class="col-xs-12 col-sm-5 col-md-5 home-page-box pull-right slider-img">
+                        <div id="carousel@(item.Id)" class="carousel slide" data-ride="carousel" data-interval="false">
+                            <div class="carousel-inner">
+                                @foreach (var pro in productmodel)
+                                {
+                                    <div class="item product-box @(firstproductinview ? "active" : "")" id="catalog-product-box">
+                                        @{firstproductinview = false;}
+                                        @Html.Partial("_ProductBox", pro)
+                                    </div>
+                                            }
+                            </div>
+                            <a class="left carousel-control" href="#carousel@(item.Id)" data-slide="prev">
+                                <span class="left-arrow"></span>
+
+                            </a>
+                            <a class="right carousel-control" href="#carousel@(item.Id)" data-slide="next">
+                                <span class="right-arrow"></span>
+
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-md-7 pull-left ">
+                        <div class="galleryHeight" id="lazy-container">
+                            <div class="row" >
+
+                                @for (int i = 0; i < productmodel.Count(); i++)
+                                {
+                                <div class="col-xs-6 col-sm-4 col-md-3 home-page-box">
+                                    <img id="@i" src="@productmodel[i].DefaultPictureModel.ImageUrl" alt="@productmodel[i].Name" data-producturl="@productmodel[i].SeName"
+                                         class="img-responsive thumb margin-auto lazy" onclick="gotoproduct(this,carousel@(item.Id))">
+                                </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+         }
+
+
+    </div>
+
+</div>
+
+<script>
+
+    $('#content').imagesLoaded(function () {
+        $(".galleryHeight").height($(".slider-img").height() - $("#catalog-banner").height());
+        console.log($(".picture-img").height() - $("#catalog-banner").height() + 100);
+    });
+
+    function gotoproduct(x, y) {
+        var slideTo = $(x).attr('id');
+        $(y).carousel(parseInt(slideTo));
+    }
+
+    $(document).ready(function () {
+        $(window).resize(function () {
+            $(".galleryHeight").height($("#catalog-product-box").height() - $("#catalog-banner").height());
+        });
+    });
+
+</script>

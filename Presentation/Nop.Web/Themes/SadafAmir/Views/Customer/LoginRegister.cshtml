@@ -1,0 +1,598 @@
+﻿@model LoginRegisterModel
+@using Nop.Web.Models.Customer;
+@using Nop.Core;
+@using Nop.Core.Infrastructure;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Register").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-registration-page");
+
+    //register URL with return URL (if specified)
+    var registerUrl = Url.RouteUrl("Register");
+    if (!String.IsNullOrEmpty(this.Context.Request.QueryString["returnUrl"]))
+    {
+        var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+        registerUrl = webHelper.ModifyQueryString(registerUrl, "returnurl=" + HttpUtility.UrlEncode(this.Context.Request.QueryString["returnUrl"]), null);
+    }
+}
+<!-- Facebook Pixel Code -->
+<script>
+    !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () {
+            n.callMethod ?
+            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        }; if (!f._fbq) f._fbq = n;
+        n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
+        t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+    }(window,
+        document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '428067988665614', {
+        em: 'insert_email_variable'
+    });
+    fbq('track', 'CompleteRegistration');
+</script>
+<noscript>
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=428067988665614&ev=PageView&noscript=1" />
+</noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+
+@if (Model.RegisterModel.CountryEnabled && Model.RegisterModel.StateProvinceEnabled)
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.RegisterModel.CountryId)").change(function () {
+                var selectedItem = $(this).val();
+                var ddlStates = $("#@Html.FieldIdFor(model => model.RegisterModel.StateProvinceId)");
+                var statesProgress = $("#states-loading-progress");
+                statesProgress.show();
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "@(Url.RouteUrl("GetStatesByCountryId"))",
+                    data: { "countryId": selectedItem, "addSelectStateItem": "true" },
+                    success: function (data) {
+                        ddlStates.html('');
+                        $.each(data, function (id, option) {
+                            ddlStates.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                        statesProgress.hide();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve states.');
+                        statesProgress.hide();
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+<div class="page registration-page">
+
+    <div class="page-title">
+        <h1><span>Login / @T("Account.Register")</span></h1>
+    </div>
+
+
+
+
+
+
+    <div class="page-body">
+        <div class="row">
+
+
+
+
+
+
+
+            <div class=" login-page col-md-6">
+
+                @*@Html.Partial("_ExternalAuthentication.AssociateMessage")
+                    @Html.Partial("_ExternalAuthentication.Errors")*@
+
+                <div class="customer-blocks">
+                    @*@if (Model.LoginModel.CheckoutAsGuest)
+                        {
+                            <div class="new-wrapper checkout-as-guest-or-register-block">
+                                <div class="title">
+                                    <strong>@T("Account.Login.CheckoutAsGuestOrRegister")</strong>
+                                </div>
+                                <div class="text">
+                                    @Html.Action("TopicBlock", "Topic", new { systemName = "CheckoutAsGuestOrRegister" })
+                                </div>
+                                <div class="buttons">
+                                    <input type="button" class="button-1 checkout-as-guest-button" onclick="location.href='@Url.RouteUrl("Checkout")'" value="@T("Account.Login.CheckoutAsGuest")" />
+                                    <input type="button" class="button-1 register-button" onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="new-wrapper register-block">
+                                <div class="title">
+                                    <strong>@T("Account.Login.NewCustomer")</strong>
+                                </div>
+                                <div class="text">
+                                    @T("Account.Login.NewCustomerText")
+                                </div>
+                                <div class="buttons">
+                                    <input type="button" class="button-1 register-button" onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
+                                </div>
+                            </div>
+                        }*@
+                    <div class="returning-wrapper fieldset">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            var validationSummary = Html.ValidationSummary(true, T("Account.Login.Unsuccessful").Text);
+                            <div class="title">
+                                @*<strong>Already Registered</strong>*@
+                                <strong>Existing Customer</strong>
+                            </div>
+                            if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                            {
+                                <div class="message-error">@validationSummary</div>
+                            }
+                            <div class="form-fields">
+                                @if (Model.LoginModel.UsernamesEnabled)
+                                {
+                                    <div class="inputs">
+                                        @Html.LabelFor(m => m.LoginModel.Username, new { }, ":")
+                                        @Html.TextBoxFor(m => m.LoginModel.Username, new { @class = "username", autofocus = "autofocus" })
+                                        @Html.ValidationMessageFor(m => m.LoginModel.Username)
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="inputs">
+                                        @*@Html.LabelFor(m => m.LoginModel.Email, new { }, ":")*@
+                                        @Html.TextBoxFor(m => m.LoginModel.Email, new { @class = "email", autofocus = "autofocus", placeholder = "Email" })
+                                        @Html.ValidationMessageFor(m => m.LoginModel.Email)
+                                    </div>
+                                }
+                                <div class="inputs">
+                                    @*@Html.LabelFor(m => m.LoginModel.Password, new { }, ":")*@
+                                    @Html.PasswordFor(m => m.LoginModel.Password, new { @class = "password", placeholder = "Password" })
+                                    @Html.ValidationMessageFor(m => m.LoginModel.Password)
+                                </div>
+
+
+                                <div class="buttons">
+                                    <input class="button-1 login-button" type="submit" value="@T("Account.Login.LoginButton")" />
+                                </div>
+
+                                <div class="inputs reversed">
+                                    @Html.CheckBoxFor(m => m.LoginModel.RememberMe)
+                                    @Html.LabelFor(m => m.LoginModel.RememberMe)
+                                    <span class="forgot-password">
+                                        @Html.RouteLink(T("Account.Login.ForgotPassword").Text, "PasswordRecovery")
+                                    </span>
+                                </div>
+                                @if (Model.LoginModel.DisplayCaptcha)
+                                {
+                                    <div class="captcha-box inputs">
+                                        @Html.Raw(Html.GenerateCaptcha())
+                                    </div>
+                                }
+                            </div>
+
+                        }
+                    </div>
+                </div>
+                @*<div class="external-authentication">
+                        @Html.Action("ExternalMethods", "ExternalAuthentication")
+                    </div>*@
+                @*@Html.Action("TopicBlock", "Topic", new { systemName = "LoginRegistrationInfo" })*@
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="register col-md-6">
+
+                    <div class="content-reg">
+
+
+
+                        @{
+                            var validationSummary = Html.ValidationSummary(true);
+                        }
+                        @if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                        {
+                            <div class="message-error">@validationSummary</div>
+                        }
+                        @Html.Partial("_ExternalAuthentication.AssociateMessage")
+                        <div class="fieldset">
+                            <div class="title">
+                                @* <strong>Create Account</strong> *@
+                                <strong>New Customer</strong>
+                            </div>
+                            <div class="form-fields">
+                                @if (Model.RegisterModel.GenderEnabled)
+                                {
+                                    <div class="inputs">
+                                        <label>@T("Account.Fields.Gender"):</label>
+                                        <div class="gender">
+                                            <span class="male">
+                                                @Html.RadioButton("Gender", "M", (Model.RegisterModel.Gender == "M"), new { id = "gender-male" })
+                                                <label class="forcheckbox" for="gender-male">@T("Account.Fields.Gender.Male")</label>
+                                            </span>
+                                            <span class="female">
+                                                @Html.RadioButton("Gender", "F", (Model.RegisterModel.Gender == "F"), new { id = "gender-female" })
+                                                <label class="forcheckbox" for="gender-female">@T("Account.Fields.Gender.Female")</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="inputs">
+                                    @Html.HiddenFor(model => model.Type, new { Value = "1" })
+                                    @Html.LabelFor(model => model.RegisterModel.FirstName, new { }, ":")
+                                    @*@Html.EditorFor(model => model.RegisterModel.FirstName, new { placeholder = "First Name" })*@
+                                    @Html.TextBoxFor(model => model.RegisterModel.FirstName, new { @class = "firstname", placeholder = "First Name" })
+
+                                    @Html.RequiredHint()
+                                    @Html.ValidationMessageFor(model => model.RegisterModel.FirstName)
+                                </div>
+                                <div class="inputs">
+                                    @Html.LabelFor(model => model.RegisterModel.LastName, new { }, ":")
+                                    @*@Html.EditorFor(model => model.RegisterModel.LastName, new { placeholder = "Last Name" })*@
+                                    @Html.TextBoxFor(model => model.RegisterModel.LastName, new { @class = "lastname", placeholder = "Last Name" })
+                                    @Html.RequiredHint()
+                                    @Html.ValidationMessageFor(model => model.RegisterModel.LastName)
+                                </div>
+                                @if (Model.RegisterModel.DateOfBirthEnabled)
+                                {
+                                    <div class="inputs date-of-birth">
+                                        <label>@T("Account.Fields.DateOfBirth"):</label>
+                                        @Html.DatePickerDropDowns(Html.FieldNameFor(x => x.RegisterModel.DateOfBirthDay),
+                                    Html.FieldNameFor(x => x.RegisterModel.DateOfBirthMonth),
+                                    Html.FieldNameFor(x => x.RegisterModel.DateOfBirthYear),
+                                    DateTime.Now.Year - 80,
+                                    DateTime.Now.Year,
+                                    Model.RegisterModel.DateOfBirthDay,
+                                    Model.RegisterModel.DateOfBirthMonth,
+                                    Model.RegisterModel.DateOfBirthYear)
+                                        @if (Model.RegisterModel.DateOfBirthRequired)
+                                        {
+                                            @Html.RequiredHint()
+                                        }
+                                        @Html.ValidationMessageFor(model => model.RegisterModel.DateOfBirthDay)
+                                        @Html.ValidationMessageFor(model => model.RegisterModel.DateOfBirthMonth)
+                                        @Html.ValidationMessageFor(model => model.RegisterModel.DateOfBirthYear)
+                                    </div>
+                                }
+                                <div class="inputs">
+                                    @Html.LabelFor(model => model.RegisterModel.Email, new { }, ":")
+                                    @*@Html.EditorFor(model => model.RegisterModel.Email)*@
+                                    @Html.TextBoxFor(model => model.RegisterModel.Email, new { @class = "email", placeholder = "Email" })
+                                    @Html.RequiredHint()
+                                    @Html.ValidationMessageFor(model => model.RegisterModel.Email)
+                                </div>
+                                @if (Model.RegisterModel.EnteringEmailTwice)
+                                {
+                                    <div class="inputs">
+                                        @Html.LabelFor(model => model.RegisterModel.ConfirmEmail, new { }, ":")
+                                        @Html.EditorFor(model => model.RegisterModel.ConfirmEmail)
+                                        @Html.RequiredHint()
+                                        @Html.ValidationMessageFor(model => model.RegisterModel.ConfirmEmail)
+                                    </div>
+                                }
+                                @if (Model.RegisterModel.UsernamesEnabled)
+                                {
+                                    <div class="inputs">
+                                        @Html.LabelFor(model => model.RegisterModel.Username, new { }, ":")
+                                        @Html.EditorFor(model => model.RegisterModel.Username)
+                                        @Html.RequiredHint()
+                                        @Html.ValidationMessageFor(model => model.RegisterModel.Username)
+                                        @if (Model.RegisterModel.CheckUsernameAvailabilityEnabled)
+                                        {
+                                            @Html.Partial("_CheckUsernameAvailability")
+                                        }
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                        @if (Model.RegisterModel.CompanyEnabled || Model.RegisterModel.DisplayVatNumber)
+                        {
+                            <div class="fieldset">
+                                @*<div class="title">
+                                        <strong>@T("Account.CompanyDetails")</strong>
+                                    </div>*@
+                                <div class="form-fields">
+                                    @if (Model.RegisterModel.CompanyEnabled)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.Company, new { }, ":")
+                                            @Html.EditorFor(model => model.RegisterModel.Company)
+                                            @if (Model.RegisterModel.CompanyRequired)
+                                            {
+                                                @Html.RequiredHint()
+                                            }
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.Company)
+                                        </div>
+                                    }
+                                    @if (Model.RegisterModel.DisplayVatNumber)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.VatNumber, new { }, ":")
+                                            @Html.EditorFor(model => model.RegisterModel.VatNumber)
+                                            <span class="vat-note"><em>@T("Account.Fields.VatNumber.Note")</em></span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        @if (Model.RegisterModel.StreetAddressEnabled || Model.RegisterModel.StreetAddress2Enabled || Model.RegisterModel.ZipPostalCodeEnabled
+                    || Model.RegisterModel.CityEnabled || Model.RegisterModel.CountryEnabled)
+                        {
+                            <div class="fieldset">
+                                @*<div class="title">
+                                        <strong>@T("Account.YourAddress")</strong>
+                                    </div>*@
+                                <div class="form-fields">
+                                    @if (Model.RegisterModel.StreetAddressEnabled)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.StreetAddress, new { }, ":")
+                                            @Html.EditorFor(model => model.RegisterModel.StreetAddress)
+                                            @if (Model.RegisterModel.StreetAddressRequired)
+                                            {
+                                                @Html.RequiredHint()
+                                            }
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.StreetAddress)
+                                        </div>
+                                    }
+                                    @if (Model.RegisterModel.StreetAddress2Enabled)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.StreetAddress2, new { }, ":")
+                                            @Html.EditorFor(model => model.RegisterModel.StreetAddress2)
+                                            @if (Model.RegisterModel.StreetAddress2Required)
+                                            {
+                                                @Html.RequiredHint()
+                                            }
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.StreetAddress2)
+                                        </div>
+                                    }
+                                    @if (Model.RegisterModel.ZipPostalCodeEnabled)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.ZipPostalCode, new { }, ":")
+                                            @Html.EditorFor(model => model.RegisterModel.ZipPostalCode)
+                                            @if (Model.RegisterModel.ZipPostalCodeRequired)
+                                            {
+                                                @Html.RequiredHint()
+                                            }
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.ZipPostalCode)
+                                        </div>
+                                    }
+                                    @if (Model.RegisterModel.CityEnabled)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.City, new { }, ":")
+                                            @Html.EditorFor(model => model.RegisterModel.City)
+                                            @if (Model.RegisterModel.CityRequired)
+                                            {
+                                                @Html.RequiredHint()
+                                            }
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.City)
+                                        </div>
+                                    }
+                                    @if (Model.RegisterModel.CountryEnabled)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.CountryId, new { }, ":")
+                                            @Html.DropDownList("CountryId", Model.RegisterModel.AvailableCountries)
+                                            @if (Model.RegisterModel.CountryRequired)
+                                            {
+                                                @Html.RequiredHint()
+                                            }
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.CountryId)
+                                        </div>
+                                    }
+                                    @if (Model.RegisterModel.CountryEnabled && Model.RegisterModel.StateProvinceEnabled)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.StateProvinceId, new { }, ":")
+                                            @Html.DropDownList("StateProvinceId", Model.RegisterModel.AvailableStates)
+                                            @if (Model.RegisterModel.StateProvinceRequired)
+                                            {
+                                                @Html.RequiredHint()
+                                            }
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.StateProvinceId)
+                                            <span id="states-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        @if (Model.RegisterModel.PhoneEnabled || Model.RegisterModel.FaxEnabled)
+                        {
+                            <div class="fieldset">
+                                @*<div class="title">
+                                        <strong>@T("Account.YourContactInformation")</strong>
+                                    </div>*@
+                                <div class="form-fields">
+                                    @if (Model.RegisterModel.PhoneEnabled)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.Phone, new { }, ":")
+                                            @Html.TextBoxFor(model => model.RegisterModel.Phone, new { @class = "phone", placeholder = "Phone" })
+                                            @*@Html.EditorFor(model => model.RegisterModel.Phone)*@
+                                            @if (Model.RegisterModel.PhoneRequired)
+                                            {
+                                                @Html.RequiredHint()
+                                            }
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.Phone)
+
+                                            <script>
+                                                $(document).ready(function () {
+                                                    $("#RegisterModel_Phone").keyup(function () {
+                                                        var inputVal = $("#RegisterModel_Phone").val();
+                                                        if ($.isNumeric(inputVal) == false) {
+                                                            $("#RegisterModel_Phone").val("");
+                                                        }
+                                                    });
+                                                });
+                                            </script>
+
+                                        </div>
+                                    }
+                                    @if (Model.RegisterModel.FaxEnabled)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.Fax, new { }, ":")
+                                            @Html.EditorFor(model => model.RegisterModel.Fax)
+                                            @if (Model.RegisterModel.FaxRequired)
+                                            {
+                                                @Html.RequiredHint()
+                                            }
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.Fax)
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        @if (Model.RegisterModel.NewsletterEnabled || Model.RegisterModel.CustomerAttributes.Count > 0)
+                        {
+                            <div class="fieldset">
+                                @*<div class="title">
+                                        <strong>@T("Account.Options")</strong>
+                                    </div>*@
+                                <div class="form-fields">
+                                    @if (Model.RegisterModel.NewsletterEnabled)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.Newsletter, new { }, ":")
+                                            @Html.EditorFor(model => model.RegisterModel.Newsletter)
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.Newsletter)
+                                        </div>
+                                    }
+                                    @if (Model.RegisterModel.CustomerAttributes.Count > 0)
+                                    {
+                                        @Html.Partial("_CustomerAttributes", Model.RegisterModel.CustomerAttributes)
+                                    }
+                                </div>
+                            </div>
+                        }
+                        @if (Model.RegisterModel.AllowCustomersToSetTimeZone)
+                        {
+                            <div class="fieldset">
+                                @*<div class="title">
+                                        <strong>@T("Account.Preferences")</strong>
+                                    </div>*@
+                                <div class="form-fields">
+                                    @if (Model.RegisterModel.AllowCustomersToSetTimeZone)
+                                    {
+                                        <div class="inputs">
+                                            @Html.LabelFor(model => model.RegisterModel.TimeZoneId, new { }, ":")
+                                            @Html.DropDownList("TimeZoneId", Model.RegisterModel.AvailableTimeZones)
+                                            @Html.ValidationMessageFor(model => model.RegisterModel.TimeZoneId)
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        <div class="fieldset">
+                            @*<div class="title">
+                                    <strong>@T("Account.YourPassword")</strong>
+                                </div>*@
+                            <div class="form-fields">
+                                <div class="inputs">
+                                    @Html.LabelFor(model => model.RegisterModel.Password, new { }, ":")
+
+                                    @Html.PasswordFor(model => model.RegisterModel.Password, new { @class = "password", placeholder = "Password" })
+
+                                    @Html.RequiredHint()
+                                    @Html.ValidationMessageFor(model => model.RegisterModel.Password)
+                                </div>
+                                <div class="inputs">
+                                    @Html.LabelFor(model => model.RegisterModel.ConfirmPassword, new { }, ":")
+                                    @*@Html.EditorFor(model => model.RegisterModel.ConfirmPassword)*@
+                                    @Html.PasswordFor(model => model.RegisterModel.ConfirmPassword, new { @class = "confirmpassword", placeholder = "Confirm Password" })
+
+                                    @Html.RequiredHint()
+                                    @Html.ValidationMessageFor(model => model.RegisterModel.ConfirmPassword)
+                                </div>
+                                @if (Model.RegisterModel.DisplayCaptcha)
+                                {
+                                    <div class="captcha-box inputs">
+                                        @Html.Raw(Html.GenerateCaptcha())
+                                    </div>
+                                }
+                                @if (Model.RegisterModel.HoneypotEnabled)
+                                {
+                                    @Html.Raw(Html.GenerateHoneypotInput())
+                                }
+                            </div>
+                        </div>
+                        @if (Model.RegisterModel.AcceptPrivacyPolicyEnabled)
+                        {
+                            <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#register-button').click(function () {
+                            if ($('#accept-privacy-policy').is(':checked')) {
+                                //do some stuff
+                                return true;
+                            }
+                            else {
+                                //just show validation errors, dont post
+                                alert('@Html.Raw(HttpUtility.JavaScriptStringEncode(T("Account.Fields.AcceptPrivacyPolicy.Required").Text))');
+                                return false;
+                            }
+                        });
+                    });
+                            </script>
+                            <div class="accept-privacy-policy">
+                                <input id="accept-privacy-policy" type="checkbox" name="accept-privacy-policy" />
+                                <label for="accept-privacy-policy">@T("Account.Fields.AcceptPrivacyPolicy")</label>
+                                <span class="read" id="read-privacyinfo">@T("Account.Fields.AcceptPrivacyPolicy.Read")</span>
+                                <script>
+                        $(document).ready(function() {
+                            $('#read-privacyinfo').on('click', function (e) {
+                                displayPopupContentFromUrl('@Url.RouteUrl("TopicPopup", new { SystemName = "privacyinfo" })', '@T("Account.Fields.AcceptPrivacyPolicy")');
+                            });
+                        });
+                                </script>
+                            </div>
+                        }
+                        <div class="buttons">
+                            <input type="submit" id="register-button" class="button-1 register-next-step-button" value="@T("Account.Register.Button")" name="register-button" />
+                        </div>
+                        @*<div class="external-authentication">
+                                @Html.Action("ExternalMethods", "ExternalAuthentication")
+                            </div>*@
+                    </div>
+
+
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>

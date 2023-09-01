@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language Name="English">
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Menu.MenuName">
+    <Value>Uptown</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Admin.SettingsSubmenu.Uptown">
+    <Value>Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="Sevenspikes.Themes.Admin.ManageResources.Uptown">
+    <Value>Manage Resources</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings">
+    <Value>Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.TabTitle.GeneralSettings">
+    <Value>General Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.TabTitle.AdditionalSettings">
+    <Value>Additional Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings">
+    <Value>Uptown Theme Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.Preset">
+    <Value>Preset</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.Preset.Hint">
+    <Value>Choose your color preset of the theme.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.ProductAttributeId">
+    <Value>Color Square product attribute</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.ProductAttributeId.Hint">
+    <Value>Choose the color square product attribute which will be shown in the product box. &lt;br/&gt; &lt;strong&gt;Note: The attribute should be of type 'color square'!&lt;/strong&gt;</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.UseSecondaryFont">
+    <Value>Use secondary font</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.UseSecondaryFont.Hint">
+    <Value>Check this option if you would like to use a secondary font (Droid Serif Italic) on secondary places like titles, header, footer, prices, etc.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.HeaderLayout">
+    <Value>Header layout design</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.HeaderLayout.Hint">
+    <Value>Choose one of the two predefined header layout designs</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.FooterLayout">
+    <Value>Footer layout design</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.FooterLayout.Hint">
+    <Value>Choose one of the two predefined layout designs for the footer</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.FooterLogo">
+    <Value>Upload footer logo image</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.FooterLogo.Hint">
+    <Value>Upload logo image that will be used in the footer in case of footer layout 2</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.SubCategoriesPlace">
+    <Value>Place subcategories on top of the page</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.SubCategoriesPlace.Hint">
+    <Value>When checked subcategories will be placed on top of the page. If is not checked subcategories will be placed in the second column, when the catalog pages are set to have the two column layout</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.CatalogPagesItemBoxesPerRow">
+    <Value>Number of products per row</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.CatalogPagesItemBoxesPerRow.Hint">
+    <Value>Choose how many products will be displayed on one line on all catalog pages</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.HomePageItemBoxesPerRow">
+    <Value>Number of home page products per row</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.HomePageItemBoxesPerRow.Hint">
+    <Value>Choose how many products will be displayed on one line on the home page</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.IsCategoryPageOneColumn">
+    <Value>Catalog Pages One Column layout</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.IsCategoryPageOneColumn.Hint">
+    <Value>Check to make all catalog pages in One Column.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.IsDefaultCategoryNavigationEnabled">
+    <Value>Enable default nopCommerce category navigation</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.IsDefaultCategoryNavigationEnabled.Hint">
+    <Value>When checked the default nopCommerce category navigation will be displayed</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.IsDefaultManufacturerNavigationEnabled">
+    <Value>Enable default nopCommerce manufacturer navigation</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.IsDefaultManufacturerNavigationEnabled.Hint">
+    <Value>When checked the default nopCommerce manufacturer navigation will be displayed</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.IsDefaultVendorNavigationEnabled">
+    <Value>Enable default nopCommerce vendor navigation</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.IsDefaultVendorNavigationEnabled.Hint">
+    <Value>When checked the default nopCommerce vendor navigation will be displayed</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.ProductThumbsWithPictures">
+    <Value>Show Product Thumbs in Pictures</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.ProductThumbsWithPictures.Hint">
+    <Value>Enable the product thumbs on Product Details page to be visible with Pictures.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.RollOverEnabled">
+    <Value>Enable Roll Over</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Admin.Settings.RollOverEnabled.Hint">
+    <Value>Enable product image roll over functionality on hover.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.Welcome">
+    <Value>Welcome to our fashion store!</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Newsletter">
+    <Value>Newsletter</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Newsletter.Description">
+    <Value>Subscribe to our newsletter and get information about our latest offers and prices.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Newsletter.Subscribe">
+    <Value>Subscribe</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.ContactInfo">
+    <Value>Contact Info</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.Address">
+    <Value>London, Yorkshire, 5th Avenue</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.Phone">
+    <Value>+(123) 456-789-10-11</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.EmailName">
+    <Value>info</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.EmailAt">
+    <Value>[at]</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.EmailDomain">
+    <Value>uptown.com</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Information">
+    <Value>Information</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.AboutUs.Title">
+    <Value>About Us</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.AboutUs">
+    <Value>Lorem ipsum dolor sit amet, cu nec hinc possim deserunt. Nibh nullam ignota vim ad, per te labore tamquam periculis, ei mea erant expetenda.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.GoTo">
+    <Value>Go to</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.GoToPage">
+    <Value>Go to Page</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.GiftCardCouponCode.Tooltip">
+    <Value>If you have a coupon or gift card you can enter the code here</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.TermsOfService.FirstPart">
+    <Value>I agree with the</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.TermsOfService.Link">
+    <Value>Terms of Service</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.TermsOfService.SecondPart">
+    <Value>and I adhere to them unconditionally</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Common.Products.Count.Title">
+    <Value>items</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Product.ImageThumbs.Prev">
+    <Value>Previous</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.Product.ImageThumbs.Next">
+    <Value>Next</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.ShoppingCart.ClearCart">
+    <Value>Clear Cart</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.RichBLog.PreviousPost">
+    <Value>Previous Post</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Uptown.RichBLog.NextPost">
+    <Value>Next Post</Value>
+  </LocaleResource>
+  <LocaleResource Name="sevenspikes.realonepagecheckout.public.completebutton">
+    <Value>Checkout</Value>
+  </LocaleResource>
+  <LocaleResource Name="shoppingcart">
+    <Value>My Cart</Value>
+  </LocaleResource>
+  <LocaleResource Name="checkout.button">
+    <Value>Checkout</Value>
+  </LocaleResource>
+  <LocaleResource Name="Search.Searchbox.Tooltip">
+    <Value>Search</Value>
+  </LocaleResource>
+  <LocaleResource Name="ShoppingCart.Mini.Quantity">
+    <Value>Qty</Value>
+  </LocaleResource>
+  <LocaleResource Name="shoppingcart.headerquantity">
+    <Value>({0})</Value>
+  </LocaleResource>
+  <LocaleResource Name="ShoppingCart.Totals.SubTotal">
+    <Value>Total</Value>
+  </LocaleResource>
+  <LocaleResource Name="Account.CustomerOrders.ReturnItems">
+    <Value>Return</Value>
+  </LocaleResource>
+  <LocaleResource Name="Account.ChangePassword">
+    <Value>Change your Password</Value>
+  </LocaleResource>
+  <LocaleResource Name="forum.privatemessages.pm">
+    <Value>Message</Value>
+  </LocaleResource>
+</Language>

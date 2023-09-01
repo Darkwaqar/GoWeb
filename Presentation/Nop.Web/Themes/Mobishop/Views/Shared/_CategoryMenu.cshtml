@@ -1,0 +1,67 @@
+﻿@model MenuItemModel
+@using SevenSpikes.Nop.Plugins.MegaMenu.Models
+@using Nop.Services.Catalog;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Seo;
+@using Nop.Core.Domain.Catalog;
+@{
+    int x = 0;
+    Int32.TryParse(Model.Url, out x);
+    var categories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(parentCategoryId: x).Where(k=> k.VendorId == 0);
+    var currentCategory = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(categoryId: x);
+    var hasSublist = Model.SubItems.Count > 0;
+    var hasSublistClass = hasSublist ? "has-sublist" : string.Empty;
+    var withSubcategoriesClass = hasSublist ? "with-subcategories" : string.Empty;
+ 
+
+}
+
+    <li class="@Model.CssClass @hasSublistClass ">
+
+        <a href="/@currentCategory.GetSeName()" class="@withSubcategoriesClass " title="@Model.Title" @if (Model.OpenInNewWindow) { <text> target="_blank" </text> }><span> @Model.Title</span></a>
+        <div class="plus-button"></div>
+        
+            <div class="sublist-wrap  ">
+                <ul class="sublist">
+                    <li class="back-button">
+                        <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                    </li>
+                    @foreach (var category in categories)
+    {
+        @BuildMenuItem(category);
+    }
+                </ul>
+            </div>
+       
+
+    </li>
+
+
+@helper BuildMenuItem(Category item)
+{
+
+    var subcategories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(parentCategoryId: item.Id);
+    var hasSublist = subcategories.Count > 0;
+    <li>
+        <a href="/@item.GetSeName()" title="@item.Name"><span> @item.Name</span></a>
+        @if (hasSublist)
+        {
+            <div class="plus-button"></div>
+            <div class="sublist-wrap">
+                <ul class="sublist">
+                    <li class="back-button">
+                        <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                    </li>
+                    @foreach (var subItem in subcategories)
+                    {
+                        @BuildMenuItem(subItem)
+                    }
+                </ul>
+            </div>
+        }
+    </li>
+}
+
+
+
+

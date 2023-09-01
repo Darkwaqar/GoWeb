@@ -1,0 +1,204 @@
+﻿@model BlogPostModel
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Models.Blogs;
+@{
+    //Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+    Layout = "~/Views/Shared/_root.cshtml";
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Title);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-blogpost-page");
+    Html.AppendScriptParts(string.Format(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/{0}/Content/assets/js/imageMapResizer.min.js", themeName));
+    Html.AppendScriptParts("https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js");
+    Html.AppendScriptParts("https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css");
+    Html.AddCssFileParts("https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css");
+    Html.AddCssFileParts("~/Themes/Preta/Content/assets/css/main.css");
+    var images = string.Format(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/{0}/Content/assets/img/", themeName);
+
+}
+
+<div class="page blogpost-page">
+    @Html.Widget("blogpost_page_top", Model.Id)
+    @*<div class="page-title">
+        <h1>@Model.Title</h1>
+    </div>*@
+    <div class="page-body">
+        @Html.Widget("blogpost_page_before_body", Model.Id)
+        <div class="post-body">
+            @Html.Raw(Model.Body)
+        </div>
+        @if (Model.Tags.Count > 0)
+        {
+            <div class="tags">
+                <label>@T("Blog.Tags"):</label>
+                <ul>
+                    @for (int i = 0; i < Model.Tags.Count; i++)
+                    {
+                        var tag = Model.Tags[i];
+                        <li><a href="@Url.RouteUrl("BlogByTag", new {tag = tag})">@tag</a></li>
+                        if (i != Model.Tags.Count - 1)
+                        {
+                            <li class="separator">,</li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+        @Html.Widget("blogpost_page_before_comments", Model.Id)
+        @if (Model.AllowComments)
+        {
+            <div class="fieldset new-comment" id="comments">
+                <div class="title">
+                    <strong>@T("Blog.Comments.LeaveYourComment")</strong>
+                </div>
+                @{
+                    var validationSummary = Html.ValidationSummary(true);
+                }
+                <div class="notifications">
+                    @if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                    {
+                        <div class="message-error">@validationSummary</div>
+                    }
+
+                    @{
+                        var result = TempData["nop.blog.addcomment.result"] as string;
+                    }
+                    @if (!String.IsNullOrEmpty(result))
+                    {
+                        <div class="result">@result</div>
+                    }
+                </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-fields">
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.AddNewComment.CommentText, new {}, ":")
+                            @Html.TextAreaFor(model => model.AddNewComment.CommentText, new {@class = "enter-comment-text"})
+                            @Html.ValidationMessageFor(model => model.AddNewComment.CommentText)
+                        </div>
+                        @if (Model.AddNewComment.DisplayCaptcha)
+                        {
+                            <div class="captcha-box">
+                                @Html.Raw(Html.GenerateCaptcha())
+                            </div>
+                        }
+                    </div>
+                    <div class="buttons">
+                        <input type="submit" name="add-comment" class="button-1 blog-post-add-comment-button" value="@T("Blog.Comments.SubmitButton")"/>
+                    </div>
+                }
+            </div>
+            if (Model.Comments.Count > 0)
+            {
+                <div class="comment-list">
+                    <div class="title">
+                        <strong>@T("Blog.Comments")</strong>
+                    </div>
+                    <div class="comments">
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <div class="comment blog-comment">
+                                <div class="comment-info">
+                                    <div class="user-info">
+                                        @if (comment.AllowViewingProfiles)
+                                        {
+                                            <a href="@Url.RouteUrl("CustomerProfile", new {id = comment.CustomerId})" class="username">@(comment.CustomerName)</a>
+                                        }
+                                        else
+                                        {
+                                            <span class="username">@(comment.CustomerName)</span>
+                                        }
+
+                                        @if (!String.IsNullOrEmpty(comment.CustomerAvatarUrl))
+                                        {
+                                            <div class="avatar">
+                                                @if (comment.AllowViewingProfiles)
+                                                {
+                                                    <a href="@Url.RouteUrl("CustomerProfile", new {id = comment.CustomerId})" class="avatar-img-link">
+                                                        <img src="@(comment.CustomerAvatarUrl)" class="avatar-img" alt="avatar"/>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <img src="@(comment.CustomerAvatarUrl)" class="avatar-img" alt="avatar"/>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-time">
+                                        <label>@T("Blog.Comments.CreatedOn"):</label>
+                                        <span class="stat-value">@comment.CreatedOn.ToString("g")</span>
+                                    </div>
+                                    <div class="comment-body">
+                                        @Html.Raw(Nop.Core.Html.HtmlHelper.FormatText(comment.CommentText, false, true, false, false, false, false))
+                                    </div>
+                                </div>
+                                @Html.Widget("blogpost_page_inside_comment", comment.Id)
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        
+        @Html.Widget("blogpost_page_after_comments", Model.Id)
+
+        
+
+
+       
+    </div>
+    @Html.Widget("blogpost_page_bottom", Model.Id)
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $(".view-more").click(function () {
+            if($(".view-more").hasClass("view-close")){
+                $(".similar-product-div").animate({height: "1400px"});
+                document.getElementById("view").innerHTML = "View Less";
+                $(".view-more").addClass("view-open");
+                $(".view-more").removeClass("view-close");
+            }
+            else if($(".view-more").hasClass("view-open")){
+                $(".similar-product-div").animate({height: "650px"});
+                document.getElementById("view").innerHTML = "View More";
+                $(".view-more").addClass("view-close");
+                $(".view-more").removeClass("view-open");
+            }
+        });
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            dots: false,
+            autoplay: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 1
+                }
+            }
+        });
+    });
+</script>

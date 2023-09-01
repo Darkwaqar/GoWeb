@@ -1,0 +1,119 @@
+﻿@model ContactUsModel
+@using Nop.Web.Models.Common;
+@{
+    //Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ContactUs").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-contact-page");
+}
+<div class="page contact-page qurandazi">
+    <div class="page-title">
+        @*<h1>@T("PageTitle.ContactUs")</h1>*@
+        @*<h1>Qurandazi</h1>*@
+    </div>
+    <div class="page-body">
+        @Html.Action("TopicBlock", "Topic", new { systemName = "ContactUs" })
+        @Html.Widget("contactus_top")
+        <div class="page-heading">
+            <img src="~/Themes/HashmiKajal/Content/img/img/landingPage/fitwin1.png" />
+            <h2>Register TO WIN</h2>
+        </div>
+        @if (Model.SuccessfullySent)
+        {
+            <div class="result">
+                @Model.Result
+            </div>
+        } else {
+            using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                var validationSummary = Html.ValidationSummary(true);
+                if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                {
+                    <div class="message-error">@validationSummary</div> 
+                }
+                <div class="fieldset">
+                    <div class="form-fields">
+                        <div class="inputs">
+                            @*@Html.LabelFor(model => model.FullName)*@
+                            @Html.TextBoxFor(model => model.FullName, new { @class = "fullname", placeholder = "Name" })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.FullName)
+                        </div>
+                        <div class="inputs">
+                            @*@Html.LabelFor(model => model.Email)*@
+                            @Html.TextBoxFor(model => model.Email, new { @class = "email", placeholder = "Email" })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                        @if (Model.SubjectEnabled)
+                        {
+                            <div class="inputs">
+                                @*@Html.LabelFor(model => model.Subject)*@
+                                @Html.TextBoxFor(model => model.Subject, new { @class = "subject", placeholder = T("ContactUs.Subject.Hint") })
+                                @Html.RequiredHint()
+                                @Html.ValidationMessageFor(model => model.Subject)
+                            </div>
+                        }
+                        <div class="inputs">
+                            @*@Html.LabelFor(model => model.PhoneNumber)*@
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "number", placeholder = T("ContactUs.PhoneNumber.Hint") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.PhoneNumber)
+                        </div>
+                        <div class="inputs">
+                            @*@Html.LabelFor(model => model.OrderNumber)*@
+                            @*<label for="OrderNumber">CNIC</label>*@
+                            @Html.TextBoxFor(model => model.OrderNumber, new { @class = "fullname", placeholder = "CNIC" })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.OrderNumber)
+                        </div>
+                        @*<div class="inputs">
+                            @Html.LabelFor(model => model.Country)
+                            @Html.TextBoxFor(model => model.Country, new { @class = "fullname", placeholder = T("ContactUs.Country.Hint") })
+                            @Html.ValidationMessageFor(model => model.Country)
+                        </div>*@
+                       
+                        @*<div class="inputs">
+                            @Html.LabelFor(model => model.Enquiry)
+                            @Html.TextAreaFor(model => model.Enquiry, new { @class = "enquiry", placeholder = T("ContactUs.Enquiry.Hint") })
+                            @Html.ValidationMessageFor(model => model.Enquiry)
+                        </div>*@
+                        @if (Model.DisplayCaptcha)
+                        {
+                            <div class="captcha-box">
+                                @Html.Raw(Html.GenerateCaptcha())
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="buttons">
+                    <input type="submit" name="send-email" class="button-1 contact-us-button" value="@T("ContactUs.Button")" />
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        // Get form object
+                        var myFormObj = document.getElementById("product-details-form");
+                        // Change form action & submit
+                        myFormObj.action = "/contactUs";
+                    });
+                </script>
+            }
+        }
+        @Html.Widget("contactus_bottom")
+        @if (Model.SuccessfullySent)
+        {
+            <div class="popup" style=" width: 100%; height: 100%;  position: absolute; top: 0;
+                background-color: rgba(252, 249, 253, 0.8117647058823529); bottom: 0; ">
+                <div style=" position: relative; margin: auto;">
+                    <div style=" width: 50%; height: 300px; background-color: #d8d0d0;
+                        position: absolute; top: 100px; left: 24%; right: 24%;">
+                        <p> Your Request Has been Submitted </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

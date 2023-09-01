@@ -1,0 +1,150 @@
+﻿@using Nop.Core.Domain.Common;
+@using Nop.Core.Infrastructure;
+@{
+    Layout = null;
+    string theme = EngineContext.Current.Resolve<Nop.Core.Domain.StoreInformationSettings>().DefaultStoreTheme;
+ 
+    if (String.IsNullOrWhiteSpace(theme)) {
+        theme = "BootstrapDC";
+    }
+    string imgpath = "/themes/" + theme + "/content/home-banners";
+}
+
+
+<div class="row no-margin homepagebanners" >
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="rollover" onclick="setLocation('/Classic')">
+                            <div class="title-container">
+                                <div class="title ">
+                                    <img src="@imgpath/vintage.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <img src="@imgpath/1.jpg" class="img-responsive" />
+                        </div>
+                        
+                </div>
+              
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                            <div class="title-container">
+                                <div class="title ">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <img src="@imgpath/5.jpg" class="img-responsive" />
+                    </div>
+
+                </div>
+                <div class="row">
+                   
+                    <div class="col-md-12">
+                        <div class="rollover" onclick="setLocation('/bespoke')">
+                            <div class="title-container">
+                                <div class="title ">
+                                    <img src="@imgpath/HANDMASTER.png" />
+                                </div>
+                            </div>
+                        </div>
+                    <img src="@imgpath/8.jpg" class="img-responsive" /></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                @*<div class="row">
+                    <div class="col-md-6 col-xs-6"><img src="@imgpath/2.jpg" class="img-responsive" /></div>
+                    <div class="col-md-6 col-xs-6"><img src="@imgpath/3.jpg" class="img-responsive" /></div>
+
+                </div>*@
+
+                <div class="row">
+                    <div class="col-md-6 col-xs-6">
+                        <div class="rollover" onclick="setLocation('/formal')">
+                            <div class="title-container">
+                                <div class="title ">
+                                    <img src="@imgpath/STYLE BASICS.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12"><img src="@imgpath/2.jpg" class="img-responsive" /></div>
+                       
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <div class="rollover" onclick="setLocation('/eveninger')">
+                            <div class="title-container">
+                                <div class="title ">
+                                    <img src="@imgpath/walk.png" />
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="col-md-12 col-xs-12"><img src="@imgpath/3.jpg" class="img-responsive" /></div>
+                    </div>
+
+                </div>
+                <div class="row">
+                 
+                    <div class="col-md-12">
+                        <div class="rollover" onclick="setLocation('/brand')">
+                            <div class="title-container">
+                                <div class="title ">
+                                    <img src="@imgpath/succ.png" />
+                                </div>
+                            </div>
+                        </div>
+                    <img src="@imgpath/4.jpg" class="img-responsive" /></div>
+                </div>
+                @*<div class="row">
+                    <div class="col-md-12"><img src="@imgpath/7.jpg" class="img-responsive" /></div>
+                </div>*@
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="rollover" onclick="setLocation('/casual')">
+                            <div class="title-container">
+                                <div class="title ">
+                                    <img src="@imgpath/FASHION.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12"><img src="@imgpath/7.jpg" class="img-responsive" /></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="row">
+            <div class="col-md-12"><img src="@imgpath/12.jpg" class="img-responsive" /></div>
+        </div>*@
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="rollover" onclick="setLocation('/eveninger')">
+                    <div class="title-container">
+                        <div class="title ">
+                            <img src="@imgpath/glamour.png" style="width:auto;max-width:60%" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12"><img src="@imgpath/12.jpg" class="img-responsive" /></div>
+            </div>
+        </div>
+        <div class="row followus-instagram">
+            <div class="col-md-12">
+                <h3 class="uppercase text-center">Follow us on Instagram</h3>
+            </div>
+        </div>
+        <div class="row" id="instafeed">
+
+            @*<div class="col-md-3 col-xs-6"><img src="@imgpath/9.jpg" class="img-responsive" /></div>
+            <div class="col-md-3 col-xs-6"><img src="@imgpath/10.jpg" class="img-responsive" /></div>
+            <div class="col-md-3 col-xs-6"><img src="@imgpath/11.jpg" class="img-responsive" /></div>
+            <div class="col-md-3 col-xs-6"><img src="@imgpath/13.jpg" class="img-responsive" /></div>*@
+        </div>
+        
+    </div>
+</div>

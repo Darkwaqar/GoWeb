@@ -1,0 +1,40 @@
+﻿@model Nop.Web.Models.Catalog.ProductShareModel
+@using Nop.Core
+@using Nop.Core.Domain.Seo;
+
+<head>
+    @{
+        Layout = "";
+
+        //page class
+        Html.AppendPageCssClassParts("html-home-page");
+        
+        <meta property="og:type" content="product" />
+        <meta property="og:title" content="@Model.Name" />
+        <meta property="og:description" content="@Model.Description" />
+        <meta property="og:image" content="@Model.ImageUrl"  />
+        <meta property="og:url" content="@Request.Url.AbsoluteUri" />
+    }
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+
+    <style>
+        body {
+            background: #404040 url("content/images/share_background.png");
+        }
+    </style>
+</head>
+
+<body>
+    <div class="col-md-12">
+        <center class="hidden-sm hidden-xs"><img style="height:128px;margin-top:22px" src="/content/images/uploaded/logo.png" /></center>
+        <center class="hidden-lg hidden-md"><img style="height:200px;margin-top:100px" src="/content/images/uploaded/logo.png" /></center>
+        <center class="hidden-sm hidden-xs" style="margin-top:16px"><p style="color: white; font-size: 20px; font-family:'Droid Sans',sans-serif">To scan code with your mobile camera you need to install free Barcode Scanner -app</p></center>
+        <center class="hidden-lg hidden-md" style="margin-top:30px"><p style="color: white; font-size: 39px; font-family:'Droid Sans',sans-serif">To scan code with your mobile camera you need to install free Barcode Scanner -app</p></center>
+        <center class="hidden-sm hidden-xs"><a href="https://play.google.com/store/apps/details?id=com.growonline.gomobishop&referrer=sid:@Model.StoreId.ToString()_pid:@Model.ProductId.ToString()"><img style="height:56px;margin-top:22px" src="/content/images/uploaded/badge.png" /></a></center>
+        <center class="hidden-lg hidden-md"><a href="https://play.google.com/store/apps/details?id=com.growonline.gomobishop&referrer=sid:@Model.StoreId.ToString()_pid:@Model.ProductId.ToString()"><img style="height:110px;margin-top:40px" src="/content/images/uploaded/badge.png" /></a></center>
+
+
+
+    </div>
+</body>

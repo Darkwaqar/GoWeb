@@ -1,0 +1,45 @@
+﻿@model IList<ProductOverviewModel>
+
+@using Nop.Web.Models.Catalog;
+@if (Model.Count > 0)
+{
+    
+    Html.AppendCssFileParts("~/Themes/PoppyUM/Content/OwlCarousel2/css/owl.carousel.min.css");
+    Html.AppendCssFileParts("~/Themes/PoppyUM/Content/OwlCarousel2/css/owl.theme.default.min.css");
+    Html.AddScriptParts("~/Themes/PoppyUM/Content/OwlCarousel2/js/owl.carousel.min.js");
+    
+    <div class="related-products-grid product-grid">
+        <div class="title">
+            <strong>@T("Products.RelatedProducts")</strong>
+        </div>
+        <div class="item-grid owl-carousel owl-theme">
+            @foreach (var item in Model)
+            {
+                <div class="item-box item">@Html.Partial("_ProductBox", item)</div>
+            }
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 7,
+            nav: false,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 4,
+                    loop: false
+                }
+            }
+        })
+    })
+</script>

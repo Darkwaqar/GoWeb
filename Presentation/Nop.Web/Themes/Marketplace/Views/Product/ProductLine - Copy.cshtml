@@ -1,0 +1,56 @@
+﻿@model IList<ProductOverviewModel>
+@using Nop.Web.Models.Catalog;
+<div id="short-related-products" class="carousel slide hidden-xs" data-ride="carousel">
+    <!-- Indicators -->
+    <!-- Wrapper for slides -->
+    <div class="controls" style="float:right">
+        <a href="#short-related-products" role="button" data-slide="prev" style="border: 1px solid #cccccc;color:#ccc; font-size: 33px; /* width: 40px; */ margin: auto; /* padding: 0px; */ text-align: center;text-decoration:none">
+            <span class="fa fa-angle-left" aria-hidden="true" style="width:40px;height:40px"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a href="#short-related-products" role="button" data-slide="next" style="border: 1px solid #cccccc; color: #ccc; font-size: 33px; /* width: 40px; */ margin: auto; /* padding: 0px; */ text-align: center; text-decoration: none">
+            <span class="fa fa-angle-right" aria-hidden="true" style="width:43px;height:40px;border-right:1px solid #ccc"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div class="carousel-inner" role="listbox" style="border: 1px solid #ccc; height: 249px; width: 185px; right: 25px; top: -3px; background-color: #ededed;">
+        @{
+            bool isFirstItem = true;
+        }
+        @foreach (var item in Model)
+        {
+            if (isFirstItem)
+            {
+                <div class="item active" style="padding:7px">
+                    <a href="/@item.SeName">
+                        <img src="@item.DefaultPictureModel.ImageUrl" style="height:205px">
+                        <div class="name" style=" text-align: center; /* top: 7px; */ margin-top: 9px; font-size: 12px;">
+                            @item.Name
+                        </div>
+                    </a>
+                </div>
+                isFirstItem = false;
+            }
+            else
+            {
+                <div class="item" style="padding:7px">
+                    <a href="/@item.SeName">
+                        <img src="@item.DefaultPictureModel.ImageUrl" style="height:205px">
+                        <div class="name" style=" text-align: center; /* top: 7px; */ margin-top: 9px; font-size: 12px;">
+                            @item.Name
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+
+    </div>
+
+    <!-- Left and right controls -->
+    
+</div>
+<script>
+    $('.carousel').carousel({
+        interval: false
+    });
+</script>

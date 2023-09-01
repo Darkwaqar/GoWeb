@@ -1,0 +1,188 @@
+﻿@model CustomerAuctionsModel
+@using Nop.Web.Models.Customer;
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+    //title
+    Html.AddTitleParts(T("PageTitle.Auctions").Text);
+
+    //page class
+    Html.AppendPageCssClassParts("html-account-page");
+    Html.AppendPageCssClassParts("html-auctions-page");
+
+    Html.AddScriptParts("~/Scripts/raty/jquery.raty.js");
+    Html.AddCssFileParts("~/Scripts/raty/jquery.raty.css");
+
+    Html.AddScriptParts("~/Scripts/apexol.tabs.js");
+}
+@section left
+{
+    @Html.Action("CustomerNavigation", "Customer", new { selectedTabId = CustomerNavigationEnum.Auctions })
+}
+
+<div class="page account-page auctions-page">
+    <div class="page-title">
+        <h1>@T("Account.MyAccount") - @T("Account.CustomerAuctions")</h1>
+    </div>
+    <div class="page-body">
+        @if (Model.Items.Count > 0)
+        {
+            <ul id="auctions-tabs-ul" class="cui-tabs">
+                <li>
+                    <a href="#ongoing">@T("Account.Auctions.Tab.Ongoing")</a>
+                </li>
+                <li>
+                    <a href="#ended">@T("Account.Auctions.Tab.Ended")</a>
+                </li>
+            </ul>
+            <div id="ongoing" class="cui-tab-content">
+                @if (Model.Items.Where(x => !x.Ended).Any())
+                {
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <colgroup>
+                                <col width="1" />
+                                <col width="1" />
+                                <col width="1" />
+                                <col width="1" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th class="product-name">
+                                        @T("Account.CustomerAuctions.ProductName")
+                                    </th>
+                                    <th class="status">
+                                        @T("Account.CustomerAuctions.Status")
+                                    </th>
+                                    <th class="higest-bid">
+                                        @T("Account.CustomerAuctions.Highestbid")
+                                    </th>
+                                    <th class="auction-end-time">
+                                        @T("Account.CustomerAuctions.AuctionEndTime")
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ var ongoing = Model.Items.Where(x => !x.Ended); }
+                                @foreach (var item in ongoing)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })">@item.ProductName</a>
+                                        </td>
+                                        <td>
+                                            @if (item.HighestBidder)
+                                            {
+                                                <span class="text-success">@T("Account.CustomerAuctions.Status.HighestBidder")</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">@T("Account.CustomerAuctions.Status.Outbid")</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @item.CurrentBidAmount
+                                            @if (item.CurrentBidAmountValue > item.BidAmountValue)
+                                            {
+                                                <small>(@item.BidAmount)</small>
+                                            }
+                                        </td>
+                                        <td>@item.EndBidDate</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="no-data">
+                                            @T("Account.Auctions.NoOngoingAuctions")
+                                        </div>
+                                    }
+            </div>
+            <div id="ended" class="cui-tab-content">
+                @if (Model.Items.Where(x => x.Ended).Any())
+                {
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <colgroup>
+                                <col width="1" />
+                                <col width="1" />
+                                <col width="1" />
+                                <col width="1" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th class="product-name">
+                                        @T("Account.CustomerAuctions.ProductName")
+                                    </th>
+                                    <th class="higest-bid">
+                                        @T("Account.CustomerAuctions.Highestbid")
+                                    </th>
+                                    <th class="auction-end-time">
+                                        @T("Account.CustomerAuctions.AuctionEndTime")
+                                    </th>
+                                    <th class="status">
+                                        @T("Account.CustomerAuctions.Status")
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ var ended = Model.Items.Where(x => x.Ended); }
+                                @foreach (var item in ended)
+                                        {
+                                        <tr>
+                                            <td>
+                                                <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })">@item.ProductName</a>
+                                            </td>
+                                            <td>
+                                                @item.CurrentBidAmount
+                                                @if (item.CurrentBidAmountValue > item.BidAmountValue)
+                                                    {
+                                                <small>(@item.BidAmount)</small>
+                                                    }
+                                            </td>
+                                            <td>@item.EndBidDate</td>
+                                            <td>
+                                                @if (item.HighestBidder)
+                                                    {
+                                                <span class="text-success">@T("Account.CustomerAuctions.Status.HighestBidder")</span>
+                                                        if (item.OrderId.HasValue)
+                                                        {
+                                                <a href="@Url.RouteUrl("OrderDetails", new { orderId = item.OrderId })">@T("Account.CustomerOrders.OrderDetails")</a>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                <span class="text-danger">@T("Account.CustomerAuctions.Status.Outbid")</span>
+                                                    }
+                                            </td>
+                                        </tr>
+                                        }
+                            </tbody>
+                        </table>
+                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="no-data">
+                                            @T("Account.Auctions.NoEndedAuctions")
+                                        </div>
+                                    }
+            </div>
+        }
+        else
+        {
+            <div class="no-data">
+                @T("Account.Auctions.NoAuctions")
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#auctions-tabs-ul").apexolTabs();
+    })
+</script>

@@ -1,0 +1,113 @@
+﻿@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+@{
+    Html.AddScriptParts("~/Scripts/jquery.magnific-popup.min.js");
+    Html.AddCssFileParts("~/Content/magnific-popup/magnific-popup.css");
+}
+<div class="gallery">
+    <div class="picture">
+        @if (Model.DefaultPictureZoomEnabled)
+        {
+            <a href="@Model.DefaultPictureModel.FullSizeImageUrl" title="@Model.DefaultPictureModel.Title" id="main-product-img-lightbox-anchor-@Model.Id">
+                <img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" itemprop="image" id="main-product-img-@Model.Id" />
+            </a>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#main-product-img-lightbox-anchor-@Model.Id').magnificPopup(
+                    {
+                        type: 'image',
+                        removalDelay: 300,
+                        gallery: {
+                            enabled: true,
+                            tPrev: '@T("Media.MagnificPopup.Previous")',
+                            tNext: '@T("Media.MagnificPopup.Next")',
+                            tCounter: '@T("Media.MagnificPopup.Counter")'
+                        },
+                        tClose: '@T("Media.MagnificPopup.Close")',
+                        tLoading: '@T("Media.MagnificPopup.Loading")'
+                    });
+                });
+            </script>
+        }
+        else
+        {
+            <img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" itemprop="image" id="main-product-img-@Model.Id" />
+            
+
+if (Model.VideoModels.Any())
+            {
+
+<div style="display:block;" class="play-pause-btn-pic" data-click="0" data-toggle="modal" data-target="#VideoContainer" id="main-product-play-img-@Model.Id">
+@*<i class="fa fa-play-circle-o" aria-hidden="true"></i>*@
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+
+               @* <div id="vidBox" style="display:none">
+                    <a class="close-video" style="color: #fff;position: absolute;right: 5%;top: 1%;z-index: 1;border: solid 1px;padding: 5px 10px;" >X</a>
+                    <video style="position:relative;" autoplay id="v1" loop controls="controls"></video>
+                </div>*@
+
+                <script type="text/javascript">
+
+                $(document).ready(function () {
+                    $('#main-product-play-img-@Model.Id').on('click', function () {
+                        var video = document.getElementById('v1');
+                        while (video.firstChild) {
+                            video.firstChild.remove();
+                        }
+                        var source = document.createElement('source');
+                        video.pause();
+                        source.setAttribute('src','@Model.VideoModels[0].VideoUrl');
+                        video.appendChild(source);
+                        video.load();
+                        video.play();
+                        $('#main-product-play-img-@Model.Id').css("display", "none");
+
+                        //$('#main-product-img-@Model.Id').hide();
+                        $('#vidBox').fadeIn();
+                        $('#vidBox').css("display", "flex");
+                        $("#VideoContainer").css("padding-right", "0");
+                        
+                    });
+                    //use if want to zoom image which are thumbs
+                    //$(".picture-thumbs img").fullscreenimage()
+
+			$("#VideoContainer").on('hidden.bs.modal', function () {
+                                var video = document.getElementById('v1');
+                                while (video.firstChild) {
+                                    video.firstChild.remove();
+                                }
+                            //var source = document.createElement('source');
+                            video.pause();
+                            $('#vidBox',"#VideoContainer").fadeOut(function () {
+                                $('#main-product-img-@Model.Id').show();
+                                $('#main-product-play-img-@Model.Id').show();
+                            });
+                        });
+
+                    $('.close-video').on('click', function () {
+                            var video = document.getElementById('v1');
+                            while (video.firstChild) {
+                                video.firstChild.remove();
+                            }
+                        //var source = document.createElement('source');
+                        video.pause();
+                        $('#vidBox').fadeOut(function () {
+                            $('#main-product-img-@Model.Id').show();
+                           // $('#main-product-play-img-@Model.Id').show();
+                        });
+			$("#VideoContainer").on('hidden.bs.modal').click();
+
+                    });
+
+                });
+                </script>
+
+            }
+
+
+        }
+    </div>
+
+
+</div>

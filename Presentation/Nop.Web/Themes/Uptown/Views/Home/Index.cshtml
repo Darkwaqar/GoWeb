@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+}
+
+<div class="page home-page">
+    <div class="page-body">
+        @Html.Widget("home_page_top")
+        @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageText" })
+        @Html.Widget("home_page_before_categories")
+        @Html.Action("HomepageCategories", "Catalog")
+        @Html.Widget("home_page_before_products")
+        @*@Html.Action("HomepageProducts", "Product")*@
+        <div class="home-page-banners">
+            @Html.Widget("uptown_home_page_banners")
+        </div>
+	@*@Html.Action("HomepageBestSellers", "Product")*@
+	@* @Html.Action("HomepageProducts", "Product") *@
+
+        <div class="thingki">
+        @*<div class="title" style="width: 100%; padding: 10px; margin: 0 0 20px; font-size: 22px;
+            border-bottom: 1px solid #f1f1f1; text-align: center; text-transform: uppercase; ">
+            <strong>Spot & Buy</strong>
+        </div>
+            <iframe class="thingkii" src="https://www.thinglink.com/card/1256276851861487619" type="text/html" frameborder="0" webkitallowfullscreen 		mozallowfullscreen allowfullscreen scrolling="no">
+            </iframe>
+            <script async src="//cdn.thinglink.me/jse/responsive.js"></script>*@
+        <img src="~/Themes/Uptown/Content/img/HomeBanner/image.png" width="100%"/>
+    </div>
+    <div class="thingki-mob">
+        @*<div class="title" style=" width: 100%; padding: 10px; margin: 0 0 20px; font-size: 22px;
+                border-bottom: 1px solid #f1f1f1; text-align: center; text-transform: uppercase;">
+                    <strong>Best seller</strong>
+        </div>
+        <iframe class="thingkii-mob" src="https://www.thinglink.com/card/1256298045792845827" type="text/html" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen scrolling="no"></iframe>
+        <script async src="//cdn.thinglink.me/jse/responsive.js"></script>*@
+        <img src="~/Themes/Uptown/Content/img/HomeBanner/imageMobile.png" width="100%" />
+    </div>
+
+	@Html.Widget("home_page_before_best_sellers")
+        
+        @Html.Widget("home_page_before_news")
+        @Html.Action("HomePageNews", "News")
+        @Html.Widget("home_page_before_poll")
+        @Html.Action("HomePagePolls", "Poll")
+        <div class="home-page-blog-social-wrapper">
+            @Html.Widget("uptown_theme_home_blog")
+            @Html.Widget("uptown_theme_home_social_feed")
+        </div>
+        @Html.Widget("home_page_bottom")
+    </div>
+</div>

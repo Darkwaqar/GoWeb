@@ -1,0 +1,341 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+
+    string FirsttimeUser = string.Empty;
+    HttpCookie reqCookies = Request.Cookies["User"];
+    if (reqCookies == null)
+    {
+        string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+        if (domainName == "https://sheearns.gomobishop.com")
+        {
+            HttpCookie user = new HttpCookie("User");
+            user["FirsttimeUser"] = "true";
+            Response.Cookies.Add(user);
+            Response.Redirect("~/vendor/all?sheearns=true");
+        }
+    }
+}
+<div class="page home-page">
+    <div class="page-body">
+        <div class="mainslider">
+             @*@Html.Widget("home_page_top")*@
+            <div class="mainbanner">
+                 <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/moazzam/bannernew.jpg" />
+                <div class="banner-caption">
+              
+                  <!--   <h3><img src="~/Themes/moazzamKhanCo/Content/images/moazzam/banner-txt.png" /></h3> -->
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mobile-view">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/moazzam/mbanner.jpg" />
+                            <div class="cateinfo">
+                                <h2>Red Fire</h2>
+                                <p class="catefont-2">
+                                    There’s a shade of red for every girl. Red; it epitomizes passion, symbolizes love, breathes rage, and instills courage.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/moazzam/mbanner-2.jpg" />
+                           
+                        </div>
+                        <div class="col-xs-12 mobile-slider">
+                            <div class="owl-carousel owl-theme">
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-1.jpg">  <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-1.jpg" /></a></div>
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-2.jpg">  <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-2.jpg" /></a></div>
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-3.jpg">  <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-3.jpg" /></a></div>
+
+                            </div>
+                             <div class="cateinfo">
+                                <h2>Burgeoning Desire</h2>
+                                <p class="catefont-2">
+                                    Red is not just a color.<br /> It’s an attitude. It’s a story. It’s art that not everyone understands.
+                                </p>
+                            </div>
+                            <div class="btnholder-new">
+                                <a href="/mk-bridal-02">DISCOVER MORE</a>
+                            </div>
+                        </div>
+<div class="col-xs-12 cate-white">
+   <div class="row">
+                        <div class="col-xs-12">
+                            <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/moazzam/mbanner-3.jpg" />
+                           
+                        </div>
+
+                        <div class="col-xs-12 mobile-slider">
+                            <div class="owl-carousel owl-theme">
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-1.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-1.jpg" /></a></div>
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-2.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-2.jpg" /></a></div>
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-3.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-3.jpg" /></a></div>
+
+
+                            </div>
+                             <div class="cateinfo">
+                                <h2>Burning Star</h2>
+                                <p class="catefont-2">
+                                    “Be your own kind of beautiful, and you’ll see, that suddenly all the love songs are about you.”
+
+                                </p>
+                            </div>
+                            
+                            <div class="btnholder-new">
+                                <a href="/mk-bridal-03">DISCOVER MORE</a>
+                            </div>
+                        </div>
+    </div>
+</div>
+                        <div class="col-xs-12">
+                            <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/moazzam/mbanner-5.jpg" />
+                            
+                            <div class="mobile-slider">
+                                <div class="owl-carousel owl-theme">
+                                    <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-1.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-1.jpg" /></a></div>
+                                    <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-2.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-2.jpg" /></a></div>
+                                    <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-3.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-3.jpg" /></a></div>
+                                </div>
+                            </div>
+                            <div class="cateinfo">
+                                <h2>Create Your Magic</h2>
+                                <p class="catefont-2">
+                                    “Black may be a universal color, but red is an acquired obsession.”
+                                </p>
+                            </div>
+                            <div class="btnholder-new">
+                                <a href="/mk-bridal-01-2">DISCOVER MORE</a>
+                            </div>
+                        </div>
+                      
+
+                    </div>
+
+                </div>
+            </div>
+           
+         
+        </div>
+        
+        @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageText" })
+        @*@Html.Widget("home_page_before_categories")*@
+
+        <div class="container-fluid">
+                <div class="row">
+                        <div class="top-txtholder">
+                            <p>There’s a shade of red for every girl. Red; it epitomizes passion, symbolizes love, breathes rage, and instills courage. Red; the color that dreams are made of. Red; the color of the forbidden fruit. Red; the stuff of fantasies and dreams.</p>
+                            <p><strong>Red – The Fire.</strong></p>
+                        </div>
+                    </div><!-- // Row -->
+            </div><!-- Container-fluid-->
+
+
+
+
+      
+        <div class="row contact-row">
+            
+            <div class="col-md-10 contact-links">
+                <ul>
+                    <li>
+                        <a class="whatsapp">
+                            <span>whatsapp</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="call">
+                            <span>call</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="email">
+                            <span>email</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="location">
+                            <span>location</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-2 ithadto mobile-d-none">
+                <img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/logo/ithadtobe.jpg" />
+            </div>
+        </div>
+
+        @*<div class="row mobile-d-none">
+            <div class="col-md-12">
+                <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/logo/Banner1.jpg" />
+            </div>
+        </div>*@
+        <div class="container-fluid">
+            <div class="row">
+                <div class="new-wrapper">
+                    <div class="banner-cate">
+                       <img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/moazzam/banner-1.jpg" />
+
+<div class="banner-txt banner-txt-a">
+    <p>Red is not just a color.</p>
+    <p>It’s an attitude. It’s a story. It’s art that </p>
+    <p>not everyone understands.</p>
+    <a href="/mk-bridal-02">Discover more</a>
+</div>
+                        @*<div class="banner-txt">
+                            <p>Red is not just a color.<br /> It’s an attitude. It’s a story. It’s art that not everyone understands.</p>
+                            <a href="/mk-bridal-02">Discover more</a>
+                        </div> *@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="banner-cate" style="margin-top: 40px;">
+                      @* <img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/moazzam/banner-2.jpg" />*@
+<img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/moazzam/CreateYourMagic.jpg" />
+
+                        <div class="banner-txt banner-position-2">
+                            <p>“Black may be a universal color, but red is an acquired obsession.”</p>
+                            <a href="/mk-bridal-01-2">Discover more</a>
+                        </div>
+                    </div>
+
+                
+            </div><!-- // Row // -->
+        </div><!-- // Container-fluid // -->
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="new-wrapper">
+                     <div class="banner-cate" style="margin-top: 40px;">
+                       @* <img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/moazzam/banner-3.jpg" />*@
+<img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/moazzam/BurningStar.jpg" />
+                        <div class="banner-txt banner-position-3">
+                            <p>“Be your own kind of beautiful, and you’ll see, that suddenly all the love songs are about you.”</p>
+                            <a href="/mk-bridal-03">Discover more</a>
+                        </div>
+                    </div>
+
+                    <!-- <div class="banner-cate" style="margin-top: 40px;">
+                        <img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/moazzam/banner-4.jpg" />
+                    </div> -->
+                    
+                </div>
+            </div><!-- // Row // -->
+        </div><!-- // Container-fluid // -->
+
+      @* <div class="container-fluid" style="display:none">
+            <div class="row follow-up" style="margin-top: 40px;">
+                <div class="new-wrapper">
+                    <div class="col-md-6" style="display:none"><a target="_blank" href="https://www.gomobishop.com/share?sid=326"><img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/moazzam/download-banner.jpg" /></a> </div>
+                    <div class="col-md-6">
+                        <div id="moveInsta">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div><!-- // Row // -->
+        </div><!-- // Container-fluid // --> *@
+
+	<div class="container-fluid weding-store">
+		<div class="row">
+    <div class="hidden-sm hidden-xs col-md-12">
+<img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/moazzam/shareyourweddingstoryWeb.jpg" />
+    </div>
+    <div class="hidden-md hidden-lg col-sm-12 ">
+<img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/moazzam/shareyourweddingstoryMobile.jpg" />
+    </div>
+		</div>
+        </div><!-- // Container-fluid // -->
+
+        <div class="contain">
+		
+            @Html.Widget("home_page_main_slider1")
+            @*@Html.Widget("home_page_before_products")*@
+            @*@Html.Action("HomepageCategories", "Catalog")*@
+        </div>
+        <!--marg-->
+
+       <!--  <div class="container collection-banner mobile-d-none">
+            <div class="row">
+                <div class="col-md-5 text-center">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/logo/CBH/pic1.jpg" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/logo/CBH/pic2.jpg" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-7 text-center">
+                    <a href="#">
+                        <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/logo/CBH/pic3.jpg" />
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="view-clc-btn">
+                        <p>
+                            <a href="/moazzamkhanstaticpage">
+                                Discover More
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+       <!--  <div class="col-12 mobile-d-none" style="margin-top:40px;">
+            <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/logo/lastBanner.jpg" />
+        </div> -->
+      <!--   <div class="row mobile-d-none">
+            <div class="col-md-6" style="padding:0;">
+                <div class="col-md-12 bannerTextBody">
+                    <div class="col-md-12 bannerText">
+                        <h3> Download Apps </h3>
+                    </div>
+                    <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/logo/DownloadApps.jpg" />
+                    <div class="col-md-12 text-center appIcon">
+                        <div class="col-md-12">
+                            <a href="#"><img src="~/Themes/moazzamKhanCo/Content/images/logo/GoogleIcone.png" /></a>
+                            <a href="#"><img src="~/Themes/moazzamKhanCo/Content/images/logo/IOSIcone.png" /></a>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="padding:0;">
+                
+            </div>
+        </div> -->
+        @*@Html.Action("HomepageProducts", "Product")*@
+        @Html.Widget("home_page_before_best_sellers")
+        @*@Html.Action("HomepageBestSellers", "Product")*@
+        @Html.Widget("home_page_before_news")
+        @Html.Action("HomePageNews", "News")
+        @Html.Widget("home_page_before_poll")
+        @Html.Action("HomePagePolls", "Poll")
+ 	<div class="row top-buffer">
+            <div class="col-md-12">
+                <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+                <div class="elfsight-app-67259936-39e9-447b-9ca2-c15c9983fa0a"></div>
+            </div>
+        </div>
+        @Html.Widget("home_page_bottom")
+    </div>
+</div>
+

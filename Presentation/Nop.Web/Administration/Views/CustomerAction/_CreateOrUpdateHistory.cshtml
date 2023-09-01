@@ -1,0 +1,72 @@
+﻿@model CustomerActionModel
+
+<div class="panel-group">
+    @if (Model.Id > 0)
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="history-grid"></div>
+                <script>
+                        $(document).ready(function () {
+                            $("#history-grid").kendoGrid({
+                                dataSource: {
+                                    type: "json",
+                                    transport: {
+                                        read: {
+                                            url: "@Html.Raw(Url.Action("History", "CustomerAction", new { customerActionId = Model.Id }))",
+                                            type: "POST",
+                                            dataType: "json",
+                                            data: addAntiForgeryToken
+                                        }
+                                    },
+                                    schema: {
+                                        data: "Data",
+                                        total: "Total",
+                                        errors: "Errors"
+                                    },
+                                    error: function(e) {
+                                        display_kendoui_grid_error(e);
+                                        // Cancel the changes
+                                        this.cancelChanges();
+                                    },
+                                    serverPaging: true,
+                                    serverFiltering: true,
+                                    serverSorting: true
+                                },
+                                pageable: {
+                                    refresh: true,
+                                    numeric: false,
+                                    previousNext: false,
+                                    info: false,
+                                    @Html.Partial("_GridPagerMessages")
+                                },
+                                editable: {
+                                    confirmation: "@T("Admin.Common.DeleteConfirmation")",
+                                    mode: "inline"
+                                },
+                                scrollable: false,
+                                columns: [{
+                                    field: "Item2",
+                                    title: "@T("Admin.Customers.CustomerAction.History.Fields.CreateDate")",
+                                    width: 200,
+                                    type: "date",
+                                    format: "{0:G}"
+                                },
+                                {
+                                    field: "Item1",
+                                    title: "@T("Admin.Customers.CustomerAction.History.Fields.Customer")",
+                                    width: 100,
+                                }]
+                            });
+                        });
+                </script>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="panel-body">
+            @T("Admin.Customers.CustomerAction.SaveBeforeEdit")
+        </div>
+    }
+</div>

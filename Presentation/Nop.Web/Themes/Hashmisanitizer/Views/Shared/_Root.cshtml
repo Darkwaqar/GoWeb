@@ -1,0 +1,410 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+
+@if (isHomePage)
+{
+
+
+            <div class="container-fluid">
+        <div class="row">
+            <div class="video-holder">
+                 <video width="100%" autoplay muted loop playsinline preload="yes">
+                <source src="~/Themes/Hashmisanitizer/Content/video/sanitizer-tvc.mp4" type="video/mp4">
+                <!-- <source src="video/hashmi.ogv" type="video/ogg">
+                <source src="video/hashmi.webm" type="video/webm"> -->
+            </video>
+            </div><!-- // Video Holder // -->
+        </div><!-- // Row // -->
+    </div><!-- // Container-fluid // -->
+
+    
+
+}
+
+<div class="container-fluid bg-img">
+        <div class="row main-nav bg-green desktop-nav">
+            <div class="nav-wrapper">
+            <nav class="navbar navbar-expand-md navbar-dark">
+            @Html.Action("Logo", "Common")
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav nav-leftholder">
+                <a href="#" class="nav-item nav-link">SHOP</a>
+                <a href="#" class="nav-item nav-link">SINCE 1794</a>
+                <a href="#" class="nav-item nav-link">MEDIA</a>
+         
+            </div>
+            
+            <div class="navbar-nav ml-auto right-icon">
+              
+                <a href="javascript:;" onclick="openNav()" class="nav-item nav-link"><img src="/Themes/Hashmisanitizer/Content/images/search-icon.png" alt=""></a> 
+                 <a href="/cart" class="nav-item nav-link"><img src="/Themes/Hashmisanitizer/Content/images/cart-icon.png"></a>
+
+             </div>
+            
+            </div>
+        </nav>
+        </div><!-- // nav-wrapper // -->
+        </div><!-- // Row / -->
+
+<div class="desktop-view">
+
+
+
+
+    <div class="row section-spc scene section" id="sticky">
+        <div class="container">
+            <div class="row inrow-sani" data-title="Hand Sanitizer" data-image="">
+                <div class="col-md-4 protxt-box">
+                <h4><img src="~/Themes/Hashmisanitizer/Content/images/hashmi-logo.png"></h4>
+                <p>Ensuring effective and complete protection against allergens, bacteria, malodors and viruses; gentle care for your whole family. </p>
+
+                <div class="arq-leftholder"><img src="~/Themes/Hashmisanitizer/Content/images/arq-left.png" alt="Arq-e-Gulab">
+
+                </div>
+                <div class="pro-weightlist">
+                    <ul>
+                        <li>60ml </li>
+                        <li>250ml</li>
+                        
+                    </ul>
+                </div>
+            </div><!-- // Col // -->
+            <div class="col-md-4 pimgmain">
+                <div class="proimg-main">
+                    <section class="">
+                      <div class="viewer"></div>
+                    </section>
+                </div>
+            </div><!-- // Col // -->
+            <div class="col-md-4">
+                <div class="arq-rightholder"><img src="~/Themes/Hashmisanitizer/Content/images/arq-right.png" alt="Arq-e-Gulab"></div>
+                
+                <div class="pro-nav-section">
+                    <ul>
+                        <li>
+                            <a href="javascript:;">FEATURES</a>
+                            <div class="featxt-holder">
+                                <ul>
+                                    <i class="btnclose fa fa-close"></i>
+                                    <li>80% Alcohol based</li>
+                                    <li>Effectively Kills germs up to 99.9%</li>
+                                    <li>Gentle on the skin</li>
+                                    <li>Suitable for all age groups</li>
+                                    <li>Refreshing scent</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:;">INGREDIENTS</a>
+                            
+                        </li>
+                        <li>
+                            <a href="javascript:;">USAGE</a>
+                            <div class="featxt-holder">
+                                <ul>
+                                    <i class="btnclose fa fa-close"></i>
+                                    <li>For external use only</li>
+                                    <li>Avoid contact with eyes. In case of contact, rinse thoroughly with water &amp; consult your physician</li>
+                                    <li>Protest from direct sunlight</li>
+                                    <li>Flammable! Keep away from sources of ignition</li>
+                                    <li>Keep out of reach of children</li>
+                                    <li>Do not use on broken, bruised or burnt skin</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- <li><a href="javascript:;">OTHERS</a></li> -->
+                    </ul>
+                </div>
+            </div><!-- // Col // -->
+            </div><!-- // Row // -->
+        </div><!-- // Container // -->
+    </div><!-- // Row // -->
+
+    <div class="row">
+        <div class="container">
+            <div class="row align-items-center whomaintxt-holder">
+                <div class="col-4 mcol">
+                    <div class="whotxt">
+                        <h4>What exactly is HASHMI SANITIZER’s Formula?</h4>
+                        <p>Hashmi Sanitizer has been formulated in accordance with the latest scientific and health conserns in view. With an 80% alcohol concentration, Hashmi Sanitizer enures the eradication of 99.9% germs, when used as directed. Hashmi Sanitizer is a multi-purpose disinfectant that is suitable for all age groups. It gently cares for you while being tough on viruses and antigens.</p>
+                    </div>
+                </div><!-- // Col // -->
+                <div class="col-6"> <img src="~/Themes/Hashmisanitizer/Content/images/bubble.png" alt=""></div>
+                <div class="col-2 whoimgholder">
+                    <img src="~/Themes/Hashmisanitizer/Content/images/who.png">
+                </div><!-- // Col // -->
+            </div><!-- // Row // -->
+
+        </div><!-- // Container // -->
+    </div><!-- // Row // --->
+
+    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                    <div class="saniwork-list">
+                        <h3><img src="/Themes/Hashmisanitizer/Content/images/ehtiyaat.png" alt="Ehtiyaat Apki"></h3>
+                        <ul>
+                            
+                            <li>
+                                <img src="/Themes/Hashmisanitizer/Content/images/icon-2.png" alt="">
+                                <h4>Keeps skin fresh</h4>
+                            </li>
+                            <li>
+                                <img src="/Themes/Hashmisanitizer/Content/images/icon-3.png" alt="">
+                                <h4>Keeps skin fresh</h4>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div><!-- // Col // -->
+                <div class="col-md-6 p-0 imgholder-2">
+                    <img src="/Themes/Hashmisanitizer/Content/images/img.png" alt=""> 
+                </div><!-- // Col // -->
+                    </div><!-- // Row // -->
+     
+     <div class="row subcribe-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 subform-area">
+                            <form action="#" method="post">
+                                <input type="email" name="email" placeholder="Email">
+                                <input type="submit" value="SUBSCRIBE" name="submit">
+                            </form>
+                        </div><!-- // Col // -->
+                    </div><!-- // Row // -->
+                </div><!-- // Container // -->
+            </div><!-- // Row // -->
+
+            <div class="row fsocial-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 flinks">
+                            <ul>
+                                <li><a href="javascript:;">Shop</a></li>
+                                <li><a href="javascript:;">Career</a></li>
+                                <li><a href="javascript:;">TERMS & CONDITIONS</a></li>
+                            </ul>
+                        </div><!-- // Col // -->
+                        <div class="col-md-3 fsocial-inner">
+                            <ul>
+                                <li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="javascript:;"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="javascript:;"><i class="fa fa-whatsapp"></i></a></li>
+                            </ul>
+                        </div><!-- // Col // -->
+                        <div class="col-md-3 ftxt">
+                            <h3>TRUSTED<br>SINCE 1794</h3>
+                        </div><!-- // Col // -->
+                    </div><!-- // Row // -->
+                </div><!-- // Container // -->
+            </div><!-- // Row // -->
+
+
+</div>
+
+<div class="mobile-view">
+
+        <div class="row bg-green mobile-nav">
+            <div class="col-sm-12">
+                <div class="mobile-menu">
+                    <a href="javascript:;" class="shownav"><img src="~/Themes/Hashmisanitizer/Content/images/menu-bar.png"></a>
+
+                    <a href="#" class="navbar-brand"><img src="~/Themes/Hashmisanitizer/Content/images/logo.png" alt="Hashmi"></a>
+                       <div class="navbar-nav ml-auto right-icon">
+              
+                <a href="javascript:;" onclick="openNav()" class="nav-item nav-link"><img src="/Themes/Hashmisanitizer/Content/images/search-icon.png" alt=""></a> 
+                 <a href="/cart" class="nav-item nav-link"><img src="/Themes/Hashmisanitizer/Content/images/cart-icon.png"></a>
+
+             </div>
+
+             <div class="inner" style="display: none;">
+                <ul>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Since 1794</a></li>
+                    <li><a href="#">Media</a></li>
+                  
+                </ul>
+                </div>
+                    
+                </div>
+            </div>
+           
+    </div><!-- // Row / -->
+    
+    <div class="row bg-black section-spc scene-mobile section" id="stickymobile">
+        <div class="container">
+            <div class="row inrow-sani">
+                <div class="mobile-leftholder">
+                    <img src="~/Themes/Hashmisanitizer/Content/images/arq-left.png">
+                </div>
+            <div class="col-md-4 pimgmain">
+                <div class="proimg-main">
+                    <section class="">
+                      <div class="mobileviewer"></div>
+                    </section>
+                </div>
+            </div><!-- // Col // -->
+            <div class="col-xs-12">
+            <div class="sani-txt">
+                <h4><img src="~/Themes/Hashmisanitizer/Content/images/hashmi-logo.png"></h4>
+                <p>Ensuring effective and complete protection against allergens, bacteria, malodors and viruses; gentle care for your whole family.</p>
+            </div>
+
+            <div class="pro-weightlist">
+                    <ul>
+                        <li>60ml </li>
+                        <li>250ml</li>
+                    </ul>
+                </div>
+        </div>
+            </div><!-- // Row // -->
+        </div><!-- // Container // -->
+    </div><!-- // Row // -->
+
+    <div class="row" style="margin-top: -100px;">
+        <div class="container">
+                <div class="col-xs-12">
+                <div class="dumimg-holder">
+                <img src="~/Themes/Hashmisanitizer/Content/images/img.png" alt="">
+            </div>
+        </div><!-- // Col // -->
+        </div><!-- // Container // -->
+    </div><!-- // Row // -->
+
+    <div class="row">
+        <div class="container">
+            <div class="row align-items-center whomaintxt-holder">
+                <div class="col-8 mcol">
+                    <div class="whotxt">
+                        <h4>What exactly is HASHMI SANITIZER’s Formula?</h4>
+                        <p>Hashmi Sanitizer has been formulated in accordance with the latest scientific and health conserns in view. With an 80% alcohol concentration, Hashmi Sanitizer enures the eradication of 99.9% germs, when used as directed. Hashmi Sanitizer is a multi-purpose disinfectant that is suitable for all age groups. It gently cares for you while being tough on viruses and antigens. </p>
+                    </div>
+                </div><!-- // Col // -->
+                <div class="col-4 whoimgholder">
+                    <img src="~/Themes/Hashmisanitizer/Content/images/who.png">
+                </div><!-- // Col // -->
+            </div><!-- // Row // -->
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="saniwork-list">
+                        <h3><img src="/Themes/Hashmisanitizer/Content/images/ehtiyaat.png" alt="Ehtiyaat Apki"></h3>
+                        <ul>
+
+                            
+                            <li>
+                                <img src="~/Themes/Hashmisanitizer/Content/images/icon-2.png" alt="">
+                                <h4>Keeps skin fresh</h4>
+                            </li>
+                            <li>
+                                <img src="~/Themes/Hashmisanitizer/Content/images/icon-3.png" alt="">
+                                <h4>Keeps skin fresh</h4>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                
+                </div><!-- // Col // -->
+                
+            </div>
+        </div><!-- // Container // -->
+    </div><!-- // Row // --->
+
+    <div class="dumimg-holder-mobile">
+                <img src="/Themes/Hashmisanitizer/Content/images/img.png" alt="">
+            </div>
+
+
+    <div class="row subcribe-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 subform-area">
+                            <form action="#" method="post">
+                                <input type="email" name="email" placeholder="Email">
+                                <input type="submit" value="SUBSCRIBE" name="submit">
+                            </form>
+                        </div><!-- // Col // -->
+                    </div><!-- // Row // -->
+                </div><!-- // Container // -->
+            </div><!-- // Row // -->
+
+            <div class="row fsocial-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 flinks">
+                            <ul>
+                                <li><a href="javascript:;">Shop</a></li>
+                                <li><a href="javascript:;">Career</a></li>
+                                <li><a href="javascript:;">TERMS & CONDITIONS</a></li>
+                            </ul>
+                        </div><!-- // Col // -->
+                        <div class="col-md-3 fsocial-inner">
+                            <ul>
+                                <li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="javascript:;"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="javascript:;"><i class="fa fa-whatsapp"></i></a></li>
+                            </ul>
+                        </div><!-- // Col // -->
+                        <div class="col-md-3 ftxt">
+                            <h3>TRUSTED<br>SINCE 1794</h3>
+                        </div><!-- // Col // -->
+                    </div><!-- // Row // -->
+                </div><!-- // Container // -->
+            </div><!-- // Row // -->
+
+
+</div><!-- // Mobile View // -->
+
+</div><!-- // Container-Fluid // -->
+
+
+    
+    
+
+<div class="master-wrapper-page">
+    
+
+
+
+
+
+
+
+  <!--@Html.Action("AdminHeaderLinks", "Common")-->
+    @Html.Partial("Header")
+   
+    <script type="text/javascript">
+         AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+    </script>
+    
+    <div class="master-wrapper-content">
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb") 
+        }
+        <div class="master-column-wrapper">
+            @RenderBody()
+            @Html.Widget("content_after")
+            @Html.Action("Footer", "Common")
+        </div>
+    </div>
+</div>
+@Html.Action("EuCookieLaw", "Common")
+@if (isHomePage)
+{
+    @Html.Widget("body_end_html_tag_before")
+}

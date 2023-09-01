@@ -1,0 +1,190 @@
+﻿@model IList<VendorModel>
+@{
+    Layout = "~/Views/Shared/_MyColumns.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Vendors").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-vendor-list-page");
+}
+@using Nop.Web.Models.Catalog;
+<div class="page vendor-list-page">
+    <div class="page-title">
+        <div class="sheearns-banner">
+
+
+        </div>
+
+        @*<div class="mes">From A to Z</div>*@
+        <div class="alpha-page">
+            <ul class="alpha-list"></ul>
+        </div>
+    </div>
+   
+    <div class="page-body">
+     
+
+        <div class="row">
+        
+            
+            <div class="alpha">
+
+
+            </div>
+            
+
+
+        </div>
+
+
+
+            <ul class="item-grid">
+                @foreach (var item in Model)
+                {
+                    
+                   
+                        <li class="vendor-item">
+                            @*<div class="picture">
+                                <a href="@Url.RouteUrl("Vendor", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                    <img alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" />                                    
+                                </a>
+                                <a class="hover" href="@Url.RouteUrl("Manufacturer", new { SeName = item.SeName })" title="@T("SevenSpikes.Themes.Prisma.Common.ViewAll")"><span>@T("SevenSpikes.Themes.Prisma.Common.ViewAll")</span></a>
+                            </div>*@
+                            
+                                <a href="@Url.RouteUrl("Vendor", new { SeName = item.SeName })" class="brand" title="@item.PictureModel.Title">
+                                    @item.Name
+                                </a>
+                            
+                        </li>
+                    
+                }
+            </ul>
+     
+    </div>
+</div>
+
+<script>
+    // GET PAGE URL 
+
+    (function () {
+
+    
+        var sPageURL = window.location.search.substring(1);
+        var params = sPageURL.split('=');
+        var param = params[0];
+        var ary = [];
+
+        $('.sheearns-banner').hide();
+
+        if (param.toLowerCase() === "designer") {
+
+            $('.page-title').prepend("<h1>Designers</h1>");
+
+        } else if (param.toLowerCase() === "brand") {
+
+            $('.page-title').prepend("<h1>Brands</h1>");
+
+        } else if (param.toLowerCase() === "sheearns") {
+
+            $('.page-title').prepend("<h1>Sheearns</h1>"); 
+
+           // var video = $('<video />', {
+           //     id: 'video',
+           //     src: '/Themes/Prisma/Content/video/sheapps.mp4',
+           //     type: 'video/mp4',
+           //     controls: true,
+           //     autoplay: true,
+           //     muted:true
+           // });
+            $('.sheearns-banner').show();
+           // video.appendTo($('.video'));
+           // ///$('#video').autoplay ;
+           //// $("#video").trigger('play');
+
+        }
+
+
+
+
+        $.fn.sortList = function () {
+            var mylist = $(this);
+            
+            var listitems = $('li', mylist).get();
+            listitems.sort(function (a, b) {
+                var compA = $(a).text().toUpperCase();
+                var compB = $(b).text().toUpperCase();
+                return (compA < compB) ? -1 : 1;
+            });
+            $.each(listitems, function (i, itm) {
+
+                var text = $(itm).find('a').text().trim();
+
+                if (ary.indexOf(text[0].toLowerCase()) == -1) {
+                    ary.push(text[0].toLowerCase());
+                    $('.alpha').append("<div class='designeraz__list__group col-xs-12'><h2 class='title'>"+ text[0] +"</h2><ul class='" + text[0] + "'> </ul></div>");        
+                }
+
+                var list = $('.alpha ul.' + text[0]);
+
+                list.append(itm);
+
+          
+               
+            });
+
+            
+
+      
+
+        }
+
+        $("ul.item-grid").sortList();
+
+
+        $('ul.item-grid li a')
+
+        function genCharArray(charA, charZ) {
+            var a = [], i = charA.charCodeAt(0), j = charZ.charCodeAt(0);
+            for (; i <= j; ++i) {
+                a.push(String.fromCharCode(i));
+            }
+            return a;
+        }
+
+        var alphaArray = genCharArray('a', 'z'); 
+
+       
+        $.each(alphaArray, function (i, itm) {
+
+            $('ul.alpha-list').append("<li><a class='"+ itm +"' href='#'>"+ itm +"</a></li>")
+
+
+        });
+
+        $('.alpha ul.A').addClass('check');
+
+        $('ul.alpha-list a').on('click', function () {
+           
+            var alpha = $(this).attr('class');
+
+         
+            $('.alpha ul').removeClass('check');
+
+            $('.alpha ul.' + alpha.toUpperCase()).addClass('check'); 
+        });
+            
+
+
+
+
+
+
+    })();
+    
+
+
+
+
+
+
+</script>

@@ -1,0 +1,105 @@
+﻿@model CustomerInfoModel.TwoFactorAuthenticationModel
+@using Nop.Web.Models.Customer;
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.TwoFactorAuth").Text);
+    var code = "ManualEntryQrCode";
+    var imageUrl = "QrCodeImageUrl";
+
+}
+@section left
+{
+    @Html.Action("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Info })
+}
+@using (Html.BeginForm())
+{
+    var validationSummary = Html.ValidationSummary(true);
+    if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+    {
+        <div class="message-error">@validationSummary</div>
+    }
+    <div class="page account-page">
+        <div class="page-title">
+            <h1>@T("Account.TwoFactorAuth.Enable")</h1>
+        </div>
+        <div class="page-body">
+            <ul>
+                <li>
+                    <b>@T(string.Format("Account.TwoFactorAuth.{0}.FirstLine", Model.TwoFactorAuthenticationType))</b>
+                    <b>@T(string.Format("Account.TwoFactorAuth.{0}.SecondLine", Model.TwoFactorAuthenticationType))</b>
+                </li>
+                <li>
+                    <b>@T(string.Format("Account.TwoFactorAuth.{0}.ThirdLine", Model.TwoFactorAuthenticationType))</b>
+                    <b>@T(string.Format("Account.TwoFactorAuth.{0}.FourthLine", Model.TwoFactorAuthenticationType))</b>
+                </li>
+            </ul>
+            @if (Model.TwoFactorAuthenticationType == Nop.Core.Domain.Customers.TwoFactorAuthenticationType.AppVerification)
+            {
+                @Html.Widget("Enable.TwoFactorAuthentication.AppVerification")
+                <div class="form-fields">
+                    <div>
+                        <img src="@(Model.CustomValues[imageUrl])" />
+                    </div>
+                    <div>
+                        @T("Account.TwoFactorAuth.ManualSetupCode") @(Model.CustomValues[code])
+                    </div>
+
+                    @Html.HiddenFor(m => m.SecretKey)
+                    @Html.HiddenFor(m => m.TwoFactorAuthenticationType)
+                    @Html.HiddenFor(m => m.CustomValues[code])
+                    @Html.HiddenFor(m => m.CustomValues[imageUrl])
+                    <div class="inputs">
+                        @Html.LabelFor(m => m.Code, new { }, ":")
+                        @Html.TextBoxFor(m => m.Code, new { @class = "Code", autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(m => m.Code)
+                    </div>
+                    <div class="buttons">
+                        <input class="button-1 login-button" type="submit" value="@T("Account.TwoFactorAuth.SendCode")" />
+                    </div>
+                </div>
+            }
+            @if (Model.TwoFactorAuthenticationType == Nop.Core.Domain.Customers.TwoFactorAuthenticationType.EmailVerification)
+            {
+                @Html.Widget("Enable.TwoFactorAuthentication.EmailVerification")
+
+                <div class="form-fields">
+                    @Html.HiddenFor(m => m.SecretKey)
+                    @Html.HiddenFor(m => m.TwoFactorAuthenticationType)
+                    <div class="inputs">
+                        @Html.LabelFor(m => m.Code, new { }, ":")
+                        @Html.TextBoxFor(m => m.Code, new { @class = "Code", autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(m => m.Code)
+                    </div>
+                    <div class="buttons">
+                        <input class="button-1 login-button" type="submit" value="@T("Account.TwoFactorAuth.SendCode")" />
+                    </div>
+                </div>
+            }
+            @if (Model.TwoFactorAuthenticationType == Nop.Core.Domain.Customers.TwoFactorAuthenticationType.SMSVerification)
+            {
+                @Html.Widget("Enable.TwoFactorAuthentication.SMSVerification")
+                <div class="mb-2">
+                    <div class="row flex-md-row mt-3 mb-3">
+                        <div class="col-lg-6 col-12 text-center">
+                            <div class="card">
+                                @Html.HiddenFor(m => m.SecretKey)
+                                @Html.HiddenFor(m => m.TwoFactorAuthenticationType)
+                                <div class="inputs">
+                                    @Html.LabelFor(m => m.Code, new { }, ":")
+                                    @Html.TextBoxFor(m => m.Code, new { @class = "Code", autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(m => m.Code)
+                                </div>
+                                <div class="buttons">
+                                    <input class="btn btn-info login-button" type="submit" value="@T("Account.TwoFactorAuth.SendCode")" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+}

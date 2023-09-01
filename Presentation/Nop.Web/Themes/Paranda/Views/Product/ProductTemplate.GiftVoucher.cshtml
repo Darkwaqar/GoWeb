@@ -1,0 +1,142 @@
+﻿@model ProductDetailsModel
+@using Nop.Core
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Localization;
+@using Nop.Web.Models.Catalog;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title, meta
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+        var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(productUrl);
+    }
+
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        var storeName = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.GetLocalized(x => x.Name);
+        Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Model.MetaDescription) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(storeName) + "\" />");
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        var storeName = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.GetLocalized(x => x.Name);
+        Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(storeName) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Model.MetaDescription) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+    }
+}
+
+@using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+{
+    string fieldPrefix = string.Format("giftcard_{0}.", Model.Id);
+    
+    <div class="gift-voucher">
+        @if (Model.PictureModels.Count > 1) { 
+        <div class="row no-margin">
+            <div class="col-md-12">
+                <img src="@Model.PictureModels[0].FullSizeImageUrl" class="img-responsive" />
+            </div>
+        </div>
+        }
+        <div class="row no-margin bg-2">
+            <div class="col-md-4">
+                @if (Model.PictureModels.Count > 1 )
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="@Model.PictureModels[1].FullSizeImageUrl" class="img-responsive" />
+                        </div>
+                    </div>
+                }
+                else if (Model.PictureModels.Count == 1)
+                { 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="@Model.PictureModels[0].FullSizeImageUrl" class="img-responsive" />
+                        </div>
+                    </div>
+                }else 
+                {
+                    <div></div>
+                }
+                
+            </div>
+            <div class="col-md-8">
+                <div class="amount">
+                    @Model.ProductPrice.Price.Replace(".00","")
+                </div>
+                <div class="row">
+                    <div class="col-md-7">
+                        
+                        <div class="row">
+                           
+                            <div class="col-md-6 nopadding-left">
+                                <label>To</label>
+                                <input type="text" name="@(fieldPrefix)RecipientName" class="textbox3" placeholder="Recipients Name" />
+
+                            </div>
+
+                            <div class="col-md-6 nopadding-left">
+                                <label>From</label>
+                                <input type="text" name="@(fieldPrefix)RecipientEmail" class="textbox3" placeholder="Recipients Email Address" />
+                                
+                                
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-md-6 nopadding-left">
+                                <input type="text" name="@(fieldPrefix)SenderName" class="textbox3" placeholder="Your Name" />
+                                
+                            </div>
+                            <div class="col-md-6 nopadding-left">
+                                <input type="text" name="@(fieldPrefix)SenderEmail" class="textbox3" placeholder="Your Email Address" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 nopadding-left">
+                        <label>Message (Optional)</label>
+                        <textarea name="@(fieldPrefix)Message" class="textbox3"  placeholder="Enter your message here."></textarea>
+
+                    </div>
+                </div>
+                <!--Buttons -->
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <a href="/Gift-Voucher"  class="btn-big" style="background-color:silver">Cancel</a>
+                        <button type="button"  id="add-to-cart-button-@Model.Id" class="btn-big" value="Add to cart" data-productid="@Model.Id" onclick="AjaxCart.addproducttocart_details('/addproducttocart/details/@Model.Id/1', '#product-details-form');return false;" >Send Now</button>
+
+
+                    </div>
+                </div>
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+
+}

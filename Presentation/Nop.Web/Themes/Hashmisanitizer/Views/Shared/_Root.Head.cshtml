@@ -1,0 +1,118 @@
+﻿@using Nop.Core.Domain;
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Security;
+
+@{
+    var storeSettings = EngineContext.Current.Resolve<StoreInformationSettings>();
+    var permissionService = EngineContext.Current.Resolve<IPermissionService>();
+    var displayMiniProfiler = storeSettings.DisplayMiniProfilerInPublicStore
+        && (!storeSettings.DisplayMiniProfilerForAdminOnly || permissionService.Authorize(StandardPermissionProvider.AccessAdminPanel));
+
+    Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");
+    Html.AppendScriptParts("~/Scripts/public.common.js");
+    Html.AppendScriptParts("~/Scripts/jquery-migrate-1.2.1.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery-ui-1.10.3.custom.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery.validate.unobtrusive.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery.validate.min.js");
+    //Html.AppendScriptParts("~/Scripts/jquery-1.10.2.min.js");
+
+    //X-UA-Compatible tag
+    var commonSettings = EngineContext.Current.Resolve<CommonSettings>();
+    if (commonSettings.RenderXuaCompatible)
+    {
+        Html.AppendHeadCustomParts(string.Format("<meta http-equiv=\"X-UA-Compatible\" content=\"{0}\"/>", commonSettings.XuaCompatibleValue));
+    }
+    //custom tag(s)
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+    if (!string.IsNullOrEmpty(seoSettings.CustomHeadTags))
+    {
+        Html.AppendHeadCustomParts(seoSettings.CustomHeadTags);
+    }
+}
+<!DOCTYPE html>
+<html @(this.ShouldUseRtlTheme() ? Html.Raw(" dir=\"rtl\"") : null) @Html.NopPageCssClasses()>
+    <head>
+        <title>Hashmi Sanitizer</title>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+        <meta name="description" content="@(Html.NopMetaDescription())" />
+        <meta name="keywords" content="@(Html.NopMetaKeywords())" />
+        <meta name="generator" content="nopCommerce" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	    <meta name="google-site-verification" content="PoAvNE0uTMRRQWWRPprgCVInxgqectU_suSHI_95AEw" />
+        @Html.NopHeadCustom()
+        @*This is used so that themes can inject content into the header*@
+        @Html.Partial("Head")
+        @Html.Widget("head_html_tag")
+        @Html.NopCssFiles(this.Url, ResourceLocation.Head)
+        @Html.NopScripts(this.Url, ResourceLocation.Head)
+        @Html.NopCanonicalUrls()
+        @Html.Action("RssHeaderLink", "News")
+        @Html.Action("RssHeaderLink", "Blog")
+        @*Favicon - upload favicon.ico file to the root directory*@
+        @Html.Action("Favicon", "Common")
+        @if (displayMiniProfiler)
+        {
+            @StackExchange.Profiling.MiniProfiler.RenderIncludes()
+        }
+        <!--Powered by nopCommerce - http://www.nopCommerce.com-->
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+        <!-- mail chimp code Start -->
+        <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/516281fa86d12ff6f4a9951f2/59a2fe20234f06f989dac5715.js");</script>
+        <!-- mail chimp code End -->
+
+        <!-- Facebook Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+            document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '587452115385383', {
+            em: 'insert_email_variable'
+            });
+            fbq('track', 'PageView');
+        </script>
+        <noscript>
+            <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=587452115385383&ev=PageView&noscript=1" />
+        </noscript>
+        <!-- DO NOT MODIFY -->
+        <!-- End Facebook Pixel Code -->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154628625-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-154628625-1', { 'optimize_id': 'GTM-KKHV97P'});
+        </script>
+
+        <!-- Google New1-->
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WMVC4K2');</script>
+        <!-- End Google Tag Manager -->
+
+
+    </head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WMVC4K2" height="0" width="0" style="display:none;visibility:hidden">
+    </iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    @RenderBody()
+    @Html.NopCssFiles(this.Url, ResourceLocation.Foot)
+    @Html.NopScripts(this.Url, ResourceLocation.Foot)
+</body>
+</html>

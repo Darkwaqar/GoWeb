@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    //var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+    //var myContainer = "";
+    //if (isHomePage)
+    //{
+    //    myContainer = "myContainer-home";
+    //} else if (!isHomePage)
+    //{
+    //    myContainer = "myContainer";
+    //}
+
+
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+
+@Html.Action("AdminHeaderLinks", "Common")
+@Html.Partial("Header")
+
+<div class="master-wrapper-page" id="myContainer">
+
+    <script type="text/javascript">
+        AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+
+        function cartQty() {
+            var tx = $("#carty").text();
+            var fd = tx.replace(/\s/g, '');
+            fd.replace("NaN", "");
+            if (fd == "0") {
+                $(".cart-qty").hide();
+            } else {
+                $(".cart-qty").show();
+            }
+        }
+        $(document).on("DOMSubtreeModified", "#carty", function () {
+            console.log("DOMSubtreeModified");
+            cartQty()
+        });
+        cartQty()
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#toggle").click(function () {
+                $(this).toggleClass("on");
+                $("#menu").slideToggle();
+            });
+
+            $('#myContainer-inner').multiscroll({
+                navigation: false,
+                loopBottom: true,
+                loopTop: false
+            });
+        });
+    </script>
+
+
+
+    @*<div class="header-menu">
+            @Html.Action("TopMenu", "Catalog")
+
+        </div>*@
+    <div id="toggle">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+    </div>
+    <div id="menu">
+        <div class="menuholder-nav">
+            <div class="menumain leftmenu">
+                @Html.Widget("paranda_content_before_left")
+            </div>
+
+            <div class="menumain rightmenu">
+                @Html.Widget("paranda_content_after_right")
+                 <!-- @Html.Action("HeaderLinks", "Common") -->
+                
+              <!--   @Html.Action("FlyoutShoppingCart", "ShoppingCart") -->
+            </div>
+        </div>
+    </div>
+
+    <div class="master-wrapper-content">
+        @Html.Widget("content_before")
+        @Html.Widget("content_after")
+
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb")
+        }
+        <div class="master-column-wrapper">
+            @RenderBody()
+        </div>
+        @Html.Widget("content_after")
+    </div>
+    @Html.Action("Footer", "Common")
+</div>
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")

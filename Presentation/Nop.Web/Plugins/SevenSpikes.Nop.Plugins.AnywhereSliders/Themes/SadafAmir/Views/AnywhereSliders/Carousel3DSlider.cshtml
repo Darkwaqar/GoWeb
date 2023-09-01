@@ -1,0 +1,78 @@
+﻿@** Copyright 2015 Seven Spikes Ltd. All rights reserved. (http://www.nop-templates.com)
+    * http://www.nop-templates.com/t/licensinginfo
+*@
+
+@using SevenSpikes.Nop.Plugins.AnywhereSliders.Models.Carousel3D
+
+@model Carousel3DModel
+
+@{
+    Layout = null;
+    if (Model.SliderImages != null && Model.SliderImages.Count > 0)
+    {
+        // add css
+        Html.AppendCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.AnywhereSliders/Themes/" + Model.Theme + "/Content/css/owl.carousel.min.css");
+        // add javascript
+        Html.AddScriptParts("~/Plugins/SevenSpikes.Nop.Plugins.AnywhereSliders/Themes/" + Model.Theme + "/Content/js/owl.carousel.js");
+
+        <div class="banner">
+            <div class="owl-carousel owl-theme"
+                data-sliderHtmlElementId="@Model.SliderHtmlElementId"
+                data-yRadius="@Model.Settings.YRadius"
+                data-xPos="@Model.Settings.XPosition"
+                data-yPos="@Model.Settings.YPosition"
+                data-speed="@Model.Settings.Speed"
+                data-mouseWheel="@Model.Settings.MouseWheel"
+                data-autoRotateDelay="@Model.Settings.AutoRotateDelay"
+                data-autoRotate="@Model.Settings.AutoRotate.ToString().ToLowerInvariant()">
+                @foreach (var sliderImage in Model.SliderImages)
+                {
+                <div id="@Model.SliderHtmlElementId" class="item">
+                    @{
+                        var url = "#";
+                        if (!string.IsNullOrWhiteSpace(sliderImage.Url))
+                        {
+                            url = sliderImage.Url;
+                        }
+                    }
+                   
+                    <div class="banner-text no-bg">
+                        @Html.Raw(sliderImage.DisplayText)
+                    </div>
+                    
+                    
+                    <a href="@url" class="title" >
+                        <img src="@sliderImage.PicturePath" alt="@sliderImage.Alt" />
+                    </a>
+                   
+                </div>
+                }
+            </div>
+            <div class="banner-text no-color"></div>
+        </div>
+        
+        <script>
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            loop: true,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplaySpeed: 1000,
+            autoplayHoverPause: true,
+            thumbs: false,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 1
+                }
+            }
+        })
+        </script>
+    }
+}

@@ -1,0 +1,194 @@
+﻿@using Nop.Core.Domain;
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Security;
+
+@{
+    var storeSettings = EngineContext.Current.Resolve<StoreInformationSettings>();
+    var permissionService = EngineContext.Current.Resolve<IPermissionService>();
+    var displayMiniProfiler = storeSettings.DisplayMiniProfilerInPublicStore
+        && (!storeSettings.DisplayMiniProfilerForAdminOnly || permissionService.Authorize(StandardPermissionProvider.AccessAdminPanel));
+
+    Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");
+    Html.AppendScriptParts("~/Scripts/public.common.js");
+    Html.AppendScriptParts("~/Scripts/jquery-migrate-1.2.1.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery-ui-1.10.3.custom.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery.validate.unobtrusive.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery.validate.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery-1.10.2.min.js");
+
+    //X-UA-Compatible tag
+    var commonSettings = EngineContext.Current.Resolve<CommonSettings>();
+    if (commonSettings.RenderXuaCompatible)
+    {
+        Html.AppendHeadCustomParts(string.Format("<meta http-equiv=\"X-UA-Compatible\" content=\"{0}\"/>", commonSettings.XuaCompatibleValue));
+    }
+    //custom tag(s)
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+    if (!string.IsNullOrEmpty(seoSettings.CustomHeadTags))
+    {
+        Html.AppendHeadCustomParts(seoSettings.CustomHeadTags);
+    }
+}
+<!DOCTYPE html>
+<html@(this.ShouldUseRtlTheme() ? Html.Raw(" dir=\"rtl\"") : null) @Html.NopPageCssClasses()>
+    <head>
+        <title>@Html.NopTitle()</title>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+        <meta name="description" content="@(Html.NopMetaDescription())" />
+        <meta name="keywords" content="@(Html.NopMetaKeywords())" />
+        <meta name="generator" content="nopCommerce" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+        @Html.NopHeadCustom()
+        @*This is used so that themes can inject content into the header*@
+        @Html.Partial("Head")
+        @Html.Widget("head_html_tag")
+        @Html.NopCssFiles(this.Url, ResourceLocation.Head)
+        @Html.NopScripts(this.Url, ResourceLocation.Head)
+        @Html.NopCanonicalUrls()
+        @Html.Action("RssHeaderLink", "News")
+        @Html.Action("RssHeaderLink", "Blog")
+        @*Favicon - upload favicon.ico file to the root directory*@
+        @Html.Action("Favicon", "Common")
+        @if (displayMiniProfiler)
+        {
+            @StackExchange.Profiling.MiniProfiler.RenderIncludes()
+        }
+        <!--Powered by nopCommerce - http://www.nopCommerce.com-->
+
+        <script type="text/javascript">
+            $(window).on('scroll', function () {
+                var $elem = $('.related-products-grid');
+                var $window = $(window);
+
+                var docViewTop = $window.scrollTop();
+                var docViewBottom = docViewTop + $window.height();
+                if($elem.length > 0) {
+                    var elemTop = $elem.offset().top;
+                    var elemBottom = elemTop + $elem.height();
+                    if (elemBottom < docViewBottom) {
+                        $('#right1').hide();
+                    } else {
+                        $('#right1').show();
+
+                    }
+                }
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                function cartQty() {
+                    var tx = $("#carty").text();
+                    var fd = tx.replace(/\s/g, '');
+                    fd.replace("NaN", "");
+                    if (fd == "0") {
+                        $(".cart-qty").hide();
+                    } else {
+                        $(".cart-qty").show();
+                    }
+                }
+                $(document).on("DOMSubtreeModified", "#carty", function () {
+                    cartQty()
+                });
+            });
+
+            //var myFullpage = new fullpage('#fullpage', {
+            //    sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff']
+            //});
+        </script>
+
+        @*<script type="text/javascript">
+            $(document).ready(function () {
+                if ($(window).width() <= 1199) {
+                    $(".master-wrapper-page").attr("id", "fullpage");
+                }
+            });
+        </script>*@
+
+	<!--Google Search-->
+        <script type="application/ld+json">
+            {
+            "@@context": "https://schema.org",
+            "@@type": "Paranda",
+            "url": "https://paranda.pk/",
+            "logo": "https://paranda.pk/Themes/Paranda-new/Content/images/logo.png"
+            }
+        </script>
+
+    </head>
+    <body>
+
+        
+
+        @RenderBody()
+        @Html.NopCssFiles(this.Url, ResourceLocation.Foot)
+        @Html.NopScripts(this.Url, ResourceLocation.Foot)
+
+
+        <div id="mySidenav" class="help-sidenav" style="display:none;">
+            <a href="javascript:void(0)" class="closebtn-1" onclick="closeNav()">&times;</a>
+
+            <div class="helpmain">
+                <h4>Help</h4>
+                <h5>Contact</h5>
+                <p>
+                    Customer service <br /> Phone: +92331-2888192 <br /> Mail: info@paranda.com <br /> Hours: Monday - Friday: 09.30 -<br />
+                    13.30/14.30-18.30
+                </p>
+
+                <h5>Information</h5>
+                <p>
+                    <a href="/faq-3">FAQs</a>
+                    <a href="#">Delivery and Returns</a>
+                </p>
+                <h5>Legal</h5>
+                <p><a href="http://paranda.pk/paranda-privacy-policy">Privacy Policy</a></p>
+                <p><a href="https://paranda.pk/contactus">Customer Support</a></p>
+
+                <h5>Terms & Conditions</h5>
+                <p>Dealer company and site owner orders conclusion of contract object of the contract price of products and other expenses shipping time and means of delivery How to deal with the delivery of the products liability and limitation of liability Right of withdrawal and implementation procedure customer support technical information and changes applicable law jurisdiction in the event of dispute </p>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $(".search-btn").click(function () {
+                    $('.sidenav').animate({ right: 0 },1000);
+                    $('.sidenav').show();
+                    //$('.sidenav').show();
+                    $("#menu").hide();
+                });
+                $(".closebtn").click(function () {
+                    $('.sidenav').animate({ right: -370 } , 1000, function(){
+                         $('.sidenav').hide();
+                    });
+                });
+
+                $(".help-btn").click(function () {
+                    $('.help-sidenav').animate({ right: 0 },1000);
+                    $('.help-sidenav').show();
+                    $('body').addClass('bodyfix');
+                     $("#menu").hide();
+                });
+                $(".closebtn-1").click(function () {
+                    $('.help-sidenav').animate({ right: -370 } , 1000, function(){
+                          $('.help-sidenav').hide();
+                    });                   
+                    $('body').removeClass('bodyfix');
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                /*$('head script[src*="custom.js"]').remove(); */
+
+            });
+        </script>
+
+    </body>
+</html>

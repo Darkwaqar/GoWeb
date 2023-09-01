@@ -1,0 +1,27 @@
+[
+  {
+    "Image": "https://footprint.pk/Content/Images/uploaded/Notification/adidas.JPG",
+    "Name": "Adidas Originals Nite Jogger One look During The day transform into another at night. Shop Now",
+    "Discription": "Footprint",
+    "ButtonText": "Shop Now",
+    "ProductId":0,
+    "CategoryId":0,
+    "VendorId":10,
+    "Intent":"1",
+    "LogoUrl":"https://www.gomobishop.com/content/images/thumbs/0011368_footprint-bespoke.jpeg",
+    "VendorName":"Footprint"
+
+  },
+  {
+    "Image": "https://footprint.pk/Content/Images/uploaded/Notification/denim.JPG",
+    "Name": "Denims For Summers ! Give Your Wardrobe an Update! Grab the Best Style Now!",
+    "Discription": "Hashmi",
+    "ButtonText": "Shop Now",
+    "ProductId":0,
+    "CategoryId":0,
+    "VendorId":77,
+    "Intent":"3",
+    "LogoUrl":"https://www.gomobishop.com/content/images/thumbs/0010428_hashmi-kajal.jpeg",
+    "VendorName":"Hashmi"
+  }
+]

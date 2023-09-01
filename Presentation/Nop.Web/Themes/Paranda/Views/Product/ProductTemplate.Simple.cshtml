@@ -1,0 +1,389 @@
+﻿@model ProductDetailsModel
+@using Nop.Core
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Localization;
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Domain.Orders;
+@using Nop.Web.Framework.Themes
+@{
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    //title, meta
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+        var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(productUrl);
+    }
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        var storeName = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.GetLocalized(x => x.Name);
+        Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Model.MetaDescription) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(storeName) + "\" />");
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        var storeName = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.GetLocalized(x => x.Name);
+        Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(storeName) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Model.MetaDescription) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+    }
+    bool IsBreadcrumbEnabled = false;
+}
+@if (IsBreadcrumbEnabled)
+{
+    @Html.Partial("_ProductBreadcrumb", Model.Breadcrumb)
+}
+@Html.Widget("productdetails_after_breadcrumb", Model.Id)
+<div class="container-fluid3">
+    <div class="product-details">
+
+        @Html.Widget("productdetails_top", Model.Id)
+
+        <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
+            <div class="row no-margin">
+                @using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+                {
+                    <div id="gridSystemModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true" style="background-color:rgba(5, 28, 59, 0.78); z-index: 1000000000;">
+                        <div class="modal-dialog popupforpc" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src=@(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/"+@currentThemeName+ "/content/images/cancel.png") style="float:right;height:47px;margin-top:1px;padding-top:19px"></button>
+                                    @*<h4 class="modal-title" id="gridModalLabel">Modal title</h4>*@<h3>SIZE GUIDE</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-bordered sizechart text-center" style="border:none">
+                                        <tr>
+                                            <th style="background-color:#051c3b;color:white;text-align:center">FP</th>
+                                            <th style="background-color:#051c3b;color:white;text-align:center">USA</th>
+                                            <th style="background-color:#051c3b;color:white;text-align:center">UK</th>
+                                        </tr>
+                                        <tr>
+                                            <td>39</td>
+                                            <td>7</td>
+                                            <td>6</td>
+                                        </tr>
+                                        <tr>
+                                            <td>40</td>
+                                            <td>8</td>
+                                            <td>7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>41</td>
+                                            <td>9</td>
+                                            <td>8</td>
+                                        </tr>
+                                        <tr>
+                                            <td>42</td>
+                                            <td>10</td>
+                                            <td>9</td>
+                                        </tr>
+                                        <tr>
+                                            <td>43</td>
+                                            <td>11</td>
+                                            <td>10</td>
+                                        </tr>
+                                        <tr>
+                                            <td>44</td>
+                                            <td>12</td>
+                                            <td>11</td>
+                                        </tr>
+                                        <tr>
+                                            <td>45</td>
+                                            <td>13</td>
+                                            <td>12</td>
+                                        </tr>
+                                        @*<tr>
+                                                <td>46</td>
+                                                <td>13</td>
+                                                <td>11</td>
+                                            </tr>*@
+                                        @*<tr class="hidden-xs">
+
+                                            <td style="border:none"><img src=@(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/"+@currentThemeName+ "/content/images/2.png") /></td>
+                                            <td style="border:none"><img src=@(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/"+@currentThemeName+ "/content/images/3.png") /></td>
+                                            <td style="border:none"><img src=@(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/"+@currentThemeName+ "/content/images/1.png") /></td>
+                                        </tr>*@
+                                        <tr class="hidden-xs">
+                                            <td style="border:none">
+                                                Arrange a white sheet of paper under the foot and lean your heel against the wall. Make sure that the
+                                                paper does not move, fixing at the floor with tape.
+                                            </td>
+                                            <td style="border:none">
+                                                Track with a pen or pencil the outline of your foot or ask someone to do it for you. The feet often have
+                                                slightly different dimensions, therefore repeat the process with the other foot. Then enter the longest
+                                                foot measures into the system.
+                                            </td>
+                                            <td style="border:none">
+                                                Use a ruler to measure the length of the foot in cm (distance between the heel and the longest finger)
+                                                and the width (distance between internal metatarsus and external metatarsus).
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 nopadding-left imagesspace">
+                        @Html.Widget("productdetails_before_pictures", Model.Id)
+                        <!--product pictures-->
+                        @Html.Partial("_ProductDetailsPictures", Model)
+                        @Html.Widget("productdetails_after_pictures", Model.Id)
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3 class="uppercase pname">
+                                                @Model.Name
+                                            </h3>
+                                            <p class="uppercase">
+                                                @Model.ShortDescription
+                                            </p>
+                                            <h4>@Model.ProductPrice.Price</h4>
+                                        </div>
+                                        <div class="col-md-12 col-xs-12" style="margin-top:20px"></div>
+                                    </div>
+                                    @Html.Widget("productdetails_overview_top", Model.Id)
+                                    <!--manufacturers-->
+                                    <!--availability-->
+                                    @Html.Partial("_Availability", Model)
+                                    <!--SKU, MAN, GTIN, vendor-->
+                                    @*@Html.Partial("_SKU_Man_GTIN_Ven", Model)*@
+                                    <!--delivery-->
+                                    <!--sample download-->
+                                    @Html.Partial("_DownloadSample", Model)
+                                    <!--attributes-->
+                                    <div class="row ">
+                                        <div class="col-sm-12 col-xs-12 attribute-bar input-responsive">
+                                            @if (Model.DisplayBackInStockSubscription)
+                                            {
+                                                @Html.Partial("_BackInStockSubscription", Model)
+                                            }
+                                            else
+                                            {
+                                                var dataDictAttributes = new ViewDataDictionary();
+                                                dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", Model.Id);
+                                                @Html.Partial("_ProductAttributesCustomized", Model.ProductAttributes, dataDictAttributes)
+
+                                                <div class="col-md-2 col-sm-12 col-xs-12 nopadding qty-responsive">
+                                                    @*<div class="text-prompt uppercase">
+                                                            Qty
+                                                        </div>*@
+                                                    @Html.TextBox(string.Format("addtocart_{0}.EnteredQuantity", Model.Id), 1, new { @class = "textbox1 qty-input", Type = "number", size = 1, min = 1, max = 100, onkeypress = "return isNumberKey(event)" })
+                                                </div>
+                                                @*<div class="col-md-2 col-xs-12 nopadding" style="margin-top:20px"> <a href="/sizechart" style="color:#222;font-size:10px;text-decoration:underline">SIZE GUIDE</a></div>*@
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <!--gift card-->
+                                    @{
+                                        var dataDictGiftCard = new ViewDataDictionary();
+                                        dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = string.Format("giftcard_{0}", Model.Id);
+                                        @Html.Partial("_GiftCardInfo", Model.GiftCard, dataDictGiftCard)
+                                    }
+                                    <!--rental info-->
+                                    @{
+                                        var dataDictRental = new ViewDataDictionary();
+                                        dataDictRental.TemplateInfo.HtmlFieldPrefix = string.Format("rental_{0}", Model.Id);
+                                        @Html.Partial("_RentalInfo", Model, dataDictRental)
+                                    }
+                                    <!--price & add to cart-->
+                                    <!--wishlist, compare, email a friend-->
+                                    <div>
+                                        @Html.Widget("productdetails_inside_overview_buttons_before", Model.Id)
+                                        @{
+                                            var dataDictAddToWishlist = new ViewDataDictionary();
+                                            dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+                                        }
+                                    </div>
+                                    @Html.Widget("productdetails_overview_bottom", Model.Id)
+                                </div>
+                            </div>
+                            <div class="col-md-3 nopadding hidden-xs hidden-sm" style="float:right;">
+                                <br />
+                                @*@Html.Action("ProductLine", "Product", new { productId = Model.Id })*@
+                                @Html.Partial("_ProductLine", Model.Id)
+                            </div>
+			<div class="col-md-8 btn-responsive">
+                                @if (!Model.DisplayBackInStockSubscription)
+                                {
+                                    var dataDictPrice = new ViewDataDictionary();
+                                    dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", Model.Id);
+                                    var dataDictAddToCart = new ViewDataDictionary();
+                                    dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+                                    @Html.Partial("_AddToCart", Model.AddToCart, dataDictAddToCart)
+                                    @*<div class="col-md-12 nopadding" style="padding-bottom:18px">
+                    			<input type="button" id="add-to-cart-button-1" class="btn-big23" value="BUY NOW">
+                		</div>*@
+                                }
+                                <div class="col-md-12 nopadding" style="padding-bottom:12px">
+                                    @if (!Model.DisplayBackInStockSubscription)
+                                    {
+                                        if (!Model.AddToCart.DisableWishlistButton && Model.AddToCart.UpdatedShoppingCartItemId == 0)
+                                        {
+                                            <div class="col-md-4 nopadding width-rack">  <button style="margin-top: 0px" id="add-to-wishlistbutton-@Model.AddToCart.ProductId" class="btn-big btn-block shoe-rack" data-productid="@Model.AddToCart.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.AddToCart.ProductId, shoppingCartTypeId = (int)ShoppingCartType.Wishlist })', '#product-details-form');return false;">ADD TO FAVOURITE</button></div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                       @* <div class="row btn-center">
+                            <div class="col-md-12 btn-responsive">
+                                @if (!Model.DisplayBackInStockSubscription)
+                                {
+                                    var dataDictPrice = new ViewDataDictionary();
+                                    dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", Model.Id);
+                                    var dataDictAddToCart = new ViewDataDictionary();
+                                    dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+                                    @Html.Partial("_AddToCart", Model.AddToCart, dataDictAddToCart)
+                                @*<div class="col-md-12 nopadding" style="padding-bottom:18px">
+                                    <input type="button" id="add-to-cart-button-1" class="btn-big23" value="BUY NOW">
+                                </div>
+                                }
+                                <div class="col-md-12 nopadding" style="padding-bottom:12px">
+                                    @if (!Model.DisplayBackInStockSubscription)
+                                    {
+                                        if (!Model.AddToCart.DisableWishlistButton && Model.AddToCart.UpdatedShoppingCartItemId == 0)
+                                        {
+                                            <div class="col-md-4 nopadding width-rack">  <button style="margin-top: 0px" id="add-to-wishlistbutton-@Model.AddToCart.ProductId" class="btn-big btn-block shoe-rack" data-productid="@Model.AddToCart.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.AddToCart.ProductId, shoppingCartTypeId = (int)ShoppingCartType.Wishlist })', '#product-details-form');return false;">ADD TO FAVOURITE</button></div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div> *@
+
+                        <div class="shipping-info uppercase"> @Html.Action("TopicBlock", "Topic", new { systemName = "ProductDetailsShippingReturnsInfo" })</div>
+                        <div class="panel-group" id="accordion">
+                            @if (!String.IsNullOrEmpty(Model.FullDescription))
+                            {
+                                <div class="panel panel-default panel-productdetails ">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title uppercase">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                                Details <span class="glyphicon glyphicon-menu-down pull-right" id="collapse-spann"></span>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse1" class="panel-collapse collapse in">
+                                        <div class="panel-body">@Html.Raw(Model.FullDescription)</div>
+                                    </div>
+                                </div>
+                            }
+                            @Html.Partial("_ProductSpecifications", Model.ProductSpecifications)
+
+                            @Html.Partial("_DeliveryInfo", Model)
+
+                            <!--product reviews-->
+                           @* <div>
+                                @Html.Partial("_SKU_Man_GTIN_Ven", Model)
+                            </div>*@
+                        </div>
+                    </div>
+                 }
+ 		<div style="margin-top:20px">
+                    @Html.Partial("_ShareButton", Model.SeName)
+                </div>
+               @* @Html.Partial("_ProductReviewOverview", Model.ProductReviewOverview) *@
+                
+            </div>
+            @Html.Widget("productdetails_before_collateral", Model.Id)
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="relatedproductt">
+                        <h4>Related Products</h4>
+                    </div>
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <p>@Html.Action("RelatedProducts", "Product", new { productId = Model.Id })</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Widget("productdetails_bottom", Model.Id)
+    </div>
+</div>
+
+<script>
+    $('#collapse1').on('hidden.bs.collapse', function () {
+        //!-- when box is closed
+        $('#collapse-spann').addClass("glyphicon-menu-down");
+        $('#collapse-spann').removeClass("glyphicon-menu-up");
+    });
+
+    $('#collapse1').on('shown.bs.collapse', function () {
+        //!-- when box is opened
+        $('#collapse-spann').removeClass("glyphicon-menu-down");
+        $('#collapse-spann').addClass("glyphicon-menu-up");
+
+    });
+
+    $('#collapse_spec_0').on('hidden.bs.collapse', function () {
+        //!-- when box is closed
+        $('#collapse-spann-0').addClass("glyphicon-menu-down");
+        $('#collapse-spann-0').removeClass("glyphicon-menu-up");
+    });
+
+    $('#collapse_spec_0').on('shown.bs.collapse', function () {
+        //!-- when box is opened
+        $('#collapse-spann-0').removeClass("glyphicon-menu-down");
+        $('#collapse-spann-0').addClass("glyphicon-menu-up");
+
+    });
+
+    $('#collapse_spec_1').on('hidden.bs.collapse', function () {
+        //!-- when box is closed
+        $('#collapse-spann-1').addClass("glyphicon-menu-down");
+        $('#collapse-spann-1').removeClass("glyphicon-menu-up");
+    });
+
+    $('#collapse_spec_1').on('shown.bs.collapse', function () {
+        //!-- when box is opened
+        $('#collapse-spann-1').removeClass("glyphicon-menu-down");
+        $('#collapse-spann-1').addClass("glyphicon-menu-up");
+
+    });
+</script>
+<script type="text/javascript">
+    var google_tag_params = {
+        ecomm_prodid: '@Model.Id',
+        ecomm_pagetype: 'product',
+        ecomm_totalvalue: '@Model.ProductPrice',
+    };
+</script>
+<script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 866679881;
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = true;
+    /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js" style="display:none;height:0px;width:0px;opacity:0">
+</script>
+<noscript>
+    <div style="display:none;">
+        <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/866679881/?guid=ON&amp;script=0" />
+    </div>
+</noscript>

@@ -1,0 +1,71 @@
+﻿@model ProductReviewOverviewModel
+@using System.Globalization
+@using Nop.Web.Models.Catalog;
+@{
+    int ratingPercent = 0;
+    if (Model.TotalReviews != 0)
+    {
+        ratingPercent = ((Model.RatingSum * 100) / Model.TotalReviews) / 5;
+    }
+}
+@if (Model.AllowCustomerReviews)
+{
+   
+    <div class="product-reviews-overview" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+        <div class="product-review-box">
+            <div class="rating">
+                <div style="width: @(ratingPercent)%">
+                </div>
+            </div>
+        </div>
+
+        @if (Model.TotalReviews > 0)
+        {
+            <div class="product-review-links">
+                <div class="col-md-6"></div>
+                <div class="col-md-6 col-md-offset-6">
+                    @*<a href="@Url.RouteUrl("ProductReviews", new { productId = Model.ProductId })" style="margin-left:0px;font-size:15px">*@
+                    <a href="javascript:" style="margin-left:0px;font-size:15px">
+                        Read Reviews (@Model.TotalReviews)
+                    </a>  <a href="javascript:" class="pull-right" data-toggle="modal" data-target="#write_review_popup" style="font-size: 15px; margin-top: 0px; color: #4b8b76">Write A Review</a>
+                </div>
+        </div>
+            @*hidden microdata info*@
+            decimal ratingValue = ratingPercent / (decimal)20;
+            <span itemprop="ratingValue" style="display: none;">@ratingValue.ToString("0.0", new CultureInfo("en-US"))</span>
+            <span itemprop="reviewCount" style="display: none;">@Model.TotalReviews</span>
+        }
+        else
+        {
+            <div class="product-no-reviews">
+               <div class="col-md-6"></div><div class="col-md-6"> <a href="javascript:" data-toggle="modal" data-target="#write_review_popup" style="color: #0d8388">@T("Reviews.Overview.First")</a></div>
+            </div>
+        }
+    </div>
+    <div class="product-review-container col-md-6 col-md-offset-6 review-width" style="">
+        @Html.Action("ProductReviews", new ProductReviewsModel { ProductId = Model.ProductId })
+    </div>
+    
+    <!-- Modal -->
+    <form method="post" id="reviewform" action="/productreviews/@Model.ProductId">
+        @Html.AntiForgeryToken()
+        <div id="write_review_popup" class="modal fade" role="dialog" style="margin-top: 90px; z-index: 100000000">
+            <div class="modal-dialog modal-sm">
+
+                <!-- Modal content-->
+                <div class="modal-content review-res-width" style="">
+                    @*<div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Modal Header</h4>
+                        </div>*@
+                    <div class="modal-body">
+                        @Html.Partial("ProductReviewsWriteComments", new ProductReviewsModel { ProductId = Model.ProductId })
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+}

@@ -1,0 +1,86 @@
+
+.grid-Footer {
+    text-align: center;
+    background-color: black;
+    padding: 10px 50px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.grid-Footer div {
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.grid-Footer ul{
+    margin:0;
+}
+
+.grid-Footer li {
+    display: inline-block;
+    padding: 10px 10px;
+}
+
+.grid-Footer .ecommerce-Footer li a{
+    padding: 3px 0px;
+    color: grey;
+    font-size: 14px;
+}
+
+.grid-Footer li a {
+    padding: 10px 10px;
+    color: grey;
+    font-size: 14px;
+}
+
+.grid-Footer .menuheader-footer li {
+    padding: 10px 0px;
+}
+
+.grid-Footer li a i {
+    color: #cccccc;
+    font-size: 16px;
+}
+
+.grid-Footer li a:hover,
+.grid-Footer li a i:hover {
+    color: red;
+}
+
+@media (min-width: 1001px) {
+
+    .grid-Footer div {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .grid-Footer .item1,
+    .grid-Footer .item3 {
+        width: 19%;
+    }
+
+    .grid-Footer .item2 {
+        width: 60%;
+    }
+
+    .grid-Footer li {
+        display: inline-block;
+        padding: 43px 10px;
+    }
+
+    .grid-Footer .ecommerce-Footer {
+        height: 16px;
+        float: right;
+    }
+    .grid-Footer .ecommerce-Footer li {
+        padding: 3.6% 10px;
+    }
+
+    .grid-Footer .sociallinks-Footer {
+        float: left;
+    }
+    
+}

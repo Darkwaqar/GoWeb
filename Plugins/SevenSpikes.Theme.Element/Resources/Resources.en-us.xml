@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language Name="English">
+  <LocaleResource Name="SevenSpikes.Themes.Admin.SettingsSubmenu.Element">
+    <Value>Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="Sevenspikes.Themes.Admin.ManageResources.Element">
+    <Value>Manage Resources</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Menu.MenuName">
+    <Value>Element</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings">
+    <Value>Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.TabTitle.GeneralSettings">
+    <Value>General Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.TabTitle.AdditionalSettings">
+    <Value>Additional Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings">
+    <Value>Element Theme Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.Preset">
+    <Value>Preset</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.Preset.Hint">
+    <Value>Choose your color preset of the theme.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.Layout">
+    <Value>Layout Design</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.Layout.Hint">
+    <Value>Choose one of the two predefined layout designs.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.Variant">
+    <Value>Layout Variant</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.Variant.Hint">
+    <Value>Choose one of the two predefined layout variants.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.NumberOfSubCategoriesPerRow">
+    <Value>Number Of SubCategories Per Row</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.NumberOfSubCategoriesPerRow.Hint">
+    <Value>Choose the number of sub categories per row.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.PageTitleImageId">
+    <Value>Page Title Image</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.PageTitleImageId.Hint">
+    <Value>Choose the page title image.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.ReserveFixedHeightForProductTitles">
+    <Value>Reserve Fixed Height For Product Titles</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Admin.Settings.ReserveFixedHeightForProductTitles.Hint">
+    <Value>Specify whether or not a height for product titles will be reserved.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.Welcome">
+    <Value>Welcome to our fashion store!</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Newsletter">
+    <Value>Newsletter</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Newsletter.Description">
+    <Value>Subscribe to our newsletter and get information about our latest offers and prices.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Newsletter.Subscribe">
+    <Value>Subscribe</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.ContactInfo">
+    <Value>Contact Info</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.Address">
+    <Value>London, Yorkshire, 5th Avenue</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.Phone">
+    <Value>+(123) 456-789-10-11</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.EmailName">
+    <Value>info</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.EmailAt">
+    <Value>[at]</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.EmailDomain">
+    <Value>element.com</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Information">
+    <Value>Information</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.GoTo">
+    <Value>Go to</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.GoToPage">
+    <Value>Go to Page</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.GiftCardCouponCode.Tooltip">
+    <Value>If you have a coupon or gift card you can enter the code here</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.TermsOfService.FirstPart">
+    <Value>I agree with the</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.TermsOfService.Link">
+    <Value>Terms of Service</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.TermsOfService.SecondPart">
+    <Value>and I adhere to them unconditionally</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Common.Products.Count.Title">
+    <Value>items</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Product.ImageThumbs.Prev">
+    <Value>Previous</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Product.ImageThumbs.Next">
+    <Value>Next</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.Products.Sharing.Text">
+    <Value>Share</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.ShoppingCart.ClearCart">
+    <Value>Clear Cart</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.RichBLog.PreviousPost">
+    <Value>Previous Post</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.RichBLog.NextPost">
+    <Value>Next Post</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Element.FlyoutCart.Checkout.Button">
+    <Value>Checkout</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.ShoppingCart.AddToWishlist">
+    <Value>Wishlist</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.ShoppingCart.AddToCompareList">
+    <Value>Compare product</Value>
+  </LocaleResource>
+  
+  <LocaleResource Name="shoppingcart">
+    <Value>My Cart</Value>
+  </LocaleResource>
+  <LocaleResource Name="Search.Searchbox.Tooltip">
+    <Value>Search</Value>
+  </LocaleResource>
+  <LocaleResource Name="ShoppingCart.Mini.Quantity">
+    <Value>Qty</Value>
+  </LocaleResource>
+  <LocaleResource Name="shoppingcart.headerquantity">
+    <Value>{0}</Value>
+  </LocaleResource>
+  <LocaleResource Name="ShoppingCart.Totals.SubTotal">
+    <Value>Total</Value>
+  </LocaleResource>
+  <LocaleResource Name="Account.CustomerOrders.ReturnItems">
+    <Value>Return</Value>
+  </LocaleResource>
+  <LocaleResource Name="Account.ChangePassword">
+    <Value>Change your Password</Value>
+  </LocaleResource>
+  <LocaleResource Name="forum.privatemessages.pm">
+    <Value>Message</Value>
+  </LocaleResource>
+  <LocaleResource Name="newsletter.title">
+    <Value>Newsletter</Value>
+  </LocaleResource>
+  <LocaleResource Name="Footer.SocialSharing">
+    <Value>Follow us</Value>
+  </LocaleResource>
+  <LocaleResource Name="shoppingcart.mini.itemstext">
+    <Value>{0} in your cart</Value>
+  </LocaleResource>
+  <LocaleResource Name="Products.RecentlyViewedProducts">
+    <Value>Recently viewed</Value>
+  </LocaleResource>
+  <LocaleResource Name="ShoppingCart.Quantity">
+    <Value>Qty</Value>
+  </LocaleResource>
+  <LocaleResource Name="Checkout.Button">
+    <Value>Proceed to checkout</Value>
+  </LocaleResource>
+  <LocaleResource Name="ShoppingCart.AddToCart">
+    <Value>Add to cart</Value>
+  </LocaleResource>
+</Language>

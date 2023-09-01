@@ -1,0 +1,138 @@
+﻿@model PushNotificationsSettingsModel
+
+@{
+    //page title
+    ViewBag.Title = T("PushNotifications.PushNotications").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("Push notifications settings");
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("PushNotifications.PushNotications")
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.Save")
+            </button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="form-horizontal">
+            @Html.Action("StoreScopeConfiguration", "Setting")
+            @Html.ValidationSummary(false)
+
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-cubes"></i>
+                        @T("PushNotifications.PushNotications")
+                    </div>
+                    <div class="alert alert-info">
+                        <p>@T("PushNotifications.PushNotications.Info")</p>
+                    </div>
+                    <div class="alert alert-danger">
+                        <p>@T("PushNotifications.PushNotications.Warning")</p>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.Enabled_OverrideForStore, model => model.Enabled, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.Enabled)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.Enabled)
+                                @Html.ValidationMessageFor(model => model.Enabled)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.PrivateApiKey_OverrideForStore, model => model.PrivateApiKey, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.PrivateApiKey)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.PrivateApiKey)
+                                @Html.ValidationMessageFor(model => model.PrivateApiKey)
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.PublicApiKey_OverrideForStore, model => model.PublicApiKey, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.PublicApiKey)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.PublicApiKey)
+                                @Html.ValidationMessageFor(model => model.PublicApiKey)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.AuthDomain_OverrideForStore, model => model.AuthDomain, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.AuthDomain)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.AuthDomain)
+                                @Html.ValidationMessageFor(model => model.AuthDomain)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.DatabaseUrl_OverrideForStore, model => model.DatabaseUrl, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.DatabaseUrl)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.DatabaseUrl)
+                                @Html.ValidationMessageFor(model => model.DatabaseUrl)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.ProjectId_OverrideForStore, model => model.ProjectId, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.ProjectId)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.ProjectId)
+                                @Html.ValidationMessageFor(model => model.ProjectId)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.StorageBucket_OverrideForStore, model => model.StorageBucket, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.StorageBucket)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.StorageBucket)
+                                @Html.ValidationMessageFor(model => model.StorageBucket)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.SenderId_OverrideForStore, model => model.SenderId, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.SenderId)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.SenderId)
+                                @Html.ValidationMessageFor(model => model.SenderId)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.AllowGuestNotifications_OverrideForStore, model => model.AllowGuestNotifications, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.AllowGuestNotifications)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.AllowGuestNotifications)
+                                @Html.ValidationMessageFor(model => model.AllowGuestNotifications)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

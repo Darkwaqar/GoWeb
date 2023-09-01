@@ -1,0 +1,210 @@
+﻿@model CheckoutBillingAddressModel
+@using Nop.Web.Models.Checkout;
+<div class="checkout-data">
+    @Html.Widget("op_checkout_billing_address_top")
+    @if (Model.ShipToSameAddressAllowed)
+    {
+        <div class="section ship-to-same-address">
+            <p class="selector">
+                @Html.CheckBoxFor(x => x.ShipToSameAddress)
+                <label for="@Html.FieldIdFor(model => model.ShipToSameAddress)">@T("Checkout.ShipToSameAddress")</label>
+            </p>
+        </div>
+    }
+    @if (Model.ExistingAddresses.Count > 0)
+    {
+        <div class="section select-billing-address" id="billing-address-select">
+
+
+            @*<label for="billing-address-select">@T("Checkout.SelectBillingAddressOrEnterNewOne")</label>*@
+            <div>
+
+
+
+
+
+
+                <div class="form-fields">
+
+                    <div class="section">
+                        <h2>Select or change billing address</h2>
+                        <div class="select-style">
+
+
+                            <select name="billing_address_id" id="billing-address-select" class="address-select"
+                                    title="" onchange="changeAddress(this.value)" onload="changeAddres(this.value)" on>
+
+
+
+
+                                @foreach (var address in Model.ExistingAddresses)
+                                {
+                                    var addressLine = "";
+
+
+
+
+
+                                    if (address.StreetAddressEnabled && !String.IsNullOrEmpty(address.Address1))
+                                    {
+                                        addressLine += "" + address.Address1;
+                                    }
+                                    if (address.CityEnabled && !String.IsNullOrEmpty(address.City))
+                                    {
+                                        addressLine += ", " + address.City;
+                                    }
+
+
+                                    if (address.CountryEnabled && !String.IsNullOrWhiteSpace(address.CountryName))
+                                    {
+                                        addressLine += ", " + address.CountryName;
+                                    }
+                                    //how should we render "FormattedCustomAddressAttributes" here?
+                                    <option data-json="@Json.Encode(address)" value="@address.Id">@(addressLine)</option>
+                                }
+                                <option value="" selected="@Model.NewAddressPreselected">@T("Checkout.NewAddress")</option>
+                            </select>
+                        </div>
+
+                    </div>
+                  
+                   
+
+                    <script>
+
+                        jQuery(document).ready(function ($) {
+
+                            changeAddress(true);
+                        });
+
+
+
+                        function changeAddress(address) {
+
+
+                            Billing.newAddress(!address);
+
+                            var add = $("#billing-address-select").find(':selected').data('json');
+                            console.log(add);
+
+                            if (add) {
+
+                                $('.billing-display').show();
+
+                                var newAdd = add;
+                                //var newAdd = JSON.parse(add);
+
+                                $('.input-field input[name="email"]').val(newAdd.Email);
+                                $('.input-field input[name="firstName"]').val(newAdd.FirstName);
+                                $('.input-field input[name="lastName"]').val(newAdd.LastName);
+                                $('.input-field input[name="addressLine1"]').val(newAdd.Address1);
+                                $('.input-field input[name="addressLine2"]').val(newAdd.Address2);
+                                $('.input-field input[name="Country"]').val(newAdd.CountryName);
+                                $('.input-field input[name="postCode"]').val(newAdd.ZipPostalCode);
+                                $('.input-field input[name="city"]').val(newAdd.City);
+                                $('.input-field input[name="phone"]').val(newAdd.PhoneNumber);
+
+
+
+
+
+
+                            } else {
+                                $('.billing-display').hide();
+
+
+                            }
+
+
+
+
+
+                        };
+
+
+
+
+                    </script>
+
+                    <div class="billing-display">
+                        <div class="section">
+                            <h2>Contact Information</h2>
+                            <div class="input-field">
+                                <label for="email">Email</label>
+                                <input type="text" value="" name="email" disabled />
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2> Billing Address</h2>
+                            <div class="group-field">
+                                <div class="input-field">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" name="firstName" value="" disabled />
+                                </div>
+                                <div class="input-field">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" name="lastName" value="" disabled />
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label for="addressLine1">Address</label>
+                                <input type="text" value="" name="addressLine1" disabled />
+                            </div>
+                            <div class="input-field">
+                                <label for="addressLine2">Apartment, Suit etc. (Optional)</label>
+                                <input type="text" value="" name="addressLine2" disabled />
+                            </div>
+
+                            <div class="group-field">
+                                <div class="input-field">
+                                    <label for="Country">Country</label>
+                                    <input type="text" name="Country" value="" disabled />
+                                </div>
+                                <div class="input-field">
+                                    <label for="postCode">Post Code</label>
+                                    <input type="text" name="postCode" value="" disabled />
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label for="city">City</label>
+                                <input type="text" value="" name="city" disabled />
+                            </div>
+
+                            <div class="input-field">
+                                <label for="phone">Phone</label>
+                                <input type="text" value="" name="phone" disabled />
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    }
+    @Html.Widget("op_checkout_billing_address_middle")
+    <div class="section new-billing-address" id="billing-new-address-form" >
+        <div class="enter-address">
+            @{
+                var validationSummary = Html.ValidationSummary(true);
+            }
+            @if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+            {
+                <div class="message-error">@validationSummary</div>
+            }
+            @{
+                var dataDictAddress = new ViewDataDictionary();
+                //Merge ModelState (required for validation)
+                dataDictAddress.ModelState.Merge(ViewData.ModelState);
+                dataDictAddress.TemplateInfo.HtmlFieldPrefix = "BillingNewAddress";
+                @Html.Partial("_CreateOrUpdateAddress", Model.NewAddress, dataDictAddress)
+            }
+        </div>
+    </div>
+    @Html.Widget("op_checkout_billing_address_bottom")
+</div>

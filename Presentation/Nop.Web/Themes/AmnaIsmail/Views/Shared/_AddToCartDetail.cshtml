@@ -1,0 +1,236 @@
+﻿@model ProductDetailsModel
+@using growonline.Web.Models.Catalog;
+@using growonline.Core.Domain.Orders;
+<style>
+    .continueshopping {
+        width: 289px;
+        background-color: rgb(195,193,193);
+        border-radius: 5px;
+        height: 44px;
+        padding: 10px;
+        font-weight: 100;
+    }
+
+    .continueshopping:hover  {
+        width: 289px;
+        background-color: rgb(67,51,98);
+        border-radius: 5px;
+        height: 44px;
+        padding: 10px;
+        font-weight: 100;
+    }
+    .btn-info {
+        color: #fff;
+
+    }
+
+    .buyndwl {
+        color: white;
+        border:0px;
+        width: 165px;
+        margin-left: 11px;
+        height: 45px;
+        font-size: 16px;
+        border-radius: 0px;
+		background-color:#806aab;
+		text-align:center;
+		
+    }
+
+
+
+</style>
+@if (!Model.AddToCart.DisableBuyButton || Model.AddToCart.CustomerEntersPrice)
+{
+    <div class="marginTop10">
+        @if (Model.AddToCart.UpdatedShoppingCartItemId > 0)
+        {
+            @Html.HiddenFor(x => x.AddToCart.UpdatedShoppingCartItemId)
+        }
+        @if (Model.AddToCart.CustomerEntersPrice)
+        {
+            <div class="form">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AddToCart.CustomerEnteredPrice, new { }, ":")
+                    @*round price*@
+                    @Html.TextBox("CustomerEnteredPrice", Convert.ToInt32(Math.Ceiling(Model.AddToCart.CustomerEnteredPrice)), new { @class = "form-control  maxWidth200 text-center" })
+                    @Model.AddToCart.CustomerEnteredPriceRange
+                </div>
+            </div>
+        }
+        @if (!Model.AddToCart.DisableBuyButton)
+        {
+            <div class="input-group maxWidth150">
+                @Html.LabelFor(model => model.AddToCart.EnteredQuantity, new { @style = "display:none;" }, ":")
+                @if (Model.AddToCart.AllowedQuantities.Count > 0)
+                {
+                    @Html.DropDownListFor(model => model.AddToCart.EnteredQuantity, Model.AddToCart.AllowedQuantities, new { @class = "form-control" })
+                }
+                else
+                {
+                    @*@Html.TextBoxFor(model => model.EnteredQuantity, new { @class = "form-control input-sm" })*@
+
+                    //when a customer clicks 'Enter' button we submit the "add to cart" button (if visible)
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#@Html.FieldIdFor(model => model.AddToCart.EnteredQuantity)").keydown(function (event) {
+                                if (event.keyCode == 13) {
+                                    $("#add-to-cart-button-@Model.AddToCart.ProductId").click();
+                                    return false;
+                                }
+                            });
+                        });
+                    </script>
+
+                }
+                @{
+                var addToCartText = "";
+                if (Model.AddToCart.UpdatedShoppingCartItemId > 0)
+                {
+                    addToCartText = T("ShoppingCart.AddToCart.Update").Text;
+                }
+                else
+                {
+                    addToCartText = T("ShoppingCart.AddToCart").Text;
+                    if (Model.AddToCart.IsRental)
+                    {
+                        addToCartText = T("ShoppingCart.Rent").Text;
+                    }
+                    if (Model.AddToCart.AvailableForPreOrder)
+                    {
+                        addToCartText = T("ShoppingCart.PreOrder").Text;
+                    }
+                }
+
+                <div class="col-md-12 col-xs-12 col-lg-12 nopadding" style="left:-11px">
+                    <div class="col-md-6 col-xs-12 col-sm-6 hidden-xs hidden-sm nopadding">
+                        @if (!Model.AddToCart.DisableWishlistButton && Model.AddToCart.UpdatedShoppingCartItemId == 0)
+                        {
+                            <button style="color: white; border: 1px solid rgb(195,193,193); width: 178px; padding: 10px 48px 10px 9px;" id="add-to-wishlist-button-@Model.AddToCart.ProductId" class="btn-orignal2 bg-black btn buyndwl" data-productid="@Model.AddToCart.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.AddToCart.ProductId, shoppingCartTypeId = (int)ShoppingCartType.Wishlist })', '#product-details-form');return false;"><i class="glyphicon glyphicon-heart text-muted" style="color:white"></i> @T("ShoppingCart.AddToWishlist")</button>
+                        }
+                    </div>
+                    <center><div class="col-md-6 col-xs-12 col-sm-6 hidden-md hidden-lg">
+                        @if (!Model.AddToCart.DisableWishlistButton && Model.AddToCart.UpdatedShoppingCartItemId == 0)
+                        {
+                            <button style="color: white; border: 1px solid rgb(195,193,193);width:206px" id="add-to-wishlist-button-@Model.AddToCart.ProductId" class="btn-orignal2 bg-black btn buyndwl" data-productid="@Model.AddToCart.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.AddToCart.ProductId, shoppingCartTypeId = (int)ShoppingCartType.Wishlist })', '#product-details-form');return false;"><i class="glyphicon glyphicon-heart text-muted"></i> @addToCartText</button>
+                        }
+                    </div></center>
+                    <div class="col-md-6 col-xs-12 col-sm-6 hidden-sm hidden-xs hidden-md">
+                        <button style="color: white; border: 1px solid rgb(195,193,193); margin-left: 71px; padding: 10px 48px 10px 41px;" type="button" id="add-to-cart-button" value="@addToCartText" onclick="javascript:buyNowPressed();" class="buyndwl btn-orignal bg-black btn" data-toggle="popover">@addToCartText</button>
+                        <div class="popover fade bottom in hidden-sm hidden-xs" role="tooltip" id="popover49879" style="visibility: hidden; left:85px; top: 51px; display: block;">
+                            <div class="arrow" style="left: 20%;"></div>
+                            <h3 class="popover-title" style="display: none;"></h3>
+                            <div class="popover-content">
+                                <div style="font-weight:700;font-size:16px;text-align:center">
+                                    IT'S IN THE BAG <br>
+                                    <p style="font-weight:100;font-size:12px;padding-top:12px;padding-bottom:8px;color:gray"> Thank you ,this item has been added to your shopping bag</p>
+                                    <hr>
+                                    <div>
+                                        <span style="float:right;font-weight:100;font-size:13px">@Model.ProductPrice.Price</span>
+                                        <span style="float:right;font-size:13px;font-weight:100;color:gray">Total :</span>
+                                        <span style="float:left;font-size:13px;font-weight:100;color:gray">Total Item :</span>
+                                        <span style="float:left;font-weight:100;font-size:13px;"> @Model.AddToCart.EnteredQuantity</span><br />
+                                        <hr>
+                                      <div style="margin-top:21px" class="continueshopping"><a href="javascript:" style="width:50px;color:white;font-size:15px;text-decoration:none;text-align:center" onclick="conshop();">CONTINUE SHOPPING</a></div>
+									 @* <input type="submit" name="continueshopping" value="@T("ShoppingCart.ContinueShopping")" class="btn-orignal bg-black btn-orignal-md" />*@
+                                        <div style="margin-top:12px;margin-bottom:10px" class="continueshopping"><a href="/cart" style="width:50px;color:white;font-size:15px;text-decoration:none;text-align:center" onclick="conshop();">PROCEED TO CHECKOUT</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-6 hidden-sm hidden-xs hidden-lg">
+                        <button style="color: white; border: 1px solid rgb(195,193,193); margin-left: 71px; padding: 10px 48px 10px 41px;" type="button" id="add-to-cart-button" onclick="javascript:buyNowPressed();" class="buyndwl btn-orignal bg-black btn" data-toggle="popover">@addToCartText</button>
+                        <div class="popover fade bottom in hidden-sm hidden-xs" role="tooltip" id="popover49879" style="visibility: hidden; left:23px; top: 51px; display: block;">
+                            <div class="arrow" style="left: 33%;"></div>
+                            <h3 class="popover-title" style="display: none;"></h3>
+                            <div class="popover-content">
+                                <div style="font-weight:700;font-size:16px;text-align:center">
+                                    IT'S IN THE BAG <br>
+                                    <p style="font-weight:100;font-size:12px;padding-top:12px;padding-bottom:8px;color:gray"> Thank you ,this item has been added to your shopping bag</p>
+                                    <hr>
+                                    <div>
+                                        <span style="float:right;font-weight:100;font-size:13px">@Model.ProductPrice.Price</span>
+                                        <span style="float:right;font-size:13px;font-weight:100;color:gray">Total :</span>
+                                        <span style="float:left;font-size:13px;font-weight:100;color:gray">Total Item :</span>
+                                        <span style="float:left;font-weight:100;font-size:13px;"> @Model.AddToCart.EnteredQuantity</span><br />
+                                        <hr>
+                                        <div style="margin-top:21px" class="continueshopping"><a href="javascript:" style="width:50px;color:white;font-size:15px;text-decoration:none;text-align:center" onclick="conshop();">CONTINUE SHOPPING</a></div>
+                                        <div style="margin-top:12px;margin-bottom:10px" class="continueshopping"><a href="/cart" style="width:50px;color:white;font-size:15px;text-decoration:none;text-align:center" onclick="conshop();">PROCEED TO CHECKOUT</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-6 hidden-lg hidden-md hidden-sm">
+                        <center> <button style="color: white; border: 1px solid rgb(195,193,193);margin-left:12px;padding:2px;margin-top:10px" type="button" id="add-to-cart-button" onclick="javascript:buyNowPressed();" class="buyndwl btn-orignal bg-black btn" data-toggle="popover">@addToCartText</button></center>
+                        <div class="popover fade bottom in hidden-sm hidden-xs" role="tooltip" id="popover49879" style="visibility: hidden; left:85px; top: 51px; display: block;">
+                            <div class="arrow" style="left: 20%;"></div>
+                            <h3 class="popover-title" style="display: none;"></h3>
+                            <div class="popover-content">
+                                <div style="font-weight:700;font-size:16px;text-align:center">
+                                    IT'S IN THE BAG <br>
+                                    <p style="font-weight:100;font-size:12px;padding-top:12px;padding-bottom:8px;color:gray"> Thank you ,this item has been added to your shopping bag</p>
+                                    <hr>
+                                    <div>
+                                        <span style="float:right;font-weight:100;font-size:13px"> @Model.ProductPrice.Price</span>
+                                        <span style="float:right;font-size:13px;font-weight:100;color:gray">Total :</span>
+                                        <span style="float:left;font-size:13px;font-weight:100;color:gray">Total Item :</span>
+                                        <span style="float:left;font-weight:100;font-size:13px;"> @Model.AddToCart.EnteredQuantity</span><br />
+                                        <hr>
+                                        <div style="margin-top:21px" class="continueshopping"><a href="javascript:" style="width:50px;color:white;font-size:15px;text-decoration:none" onclick="conshop();">CONTINUE SHOPPING</a></div>
+                                        <div style="margin-top:12px;margin-bottom:10px" class="continueshopping"><a href="/cart" style="width:50px;color:white;font-size:15px;text-decoration:none" onclick="conshop();">PROCEED TO CHECKOUT</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-6 hidden-lg hidden-md hidden-xs">
+                        <center> <button style="color: white; border: 1px solid rgb(195,193,193);margin-left:90px;padding:2px;margin-top:1px" type="button" id="add-to-cart-button" onclick="javascript:buyNowPressed();" class="buyndwl btn-orignal bg-black btn" data-toggle="popover">@addToCartText</button></center>
+                        <div class="popover fade bottom in hidden-sm hidden-xs" role="tooltip" id="popover49879" style="visibility: hidden; left:85px; top: 51px; display: block;">
+                            <div class="arrow" style="left: 20%;"></div>
+                            <h3 class="popover-title" style="display: none;"></h3>
+                            <div class="popover-content">
+                                <div style="font-weight:700;font-size:16px;text-align:center">
+                                    IT'S IN THE BAG <br>
+                                    <p style="font-weight:100;font-size:12px;padding-top:12px;padding-bottom:8px;color:gray"> Thank you ,this item has been added to your shopping bag</p>
+                                    <hr>
+                                    <div>
+                                        <span style="float:right;font-weight:100;font-size:13px"> @Model.ProductPrice.Price</span>
+                                        <span style="float:right;font-size:13px;font-weight:100;color:gray">Total :</span>
+                                        <span style="float:left;font-size:13px;font-weight:100;color:gray">Total Item :</span>
+                                        <span style="float:left;font-weight:100;font-size:13px;"> @Model.AddToCart.EnteredQuantity</span><br />
+                                        <hr>
+                                        <div style="margin-top:21px" class="continueshopping"><a href="javascript:" style="width:50px;color:white;font-size:15px;text-decoration:none" onclick="conshop();">CONTINUE SHOPPING</a></div>
+                                        <div style="margin-top:12px;margin-bottom:10px" class="continueshopping"><a href="/cart" style="width:50px;color:white;font-size:15px;text-decoration:none" onclick="conshop();">PROCEED TO CHECKOUT</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+
+
+            </div>
+        }
+        @Html.Widget("productdetails_add_info", Model.AddToCart.ProductId)
+    </div>
+}
+<hr>
+<script>
+    function buyNowPressed() {
+        //!-- Click
+        $('#popover49879').css('visibility', 'visible');
+        //!-- For Ajax
+        AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.AddToCart.ProductId, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })', '#product-details-form'); return false;
+
+    }
+
+    function conshop() {
+        //!-- Click
+        $('#popover49879').css('visibility', 'hidden');
+       
+       
+    }
+</script>

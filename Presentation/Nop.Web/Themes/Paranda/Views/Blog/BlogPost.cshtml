@@ -1,0 +1,148 @@
+﻿@model BlogPostModel
+@using Nop.Web.Models.Blogs;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    //Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Title);
+    Html.AddTitleParts(T("Men handmade shoes in Pakistan | Blog").Text);
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+}
+@*@section left {
+    @Html.Action("BlogMonths", "Blog")
+    @Html.Action("BlogTags", "Blog")
+}*@
+    @*<div class="page-header page-header-custom" style="text-align: center; border-bottom: 0px; font-size: 33px; color: #051C3B">
+        <h3>@Model.Title</h3>
+    </div>*@
+    <div class="page-body">
+        @*<div class="marginBottom10" style="text-align:center">
+            <small class="text-muted"><i>@Model.CreatedOn.ToString("D")</i></small>
+        </div>*@
+        @Html.Widget("blogpost_page_before_body", Model.Id)
+        <center>
+            <div class="text-justify lineHeight24" style="text-align:center;width:91%">
+                @Html.Raw(Model.Body)
+            </div>
+        </center> 
+        @if (Model.Tags.Count > 0)
+        {
+            <label>@T("Blog.Tags"):</label>
+                <ul class="list-inline">
+                    @for (int i = 0; i < Model.Tags.Count; i++)
+                    {
+                        var tag = Model.Tags[i];
+                        <li><a href="@Url.RouteUrl("BlogByTag", new { tag = tag })">@tag</a></li>
+                        if (i != Model.Tags.Count - 1)
+                        {
+                            <li>-</li>
+                        }
+                    }
+                </ul>
+        }
+        @Html.Widget("blogpost_page_before_comments", Model.Id)
+        @if (Model.AllowComments)
+        {
+            <h3 class="text-center marginTop20">@T("Blog.Comments.LeaveYourComment")</h3>
+            var validationSummary = Html.ValidationSummary(true);
+
+            <div class="notifications">
+                @if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                {
+                    <div class="text-danger">@validationSummary</div>
+                }
+
+                @{
+                    var result = TempData["Nop.blog.addcomment.result"] as string;
+                }
+                @if (!String.IsNullOrEmpty(result))
+                {
+                    <div class="text-success text-center">@result</div>
+                }
+            </div>
+                    using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+    <div class="row marginTop10 no-margin">
+        <div class="form-group">
+            @Html.LabelFor(model => model.AddNewComment.CommentText, new { @class = "col-sm-2 control-label", style = "text-align:right" }, ":")
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.AddNewComment.CommentText, new { @class = "form-control", rows = "10" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4 text-danger">
+                <small class="text-danger">@Html.ValidationMessageFor(model => model.AddNewComment.CommentText)</small>
+            </div>
+        </div>
+    </div>
+                        if (Model.AddNewComment.DisplayCaptcha)
+                        {
+                            <div class="row marginTop10 no-margin">
+                                <div class="col-md-offset-2 col-md-4">
+                                    @Html.Raw(Html.GenerateCaptcha())
+                                </div>
+                            </div>
+                        }
+                        <div class="row marginTop10 marginBottom30 no-margin" style="margin-top:20px;margin-bottom:20px">
+                            <div class="text-center" style="margin-bottom:13px">
+                                <input type="submit" name="add-comment" class="btn-med" value="@T("News.Comments.SubmitButton")" />
+                            </div>
+                        </div>
+                    }
+                    if (Model.Comments.Count > 0)
+                    {
+                        <div class="comment-list">
+                            <h4 class="text-center" style="font-size: 30px;font-weight: 900;color: #051C3B;margin-top: 10px;margin-bottom: 10px;height: 53px;">
+                             <span style=" border-top: 1px solid #999; border-bottom: 1px solid #999; padding-top: 10px; padding-bottom: 10px;">   @T("Blog.Comments")</span>
+                        </h4>
+                            <div class="comments">
+                                @foreach (var comment in Model.Comments)
+{
+    <div class="row borderTop marginTop10 no-margin" style="background-color: #f2eeee; margin-left: 10px; margin-right: 10px; border-bottom: 1px solid #d6cfcf">
+        <div class="col-sm-2 comment-name">
+            @if (comment.AllowViewingProfiles)
+            {
+                <a href="@Url.RouteUrl("CustomerProfile", new { id = comment.CustomerId })" class="username">@(comment.CustomerName)</a>
+            }
+            else
+            {
+                <span class="username">@(comment.CustomerName)</span>
+            }
+
+            @if (!String.IsNullOrEmpty(comment.CustomerAvatarUrl))
+            {
+                <div class="avatar">
+                    @if (comment.AllowViewingProfiles)
+                    {
+                        <a href="@Url.RouteUrl("CustomerProfile", new { id = comment.CustomerId })" class="avatar-img-link">
+                            <img src="@(comment.CustomerAvatarUrl)" class="avatar-img" title="avatar" alt="avatar" />
+                        </a>
+                    }
+                    else
+                    {
+                        <img src="@(comment.CustomerAvatarUrl)" class="avatar-img" title="avatar" alt="avatar" />
+                    }
+                </div>
+            }
+        </div>
+        <div class="col-sm-8" style="text-align:center;margin-top:10px">
+            <div class="" style="font-size:12px">
+                <small>@T("Blog.Comments.CreatedOn"):</small>
+                <small class="text-muted">@comment.CreatedOn.ToString("g")</small>
+            </div>
+            <p class="comment-body" style="margin-top:13px">
+                @Html.Raw(Nop.Core.Html.HtmlHelper.FormatText(comment.CommentText, false, true, false, false, false, false))
+            </p>
+            @Html.Widget("blogpost_page_inside_comment", comment.Id)
+        </div>
+    </div>
+
+}
+                            </div>
+                        </div>
+                        }
+                    }
+        @Html.Widget("blogpost_page_after_comments", Model.Id)
+    </div>

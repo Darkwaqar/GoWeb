@@ -1,0 +1,156 @@
+﻿@model IList<ProductOverviewModel>
+
+@using Nop.Web.Models.Catalog;
+
+<style>
+   
+
+    /*FlexSlider Overrides*/
+    .flex-direction-nav .flex-prev {
+        left: 0px;
+    }
+    .flex-direction-nav .flex-next {
+        right: 0px;
+    }
+
+    .flexslider .slides {
+        /*padding:30px 0px;*/
+        box-sizing: border-box;
+    }
+
+    .flex-control-paging li a {
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+        width: 15px;
+        height: 15px;
+    }
+
+    .flex-direction-nav a:before {
+        font-family: FontAwesome;
+    }
+
+    .flex-direction-nav a.flex-next:before {
+        content: '\f105';
+    }
+
+    .flexslider:hover .flex-direction-nav .flex-next {
+        right: 20px;
+    }
+
+    .flexslider:hover .flex-direction-nav .flex-prev {
+        left: 20px;
+    }
+
+    .flex-direction-nav a:before {
+        content: "\f104";
+    }
+</style>
+@if (Model.Count > 0)
+{
+    <div class="flexslider">
+        <ul class="slides">
+
+            @foreach (var item in Model)
+            {
+                //string odd_class = "";
+                //odd +=1;
+
+                //if(odd % 2 == 1 ){
+                //    odd_class = "homepageproduct-focus";
+
+                //}
+ if (item.Name != "GIFT VOUCHER 10000" || item.Name != "GIFT VOUCHER 15000")
+                    { 
+                <li class="homepageproduct " style="height:0px">
+                    <div class="hppdtl">
+
+
+                        <div>
+                            <h4 style="font-size:14px">
+                                <b>@item.Name</b><br />
+                                @item.ProductPrice.Price
+                            </h4>
+                        </div>
+                    </div>
+                    <p class="hppimg">
+                        <a href="/@item.SeName">
+                            <img src="@item.DefaultPictureModel.ImageUrl" class="img-responsive " />
+                        </a>
+                    </p>
+
+                </li>
+
+}
+
+}
+            <!-- items mirrored twice, total of 12 -->
+        </ul>
+    </div>
+    <script>
+
+
+
+        function loadFlexslider() {
+            var isSmartPhones = (document.body.clientWidth < 600);
+            var width = isSmartPhones ? 350 : (document.body.clientWidth / 4) - 10;
+            var current = 0;
+            $('.flexslider').flexslider({
+                animation: "slide",
+                animationLoop: true,
+
+
+
+
+
+                itemWidth: width,
+                itemMargin: 0,
+                itemPadding: 0,
+                maxItem: 4,
+                move: 1,
+                start: function (slider) {
+
+
+
+                },
+
+
+                after: function (slider) {
+                    //alert("count: " + slider.count + ", current:" + slider.currentSlide)
+                    //  if (current > 0 ) {
+                    //      slider.slides.eq(current).removeClass("hpp-focus");
+                    //  }
+
+                    // var val = (slider.currentSlide == slider.count - 2) ? 0 : 1;
+                    // current = isSmartPhones ? slider.currentSlide : slider.currentSlide + val;
+                    //     slider.slides.eq(current).addClass("hpp-focus");
+
+
+
+                    //slider.slides.eq(current + 1).addClass("hpp-focus");
+                    //slider.slides.eq(current).removeClass("hpp-focus");
+
+                    //current += 1;
+
+                    // $( slider.slides[slider.currentSlide ]).addClass("homepageproduct-focus");
+                    // $(slider.slides[slider.currentSlide ]).removeClass("homepageproduct-focus");
+                },
+
+                end: function (slider) {
+                    //slider.slides.eq(slider.currentSlide).removeClass("hpp-focus");
+
+                }
+
+
+            });
+        }
+        $(window).resize(function () {
+            loadFlexslider();
+
+        });
+        $(window).load(function () {
+            loadFlexslider();
+
+        });
+    </script>
+}

@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coming Soon</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Themes/ComingSoonHashmi/Content/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/css/main.css">
+    <link href="~/Themes/ComingSoonHashmi/Content/css/style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--===============================================================================================-->
+</head>
+<body>
+    <div class="size1 bg0 where1-parent">
+        <!-- Form -->
+        <div class="col-md-12">
+            <div class="logo">
+                <img width="100%" src="~/Themes/ComingSoonHashmi/Content/images/logored.png" />
+            </div>
+            @Html.Widget("home_page_main_slider")
+        </div>
+        <div class="col-md-12 text-body">
+            @Html.Action("NewsletterBox", "Newsletter")
+        </div>
+    </div>
+
+    <!--===============================================================================================-->
+    <script src="~/Themes/ComingSoon/Content/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+
+</body>
+</html>

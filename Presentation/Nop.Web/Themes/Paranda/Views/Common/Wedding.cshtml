@@ -1,0 +1,137 @@
+﻿@model ContactUsModel
+@using Nop.Web.Models.Common;
+@using Nop.Services.Common;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    //title
+    Html.AddTitleParts(T("Wedding").Text);
+    var currentCustomer = Nop.Core.Infrastructure.EngineContext.Current.Resolve<Nop.Core.IWorkContext>().CurrentCustomer;
+
+    var FirstName = currentCustomer.GetAttribute<string>(Nop.Core.Domain.Customers.SystemCustomerAttributeNames.FirstName);
+    var LastName = currentCustomer.GetAttribute<string>(Nop.Core.Domain.Customers.SystemCustomerAttributeNames.LastName);
+    var Email = currentCustomer.Email;
+}
+
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@{
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    var img = string.Format(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/{0}/Content/images", themeName);
+}
+    <style type="text/css">
+        .weading .textbox3 {
+            height: 50px;
+        }
+        .weading .btn-sub {
+            background-color: #eb238f;
+            width: 100%;
+            max-width: 100%;
+            height: 50px;
+            margin-top: 3%;
+        }
+    </style>
+    
+    <div class="row nopadding no-margin weading" style="margin-top: 40px; margin-bottom: 70px;">
+        <div class="page-body col-md-6 forcontactheading">
+            <h3 style="font-weight:bold;color:#eb238f;">Wedding</h3>
+
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-8">
+                  
+                    @if (Model.SuccessfullySent)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @Model.Result
+                        </div>
+                    }
+                    else
+                    {
+                        using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            var validationSummary = Html.ValidationSummary(true);
+                            if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                            {
+                                <div class="text-danger">@validationSummary</div>
+                            }
+                            <div class="form-horizontal">
+                                <div class="form-group formgrp-bottom">
+                                    <label class="col-xs-1 control-label" style=" color: #969595; ">Name</label>
+                                    <div class="col-sm-12">
+                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control textbox3 ", placeholder = "Full Name", required = "required" })
+                                        <small class="text-danger">@Html.ValidationMessageFor(model => model.FullName)</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group formgrp-bottom">
+                                    <label class="col-xs-1 control-label" style=" color: #969595; ">CONTACT</label>
+                                    <div class="col-sm-12">
+                                        @Html.TextBoxFor(model => model.Phone, new { @Type="number", @class = "textbox3 form-control", placeholder = "CONTACT", required = "required" })
+                                        <small class="text-danger">@Html.ValidationMessageFor(model => model.Phone)</small>
+                                    </div>
+                                </div>
+                                <div class="form-group formgrp-bottom">
+
+                                    <label class="col-xs-1 control-label" style=" color: #969595; ">Email</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" name="Email" class="textbox3" placeholder="Email" value="@Email" required="required" />
+                                        <small class="text-danger">@Html.ValidationMessageFor(model => model.Email)</small>
+                                    </div>
+                                </div>
+                                @*date start *@
+                                <div class="form-group formgrp-bottom">
+                                    <label class="col-xs-1 control-label" style="color: #969595; ">Date</label>
+                                    <div id="sandbox-container" class="col-sm-12">
+                                        @Html.TextBoxFor(model => model.Enquiry, new { @class = "input textbox3 form-control", placeholder = "DATE", required = "required" })
+                                        <small class="text-danger">@Html.ValidationMessageFor(model => model.LastName)</small>
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    $('#sandbox-container input').datepicker({
+                                        autoclose: true
+                                    });
+                                    $('#sandbox-container input').on('show', function (e) {
+                                        console.debug('show', e.date, $(this).data('stickyDate'));
+
+                                        if (e.date) {
+                                            $(this).data('stickyDate', e.date);
+                                        }
+                                        else {
+                                            $(this).data('stickyDate', null);
+                                        }
+                                    });
+                                    $('#sandbox-container input').on('hide', function (e) {
+                                        console.debug('hide', e.date, $(this).data('stickyDate'));
+                                        var stickyDate = $(this).data('stickyDate');
+
+                                        if (!e.date && stickyDate) {
+                                            console.debug('restore stickyDate', stickyDate);
+                                            $(this).datepicker('setDate', stickyDate);
+                                            $(this).data('stickyDate', null);
+                                        }
+                                    });
+                                </script>
+
+                                @*Date END *@
+
+                                <div class="form-group formgrp-bottom">
+                                    <div class="col-md-10">
+                                        <input type="submit" name="send-email" class="btn-med btn-sub" value="@T("ContactUs.Button")" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6 ">
+
+            <img class="img-responsive" src="@img/Wedding.jpg">
+
+        </div>
+    </div>

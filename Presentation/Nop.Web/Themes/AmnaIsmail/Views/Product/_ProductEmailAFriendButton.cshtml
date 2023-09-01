@@ -1,0 +1,9 @@
+﻿@model ProductDetailsModel
+@using growonline.Web.Models.Catalog;
+@if (Model.EmailAFriendEnabled)
+{
+    <a class="btn-orignal btn-orignal-md" onclick="setLocation('@Url.RouteUrl("ProductEmailAFriend", new { productId = Model.Id })')">
+        <i class="glyphicon glyphicon-envelope text-muted"></i> @T("Products.EmailAFriend")
+    </a>
+
+}

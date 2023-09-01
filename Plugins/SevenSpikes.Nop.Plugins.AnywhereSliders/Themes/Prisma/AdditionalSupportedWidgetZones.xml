@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SupportedWidgetZones>
+  
+  <WidgetZone>Editor-Pick</WidgetZone>
+  <WidgetZone>HotStepper</WidgetZone>
+  <WidgetZone>Beauty-Backstage</WidgetZone>
+  <WidgetZone>Trending</WidgetZone>
+  <WidgetZone>New-Arival</WidgetZone>
+  <WidgetZone>CountDown</WidgetZone>
+  <WidgetZone>Featured_Banner</WidgetZone>
+  <WidgetZone>Category_Banner</WidgetZone>
+  <WidgetZone>Designer_Banner</WidgetZone>
+  <WidgetZone>Brand_Banner</WidgetZone>
+
+
+  <WidgetZone>hotstrapper</WidgetZone>
+  <WidgetZone>main_big_slider_one</WidgetZone>
+  <WidgetZone>main_big_slider_two_1</WidgetZone>
+  <WidgetZone>main_big_slider_two_2</WidgetZone>
+  <WidgetZone>main_big_slider_three_1</WidgetZone>
+  <WidgetZone>main_big_slider_three_2</WidgetZone>
+  <WidgetZone>main_big_slider_four</WidgetZone>
+  <WidgetZone>main_big_slider_five_1</WidgetZone>
+  <WidgetZone>main_big_slider_five_2</WidgetZone>
+  <WidgetZone>main_big_slider_five_3</WidgetZone>
+  <WidgetZone>main_slider</WidgetZone>
+  <WidgetZone>prisma_banners_2_widget_zone</WidgetZone>
+  <WidgetZone>prisma_banners_3_widget_zone</WidgetZone>
+</SupportedWidgetZones>

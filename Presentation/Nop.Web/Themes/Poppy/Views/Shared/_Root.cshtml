@@ -1,0 +1,94 @@
+﻿@using Nop.Web.Models.Catalog;
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+}
+@{
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+}
+
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+
+@Html.Action("AdminHeaderLinks", "Common")
+
+<div class="responsive-nav-wrapper-parent">
+    <div class="responsive-nav-wrapper">
+        <div class="menu-title">
+            <span>@T("SevenSpikes.Themes.Common.MenuTitle")</span>
+        </div>
+        <div class="search-wrap">
+            <span>@T("Search")</span>
+        </div>
+        <div class="to-wishlist">
+            <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                <span class="wishlist-label">@T("Wishlist")</span>
+            </a>
+        </div>
+        <div class="shopping-cart-link">
+            <a href="@Url.RouteUrl("ShoppingCart")">@T("ShoppingCart")</a>
+        </div>
+        <div class="personal-button" id="header-links-opener">
+            <span>@T("SevenSpikes.Themes.Common.Personal")</span>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("Header")
+@Html.Action("HeaderLinks", "Common")
+
+@if (isHomePage)
+{
+    @Html.Widget("home_page_main_slider");
+}
+
+@Html.Widget("ajax_filters_poppy")
+
+<div class="master-wrapper-page">
+
+    @if (IsSectionDefined("blogNavigationSection"))
+    {
+        @RenderSection("blogNavigationSection");
+    }
+    
+    <script type="text/javascript">
+        AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+    </script>
+    <div class="overlayOffCanvas"></div>
+    <div class="header-menu">
+        <div class="close-menu">
+            <span>@T("SevenSpikes.Themes.Common.CloseMenu")</span>
+        </div>
+        @{
+            var menuHtml = Html.Widget("theme_header_menu");
+        }
+        @if (!MvcHtmlString.IsNullOrEmpty(menuHtml))
+        {
+            @menuHtml
+        }
+        else
+        {
+            @Html.Action("TopMenu", "Catalog")
+        }
+    </div>
+    <div class="master-wrapper-content">
+        @Html.Widget("content_before")
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb")
+        }
+        <div class="master-column-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+    @Html.Widget("content_after")
+    @if (isHomePage)
+    {
+        @Html.Action("HomePagePolls", "Poll")
+    }
+    @Html.Action("Footer", "Common")
+</div>
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")

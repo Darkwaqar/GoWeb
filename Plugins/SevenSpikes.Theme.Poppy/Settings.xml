@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Setting Name="poppythemesettings.preset">
+    <Value>cc8a97</Value>
+  </Setting>
+  <Setting Name="poppythemesettings.defaultpreset">
+    <Value>cc8a97</Value>
+  </Setting>
+  <Setting Name="poppythemesettings.defaultproductimageproportion">
+    <Value>131</Value>
+  </Setting>
+  <Setting Name="poppythemesettings.defaultcategoryimageproportion">
+    <Value>176.92</Value>
+  </Setting>
+  <Setting Name="poppythemesettings.productimageproportion">
+    <Value>131</Value>
+  </Setting>
+  <Setting Name="poppythemesettings.categoryimageproportion">
+    <Value>176.92</Value>
+  </Setting>
+  <Setting Name="poppythemesettings.lazyloadimages">
+    <Value>true</Value>
+  </Setting>
+  <Setting Name="poppythemesettings.MobileNavigationPosition">
+    <Value>bottom</Value>
+  </Setting>
+  <Setting Name="ordersettings.onepagecheckoutenabled">
+    <Value>false</Value>
+  </Setting>
+  <Setting Name="catalogsettings.showproductsfromsubcategories">
+    <Value>true</Value>
+  </Setting>
+  <Setting Name="CatalogSettings.ShowCategoryProductNumber">
+    <Value>True</Value>
+  </Setting>
+  <Setting Name="CatalogSettings.ShowCategoryProductNumberIncludingSubcategories">
+    <Value>True</Value>
+  </Setting>
+  <Setting Name="mediasettings.productthumbpicturesize">
+    <Value>360</Value>
+  </Setting>
+  <Setting Name="mediasettings.productdetailspicturesize">
+    <Value>600</Value>
+  </Setting>
+  <Setting Name="mediasettings.minicartthumbpicturesize">
+    <Value>95</Value>
+  </Setting>
+  <Setting Name="mediasettings.manufacturerthumbpicturesize">
+    <Value>350</Value>
+  </Setting>
+  <Setting Name="mediasettings.categorythumbpicturesize">
+    <Value>370</Value>
+  </Setting>
+  <Setting Name="mediasettings.productthumbpicturesizeonproductdetailspage">
+    <Value>100</Value>
+  </Setting>
+  <Setting Name="mediasettings.associatedproductpicturesize">
+    <Value>370</Value>
+  </Setting>
+  <Setting Name="mediasettings.maximumimagesize">
+    <Value>1920</Value>
+  </Setting>
+  
+  <Setting Name="JCarouselGeneralSettings.ResponsiveBreakpointsForSlickSlider-Poppy">
+    <Value>[{"breakpoint":789,"settings":{"slidesToShow":2}},{"breakpoint":403,"settings":{"slidesToShow":1}}]</Value>
+  </Setting>
+  
+  <Setting Name="NopAjaxFiltersSettings.WidgetZone">
+    <Value>ajax_filters_poppy</Value>
+  </Setting>
+  <Setting Name="NopAjaxFiltersSettings.ShowNumberOfReturnedProductsSelector">
+    <Value>.product-selectors</Value>
+  </Setting>
+  <Setting Name="NopAjaxFiltersSettings.ScrollToElementOnThePageAfterFiltrationMobile">
+    <Value>True</Value>
+  </Setting>
+
+  <Setting Name="CloudZoomSettings.ZoomWidth">
+    <Value>360</Value>
+  </Setting>
+  <Setting Name="CloudZoomSettings.ZoomHeight">
+    <Value>360</Value>
+  </Setting>  
+  <Setting Name="cloudzoomsettings.zoomposition">
+    <Value>inside</Value>
+  </Setting>
+  <Setting Name="cloudzoomsettings.adjustx">
+    <Value>20</Value>
+  </Setting>
+  <Setting Name="cloudzoomsettings.adjusty">
+    <Value>0</Value>
+  </Setting>
+
+  
+  <Setting Name="MegaMenuSettings.CategoriesImageSize">
+    <Value>300</Value>
+  </Setting>
+  <Setting Name="MegaMenuSettings.ManufacturerImageSize">
+    <Value>200</Value>
+  </Setting>
+  <Setting Name="MegaMenuSettings.MegaMenuCategoryTemplate">
+    <Value>CategoryMenuTemplate.WithPictures</Value>
+  </Setting>
+  <Setting Name="MegaMenuSettings.MegaMenuManufacturerTemplate">
+    <Value>ManufacturerMenuTemplate.WithPictures</Value>
+  </Setting>
+  <Setting Name="MegaMenuSettings.NumberOfCategoriesPerRow">
+    <Value>4</Value>
+  </Setting>
+  <Setting Name="MegaMenuSettings.NumberOfManufacturersPerRow">
+    <Value>5</Value>
+  </Setting>
+  
+  <Setting Name="NopAjaxCartSettings.ProductAddedToCartImageSize">
+    <Value>350</Value>
+  </Setting>
+  <Setting Name="NopAjaxCartSettings.MiniProductDetailsViewImageSize">
+    <Value>350</Value>
+  </Setting>
+  <Setting Name="NopAjaxCartSettings.AddToWishlistButtonSelector">
+    <Value>button.add-to-wishlist-button</Value>
+  </Setting>
+
+  <Setting Name="QuickViewSettings.ProductDetailsPictureSize">
+    <Value>380</Value>
+  </Setting>
+  <Setting Name="QuickViewSettings.ProductThumbPictureSize">
+    <Value>95</Value>
+  </Setting>
+  <Setting Name="QuickViewSettings.ProductItemSelectorChild">
+    <Value>.additional-buttons</Value>
+  </Setting>
+  <Setting Name="QuickViewSettings.AccordionPanelsHeightStyle">
+    <Value>auto</Value>
+  </Setting>
+  
+  <Setting Name="InstantSearchSettings.PictureSize">
+    <Value>80</Value>
+  </Setting>
+
+
+  <Setting Name="RichBlogSettings.BlogListImageWidgetZone">
+    <Value>bloglist_page_post_top</Value>
+  </Setting>
+  <Setting Name="RichBlogSettings.BlogDetailsImageSize">
+    <Value>800</Value>
+  </Setting>
+  <Setting Name="RichBlogSettings.HomePageImageSize">
+    <Value>800</Value>
+  </Setting>
+
+  <Setting Name="newsletterpopupsettings.newsletterpopupopenerselector">
+    <Value>.btn-subscribe.newsletter-box-button</Value>
+  </Setting>
+  
+</Settings>

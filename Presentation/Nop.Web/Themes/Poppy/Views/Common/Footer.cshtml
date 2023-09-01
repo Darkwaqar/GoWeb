@@ -1,0 +1,159 @@
+﻿@model FooterModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Services.Configuration
+@using Nop.Web.Models.Common
+
+@{
+    var storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+
+    var removeCopyright = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("poppythemesettings.removecopyright", false, storeId, true);
+    var removeDesignedBy = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("poppythemesettings.removedesignedby", false, storeId, true);
+
+    var facebookFeedWidget = Html.Widget("facebook_default");
+    var googleFeedWidget = Html.Widget("google_plus_default");
+    var pinterestFeedWidget = Html.Widget("pinterest_default");
+    
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+}
+
+@if (isHomePage) {
+<div class="interview">
+    <div class="scrolable">
+	<h2> About Sadaf Amir </h2>
+        <p>
+            Zainab Chottani’s vision for intricacy and modern cuts made her step into the world of Prêt. She launched her first Prêt collection, AQUA, which was based on straight and simple cuts with a unique focus on each outfit.
+            <br />
+            After AQUA, she launched her second Pret collection, Mera Pakistan, inspired by unique and symbolic landmarks of Pakistan such as Minar-e-Pakistan and Bab-e-Khyber.
+            <br />
+            She showcased her Luxury Prêt collection, Hala-Lujah, at PFDC Sunsilk Fashion Week and received an amazing feedback. This collection was inspired by the famous Hala pottery.
+            <br />
+            From there on she has continued to introduce new collections in her Prêt wear on a regular basis, which is getting a great response from her clients.
+            <br />
+            Zainab Chottani has also showcased her designs internationally in Doha and UK, where she was applauded for her exquisite collections.
+            <br />
+            Zainab Chottani has also ventured into Lawn with some of the leading textile brands. Her Printed Lawn collection is a proof that although Bridals maybe her forte, she can equally amaze the world with her prints.
+            <br />
+            Zainab's approach towards business is simple and straightforward, and her design aesthetic minimal and clean – a combination that has helped her shape the brand in to a success.
+            <br />
+            Taking over the fashion industry one step at a time, Zainab Chottani, with her Prêt, Couture, and Bridal collections, is a name not to be forgotten.
+        </p>
+    </div>
+    <div>
+        @*<img src="~/Themes/Urban/Content/img/aunt1234.jpg" />*@
+    </div>
+</div>
+}
+<div class="footer">
+    @if (isHomePage) {
+
+        if (!MvcHtmlString.IsNullOrEmpty(facebookFeedWidget) ||
+         !MvcHtmlString.IsNullOrEmpty(googleFeedWidget) ||
+        !MvcHtmlString.IsNullOrEmpty(pinterestFeedWidget))
+            {
+                <div class="footer-fgp-feeds-wrap @if(!MvcHtmlString.IsNullOrEmpty(facebookFeedWidget)){<text>with-facebook</text>} @if(MvcHtmlString.IsNullOrEmpty(pinterestFeedWidget)){<text>no-pinterest</text>}">
+                    @googleFeedWidget
+                    @pinterestFeedWidget
+                    @facebookFeedWidget
+                </div>
+            }
+
+    }
+    <div class="footer-upper">
+        @if (isHomePage) {
+            @Html.Widget("instagram_default")
+            @Html.Widget("twitter_default")
+        }
+        @Html.Action("NewsletterBox", "Newsletter")
+    </div>
+    <div class="footer-lower">
+
+        <div class="footer-block footer-links">
+            <ul class="list">
+                <li>
+                    <a href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</a>
+                </li>
+                <li>
+                    <a href="@Url.RouteUrl("CustomerAddresses")" class="">@T("Account.CustomerAddresses")</a>
+                </li>
+                @if (Model.ShoppingCartEnabled)
+                {
+                    <li>
+                        <a href="@Url.RouteUrl("ShoppingCart")" class="ico-cart">@T("ShoppingCart")</a>
+                    </li>
+                }
+                @if (Model.WishlistEnabled)
+                {
+                    <li>
+                        <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">@T("Wishlist")</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <ul class="social-sharing">
+	    @Html.Action("Social", "Common")
+        </ul>
+        <div class="ourApp ourAppFooter">
+            <div>
+                <p>Download Our App</p>
+            </div>
+            <ul>
+                <li>
+                    <a target="_blank" href="https://www.gomobishop.com/share?sid=9">
+                        <img src="~/Themes/Poppy/Content/img/googleplayold.png" />
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://share.gomobishop.com/share?sid=9">
+                        <img src="~/Themes/Poppy/Content/img/ios.png" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul class="accepted-payment-methods">
+                <li class="method1"></li>
+
+                <li class="method6"></li>
+            </ul>
+        </div>
+        @if (!removeCopyright)
+        {
+            <div class="footer-powered-by">
+                @*Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a>*@
+                @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
+                    Please find more info here http://www.nopcommerce.com/copyrightremoval.aspx*@
+                <a style="text-decoration:none;font-size: 12px; color: #a3a3a3;" href="https://info.gomobishop.com/" target="_blank">
+                    Powered by &nbsp;
+                    <span>
+                        <img class="grow" src="/themes/Poppy/Content/img/GrowOnline-logo.png" style="width: 22px;vertical-align: bottom;" />
+                    </span>
+                    GROW ONLINE
+                </a>
+            </div>
+        }
+        @if (!removeDesignedBy)
+        {
+            <div class="footer-designed-by">
+                Designed by <a href="http://www.nop-templates.com/" target="_blank">Nop-Templates.com</a>
+            </div>
+        }
+        <div class="footer-disclaimer">
+            @T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)
+        </div>
+        @if (Model.DisplayTaxShippingInfoFooter)
+        {
+            var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+            <div class="footer-tax-shipping">
+                @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+            </div>
+        }
+
+        @Html.Action("StoreThemeSelector", "Common")
+
+    </div>
+    @Html.Widget("footer")
+</div>

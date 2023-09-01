@@ -1,0 +1,26 @@
+﻿@model CurrencySelectorModel
+@using Nop.Web.Models.Common;
+@using Nop.Core;
+@using Nop.Core.Infrastructure;
+@if (Model.AvailableCurrencies.Count > 1)
+{
+        <div class="lang-wrap">
+            @{
+                var selectedCurrency = Model.AvailableCurrencies.FirstOrDefault(x => x.Id == Model.CurrentCurrencyId);
+            }
+            <span href="/" class="btn btn-stripe">
+                @selectedCurrency.Name
+            </span>
+            <div class="btn-lang-alternative btn-lang-alternative-@(Model.AvailableCurrencies.Count-1)">
+                @foreach (var currency in @Model.AvailableCurrencies.Where(x => x.Id != Model.CurrentCurrencyId))
+                {
+
+                    var value = EngineContext.Current.Resolve<IWebHelper>().ModifyQueryString(Url.RouteUrl("ChangeCurrency", new { customercurrency = @currency.Id }), "returnurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl), null);
+                    <a href="#" class="btn btn-stripe" onclick="setLocation('@(value)');">
+                        @currency.Name
+                    </a>
+                }
+            </div>
+
+        </div>
+}

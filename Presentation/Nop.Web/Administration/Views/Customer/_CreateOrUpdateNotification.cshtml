@@ -1,0 +1,199 @@
+﻿@model CustomerNotificationModel
+@using Nop.Services
+@using Nop.Core.Domain.Fcm
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#@Html.FieldIdFor(model => model.Notification.FcmType)").change(toggleFcmType);
+         $("#@Html.FieldIdFor(model => model.Notification.SendImmediately)").click(sendImmediately);
+         toggleFcmType();
+         sendImmediately();
+    });
+
+    function toggleFcmType() {
+        var simpleId = "@((int)FcmType.Simple)";
+        var imageId = "@((int)FcmType.Image)";
+        var webActivityId = "@((int)FcmType.WebActivity)";
+        var newsId = "@((int)FcmType.News)";
+
+        var selectedFcmTypeId = $("#@Html.FieldIdFor(model => model.Notification.FcmType)").val();
+        if (!selectedFcmTypeId || selectedFcmTypeId == simpleId) {
+            $('#group-image').hide();
+            $('#group-directimagelink').hide();
+            $('#group-intent').hide();
+            $('#group-gotolink').hide();
+            $('#preview').attr("src", "/Content/images/fcm/simple.png");
+        } else if (!selectedFcmTypeId || selectedFcmTypeId == imageId) {
+            $('#group-image').show();
+            $('#group-directimagelink').show();
+            $('#group-intent').show();
+            $('#group-gotolink').hide();
+            $('#preview').attr("src", "/Content/images/fcm/dialog_push.png");
+        } else if (!selectedFcmTypeId || selectedFcmTypeId == webActivityId) {
+            $('#group-image').hide();
+            $('#group-directimagelink').hide();
+            $('#group-intent').hide();
+            $('#group-gotolink').show();
+            $('#preview').attr("src", "/Content/images/fcm/webview.png");
+        } else if (selectedFcmTypeId == newsId) {
+            $('#group-image').show();
+            $('#group-directimagelink').show();
+            $('#group-intent').show();
+            $('#group-gotolink').hide();
+            $('#preview').attr("src", "/Content/images/fcm/news_push.png");
+
+        }
+    }
+    function sendImmediately() {
+        if ($('#@Html.FieldIdFor(model => model.Notification.SendImmediately)').is(':checked'))
+            $('#pnl-send-date').hide();
+        else
+            $('#pnl-send-date').show();
+    }
+
+</script>
+@Html.ValidationSummary(true)
+<div class="content">
+    <div class="form-horizontal">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.Notification.Id)
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.FcmType)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.Notification.FcmType, ((FcmType)Model.Notification.FcmType).ToSelectList())
+                            @Html.ValidationMessageFor(model => model.Notification.FcmType)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.Title)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Notification.Title, required: true)
+                            @Html.ValidationMessageFor(model => model.Notification.Title)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.Message)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopTextAreaFor(model => model.Notification.Message, required: true)
+                            @Html.ValidationMessageFor(model => model.Notification.Message)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.Icon)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Notification.Icon)
+                            @Html.ValidationMessageFor(model => model.Notification.Icon)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.DirectIconLink)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Notification.DirectIconLink)
+                            @Html.ValidationMessageFor(model => model.Notification.DirectIconLink)
+                        </div>
+                    </div>
+                    <div class="form-group" id="group-image">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.Image)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Notification.Image)
+                            @Html.ValidationMessageFor(model => model.Notification.Image)
+                        </div>
+                    </div>
+                    <div class="form-group" id="group-directimagelink">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.DirectImageLink)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Notification.DirectImageLink)
+                            @Html.ValidationMessageFor(model => model.Notification.DirectImageLink)
+                        </div>
+                    </div>
+                    <div class="form-group" id="group-gotolink">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.GotoLink)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Notification.GotoLink)
+                            @Html.ValidationMessageFor(model => model.Notification.GotoLink)
+                        </div>
+                    </div>
+                    <div class="form-group" id="group-intent">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.ActionId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.Notification.ActionId, Model.Notification.AvailableActions)
+                            @Html.ValidationMessageFor(model => model.Notification.ActionId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.CreatedOnUtc)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Notification.CreatedOnUtc)
+                            @Html.ValidationMessageFor(model => model.Notification.CreatedOnUtc)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.UpdatedOnUtc)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Notification.UpdatedOnUtc)
+                            @Html.ValidationMessageFor(model => model.Notification.UpdatedOnUtc)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.IsReaded)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Notification.IsReaded)
+                            @Html.ValidationMessageFor(model => model.Notification.IsReaded)
+                        </div>
+                    </div>
+
+                    @if (Model.Notification.ReadedOnUtc.HasValue)
+                    {
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Notification.ReadedOnUtc)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.Notification.ReadedOnUtc)
+                            </div>
+                        </div>
+                    }
+
+                    <div class="form-group" id="group-intent">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Notification.VendorId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.Notification.VendorId, Model.Notification.AvailableVendors)
+                            @Html.ValidationMessageFor(model => model.Notification.VendorId)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

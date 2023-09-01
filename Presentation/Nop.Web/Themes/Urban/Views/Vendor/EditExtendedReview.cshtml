@@ -1,0 +1,114 @@
+﻿@model PublicReviewEditModel
+@using Nop.Web.Models.Vendors;
+@{
+    @* Layout = "~/Views/Shared/_ColumnsOne.cshtml"; *@
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+    Html.Partial("_Includes");
+}
+<div class="page product-reviews-page">
+    @section left
+    {
+    	@Html.Action("CustomerNavigation", "Customer", new { selectedTabId = 180 })
+    }
+    <div class="page-title">
+        <h1>@T("Reviews.ProductReviewsFor") <a href="@Url.RouteUrl("Product", new { SeName = Model.ProductSeName })">@Model.ProductName</a></h1>
+    </div>
+    <div class="page-body">
+        @if (Model.AddProductReviewModel.SuccessfullyAdded)
+        {
+            <div class="result">
+                @Model.AddProductReviewModel.Result
+            </div>
+        }
+        @using (Html.BeginForm())
+        {
+            var validationSummary = Html.ValidationSummary(true);
+            if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+            {
+                <div class="message-error">@validationSummary</div>
+            }
+
+           <div class="review-page-product-overview-body">
+               <div class="review-page-product-overview">
+                   <img src="@Model.ProductImageUrl" width="50" />
+                   <div class="overview-details">
+                       <a href="@Url.RouteUrl("Product", new {SeName = Model.ProductSeName})" class="overview-title">@Model.ProductName</a>
+                       <div class="hidden">
+                           @Html.Action("TopicBlock", "Topic", new { systemName = "ProductReviewGuidelines" })
+                       </div>
+                   </div>
+               </div>
+               <div class="fieldset">
+                   <div class="form-fields">
+                       <div class="title">Product Review</div>
+                       <div class="inputs">
+                           @Html.LabelFor(model => model.AddProductReviewModel.Title)
+                           @Html.TextBoxFor(model => model.AddProductReviewModel.Title)
+                           @Html.ValidationMessageFor(model => model.AddProductReviewModel.Title)
+                       </div>
+                       <div class="inputs">
+                           @Html.LabelFor(model => model.AddProductReviewModel.ReviewText)
+                           @Html.TextAreaFor(model => model.AddProductReviewModel.ReviewText)
+                           @Html.ValidationMessageFor(model => model.AddProductReviewModel.ReviewText)
+                       </div>
+                       <div class="review-rating inputs">
+                           @Html.LabelFor(model => model.VendorReviewListModel.Rating, new { style = "margin-top:0px" }, ":")
+                           <div class="process-raty" data-score="@Model.AddProductReviewModel.Rating" data-target="#product-rating-hint" data-scorename="@Html.FieldNameFor(model => model.AddProductReviewModel.Rating)"></div>
+                           <div id="product-rating-hint" class="process-raty-hint"></div>
+                           @Html.ValidationMessageFor(model => model.VendorReviewListModel.Rating)
+                       </div>
+                       @if (Model.AddProductReviewModel.DisplayCaptcha)
+                       {
+                           <div class="captcha-box">
+                               @Html.Raw(Html.GenerateCaptcha())
+                           </div>
+                       }
+                   </div>
+               </div>
+           </div>
+
+       @* <div class="review-page-vendor-overview-body">
+            <div class="review-page-vendor-overview">
+                <img src="@Model.VendorImageUrl" width="130" />
+                <div class="overview-details">
+                    <a href="@Url.RouteUrl("VendorDetails", new {SeName = Model.VendorSeName})" class="overview-title">
+                        @Model.VendorName
+                    </a>
+                    <div class="hidden">
+                        @Html.Action("TopicBlock", "Topic", new { systemName = "VendorReviewGuidelines" })
+                    </div>
+                </div>
+            </div>
+            <div class="fieldset">
+                <div class="form-fields">
+                    <div class="title">Vendor Review</div>
+                    <div class="inputs">
+                        @Html.LabelFor(model => model.VendorReviewListModel.Title)
+                        @Html.TextBoxFor(model => model.VendorReviewListModel.Title)
+                        @Html.ValidationMessageFor(model => model.VendorReviewListModel.Title)
+                    </div>
+                    <div class="inputs">
+                        @Html.LabelFor(model => model.VendorReviewListModel.ReviewText)
+                        @Html.TextAreaFor(model => model.VendorReviewListModel.ReviewText)
+                        @Html.ValidationMessageFor(model => model.VendorReviewListModel.ReviewText)
+                    </div>
+                    <div class="review-rating inputs">
+                        @Html.LabelFor(model => model.VendorReviewListModel.Rating, new { style = "margin-top:0px" }, ":")
+                        <div class="process-raty" data-score="@Model.VendorReviewListModel.Rating" data-target="#vendor-rating-hint" data-scorename="@Html.FieldNameFor(model => model.VendorReviewListModel.Rating)"></div>
+                        <div id="vendor-rating-hint" class="process-raty-hint"></div>
+                        @Html.ValidationMessageFor(model => model.VendorReviewListModel.Rating)
+                    </div>
+                </div>
+
+            </div>
+        </div> *@
+        <div class="buttons">
+            <input type="submit" name="add-review" class="button write-product-review-button" value="Submit Review" />
+        </div>
+
+        }
+
+    </div>
+
+
+</div>

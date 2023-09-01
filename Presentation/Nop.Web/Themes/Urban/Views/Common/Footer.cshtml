@@ -1,0 +1,192 @@
+﻿@model FooterModel
+@using Nop.Core;
+@using Nop.Core.Domain;
+@using Nop.Core.Domain.Tax;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Configuration;
+@using Nop.Web.Models.Common;
+
+@{
+    var storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+    var settingService = EngineContext.Current.Resolve<ISettingService>();
+    
+    var removeDesignedBy = settingService.GetSettingByKey("urbanthemesettings.removedesignedby", false, storeId, true);
+    var removeCopyright = settingService.GetSettingByKey("urbanthemesettings.removecopyright", false, storeId, true);
+    var instagramUrl = settingService.GetSettingByKey("urbanthemesettings.instagramurl", String.Empty, storeId, true).ToLowerInvariant();
+}
+@* Expire Ho gai he ye <script src="~/themes/Urban/Content/scripts/insta-feed.js"></script> *@
+
+<div class="footer">
+    <div class="footer-upper">
+        <div class="social-buttons">
+            @Html.Action("Social", "Common")
+
+            @Html.Widget("urban_footer_map")
+        </div>
+    </div>
+    <div class="footer-middle">
+        <div class="leftside">
+            @Html.Action("NewsletterBox", "Newsletter")
+	    <div class="newsletter-subscribe our_apps">
+                <div class="newsletter-subscribe">
+                    <div class="title">
+                        <strong>Footprint On MobiShop</strong>
+                    </div>
+                     <a target="_blank" href="https://www.gomobishop.com/share?sid=10">
+                        <img style=" max-width: 40px; height: 40px;" src="/Themes/Urban/Content/img/goapp.png">
+                    </a>
+                </div>
+            </div>
+	    <div class="newsletter-subscribe our_apps">
+                <div class="title">
+                    <strong>Download Our App</strong>
+                </div>
+                <a target="_blank" href="https://play.google.com/store/apps/details?id=com.growonline.footprint">
+                    <img src="/Themes/Urban/Content/img/images.png" style="">
+                </a>
+                <a  style="cursor: pointer;">
+                    <img src="/Themes/Urban/Content/img/ios_soon.png" >
+                </a>
+            </div>  
+
+        </div>
+        <div class="rightside">
+            <div class="footer-box footer-box-instafeed" style="padding: 6px 10px;">
+		<div class="title">
+                    <strong>Instagram</strong>
+                </div>
+                @*<div id="instafeed">
+                </div> *@
+		<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+		<div class="elfsight-app-de1d8e91-8a27-4829-a957-51970c139cd7"></div>
+            </div>
+            <script type="text/javascript">
+              /*  var feed = new Instafeed({
+                    get: 'user',
+                    userId: '3590741464',
+                    clientId: 'a752301f2d9a49b4a7ff7a294e2e25dc',
+                    accessToken: '3590741464.a752301.3431e41e03e3478a89b21e0fbe5e75e1',
+                    template: '<div  class="img-div"><a href="{{link}}" target="blank"><img src="{{image}}" class="img-responsive" /></a></div>',
+                    resolution: 'standard_resolution',
+                    limit: '12'
+                });
+                feed.run(); */
+            </script> 
+           @* @if (!string.IsNullOrWhiteSpace(instagramUrl))
+            {
+                <div class="footer-box">
+                    <a class="instagram" href="@instagramUrl" target="_blank"></a>
+                </div>
+            }*@
+            <div class="footer-box">
+                <ul>
+                    @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                    {
+                        <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                    }
+                    @*<li><a href="@Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("LoginRegistrationInfo") })">@T("SevenSpikes.Themes.Urban.Common.LoginRegistrationInfo")</a></li> *@
+		   @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
+                    {
+                        <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                    }
+                    <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+                    @if (Model.BlogEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                    }
+                    @if (Model.AllowCustomersToApplyForVendorAccount)
+                    {
+                       @* <li><a href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</a></li>*@
+                    }
+                </ul>
+            </div>
+            <div class="footer-box">
+                <ul>
+                    <li class="con"style="font: 14px/21px 'proxima-reg'; color: #898989;" >
+                        <span class="footer-phone-icon"></span> @T("Footprint.phone")
+                    </li>
+                    <li class="con" style="font: 14px/21px 'proxima-reg'; font-size: 12px;color: #898989;"> MON TO SAT  (11 AM — 9 PM)</li>
+<li class="con" style="font: 14px/21px 'proxima-reg'; font-size: 12px;color: #898989;"> FRIDAY  (3 PM — 9 PM)</li>
+                    <li class="con" style="font: 14px/21px 'proxima-reg'; font-size: 12px; color: #898989;">
+                        <span class="footer-email-icon"></span>
+                        INFO@FOOTPRINT.PK
+                    </li>
+                </ul>
+
+		<ul class="accepted-payment-methods">
+	            <li class="method1"></li>
+	            @*<li class="method2"></li>
+	            <li class="method3"></li>
+	            <li class="method4"></li>
+	            <li class="method5"></li>*@
+	            <li class="method6"></li>
+	        </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-lower">
+        <div class="footer-disclaimer">
+            @T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)
+        </div>
+
+       @*<ul class="accepted-payment-methods">
+            <li class="method1"></li>
+            @*<li class="method2"></li>
+            <li class="method3"></li>
+            <li class="method4"></li>
+            <li class="method5"></li>*
+            <li class="method6"></li>
+        </ul>*@
+	<div class="powerdby" >
+            <a style="text-decoration:none;font-size: 12px;" href="https://info.gomobishop.com/" target="_blank">
+                A PRODUCT OF
+                <span><img class="grow" src="/themes/Urban/Content/img/logo-sm.png" style="width: 22px;"></span>
+                GROW ONLINE
+            </a>
+        </div>
+
+        <div class="footer-store-theme">
+            @Html.Action("StoreThemeSelector", "Common")
+        </div>
+        <div class="footer-links-wrapper">
+            @if (!removeCopyright)
+            {
+                <div class="footer-powered-by">
+                    Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a>
+                    @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
+                        Find more info here http://www.nopcommerce.com/copyrightremoval.aspx*@
+                </div>
+            }
+            @if (!removeDesignedBy)
+            {
+                <div class="footer-designed-by">
+                    Designed by <a href="http://www.nop-templates.com/" target="_blank">Nop-Templates.com</a>
+                </div>
+            }
+            @if (Model.DisplayTaxShippingInfoFooter)
+            {
+                var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+                <div class="footer-tax-shipping">
+                    @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+                </div>
+            }
+        </div>
+    </div>
+    @Html.Widget("footer")
+</div>
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+</script>

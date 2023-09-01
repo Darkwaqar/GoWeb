@@ -1,0 +1,28 @@
+﻿<div class="container-fluid">
+    @Html.Widget("header")
+    <div class="row main-nav text-right">
+        <div class="col-md-12">
+            <div class="main-menu">
+                <div class="logo"> @Html.Action("Logo", "Common")</div>
+                 
+
+                    @Html.Action("HeaderLinks", "Common")
+            
+
+
+
+                @*@Html.Action("FlyoutShoppingCart", "ShoppingCart")*@
+            </div>
+        </div><!-- // Col // -->
+
+    </div><!-- // Row // -->
+
+<div id="mySidenav" class="sidenav" style="display:none;">
+            <a href="javascript:void(0)" class="closebtn">&times;</a>
+            <div class="search-box store-search-box">
+                @Html.Action("SearchBox", "Catalog")
+            </div>
+        </div>
+
+</div><!-- // Container-fluid // -->
+

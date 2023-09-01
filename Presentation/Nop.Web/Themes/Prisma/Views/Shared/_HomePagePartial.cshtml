@@ -1,0 +1,346 @@
+﻿
+<div class="row hidden-xs">
+    <div class="col-lg-4 col-md-4 col-sm-4 ">
+        <h4 class="promo-div">
+            <a href="https://www.gomobishop.com/loyalty">
+                LOYALTY PROGRAM SAVE EXTRA
+            </a>
+        </h4>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <h4 class="promo-div">
+            <a href="https://www.gomobishop.com/star-of-pakistan">
+                STARS OF PAKISTAN
+            </a>
+        </h4>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 promo-margin-bottom ">
+        <h4 class="promo-div promo-div-last">
+
+            <a href="https://girafi.co/main/coupon/#/flat/gomobishop/get-1000-rs-when-share-with-your-friend" target="_blank">
+                GET RS 1,000 OFF
+            </a>
+
+
+
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8 editor-pick">
+        @Html.Widget("Editor-Pick")
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 margin-10 trending">
+        @Html.Widget("Trending")
+        @*<a href="https://www.gomobishop.com/star-of-pakistan" target="_blank">
+
+                <img src="~/Themes/Prisma/Content/img/123.gif" style="width:100%"/>
+
+            </a>*@
+    </div>
+</div>
+<div class="row visible-xs">
+    <div class="col-xs-6 col-sm-4 ">
+        <div class="mobile-grey-box left-c">
+            SALE UP TO 30% OFF
+            <br />
+            GET DISCOUNT
+        </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-4">
+        <div class="mobile-grey-box right-c">
+            GET OUR APP!
+            <br />
+            AND SAVE BIG MONEY
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row">
+    <div class="col-lg-12 heading">
+        <h2 class="designer-header line"> FEATURED STORES</h2>
+        <h3 class="designer-copy">Incredible prices you don’t want to miss</h3>
+    </div>
+    <div class="col-lg-12 col-md-12 isFeatured">
+        @Html.Partial("_IsFeatured")
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 heading">
+        <h2 class="designer-header line"> CATEGORIES</h2>
+        <h3 class="designer-copy">Browse your favourite stores</h3>
+    </div>
+    @Html.Action("HomepageCategories", "Catalog")
+
+</div>
+
+<div class=" row-full">
+
+
+
+    <div class="col-lg-12">
+
+
+
+
+        <figure class="static-banner">
+            <picture data-alt="Download our Apps today!" data-picture="">
+                <source media="(min-width: 768px)" srcset="~/Themes/Prisma/Content/img/banner-apps.png">
+                <source media="(max-width:767px)" srcset="~/Themes/Prisma/Content/img/mobile-banner.png">
+                <img alt="" srcset="~/Themes/Prisma/Content/img/banner-apps.png" usemap="#babycats">
+            </picture>
+            <div class="iOS">
+                <!--class="ioscome"-->
+                <a href="https://itunes.apple.com/us/app/gomobishop/id1441632028?mt=8" ></a>
+            </div>
+            <div class="android">
+                <a href="https://play.google.com/store/apps/details?id=com.growonline.gomobishop" target="_blank"></a>
+            </div>
+
+        </figure>
+
+
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-lg-12 heading">
+
+        <h2 class="designer-header line"> TOP DESIGNERS</h2>
+        <h3 class="designer-copy">Check out 2019 latest designs</h3>
+
+
+    </div>
+    <div class="col-lg-12">
+        @Html.Partial("_Designers")
+    </div>
+</div>
+
+<div class=" row-full">
+
+    <div class="col-lg-12">
+        <div class="home-intro-video-wrap">
+            <div class="home-motion-wrap" id="home-motion-wrap">
+                <div id="video-motion" style="background:url(https://wearespry.com/wp-content/uploads/2018/07/HomeBGPlaceholder.jpg) no-repeat center center; background-size:cover;">
+                    <a href="https://www.footprint.pk" target="_blank">
+                        <video loop muted autoplay playsinline id="mainmotion" class="themotion videoformat" style="display: inline;">
+                            <source src="/Themes/Prisma/Content/video/ad1.mp4" type="video/mp4">
+                            <source src="/Themes/Prisma/Content/video/ad1.oga" type="video/oga">
+                        </video>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+
+</div>
+
+
+@*<div class="row">
+        <div class="col-lg-12 heading">
+
+            <h2 class="designer-header line"> RECOMMENDED BRANDS </h2>
+            <h3 class="designer-copy">Your favourite brands now just click away!</h3>
+
+        </div>
+        <div class="col-lg-12">
+            @Html.Partial("_BRANDS")
+        </div>
+    </div>*@
+
+
+<div class="row-full hidden-xs bottom-must">
+    <div class="cms-static-policy policy home-policy">
+        <div class="container">
+            <div class="policy-wrap clearfix">
+                <div class="row">
+                    <div class="policy-box col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="box-content">
+                            <a class="position-link" href="#"><span class="hidden">hidden</span></a>
+                            <div class="icon-service">
+                                <span class="icons service-icon buzz_effect hhicon-truck"><em class="hidden">hidden</em></span>
+
+
+
+
+                            </div>
+                            <div class="service-content">
+                                <div class="info-title">
+                                    <h3>Free Delivery</h3>
+                                </div>
+                                <div class="sub-title"><span>on various products</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="policy-box col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="box-content">
+                            <a class="position-link" href="#"><span class="hidden">hidden</span></a>
+                            <div class="icon-service">
+                                <span class="icons service-icon buzz_effect pe-7s-credit"><em class="hidden">hidden</em></span>
+                            </div>
+                            <div class="service-content">
+                                <div class="info-title">
+                                    <h3>Secure Payment</h3>
+                                </div>
+                                <div class="sub-title"><span>All cards accepted</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="policy-box col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="box-content">
+                            <a class="position-link" href="#"><span class="hidden">hidden</span></a>
+                            <div class="icon-service">
+                                <span class="icons service-icon buzz_effect pe-7s-headphones"><em class="hidden">hidden</em></span>
+                            </div>
+                            <div class="service-content">
+                                <div class="info-title">
+                                    <h3>Help Center</h3>
+                                </div>
+                                <div class="sub-title"><span>24/7 Support System</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="policy-box col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="box-content">
+                            <a class="position-link" href="#"><span class="hidden">hidden</span></a>
+                            <div class="icon-service">
+                                <span class="icons service-icon buzz_effect pe-7s-refresh-2"><em class="hidden">hidden</em></span>
+                            </div>
+                            <div class="service-content">
+                                <div class="info-title">
+                                    <h3>Trustpay</h3>
+                                </div>
+                                <div class="sub-title"><span>Easy Return Policy</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+    
+<div id="modal"></div>
+
+<script>
+
+    
+
+
+    (function () {
+     var jc =   $.dialog({
+            title: '',
+         content: '<div class=row><div class="col-md-12">   <div class="logo-placeholder"> <a class="home-main" href="/"><span class="moto">Mobile App Shopping Platform</span><span class="logo"></span></a></div> </div><div class="col-md-12 text-center" id="rotate" style="position:relative"><p class="mine "> All in one shopping app has many individual apps <br class="hidden-xs"> of your favourite brands inside it</p>'
+             + '<p class="mine "> One super app offers multiple mobile apps in one place  <br class="hidden-xs"></p>'
+             + '<p class="mine "> Place single order for items you shop   <br class="hidden-xs">  at different apps even they are closed</p>'
+             + '<p class="mine"> App Icon(s) of your favourite brands on mobile screen   <br class="hidden-xs"></p>'
+             + '<p class="mine "> No need to download 100s of shopping apps anymore   <br class="hidden-xs"></p>'
+             + '<p class="mine "> All-in-one shopping app for one to one brand experience    <br class="hidden-xs"></p>'
+             + '<p class="mine "> One page checkout with multiple secure payment options    <br class="hidden-xs"></p>'
+             + '</div>'
+
+             + '<div class="col-md-12"><div class="col-md-3"></div><div class="col-md-6" style="text-align:center;margin:10px 0px;"><img style="width:90%" src="https://info.gomobishop.com/main.png" /></div> <div class="col-md-3"></div> </div>  <div class="col-md-12"> <div class="col-md-3"></div><div class="col-md-3" style="text-align:center"><a  href="https://info.gomobishop.com/gomobishop"  style="display:block;width:60%;line-height:1;margin: 20px auto;" class="main_button" href="#">For Customers</a>'
+             + '</div> <div class="col-md-3" style="text-align:center"><a style="display: block;width: 60%;line-height: 1;margin: 20px auto;" class="main_button " href="https://info.gomobishop.com">For Businesses</a></div> <div class="col-md-3"></div></div></div> ',
+
+            columnClass: 'style',
+         bootstrapClasses: {
+                container: 'container container1',
+                containerFluid: 'container-fluid',
+                row: 'row',
+         }, onContentReady: function () {
+             // when content is fetched & rendered in DOM
+                $('#die').on('click', function () {
+                  
+                    jc.close();
+
+                });
+
+
+                $('.jconfirm-closeIcon').hide();
+
+
+
+
+
+
+              
+                    $.fn.extend({
+                        rotaterator: function (options) {
+
+                            var defaults = {
+                                fadeSpeed: 110000,
+                                pauseSpeed: 10000,
+                                child: null
+                            };
+
+                            var options = $.extend(defaults, options);
+
+                            return this.each(function () {
+                                var o = options;
+                                var obj = $(this);
+                                var items = $(obj.children(), obj);
+                                items.each(function () { $(this).hide(); })
+                                if (!o.child) {
+                                    var next = $(obj).children(':first');
+                                } else {
+                                    var next = o.child;
+                                }
+                                $(next).fadeIn(o.fadeSpeed, function () {
+                                    $(next).delay(o.pauseSpeed).fadeOut(o.fadeSpeed, function () {
+                                        var next = $(this).next();
+                                        if (next.length == 0) {
+                                            next = $(obj).children(':first');
+                                        }
+                                        $(obj).rotaterator({ child: next, fadeSpeed: o.fadeSpeed, pauseSpeed: o.pauseSpeed });
+                                    })
+                                });
+                            });
+                        }
+                    });
+                
+
+              
+                    $('#rotate').rotaterator({ fadeSpeed: 3000, pauseSpeed: 3000 });
+              
+
+
+
+
+
+
+
+
+
+         }
+        });
+
+    
+
+       
+
+
+
+
+    }());
+
+
+
+
+
+
+</script>

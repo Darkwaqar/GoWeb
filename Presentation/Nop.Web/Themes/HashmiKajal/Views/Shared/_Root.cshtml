@@ -1,0 +1,217 @@
+﻿@using Nop.Web.Models.Catalog;
+
+
+<script>
+    $(document).ready(function () {
+	/*cart quantity script*/
+
+    function cartQty() {
+        var tx = $(".cart-qty").text();
+        var fd = tx.replace(/\s/g, '');
+        if (fd == "0") {
+            $(".cart-qty").hide();
+        } else {
+            $(".cart-qty").show();
+        }
+    }
+    $(document).on("DOMSubtreeModified", "#cart-qty", function () {
+        console.log("DOMSubtreeModified");
+        cartQty()
+    });
+    cartQty()
+	/*cart quantity script ENd*/
+
+	/*Selected page*/
+            /*$(".mega-menu>li>a").each(function () {
+                if ($(this).attr('href') == window.location.pathname) {
+                    console.log($(this).attr('href'))
+                    $(".header-menu > ul > li > a[href$='" + window.location.pathname+"']").addClass("selected");
+                }
+            });*/
+	    $(".mega-menu>li>a").each(function () {
+                if ($(this).attr('href') == window.location.pathname) {
+                    $(this).addClass("selected");
+                }
+            });
+            $(".information-links-ul>li>a").each(function () {
+                if ($(this).attr('href') == window.location.pathname) {
+                    $(this).addClass("selected");
+                }
+            });
+	/*Selected page*/
+        /*Home page div height*/
+        $(".body-item-text").height($(".body-item-imgage img").height());
+        //backgrount Position
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            $("#goToTop").addClass("goToTop");
+            $(".goToTop").attr("id", "");
+            $(".goToTop").hide();
+        } else {
+            $(".backimage").css("background-attachment", "fixed");
+        }
+
+        if (/android/i.test(userAgent)) {
+            $("#goToTop").addClass("goToTop");
+            $(".goToTop").attr("id", "");
+            $(".goToTop").hide();
+        }
+
+        //backgrount Position
+
+        $("#myVideo").attr('autobuffer', '')
+        $("#myVideo").attr('playsinline', '')
+        $("#myVideo").attr('autoplay', '')
+
+        if ($(".page-title").is("#ph-tit")) {
+            $("#ph-title").hide()
+        }
+        else {
+            $("#ph-title").show()
+        }
+
+        /*Footer Alignment*/
+        
+        if ($(".master-wrapper-page").height() + $(".Footer-set-Bottom").height() > $(window).height()) {
+            $(".Footer-set-Bottom").css("position", "unset");
+        }
+
+        $(".li-search").click(function () {
+            $(".move-right").removeClass("move-right");
+            $(".ps-container").removeClass("open");
+            $("#small-searchterms").focus();
+        });
+        /*Footer Alignment end*/
+
+        if ($(".master-column-wrapper").find("div").hasClass('blogpost-page')) {
+            
+            $(".master-column-wrapper").css("width", "95%");
+        }
+
+    });
+    /*Footer Alignment*/
+    $(window).load(function () {
+
+	if ($(".master-wrapper-page").height() + $(".Footer-set-Bottom").height() > $(window).height()) {
+            $(".Footer-set-Bottom").css("position", "unset");
+        }
+
+	/*Selected page*/
+            $(".mega-menu>li>a").each(function () {
+                if ($(this).attr('href') == window.location.pathname) {
+                    console.log($(this).attr('href'))
+                    $(".header-menu > ul > li > a[href$='" + window.location.pathname+"']").addClass("selected");
+                }
+            });
+	/*Selected page*/
+
+        if ($(".master-wrapper-page").height() + $(".Footer-set-Bottom").height() > $(window).height()) {
+            $(".Footer-set-Bottom").css("position", "unset");
+        }
+        /*Home page div height*/
+        $(".body-item-text").height($(".body-item-imgage img").height());
+    });
+    $(window).resize(function () {
+        if ($(".master-wrapper-page").height() + $(".Footer-set-Bottom").height() > $(window).height()) {
+            $(".Footer-set-Bottom").css("position", "unset");
+        }
+        /*Home page div height*/
+        $(".body-item-text").height($(".body-item-imgage img").height());
+    });
+    /*Footer Alignment*/
+
+</script>
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+}
+
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+
+<div class="master-wrapper-page">
+    @Html.Action("AdminHeaderLinks", "Common")
+    @if (isHomePage)
+    {
+        @Html.Partial("_HomePage")
+    }
+
+    @Html.Partial("Header")
+
+    @{
+        if (isHomePage)
+        {
+            var homePageMainSliderHtml = Html.Widget("home_page_main_slider");
+
+            if (!MvcHtmlString.IsNullOrEmpty(homePageMainSliderHtml))
+            {
+                @*<div class="home-page-main-slider">
+                    @* @homePageMainSliderHtml *-@
+
+                    @Html.Widget("home_page_search_widget")
+                </div>*@
+            }
+            else
+            {
+                @Html.Widget("home_page_search_widget")
+            }
+        }
+
+        var categoriesBannerHtml = Html.Widget("categories-banner");
+
+        if (!MvcHtmlString.IsNullOrEmpty(categoriesBannerHtml))
+        {
+            <div class="categories-banner">
+                @categoriesBannerHtml
+            </div>
+        }
+    }
+
+    <div class="master-wrapper-content">
+        <script type="text/javascript">
+            AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+        </script>
+        @Html.Widget("content_before")
+        @*ajax loading window*@
+        <div class="ajax-loading-block-window" style="display: none">
+            <div class="loading-image"></div>
+        </div>
+
+        @if (IsSectionDefined("breadcrumb"))
+        {
+            @RenderSection("Breadcrumb")
+        }
+        @if (!isHomePage)
+        {
+            <div class="master-column-wrapper">
+                @RenderBody()
+            </div>
+        }
+        @if (isHomePage)
+        {
+            @Html.Widget("home_page_before_news")
+            @Html.Action("HomePageNews", "News")
+
+            <div class="news-carousel">
+                @Html.Widget("homepage_after_news")
+            </div>
+            @*<div class="home-page-bottom-banners">
+                <div class="left">@Html.Widget("home_page_bottom_left_slider")</div>
+                <div class="right">@Html.Widget("home_page_bottom_right_slider")</div>
+            </div>*@
+        }
+
+        @Html.Widget("content_after")
+    </div>
+
+</div>
+@Html.Action("Footer", "Common")
+
+@Html.Action("EuCookieLaw", "Common")
+@if (isHomePage) {
+    @Html.Widget("body_end_html_tag_before")
+}

@@ -1,0 +1,268 @@
+﻿@model HeaderLinksModel
+@using Nop.Web.Models.Common;
+
+
+
+
+<div class="topbar">
+
+    <div class="topbar-inner">
+        @*<ul class="topbar-menu left">
+            <a style="margin-top:30px;" class="sell-with-us" href="http://info.gomobishop.com/builder/indexNew.php" target="_blank">30 Days Free Trial</a>
+        </ul>*@
+
+        <ul class="topbar-menu right hidden-xs">
+            @Html.Widget("header_links_before")
+            @*<li class="switcher">
+                <div class="currency">
+                    <span> </span>
+                    <img class="flag"  src="~/Themes/Prisma/Content/img/flag.jpg" />
+                    <span id="CurrencySpan"></span>
+                    
+                </div>
+
+                <div class="switcher-sub">
+                    <div class="switcher-common">
+                        <span class="title">Select Currency Setting</span>
+                        <div class="text">Currency</div>
+                        @Html.Action("CurrencySelector", "Common")
+                    </div>
+                </div>
+            </li>*@
+            @if (Model.IsAuthenticated)
+            {
+
+
+                
+                <!-- User Logged In -->
+                <li class="my-account"><a href="@Url.RouteUrl("CustomerInfo")">@Model.CustomerName</a></li>
+                <li class="authenticated-user"><a href="@Url.RouteUrl("Logout")">@T("Account.Logout")</a></li>
+            }
+            else
+            {
+                <!-- User anonymous -->
+                <li class="anonymous-user"><a href="@Url.RouteUrl("Register")">@T("Account.Register")</a></li>
+                <li class="anonymous-user"><a href="@Url.RouteUrl("Login")">@T("Account.Login")</a></li>
+            }
+            @Html.Widget("header_links_after")
+            @Html.Action("TaxTypeSelector", "Common")
+        </ul>
+    </div>
+</div>
+
+<div class="display-search">
+  
+</div>
+
+<div class="header-inner ">
+
+
+    <div class="menu-icon visible-xs">
+        <span id="x"></span>
+    </div>
+    <div class="space-bar  hidden-xs">
+        @*<a href="men">MEN</a>
+        <a href="women">WOMEN</a>*@
+
+
+
+
+        
+
+
+
+
+
+    </div>
+    <div class="logo-placeholder">
+        <a class="home-main" href="/">
+            <span class="logo"></span>
+            <span class="moto">Mobile App Shopping Platform</span>
+        </a>
+
+
+    </div>
+
+
+
+
+    <div class="icon-box">
+
+
+        @*@if (Model.WishlistEnabled)
+        {
+            <div class="icon-box-inner topbar__options__item wishlist hidden-xs">
+                <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                    <span class="wishlist-icon"></span>
+                    <span class="title  wishlist-qty"> @Model.WishlistItems</span>
+
+                </a>
+            </div>
+        }
+
+        @if (Model.ShoppingCartEnabled)
+        {
+            <div class="icon-box-inner cart miniCart   topbar__options__item" id="topcartlink">
+                <a href="@Url.RouteUrl("ShoppingCart")" class="ico-cart miniCart--hover">
+                    <span class="cart-icon"></span>
+                    <span class="title shoppingCartCount cart-qty"> @Model.ShoppingCartItems</span>
+
+                </a>
+            </div>
+        }*@
+
+        @*@Html.Action("FlyoutShoppingCart", "ShoppingCart")*@
+
+
+
+
+    </div>
+
+
+  
+
+    <div class="navigation">
+        @*<div class="search-box visible-xs">
+            @Html.Action("SearchBox", "Catalog")
+        </div>*@
+
+
+
+        <nav class="nav">
+
+            @*@Html.Action("TopMenu", "Catalog")*@
+
+            <ul class="mega-menu-responsive visible-xs">
+                @*<li class="main Featured">
+                    <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                     
+                         Wishlist
+
+                    </a>
+                </li>*@
+
+
+
+                @if (Model.IsAuthenticated)
+                {
+                    <!-- User Logged In -->
+                    <li class="my-account main Featured"><a href="@Url.RouteUrl("CustomerInfo")">@Model.CustomerName</a></li>
+                    <li class="authenticated-user main Featured"><a href="@Url.RouteUrl("Logout")">@T("Account.Logout")</a></li>
+                }
+                else
+                {
+                    <!-- User anonymous -->
+                    <li class="anonymous-user main Featured"><strong><a href="@Url.RouteUrl("Register")">@T("Account.Register")/@T("Account.Login")</a></strong></li>
+                
+                }
+
+                
+
+            </ul>
+
+
+        </nav>
+        @*<div class="search-box hidden-xs">
+            @Html.Action("SearchBox", "Catalog")
+        </div>*@
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+@if (Model.AllowPrivateMessages && !string.IsNullOrEmpty(Model.AlertMessage))
+{
+    //new private message notification
+    <script type="text/javascript">
+            $(document).ready(function () {
+                displayPopupNotification('@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.AlertMessage))', 'success', false);
+            });
+    </script>
+}
+@if (Model.ShoppingCartEnabled)
+{
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('.header').on('mouseenter', '#topcartlink', function () {
+                    $('#flyout-cart').addClass('active opened');
+                });
+                $('.header').on('mouseleave', '#topcartlink', function () {
+                    $('#flyout-cart').removeClass('active opened');
+                });
+
+                $('.header').on('mouseenter', '#flyout-cart', function () {
+                    $('#flyout-cart').addClass('active opened');
+                });
+                $('.header').on('mouseleave', '#flyout-cart', function () {
+                    $('#flyout-cart').removeClass('active opened');
+                });
+
+                var value = $('.switcher-sub select#customerCurrency option:selected').text();
+                $("#CurrencySpan").text(value);
+            });
+    </script>
+
+
+}
+
+<script>
+            function SeachToggle() {
+                if ($("#SeachDiv").is(":hidden")) {
+                    $("#SeachDiv").slideToggle('slow');
+                    $("#small-searchterms").focus();
+                }
+                else {
+                    $("#SeachDiv").slideToggle('slow');
+                    $("#small-searchterms").focusout();
+                }
+            }
+
+            $(".master-header-wrapper").change(function () {
+                $(".persistent-banner__wrapper").css("display", "none");
+            });
+
+
+            function displaynav() {
+                if ($(".mainNav").is(":hidden")) {
+                    $(".mainNav").slideToggle('slow');
+                }
+                else {
+                    $(".mainNav").slideToggle('slow');
+                }
+
+    }
+
+
+    (function () {
+
+        $('.menu-icon').on('click', function () {
+            
+            $('.navigation').slideToggle('slow'); 
+            
+        });
+
+
+    })();
+
+    document.getElementById('x').addEventListener('click', function () {
+        if (this.classList.contains('clicked')) {
+            this.classList.remove('clicked');
+        } else {
+            this.classList.add('clicked');
+        }
+    });
+
+
+
+
+</script>

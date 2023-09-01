@@ -1,0 +1,35 @@
+﻿@model CustomerNavigationModel
+@using Nop.Web.Models.Customer;
+
+
+
+
+
+
+<ul>
+
+    @Html.Widget("account_navigation_before")
+    @foreach (var item in Model.CustomerNavigationItems)
+    {
+        <li class="woocommerce-MyAccount-navigation-link @item.ItemClass @(Model.SelectedTab == item.Tab ? "is-active" : "inactive")">
+            <a href="@Url.RouteUrl(item.RouteName)">@(item.Title)</a>
+        </li>
+    }
+
+    <li class="woocommerce-MyAccount-navigation-link ico-logout"><a href="@Url.RouteUrl("Logout")" class="ico-logout">@T("Account.Logout")</a></li>
+    @Html.Widget("account_navigation_after")
+
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+

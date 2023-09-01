@@ -1,0 +1,186 @@
+﻿@model LoginModel
+@using Nop.Web.Models.Customer;
+@using Nop.Core;
+@using Nop.Core.Infrastructure;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Login").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-login-page");
+
+    //register URL with return URL (if specified)
+    var registerUrl = Url.RouteUrl("Register");
+    if (!String.IsNullOrEmpty(this.Context.Request.QueryString["returnUrl"]))
+    {
+        var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+        registerUrl = webHelper.ModifyQueryString(registerUrl, "returnurl=" + HttpUtility.UrlEncode(this.Context.Request.QueryString["returnUrl"]), null);
+    }
+}
+
+<style>
+    body.getting-ready {
+    padding-top:0;
+    overflow: scroll;
+}
+    .inputs input[type="text"], .inputs input[type="password"], .inputs select, .inputs textarea{
+        border: 1px solid #eee;
+}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/custom-icons.css">
+<link rel="stylesheet" type="text/css" href="assets/css/my-instagram-gallery.css">
+<link rel="stylesheet" type="text/css" href="assets/css/odometer-theme-default.css">
+<link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+<link rel="stylesheet" type="text/css" href="assets/css/prettyPhoto.css">
+<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/carousel-my.css">
+<link rel="stylesheet" href="assets/css/article-carousel.css">
+
+
+<script src="assets/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+
+
+<div class="container" style="max-width:1000px">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-title">
+                <h1>Sign In</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="returning-wrapper fieldset">
+                @using (Html.BeginForm())
+                {
+                    var validationSummary = Html.ValidationSummary(true, T("Account.Login.Unsuccessful").Text);
+                    <div class="title">
+                        <strong>CURRENT CUSTOMER</strong>
+                    </div>
+                    <h6>Required Fields *</h6>
+                    
+                    if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                    {
+                        <div class="message-error">@validationSummary</div>
+                    }
+                    <div class="form-fields">
+                        @if (Model.UsernamesEnabled)
+                        {
+                            <div class="inputs">
+                                @*@Html.LabelFor(m => m.Username, new { }, ":")*@
+                                @Html.TextBoxFor(m => m.Username, new { @class = "username", placeholder = "User name*" })
+                                @Html.ValidationMessageFor(m => m.Username)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="inputs">
+                                @*@Html.LabelFor(m => m.Email, new { }, ":")*@
+                                @Html.TextBoxFor(m => m.Email, new { @class = "email", placeholder = "Email*" })
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </div>
+                        }
+                        <div class="inputs">
+                            @*@Html.LabelFor(m => m.Password, new { }, ":")*@
+                            @Html.PasswordFor(m => m.Password, new { @class = "password", placeholder = "Password*", })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <div class="inputs reversed">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                            <span class="forgot-password">
+                                @Html.RouteLink(T("Account.Login.ForgotPassword").Text, "PasswordRecovery")
+                            </span>
+                        </div>
+                        @if (Model.DisplayCaptcha)
+                        {
+                            <div class="captcha-box">
+                                @Html.Raw(Html.GenerateCaptcha())
+                            </div>
+                        }
+                        <input class="btn-1" type="submit" value="@T("Account.Login.LoginButton")" />
+                    </div>
+
+                }
+            </div>
+        </div>
+        <div class="col-md-6" style="border-left:solid 1px #000;">
+            <div class="customer-blocks">
+                @if (Model.CheckoutAsGuest)
+                {
+                    <div class="new-wrapper checkout-as-guest-or-register-block">
+                        <div class="title">
+                            <strong>@T("Account.Login.CheckoutAsGuestOrRegister")</strong>
+                        </div>
+                        <div class="text">
+                            @Html.Action("TopicBlock", "Topic", new { systemName = "CheckoutAsGuestOrRegister" })
+                        </div>
+                        <div class="buttons">
+                            <input type="button" class="btn btn-primary center-block add-to-bag" style="margin-left:0px;margin-right:0px" onclick="location.href='@Url.RouteUrl("Checkout")'" value="@T("Account.Login.CheckoutAsGuest")" />
+                            <input type="button" class="btn btn-primary center-block add-to-bag" style="margin-left:0px;margin-right:0px" onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="new-wrapper register-block">
+                        <div class="title">
+                            <strong>CREATE AN ACCOUNT</strong>
+                          
+                        </div>
+                        <p class="reg-text">
+                            Save payment and shipping details, view your order history, return items, and track and share favourite pieces in wishlist.
+                        </p>
+                        <h6>Required Fields *</h6>
+                        @Html.Partial("Register", new RegisterModel())
+                        @*<div class="text">
+                        @T("Account.Login.NewCustomerText")
+                    </div>
+                    <div class="buttons">
+                        <input type="button" class="button-1 register-button" onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
+                    </div>*@
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+@*<script src="assets/js/bootstrap.min.js"></script>*@
+<script src="assets/js/packery.pkgd.min.js"></script>
+<script src="assets/js/masonry.pkgd.min.js"></script>
+<script src="assets/js/isotope.pkgd.min.js"></script>
+<script src="assets/js/jquery.stellar.min.js"></script>
+<script src="assets/js/my-instagram-gallery.js"></script>
+<script src="assets/js/slick.min.js"></script>
+<script src="assets/js/jquery.inview.js"></script>
+<script src="assets/js/odometer.min.js"></script>
+<script src="assets/js/tweetie.min.js"></script>
+<script src="assets/js/jquery.timeago.js"></script>
+<script src="assets/js/jquery.knob.min.js"></script>
+<script src="assets/js/css3-animate-it.js"></script>
+<script src="assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="assets/js/jquery.prettyPhoto.js"></script>
+<script src="assets/js/main.js"></script>
+@*<div class="page login-page">
+   
+    @Html.Partial("_ExternalAuthentication.AssociateMessage")
+    @Html.Partial("_ExternalAuthentication.Errors")
+    <div class="page-body">
+       
+        <div class="external-authentication">
+            @Html.Action("ExternalMethods", "ExternalAuthentication")
+        </div>
+        @Html.Action("TopicBlock", "Topic", new { systemName = "LoginRegistrationInfo" })
+    </div>
+</div>*@

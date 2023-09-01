@@ -1,0 +1,37 @@
+﻿@using Nop.Web.Models.Catalog
+
+@model CategoryModel.SubCategoryModel
+
+@{
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var actionName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("action");
+
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase) &&
+                    actionName.Equals("index", StringComparison.InvariantCultureIgnoreCase);
+
+    var categoryitemClass = string.Empty;
+    if (isHomePage)
+    {
+        categoryitemClass = "category-item";
+    }
+    else
+    {
+        categoryitemClass = "sub-category-item";
+    }
+}
+
+<div class="@categoryitemClass">
+    <h2 class="title">
+        <a href="@Url.RouteUrl("Category", new { SeName = Model.SeName })" title="@Model.PictureModel.Title">
+            <span class="category-item-text-wrapper">
+                <span class="category-item-name">@Model.Name</span>
+                <span class="category-item-count">@Html.Widget("uptown_category_box_products_count", @Model.Id) @T("SevenSpikes.Themes.Uptown.Common.Products.Count.Title")</span>
+            </span>
+        </a>
+    </h2>
+    <div class="picture">
+        <a href="@Url.RouteUrl("Category", new { SeName = Model.SeName })" title="@Model.PictureModel.Title">
+            <img alt="@Model.PictureModel.AlternateText" src="@Model.PictureModel.ImageUrl" title="@Model.PictureModel.Title" />
+        </a>
+    </div>
+</div>

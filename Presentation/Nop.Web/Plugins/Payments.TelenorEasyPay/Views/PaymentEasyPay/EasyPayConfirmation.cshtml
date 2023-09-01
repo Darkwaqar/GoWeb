@@ -1,0 +1,12 @@
+﻿<form action="@ViewBag.ConfirmUrl" method="POST" name="member_confirm_easy_pay">
+    <input name="auth_token" value="@ViewBag.auth_token" hidden="true" />
+    <input name="postBackURL" value="@ViewBag.ReceiptUrl" hidden="true" />
+</form>
+
+<script type="text/javascript">
+
+    window.onload = function () {
+        document.forms['member_confirm_easy_pay'].submit();
+    }
+
+</script>

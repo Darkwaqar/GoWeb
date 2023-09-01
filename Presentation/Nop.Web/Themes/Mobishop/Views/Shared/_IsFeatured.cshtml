@@ -1,0 +1,26 @@
+﻿@using Nop.Services.Seo
+@using Nop.Services.Vendors
+@using Nop.Core.Infrastructure
+@using Nop.Services.Media
+
+@{
+    
+    var vendor = EngineContext.Current.Resolve<IVendorService>().GetAllVendors(showHidden:false);
+        }
+
+
+        @foreach (var item in vendor.Where(x=> x.Id == 77 || x.Id == 16 || x.Id == 10 ).Take(3))
+        {
+        if (item.GetSeName() != null)
+        {
+        <div class="col-md-4 col-sm-4 featured">
+            <a href="@item.GetSeName()">
+                <div class="featured-img" style="background-image:url(@(EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(item.CoverPictureId)));"> </div>
+
+                <img class="vendor-logo" src="@(EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(item.PictureId))" />
+            </a>
+        </div>
+
+        }
+        }
+

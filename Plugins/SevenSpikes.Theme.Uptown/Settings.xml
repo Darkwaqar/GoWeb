@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Setting Name="uptownthemesettings.preset">
+    <Value>e56363</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.defaultpreset">
+    <Value>e56363</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.defaultproductimageproportion">
+    <Value>125</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.defaultcategoryimageproportion">
+    <Value>63</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.productimageproportion">
+    <Value>125</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.categoryimageproportion">
+    <Value>63</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.catalogpagesitemboxesperrow">
+    <Value>items-per-row-three</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.homepageitemboxesperrow">
+    <Value>home-items-per-row-four</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.subcategoriesplace">
+    <Value>True</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.footerlayout">
+    <Value>footer-1</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.headerlayout">
+    <Value>header-1</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.RollOverEnabled">
+    <Value>True</Value>
+  </Setting>
+  <Setting Name="uptownthemesettings.ProductThumbsWithPictures">
+    <Value>False</Value>
+  </Setting>
+  <Setting Name="UptownThemeSettings.ProductAttributeId">
+    <Value>0</Value>
+  </Setting>
+  <Setting Name="catalogsettings.showproductsfromsubcategories">
+    <Value>true</Value>
+  </Setting>
+  <Setting Name="catalogsettings.showcategoryproductnumber">
+    <Value>True</Value>
+  </Setting>
+  <Setting Name="catalogsettings.showcategoryproductnumberincludingsubcategories">
+    <Value>True</Value>
+  </Setting>
+  <Setting Name="mediasettings.avatarpicturesize">
+    <Value>270</Value>
+  </Setting>
+  <Setting Name="mediasettings.productthumbpicturesize">
+    <Value>360</Value>
+  </Setting>
+  <Setting Name="mediasettings.productdetailspicturesize">
+    <Value>600</Value>
+  </Setting>
+  <Setting Name="mediasettings.minicartthumbpicturesize">
+    <Value>95</Value>
+  </Setting>
+  <Setting Name="mediasettings.manufacturerthumbpicturesize">
+    <Value>370</Value>
+  </Setting>
+  <Setting Name="mediasettings.categorythumbpicturesize">
+    <Value>600</Value>
+  </Setting>
+  <Setting Name="mediasettings.productthumbpicturesizeonproductdetailspage">
+    <Value>100</Value>
+  </Setting>
+  <Setting Name="mediasettings.associatedproductpicturesize">
+    <Value>320</Value>
+  </Setting>
+  <Setting Name="mediasettings.maximumimagesize">
+    <Value>1920</Value>
+  </Setting>
+  <Setting Name="ordersettings.onepagecheckoutenabled">
+    <Value>false</Value>
+  </Setting>
+
+  <Setting Name="JCarouselDefaultSettings.ImageSize">
+    <Value>250</Value>
+  </Setting>
+  <Setting Name="JCarouselGeneralSettings.ResponsiveBreakpointsForSlickSlider-Uptown">
+    <Value>[{"breakpoint":1200,"settings":{"slidesToShow":3}},{"breakpoint":675,"settings":{"slidesToShow":2}},{"breakpoint":417,"settings":{"slidesToShow":1}}]</Value>
+  </Setting>
+  
+  <Setting Name="CloudZoomSettings.ResponsiveBreakpointsForThumbnailsCarousel-Uptown">
+    <Value>[{"breakpoint":1001,"settings":{"slidesToShow":4,"slidesToScroll":1,"arrows":true,"dots":false}},{"breakpoint":600,"settings":{"slidesToShow":4,"slidesToScroll":1,"arrows":true,"dots":false}},{"breakpoint":400,"settings":{"slidesToShow":3,"slidesToScroll":1,"arrows":true,"dots":false}}]</Value>
+  </Setting>
+  <Setting Name="cloudzoomsettings.numberofpicturethumbnailsincarousel-uptown	">
+    <Value>5</Value>
+  </Setting>
+  <Setting Name="cloudzoomsettings.numberofscrollablepicturethumbnailsincarousel-uptown">
+    <Value>1</Value>
+  </Setting>
+  <Setting Name="CloudZoomSettings.ZoomAutoInside">
+    <Value>1000</Value>
+  </Setting>
+  <Setting Name="NopAjaxFiltersSettings.WidgetZone">
+    <Value>left_side_column_before</Value>
+  </Setting>
+  <Setting Name="NopAjaxFiltersSettings.ShowNumberOfReturnedProductsSelector">
+    <Value>.product-selectors</Value>
+  </Setting>
+
+  <Setting Name="CloudZoomSettings.ZoomWidth">
+    <Value>360</Value>
+  </Setting>
+  <Setting Name="CloudZoomSettings.ZoomHeight">
+    <Value>360</Value>
+  </Setting>  
+  <Setting Name="cloudzoomsettings.zoomposition">
+    <Value>inside</Value>
+  </Setting>
+  <Setting Name="cloudzoomsettings.zoomposition">
+    <Value>right</Value>
+  </Setting>
+  <Setting Name="cloudzoomsettings.adjustx">
+    <Value>20</Value>
+  </Setting>
+  <Setting Name="cloudzoomsettings.adjusty">
+    <Value>0</Value>
+  </Setting>
+  <Setting Name="CloudZoomSettings.IsPictureThumbnailsCarouselVertical-Uptown">
+    <Value>false</Value>
+  </Setting>
+  
+  <Setting Name="MegaMenuSettings.CategoriesImageSize">
+    <Value>300</Value>
+  </Setting>
+  <Setting Name="MegaMenuSettings.ManufacturerImageSize">
+    <Value>200</Value>
+  </Setting>
+  <Setting Name="MegaMenuSettings.MegaMenuCategoryTemplate">
+    <Value>CategoryMenuTemplate.WithPictures</Value>
+  </Setting>
+  <Setting Name="MegaMenuSettings.MegaMenuManufacturerTemplate">
+    <Value>ManufacturerMenuTemplate.WithPictures</Value>
+  </Setting>
+  <Setting Name="MegaMenuSettings.NumberOfCategoriesPerRow">
+    <Value>4</Value>
+  </Setting>
+  <Setting Name="MegaMenuSettings.NumberOfManufacturersPerRow">
+    <Value>5</Value>
+  </Setting>
+  
+  <Setting Name="NopAjaxCartSettings.ProductAddedToCartImageSize">
+    <Value>350</Value>
+  </Setting>
+  <Setting Name="NopAjaxCartSettings.MiniProductDetailsViewImageSize">
+    <Value>350</Value>
+  </Setting>
+
+  <Setting Name="NewsletterPopupSettings.NewsletterPopupOpenerSelector">
+    <Value>.newsletter-subscribe-block-opener</Value>
+  </Setting>
+  
+  <Setting Name="QuickViewSettings.ProductDetailsPictureSize">
+    <Value>380</Value>
+  </Setting>
+  <Setting Name="QuickViewSettings.ProductThumbPictureSize">
+    <Value>95</Value>
+  </Setting>
+  <Setting Name="QuickViewSettings.ProductItemSelectorChild">
+    <Value>.buttons</Value>
+  </Setting>
+  <Setting Name="QuickViewSettings.AccordionPanelsHeightStyle">
+    <Value>auto</Value>
+  </Setting>
+  
+  <Setting Name="instantsearchsettings.picturesize">
+    <Value>100</Value>
+  </Setting>
+
+  <Setting Name="richblogsettings.homepagewidgetzone">
+    <Value>uptown_theme_home_blog</Value>
+  </Setting>
+</Settings>

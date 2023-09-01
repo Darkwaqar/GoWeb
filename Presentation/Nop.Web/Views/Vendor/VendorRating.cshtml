@@ -1,0 +1,5 @@
+﻿@model Nop.Web.Models.Vendors.VendorRatingModel
+<div style="margin: 10px 0">
+    <div class="procetiss-raty" data-readonly="true" data-score="@Model.AverageRating"></div>
+    <div>Average rating @Model.AverageRating for a total of <a href="@Url.RouteUrl("VendorDetails", new {SeName = Model.VendorSeName})">@Model.TotalRatings review(s)</a></div>
+</div>

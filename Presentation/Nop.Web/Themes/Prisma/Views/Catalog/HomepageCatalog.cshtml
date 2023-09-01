@@ -1,0 +1,117 @@
+﻿@model IList<CategoryModel>
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Catalog;
+@using Nop.Web.Models.Catalog;
+@using Nop.Web.Factories;
+@{
+    bool firstli = true;
+    bool firstdiv = true;
+}
+
+<div id="content">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        @foreach (var item in Model)
+            {
+                var cat = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(item.Id);
+                while (cat != null && cat.ParentCategoryId != 0)
+                {
+                    cat = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(cat.ParentCategoryId);
+                };
+
+            <li class="@(firstli ? "active" : "")">
+                @{ firstli = false;}
+                <a href="#@item.Id" data-toggle="tab">
+                    @cat.Name
+                </a>
+            </li>
+                    }
+
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        @foreach (var item in Model)
+        {
+            var categories = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(item.Id);
+            IList<int> catagoriesid = new List<int>();
+            catagoriesid.Add(categories.Id);
+            var products = EngineContext.Current.Resolve<IProductService>().SearchProducts(categoryIds: catagoriesid);
+            var productmodel = EngineContext.Current.Resolve<IProductModelFactory>().PrepareProductOverviewModels(products).ToList();
+            var firstproductinview = true;
+
+            <div class="tab-pane @(firstdiv ? "active": "")" id="@item.Id">
+                @{ firstdiv = false;}
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center">
+                            @item.CollectionName
+                        </h2>
+                        <p class="text-center">
+                          
+                        </p>
+                    </div>
+                    <div class="col-sm-7 col-md-7 home-page-box" id="catalog-banner">
+                        <img src="@item.CollectionPricture.FullSizeImageUrl" alt="" class="img-responsive">
+                    </div>
+                    <div class="col-xs-12 col-sm-5 col-md-5 home-page-box pull-right">
+                        <div id="carousel@(item.Id)" class="carousel slide" data-ride="carousel" data-interval="false">
+                            <div class="carousel-inner">
+                                @foreach (var pro in productmodel)
+                                {
+                                    <div class="item product-box @(firstproductinview ? "active" : "")" id="catalog-product-box">
+                                        @{firstproductinview = false;}
+                                            @Html.Partial("_ProductBox", pro)
+                                    </div>
+                                            }
+                            </div>
+                            <a class="left carousel-control" href="#carousel@(item.Id)" data-slide="prev">
+                                <span class="left-arrow"></span>
+                                
+                            </a>
+                            <a class="right carousel-control" href="#carousel@(item.Id)" data-slide="next">
+                                <span class="right-arrow"></span>
+
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-md-7 pull-left ">
+                        <div class="galleryHeight">
+                            <div class="row">
+
+                                @for (int i = 0; i < productmodel.Count(); i++)
+                                {
+                                    <div class="col-xs-6 col-sm-4 col-md-3 home-page-box ">
+                                        <img id="@i" src="@productmodel[i].DefaultPictureModel.ImageUrl" alt="@productmodel[i].Name" data-producturl="@productmodel[i].SeName"
+                                             class="img-responsive thumb margin-auto" onclick="gotoproduct(this,carousel@(item.Id))">
+                                    </div>
+                                }
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+                                            }
+
+
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $(".galleryHeight").height($(".firstproduct").height() + 135);
+    });
+
+    function gotoproduct(x, y) {
+        var slideTo = $(x).attr('id');
+        $(y).carousel(parseInt(slideTo));
+    }
+
+    $(document).ready(function () {
+        $(window).resize(function () {
+            $(".galleryHeight").height($("#catalog-product-box").height() - $("#catalog-banner").height());
+        });
+    });
+
+</script>

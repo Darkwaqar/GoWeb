@@ -1,0 +1,15 @@
+﻿@model LogoModel
+@using Nop.Web.Models.Common;
+@*
+    <div class="navbar-brand navbar-brand-centered">
+        <a href="@Url.RouteUrl("HomePage")">
+            <img title="" alt="@Model.StoreName" src="@Model.LogoPath">
+        </a>
+    </div>
+*@
+<div class=" navbar-brand-centered">
+    <a href="@Url.RouteUrl("HomePage")">
+        <div class="logo-txt"><img src="~/Themes/moazzamKhanCo/Content/images/moazzam/logo/Moazzamlogo.png" alt="@Model.StoreName"></div>
+        <div class="mobile-logo"><img class="logo" src="~/Themes/moazzamKhanCo/Content/images/moazzam/logo/Moazzamlogo.png" alt="@Model.StoreName"></div>
+    </a>
+</div>

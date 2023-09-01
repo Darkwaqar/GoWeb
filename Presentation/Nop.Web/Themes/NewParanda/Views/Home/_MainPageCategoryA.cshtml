@@ -1,0 +1,54 @@
+﻿@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@using Nop.Services.Catalog;
+@model Int32
+
+
+
+@{
+
+    var categories = EngineContext.Current.Resolve<ICategoryService>
+    ().GetAllCategoriesByParentCategoryId(Model);
+
+
+    //foreach (var cat in categories) {
+
+
+    //}
+
+
+    }
+
+
+
+
+    @using Nop.Web.Models.Catalog;
+    @if (categories.Count > 0)
+    {
+
+    <div class="home-item-grid">
+        @foreach (var item in categories)
+        {
+
+
+
+
+        <h2 class="title">
+            <a href="#" class="swap" title="@item.PictureId">
+                @item.Name
+            </a>
+        </h2>
+
+
+
+
+
+
+
+
+        }
+    </div>
+
+    }

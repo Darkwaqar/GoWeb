@@ -1,0 +1,56 @@
+﻿@*@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+
+@if (!String.IsNullOrWhiteSpace(Model.PageShareCode))
+{
+    <div class="product-share-button socialbtn">
+        @Html.Raw(Model.PageShareCode)
+    </div>
+}*@
+
+@model string
+@using Nop.Core.Infrastructure;
+@using Nop.Core;
+@{
+    var shareUrl = EngineContext.Current.Resolve<IWebHelper>().GetStoreLocation() + Model;
+}
+
+<div class="product-social-buttons">
+    <ul>
+        <li class="share-item facebook">
+            <!-- Facebook -->
+            <a class="share-link" href="javascript:openShareWindow('https://www.facebook.com/sharer.php?u=@shareUrl')">
+                <i class="fa fa-facebook"></i>
+            </a>
+        </li>
+        <li class="share-item twitter">
+            <!-- Twitter -->
+            <a class="share-link " href="javascript:openShareWindow('https://twitter.com/share?url=@shareUrl')">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li class="share-item google">
+            <!-- Google+ -->
+            <a class="share-link" href="javascript:openShareWindow('https://plus.google.com/share?url=@shareUrl')">
+                <i class="fa fa-google-plus" aria-hidden="true"></i>
+            </a>
+        </li>
+
+         <li class="share-item linkedin">
+            <!-- LinkedIn -->
+            <a class="share-link" href="javascript:openShareWindow('https://www.linkedin.com/shareArticle?mini=true&url=@shareUrl')">
+                <i class="fa fa-linkedin"></i>
+            </a>
+        </li>
+    </ul>
+
+    <script>
+        function openShareWindow(url) {
+            var winWidth = 520;
+            var winHeight = 400;
+            var winTop = (screen.height / 2) - (winHeight / 2);
+            var winLeft = (screen.width / 2) - (winWidth / 2);
+            window.open(url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+        }
+    </script>
+</div>

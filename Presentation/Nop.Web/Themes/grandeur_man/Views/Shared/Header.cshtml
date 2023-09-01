@@ -1,0 +1,69 @@
+﻿
+<div class="header">
+    <div style="display: initial;">
+        <div style="background-color:#dddcda;width: 100%;color:#282828;padding: 2px 0px;font-size: 11px;position: sticky;top: 0px;z-index: 11;">
+            <div style="width:60%; margin: auto; ">
+                <marquee>Free Shipping All Over Pakistan</marquee>
+            </div>
+        </div>
+    </div>
+<div class="search-box store-search-box">
+    <div class="SearchBoxBody">
+        <span class="close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.707" height="10.707" viewBox="0 0 10.707 10.707">
+                <g id="Icon_Close" data-name="Icon/Close" transform="translate(0.354 0.354)">
+                    <line id="Line_118_close" data-name="Line 118 close" x2="10" y2="10" fill="none" stroke="currentColor" stroke-width="1"></line>
+                    <line id="Line_119_close" data-name="Line 119 close" x1="10" y2="10" fill="none" stroke="currentColor" stroke-width="1"></line>
+                </g>
+            </svg>
+        </span>
+        @Html.Action("SearchBox", "Catalog")
+    </div>
+</div>
+    @Html.Widget("header")
+    <div class="header-upper grid-container">
+        <div class="header-selectors-wrapper grid-item">
+            <div class="menu-title"></div>
+	    @Html.Widget("content_before")
+        </div>
+        <div class="header-logo grid-item">
+            @Html.Action("Logo", "Common")
+        </div>
+        <div class="header-links-wrapper grid-item">
+            @Html.Action("HeaderLinks", "Common")
+            @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+        </div>
+    </div>
+    @*<div class="header-lower">
+            <div class="header-logo">
+                @Html.Action("Logo", "Common")
+            </div>
+            <div class="search-box store-search-box">
+                @Html.Action("SearchBox", "Catalog")
+            </div>
+        </div>*@
+    <script>
+
+        $(document).ready(function () {
+            $(".menu-title").click(function () {
+                if ($(".side-nav").hasClass("menu-open")) {
+                    $(".side-nav").removeClass("menu-open")
+                } else {
+                    $(".side-nav").addClass("menu-open");
+                }
+            });
+
+            // web Search function
+            $(".search-btn").click(function () {
+                $(".SearchBoxBody").slideToggle();
+            });
+            $(".close-btn").click(function () {
+                $(".SearchBoxBody").slideToggle();
+            });
+
+            $(".mobile-search").click(function () {
+                $(".SearchBoxBody").slideToggle();
+            });
+        });
+    </script>
+</div>

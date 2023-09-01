@@ -1,0 +1,135 @@
+﻿@model AppointmentModel
+@using Nop.Web.Models.Common;
+@using Nop.Services.Common;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    //Html.AddTitleParts(T("PageTitle.ContactUs").Text);
+    Html.AddTitleParts("Appointment");
+    var currentCustomer = Nop.Core.Infrastructure.EngineContext.Current.Resolve<Nop.Core.IWorkContext>().CurrentCustomer;
+    var FirstName = currentCustomer.GetAttribute<string>(Nop.Core.Domain.Customers.SystemCustomerAttributeNames.FirstName);
+    var LastName = currentCustomer.GetAttribute<string>(Nop.Core.Domain.Customers.SystemCustomerAttributeNames.LastName);
+    var Email = currentCustomer.Email;
+}
+
+@*<style>
+        body {
+            background-image: url(/Themes/BootstrapDC/content/brand/bg1.jpg);
+            background-repeat: no-repeat;
+            width: 100%;
+            background-size: 100% 82%;
+        }
+
+    </style>*@
+
+
+
+
+<div class="row nopadding no-margin" style="margin-top:40px;margin-bottom:70px" @*style="background-image: url(/Themes/BootstrapDC/content/brand/bg1.jpg); background-repeat: no-repeat; width: 100%; background-size: 100% 114%; height:630px"*@>
+    <div class="page-body col-md-6">
+        <div class="page-header page-header-custom" style="border-bottom:0px;padding-bottom:0px;padding:0px;margin:0px;">
+            <h3 class="" style="margin-left:17%;font-weight:bold">@*@T("PageTitle.ContactUs")*@BOOK AN APPOINTMENT</h3>
+            @*<p style="margin-left:17%">CALL US AT +92331-2888913 (9 AM TO 5 PM)</p>*@
+        </div>
+        @*@Html.Action("TopicBlock", "Topic", new { systemName = "ContactUs" })*@
+        @*@Html.Widget("contactus_top")*@
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8" style="">
+                @if (Model.SuccessfullySent)
+                {
+                    <div class="alert alert-success" role="alert">
+                        @*@Model.Result*@
+                        THANK YOU FOR YOUR REQUEST. WE WILL GET BACK TO YOU IN WITHIN 24 HOURS TO FIX AN APPOINTMENT WITH OUR DESIGNER.
+                    </div>
+                }
+                else
+                {
+                    using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        var validationSummary = Html.ValidationSummary(true);
+                        if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                        {
+                            <div class="text-danger">@validationSummary</div>
+                        }
+                        <div class="form-horizontal">
+                            <div class="form-group formgrp-bottom">
+
+                                <div class="col-sm-12">
+                                    @*@Html.TextBoxFor(model => model.FirstName, new { @class = "textbox3", placeholder = "FIRST NAME" , required="required" })*@
+                                    <input type="text" name="FirstName" class="textbox3" placeholder="FIRST NAME" value="@FirstName" required="required" />
+                                    <small class="text-danger">@Html.ValidationMessageFor(model => model.FirstName)</small>
+                                </div>
+                            </div>
+                            <div class="form-group formgrp-bottom">
+
+                                <div class="col-sm-12">
+                                    @*@Html.TextBoxFor(model => model.LastName, new { @class = "textbox3", placeholder = "LAST NAME", required = "required" })*@
+                                    <input type="text" name="LastName" class="textbox3" placeholder="LAST NAME" value="@LastName" required="required" />
+                                    <small class="text-danger">@Html.ValidationMessageFor(model => model.LastName)</small>
+                                </div>
+                            </div>
+                            <div class="form-group formgrp-bottom">
+
+                                <div class="col-sm-12">
+                                    @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "textbox3", placeholder = "NUMBER", required = "required" })
+                                    <small class="text-danger">@Html.ValidationMessageFor(model => model.PhoneNumber)</small>
+                                </div>
+                            </div>
+                            <div class="form-group formgrp-bottom">
+                                @*@Html.LabelFor(model => model.Email, new { @class = "col-sm-3 control-label" }, ":")*@
+                                <div class="col-sm-12">
+                                    @*@Html.TextBoxFor(model => model.Email, new { @class = "textbox3", placeholder = "EMAIL", required = "required" })*@
+                                    <input type="text" name="Email" class="textbox3" placeholder="EMAIL" value="@Email" required="required" />
+                                    <small class="text-danger">@Html.ValidationMessageFor(model => model.Email)</small>
+                                </div>
+                            </div>
+                            @*@if (Model.SubjectEnabled)
+                            {
+                                <div class="form-group">
+                                    
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.Subject, new { @class = "textbox3", placeholder = T("ContactUs.Subject.Hint") })
+                                        <small class="text-danger">@Html.ValidationMessageFor(model => model.Subject)</small>
+                                    </div>
+                                </div>
+                            }*@
+                            <div class="form-group formgrp-bottom">
+                                @*@Html.LabelFor(model => model.Enquiry, new { @class = "col-sm-3 control-label" }, ":")*@
+                                <div class="col-sm-12">
+                                    @Html.TextAreaFor(model => model.Enquiry, new { @class = "textbox3", rows = "10", placeholder = "MESSAGE", required = "required" })
+                                    <small class="text-danger">@Html.ValidationMessageFor(model => model.Enquiry)</small>
+                                </div>
+                            </div>
+                            @if (Model.DisplayCaptcha)
+                            {
+                                <div class="row marginTop10">
+                                    <div class="col-md-offset-3 col-sm-9">
+                                        @Html.Raw(Html.GenerateCaptcha())
+                                    </div>
+                                </div>
+                            }
+                            <center>
+                                <div class="form-group ">
+                                    <div class="col-md-2 col-sm-offset-3 col-sm-9 text-right" style="margin-left: -1px; float:left;">
+                                        <input type="submit" name="send-email" class="btn-med" value="@T("ContactUs.Button")" />
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+
+                    }
+                }
+            </div>
+        </div>
+        @Html.Widget("contactus_bottom")
+    </div>
+
+    <div class="col-md-6">
+    <div class="imagessss"><img src="~/Themes/BootstrapDC/Content/images/Gift Voucher.png" style="width:55%"></div>
+        <center style="margin-top:-64px">
+            @Html.Action("TopicBlock", "Topic", new { systemName = "Appointmentinfo" })
+        </center>
+        </div>
+</div>

@@ -1,0 +1,254 @@
+﻿@model FooterModel
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Common;
+@{ 
+    var cus = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer;
+}
+
+@*
+
+
+        <!-- // Row // -->
+    </div>
+*@
+<div class="container-flu">
+    <div class="footer">
+        <div class="bg-top"></div>
+        <div class="footer-upper">
+            <div class="footer-block information">
+                <div class="title">
+                    <strong>Sadaf Amir</strong>
+                </div>
+                <ul class="list">
+                    @if (Model.SitemapEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</a></li>
+                    }
+                    @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                    {
+                        @*<li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>*@
+                    }
+                    <li><a href="/sadafamirinterview">The Designer</a></li>
+                    <li><a href="@Url.RouteUrl("BookAppointment")">For Appointment</a></li> 
+                   
+                </ul>
+            </div>
+            <div class="footer-block customer-service">
+                <div class="title">
+                    <strong>Customer Service</strong>
+                </div>
+                <ul class="list">
+                    @*<li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a> </li>*@
+                   
+                    <li><a href="/terms-conditions#collapsefour">Delivery & Returns</a> </li>
+                    <li><a href="/terms-conditions#collapseOne">Terms & Conditions</a></li>
+   		    <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+
+                    @*<li><a href="@Url.RouteUrl("ProductSearch")"></a> </li>*@
+                    @if (Model.NewsEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("NewsArchive")">@T("News")</a></li>
+                    }
+                    @if (Model.BlogEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                    }
+                    @if (Model.ForumEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                    }
+                    @if (Model.RecentlyViewedProductsEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("RecentlyViewedProducts")">@T("Products.RecentlyViewedProducts")</a></li>
+                    }
+                    @if (Model.CompareProductsEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("CompareProducts")">@T("Products.Compare.List")</a></li>
+                    }
+                    @if (Model.NewProductsEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
+                    }
+                    @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
+                    {
+                        <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="footer-block my-account">
+                <div class="title">
+                    <strong>@T("Footer.MyAccount")</strong>
+                </div>
+                <ul class="list">
+
+                     @if (cus.Username != null)
+                    {
+                        @*@T("Account.MyAccount")*@
+                        <li><a href="@Url.RouteUrl("CustomerInfo")"> Personal Info </a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.Register.login.sadafAmir")</a></li>
+                    }
+                    @*<li><a href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</a></li>*@
+                    @*<li><a href="@Url.RouteUrl("CustomerAddresses")">@T("Account.CustomerAddresses")</a></li>*@
+                    @if (Model.ShoppingCartEnabled)
+                    {
+                                                @*@T("ShoppingCart")*@
+                        <li><a href="@Url.RouteUrl("ShoppingCart")">Cart</a></li>
+                    }
+                    @if (Model.WishlistEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Wishlist")">@T("Wishlist")</a></li>
+                    }
+                    @if (Model.AllowCustomersToApplyForVendorAccount)
+                    {
+                        <li><a href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</a></li>
+                    }
+                    @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn3).ToList())
+                    {
+                        <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="footer-block follow-us">
+                <div class="title">
+                    @*<strong>Get Styles Update</strong>*@
+                    <strong>Stay In Know</strong>
+                </div>
+                
+                <div class="newsletter">
+                    
+                    @Html.Action("NewsletterBox", "Newsletter")
+                    </div>
+                    <div class="social">
+
+                        @Html.Action("Social", "Common")
+                    </div>
+                 
+                </div>
+
+
+            <div class="footer-contact">
+                <ul class="email-number">
+                    <li><span><img src="/Themes/SadafAmir/Content/images/img/envolpe.png"></span> <a href="mailto:connect@sadafamir.com" target="_top">connect@sadafamir.com</a> </li>
+                    <li>
+                        <span><img src="/Themes/SadafAmir/Content/images/img/phone.png"> </span>
+                        <a href="tel:+92 347-2910502">+92 347-2910502 </a>
+                       @* <a href="tel:+92 321-8276367">+92 321-8276367 </a>*@
+                    </li>
+                </ul>                
+            </div>
+
+            <div class="footer-block" style="width:100%; text-align:center;">
+                <div class="title" style=" background: transparent !important; border: none !important; ">
+                    <strong>Download Our Free App</strong>
+                </div>
+                <div style="margin:auto; display: inline-block; ">
+                    <ul class="icons">
+                        <li><a href="https://play.google.com/store/apps/details?id=com.growonline.sadaf"><img class="img-responsive playstore" src="~/themes/Prisma/Content/img/google-play-badge.png"></a></li>
+                        <li>
+                            <a href="https://apps.apple.com/us/app/sadaf-amir/id1472503974">
+                                <img style="padding: 8px;margin-top: -3px;" 
+                                     class="img-responsive appstore" src="~/themes/Prisma/Content/img/app-store-badge.svg">
+                            </a>
+                        </li>
+                        @*
+                            <li style=" width: auto; ">
+                            <a href="https://www.gomobishop.com/share?sid=9" target="blank">
+                                <img src="/Themes/SadafAmir/Content/images/img/MobiShop.png" 
+                                            style="width: auto;height: 44px;padding: 0px 0px 4px 8px;">
+                            </a>
+                            </li>
+                        *@
+                    </ul>
+                </div>
+            </div>
+
+
+            </div>
+        <div class="footer-lower">
+            <div class="footer-info">
+		@*<a style="text-decoration:none;font-size: 12px; " href="https://growonline.pk/" target="_blank">
+                    Powered by
+                    <span>
+                        <img class="grow" src="/themes/Poppy/Content/img/GrowOnline-logo.png" style="width: 22px;">
+                    </span>
+                    GROW ONLINE
+                </a>*@
+                <a style="text-decoration:none;font-size: 12px; " href="https://www.Fashioneurs.com/" target="_blank">
+                    Powered by
+                    <span>
+                        <img class="grow" src="/themes/SadafAmir/Content/images/Fashioneurs.png" style="width: 22px;">
+                    </span>
+                    Fashioneurs
+                </a>
+                @if (Model.DisplayTaxShippingInfoFooter)
+                {
+                    var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+                    <span class="footer-tax-shipping">
+                        @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+                    </span>
+                }
+            </div>
+            @*<div class="footer-middle">
+                <img class="logo-footer" src="/Themes/SadafAmir/Content/images/img/logo-footer.png" alt="Sadaf Amir">
+            </div>*@
+
+
+
+
+            @if (!Model.HidePoweredByNopCommerce)
+            {
+                <div class="footer-powered-by">
+                    @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
+                            Please find more info at http://www.nopcommerce.com/copyrightremoval.aspx*
+                        Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a> *@
+                    
+                    <span class="footer-disclaimer"> @T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)</span>
+
+                </div>
+            }
+            @Html.Action("StoreThemeSelector", "Common")
+        </div>
+        @Html.Widget("footer")
+    </div>
+
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.footer-block .title').click(function () {
+                var e = window, a = 'inner';
+                if (!('innerWidth' in window)) {
+                    a = 'client';
+                    e = document.documentElement || document.body;
+                }
+                var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
+                if (result.width < 769) {
+                    $(this).siblings('.list').slideToggle('slow');
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.block .title').click(function () {
+                var e = window, a = 'inner';
+                if (!('innerWidth' in window)) {
+                    a = 'client';
+                    e = document.documentElement || document.body;
+                }
+                var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
+                if (result.width < 1001) {
+                    $(this).siblings('.listbox').slideToggle('slow');
+                }
+            });
+        });
+    </script>

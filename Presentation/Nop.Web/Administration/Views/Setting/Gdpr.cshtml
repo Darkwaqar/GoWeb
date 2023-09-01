@@ -1,0 +1,136 @@
+﻿@model GdprSettingsModel
+
+@{
+    //page title
+    ViewBag.Title = T("Admin.Configuration.Settings.Gdpr").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("GDPR settings");
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Admin.Configuration.Settings.GDPR")
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.Save")
+            </button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            bindBootstrapTabSelectEvent('gdprsettings-edit');
+        });
+    </script>
+
+    <div class="content">
+        <div class="form-horizontal">
+            @Html.Action("StoreScopeConfiguration", "Setting")
+            @Html.Action("Mode", "Setting")
+            @Html.ValidationSummary(false)
+
+            <div id="gdprsettings-edit" class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    @Html.RenderBootstrapTabHeader("tab-common", @T("Admin.Configuration.Settings.Gdpr.BlockTitle.Common"), true)
+                    @Html.RenderBootstrapTabHeader("tab-consents", @T("Admin.Configuration.Settings.Gdpr.BlockTitle.Consents"))
+                </ul>
+                <div class="tab-content">
+                    @Html.RenderBootstrapTabContent("tab-common", @TabCommonSettings(), true)
+                    @Html.RenderBootstrapTabContent("tab-consents", @TabConsentsSettings())
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {
+        //custom tabs
+        var eventMessage = new AdminTabStripCreated(this.Html, "gdprsettings-edit");
+        EngineContext.Current.Resolve<IEventPublisher>().Publish(eventMessage);
+        foreach (var eventBlock in eventMessage.BlocksToRender)
+        {
+            @eventBlock
+        }
+    }
+
+    @*save selected tab name*@
+    <input type="hidden" id="selected-tab-name" name="selected-tab-name" value="@(Html.GetSelectedTabName())">
+}
+
+@helper TabCommonSettings()
+{
+    <script>
+    $(document).ready(function () {
+        $("#@Html.IdFor(model => model.GdprEnabled)").click(toggleGdprEnabled);
+        toggleGdprEnabled();
+    });
+    function toggleGdprEnabled() {
+        if ($('#@Html.IdFor(model => model.GdprEnabled)').is(':checked')) {
+            $('#pnlLogPrivacyPolicyConsent').show();
+            $('#pnlLogNewsletterConsent').show();
+            $('#pnlLogUserProfileChanges').show();
+        } else {
+            $('#pnlLogPrivacyPolicyConsent').hide();
+            $('#pnlLogNewsletterConsent').hide();
+            $('#pnlLogUserProfileChanges').hide();
+        }
+    }
+    </script>
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.OverrideStoreCheckboxFor(model => model.GdprEnabled_OverrideForStore, model=> model.GdprEnabled, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.GdprEnabled)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.GdprEnabled)
+                        @Html.ValidationMessageFor(model => model.GdprEnabled)
+                    </div>
+                </div>
+                
+                    <div class="form-group advanced-setting" id="pnlLogPrivacyPolicyConsent">
+                        <div class="col-md-3">
+                            @Html.OverrideStoreCheckboxFor(model => model.LogPrivacyPolicyConsent_OverrideForStore, model => model.LogPrivacyPolicyConsent,Model.ActiveStoreScopeConfiguration)
+                            @Html.NopLabelFor(model => model.LogPrivacyPolicyConsent)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.LogPrivacyPolicyConsent)
+                            @Html.ValidationMessageFor(model => model.LogPrivacyPolicyConsent)
+                        </div>
+                    </div>
+                    <div class="form-group advanced-setting" id="pnlLogNewsletterConsent">
+                        <div class="col-md-3">
+                            @Html.OverrideStoreCheckboxFor(model => model.LogNewsletterConsent_OverrideForStore, model => model.LogNewsletterConsent,Model.ActiveStoreScopeConfiguration)
+                            @Html.NopLabelFor(model => model.LogNewsletterConsent)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.LogNewsletterConsent)
+                            @Html.ValidationMessageFor(model => model.LogNewsletterConsent)
+                        </div>
+                    </div>
+                    <div class="form-group advanced-setting" id="pnlLogUserProfileChanges">
+                        <div class="col-md-3">
+                            @Html.OverrideStoreCheckboxFor(model => model.LogUserProfileChanges_OverrideForStore, model => model.LogUserProfileChanges,Model.ActiveStoreScopeConfiguration)
+                            @Html.NopLabelFor(model => model.LogUserProfileChanges)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.LogUserProfileChanges)
+                            @Html.ValidationMessageFor(model => model.LogUserProfileChanges)
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabConsentsSettings()
+{
+        @Html.Partial("_Gdpr.Consents")
+}

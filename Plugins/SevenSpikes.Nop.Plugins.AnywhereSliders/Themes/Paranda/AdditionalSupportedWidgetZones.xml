@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SupportedWidgetZones>
+  <WidgetZone>paranda_home_pom_pom_catagory</WidgetZone>
+  <WidgetZone>paranda_home_beads_catagory</WidgetZone>
+  <WidgetZone>paranda_home_coins_catagory</WidgetZone>
+  <WidgetZone>paranda_home_mirrors_catagory</WidgetZone>
+  <WidgetZone>paranda_home_accessories_catagory</WidgetZone>
+  <WidgetZone>paranda_home_banner</WidgetZone>
+</SupportedWidgetZones>

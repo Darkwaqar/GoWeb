@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SupportedWidgetZones>  
+  <WidgetZone>content_before</WidgetZone>
+  <WidgetZone>theme_header_menu</WidgetZone>
+  <WidgetZone>paranda_content_before_left</WidgetZone>
+  <WidgetZone>paranda_content_after_right</WidgetZone>
+</SupportedWidgetZones>

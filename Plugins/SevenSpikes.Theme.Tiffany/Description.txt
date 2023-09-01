@@ -1,0 +1,9 @@
+Group: 7Spikes
+FriendlyName: HashmiKajal
+SystemName: SevenSpikes.Theme.Tiffany
+Version: 3.90
+SupportedVersions: 3.90
+Author: Seven Spikes
+DisplayOrder: 2
+FileName: SevenSpikes.Theme.Tiffany.dll
+Description: 

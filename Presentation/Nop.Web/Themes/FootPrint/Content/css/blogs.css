@@ -1,0 +1,226 @@
+﻿.parablog{
+        FONT-SIZE: 22PX;
+    FONT-WEIGHT: 600;
+        color: black;
+    
+}
+hr.style15:after {
+	content: "ALSO IN THIS WEEK'S MAGAZINE";
+	display: inline-block;
+	position: relative;
+    top: -12px;
+	padding: 0 10px;
+	background: WHITE;
+	color: #8da7a8;
+
+    font-size: 36px;
+}
+hr.style16:after {
+	content: "WHAT TO BUY NOW";
+	display: inline-block;
+	position: relative;
+    top: -12px;
+	padding: 0 10px;
+	background: WHITE;
+	color: #8da7a8;
+    font-size: 31px;
+}
+
+.btex {
+    margin-top: 95px;
+    font-family: didot;
+    color: black;
+    font-weight: bolder;
+}
+.ig{
+        padding-bottom: 10px;
+            border-right: 2px solid #8da7a8;
+}
+.BT{
+        BORDER: 1PX SOLID #051c3b;
+    WIDTH: 160PX;
+    HEIGHT: 35PX;
+    TEXT-ALIGN: CENTER;
+    LINE-HEIGHT: 31PX;
+    COLOR: WHITE;
+    BACKGROUND-COLOR: #051c3b;
+}
+.grbox{
+        background-color: #8da7a8;
+            margin-top: 34px;
+          background: url(/themes/FootPrint/content/blog/11.jpg);
+ 
+          
+}
+.sbheadin {
+    color: #051c3b;
+    font-family: initial;
+    font-size: 40px;
+    font-weight: 700;
+    font-family: didot;
+}
+.sbpara{
+     color:#051c3b;
+         font-family: initial;
+    color: #051c3b;
+     
+}
+.sbbox{
+
+    left: 87%;
+    top: 46%;
+    transform: translate(-50%, -50%);
+ padding: 20px;
+ vertical-align: middle;
+    display: table;
+}
+.hrr{
+        border-bottom: 2px solid #8da7a8;
+
+}
+.frline{
+        padding-bottom: 34px;
+}
+.jj{
+        padding: 7%;
+        padding-bottom:0;
+}
+.textbx{
+    COLOR: #8da7a8;
+    MARGIN-TOP: -11.4%;
+    text-align: center;
+        height: 85px;
+    background-color: white;
+
+
+}
+.bleft{
+        margin-left: 4%;
+}
+.textbx > span {
+      font-size: 22px;
+    font-weight: 600;
+}
+
+.flive{
+        color: #051c3b;
+    font-size: 42px;
+    font-weight: bolder;
+}
+.mdc1{
+        left: 74%;
+    /*position: absolute;*/
+    top: 38%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    vertical-align: middle;
+    display: table;
+}
+
+.hrforblog{
+        margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: solid 2px #8da7a8;
+}
+.mdc2{
+
+    left: 26%;
+    /*position: absolute;*/
+    top: 38%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    vertical-align: middle;
+    display: table;}
+.rim > img{
+    float:right;
+}
+.sbheadin > span {
+        border-bottom: 1px solid #051C3B;
+    font-family: initial;
+    font-family: didot;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.shd {
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    position: inherit;
+    font-size: 14px;
+}
+.frtopspace {
+     padding-top: 24px;
+
+}
+
+@media (max-width:1024px){
+
+}
+@media (max-width:414px){
+    .ig {
+
+    border-right:none;
+}
+hr.style15:after {
+    font-size: 16px;
+}
+.mdc1 {
+    left: 32%;
+    /* position: absolute; */
+    top: 68%;
+    transform: translate(-50%, -29%);
+    padding: 17px;
+    vertical-align: middle;
+    display: table;
+}
+.btex {
+    margin-top: 95px;
+    font-family: didot;
+    color: black;
+    font-weight: 600;
+    font-size: 20px;
+}
+.parablog {
+    FONT-SIZE: 11PX;
+    FONT-WEIGHT: 600;
+    color: black;
+}
+.mdc2 {
+    left: 30%;
+    /*position: absolute;*/
+    top: 41%;
+    transform: translate(-50%, -29%);
+    padding: 20px;
+    vertical-align: middle;
+    display: table;
+}
+.ffmobile {
+        margin-top: 15px;
+}
+
+hr.style16:after {
+    font-size: 18px;
+}
+.sbbox {
+     left: 0%; 
+    top: 0%; 
+     transform: none; 
+    padding: 20px;
+    vertical-align: middle;
+    text-align: center;
+        width: 100%;
+    /* display: table; */
+}
+.BT {
+
+ WIDTH: 100%;
+
+}
+.bleft {
+    margin-left: -4%;
+}
+}
+@media (max-width:320px){
+
+}

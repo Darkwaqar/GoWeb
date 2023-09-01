@@ -1,0 +1,39 @@
+﻿@model Nop.Web.Models.Common.SocialModel
+    @{
+        var total = 0;
+        total += string.IsNullOrEmpty(Model.TwitterLink) ? 0 : 1;
+        total += Model.NewsEnabled ? 1 : 0;
+        total += string.IsNullOrEmpty(Model.YoutubeLink) ? 0 : 1;
+        total += string.IsNullOrEmpty(Model.GooglePlusLink) ? 0 : 1;
+        total += string.IsNullOrEmpty(Model.LinkedInLink) ? 0 : 1;
+        total += string.IsNullOrEmpty(Model.InstagramLink) ? 0 : 1;
+    }
+<div class="lang-wrap">
+    <a href="@Model.FacebookLink" class="btn brw btn-stripe">
+        F
+    </a>
+    <div class="btn-lang-alternative btn-lang-alternative-@(total)">
+        @if (!string.IsNullOrEmpty(Model.TwitterLink))
+        {
+            <a class="btn btn-stripe" href="@Model.TwitterLink" target="_blank">T</a>}
+        @if (Model.NewsEnabled)
+        {
+            <a class="btn btn-stripe" href="@Url.RouteUrl("NewsRSS", new {languageId = Model.WorkingLanguageId})">R</a>}
+        @if (!string.IsNullOrEmpty(Model.YoutubeLink))
+        {
+            <a class="btn btn-stripe" href="@Model.YoutubeLink" target="_blank">Y</a>}
+        @if (!string.IsNullOrEmpty(Model.GooglePlusLink))
+        {
+            <a class="btn btn-stripe" href="@Model.GooglePlusLink" target="_blank">G</a>}
+        
+        @if (!string.IsNullOrEmpty(Model.LinkedInLink))
+        {
+            <a class="btn btn-stripe" href="@Model.LinkedInLink" target="_blank">LK</a>
+        }
+        @if (!string.IsNullOrEmpty(Model.InstagramLink))
+        {
+        <a class="btn btn-stripe" href="@Model.InstagramLink" target="_blank">I</a>
+        }
+    </div>
+</div>
+

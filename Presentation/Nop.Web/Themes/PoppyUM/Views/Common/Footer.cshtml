@@ -1,0 +1,131 @@
+﻿@model FooterModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Services.Configuration
+@using Nop.Web.Models.Common
+
+@{
+    var storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+
+    var removeCopyright = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("poppythemesettings.removecopyright", false, storeId, true);
+    var removeDesignedBy = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("poppythemesettings.removedesignedby", false, storeId, true);
+
+    var facebookFeedWidget = Html.Widget("facebook_default");
+    var googleFeedWidget = Html.Widget("google_plus_default");
+    var pinterestFeedWidget = Html.Widget("pinterest_default");
+    
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+
+    var user = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer;
+}
+
+<div class="footer">
+    @if (isHomePage) {
+
+        if (!MvcHtmlString.IsNullOrEmpty(facebookFeedWidget) ||
+         !MvcHtmlString.IsNullOrEmpty(googleFeedWidget) ||
+        !MvcHtmlString.IsNullOrEmpty(pinterestFeedWidget))
+            {
+                <div class="footer-fgp-feeds-wrap @if(!MvcHtmlString.IsNullOrEmpty(facebookFeedWidget)){<text>with-facebook</text>} @if(MvcHtmlString.IsNullOrEmpty(pinterestFeedWidget)){<text>no-pinterest</text>}">
+                    @googleFeedWidget
+                    @pinterestFeedWidget
+                    @facebookFeedWidget
+                </div>
+            }
+
+    }
+    <div class="footer-upper">
+        @if (isHomePage) {
+            @Html.Widget("instagram_default")
+            @Html.Widget("twitter_default")
+        }
+        @Html.Action("NewsletterBox", "Newsletter")
+    </div>
+    <div class="footer-lower">
+
+        <div class="footer-block footer-links">
+            <ul class="list">
+                <li>
+                    <a href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</a>
+                </li>
+		<li>
+                    @if (user.Username == null)
+                    {
+                        <a href="@Url.RouteUrl("login")" class="ico-cart">@T("Account.Register.login.sadafAmir")</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.RouteUrl("CustomerInfo")"> Personal Info </a>
+                    }
+                </li>
+                <li>
+                    @*<a href="@Url.RouteUrl("CustomerAddresses")" class="">@T("Account.CustomerAddresses")</a>*@
+			<a href="@Url.RouteUrl("contactus")" class="">CONTACT US</a>
+                </li>
+                @if (Model.ShoppingCartEnabled)
+                {
+                    <li>
+                        <a href="@Url.RouteUrl("ShoppingCart")" class="ico-cart">@T("ShoppingCart")</a>
+                    </li>
+                }
+                @if (Model.WishlistEnabled)
+                {
+                    <li>
+                        <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">@T("Wishlist")</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <ul class="social-sharing">
+	    @Html.Action("Social", "Common")
+        </ul>
+	<div class="download-Apps" style=" text-align: center; ">
+            <h3 style=" font-size: 14px; margin-bottom: 15px; ">
+                Download Our App
+            </h3>
+            <ul>
+                <li style=" display: block;">
+                    <a href="https://www.gomobishop.com/share?sid=788499" target="_blank" style="text-decoration:none;">
+                        <img src="/Themes/PoppyUM/Content/img/android.png" style=" max-width: 120px;">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.gomobishop.com/share?sid=788499" target="_blank" style="text-decoration:none;">
+                        <img src="/Themes/PoppyUM/Content/img/AppStore.png" style=" max-width: 120px;">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        @if (!removeCopyright)
+        {
+            <div class="footer-powered-by">
+                Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a>
+                @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
+                    Please find more info here http://www.nopcommerce.com/copyrightremoval.aspx*@
+            </div>
+        }
+        @if (!removeDesignedBy)
+        {
+            <div class="footer-designed-by">
+                Designed by <a href="http://www.nop-templates.com/" target="_blank">Nop-Templates.com</a>
+            </div>
+        }
+        <div class="footer-disclaimer">
+            @T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)
+        </div>
+        @if (Model.DisplayTaxShippingInfoFooter)
+        {
+            var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+            <div class="footer-tax-shipping">
+                @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+            </div>
+        }
+
+        @Html.Action("StoreThemeSelector", "Common")
+
+    </div>
+    @Html.Widget("footer")
+</div>

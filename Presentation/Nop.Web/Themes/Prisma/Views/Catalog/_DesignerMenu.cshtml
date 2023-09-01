@@ -1,0 +1,101 @@
+﻿@model MenuItemModel
+@using Nop.Services.Media
+@using SevenSpikes.Nop.Plugins.MegaMenu.Models
+@using Nop.Services.Vendors;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Seo;
+@using SevenSpikes.Nop.Plugins.MegaMenu;
+@{
+    var vendors = EngineContext.Current.Resolve<IVendorService>().GetAllVendors().Where(x => x.Designer);
+    var hasSublist = Model.SubItems.Count > 0;
+    var hasSublistClass = hasSublist ? "has-sublist" : string.Empty;
+    var withSubcategoriesClass = hasSublist ? "with-subcategories" : string.Empty;
+    var itemUrl = Constants.PredefinedPageTypes.Contains(Model.Type) ? Url.RouteUrl(Model.Type.ToString()) : Model.Url;
+}
+<li class="@Model.CssClass has-sublist main">
+    <a href="@itemUrl" class="with-subcategories" title="@Model.Title" @if (Model.OpenInNewWindow) { <text> target="_blank" </text> }><span> @Model.Title</span></a>
+    <div class="plus-button"></div>
+    <div class="dropdown categories fullWidth boxes-4">
+        <div class="box" style="width:50%">
+
+
+            <ul class="sublist sub-list-featured">
+                <li class="back-button">
+                    <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                </li>
+                <li>
+                    <a href="" class="actives with-Subcategories" title="Shop By"><span>Designers</span></a>
+                    <div class="sublist-wrap">
+                        <ul class="sublist ven">
+
+                            <li><a href="/vendor/all?Designer=true"> A - F</a></li>
+                            <li><a href="/vendor/all?Designer=true"> G - K</a></li>
+                            <li><a href="/vendor/all?Designer=true"> L - P</a></li>
+                            <li><a href="/vendor/all?Designer=true"> Q - U</a></li>
+                            <li><a href="/vendor/all?Designer=true"> V - Z</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="back-button">
+                    <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                </li>
+                <li>
+                    <a href="/vendor/all?Designer=true" class="with-Subcategories" title="Designer"><span> Designer</span></a>
+                    <div class="sublist-wrap">
+                        <ul class="sublist">
+                            @foreach (var vendor in vendors.Take(9))
+                            {
+                                <li><a href="/@vendor.GetSeName()">@vendor.Name</a></li>
+                            }
+                            <li><a href="/vendor/all?Designer=true" class="showall"> Show all</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+
+
+
+
+
+        </div>
+
+        <div class="vend">
+
+
+            <ul class="vendul">
+
+                @foreach (var v in vendors.Where(x => x.Id == 9 || x.Id == 12).Take(2))
+                {
+
+                    <li>
+                        <div class="set-img" style="background-image:url(@(EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(v.CoverPictureId)));"> </div>
+                        <h2>@v.Name</h2>
+                    </li>
+
+
+
+                }
+
+
+
+
+
+            </ul>
+
+
+
+
+
+        </div>
+
+
+
+        <div class="hidden-xs ad">
+            @Html.Widget("Designer_Banner")
+        </div>
+
+    </div>
+
+</li>
+

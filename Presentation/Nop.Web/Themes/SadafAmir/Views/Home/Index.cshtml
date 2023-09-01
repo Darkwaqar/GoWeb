@@ -1,0 +1,184 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+
+    string FirsttimeUser = string.Empty;
+    HttpCookie reqCookies = Request.Cookies["User"];
+    if (reqCookies == null)
+    {
+
+
+        string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+        if (domainName == "https://sheearns.gomobishop.com")
+        {
+            HttpCookie user = new HttpCookie("User");
+            user["FirsttimeUser"] = "true";
+            Response.Cookies.Add(user);
+            Response.Redirect("~/vendor/all?sheearns=true");
+        }
+    }
+}
+<div class="page home-page">
+    <div class="page-body">
+        @Html.Widget("home_page_top")
+        @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageText" })
+        @*@Html.Widget("home_page_before_categories")*@
+        <div class="contain">
+            @Html.Widget("home_page_main_slider1")
+            @*@Html.Widget("home_page_before_products")*@
+            <!--Home Categories-->
+            @Html.Action("HomepageCategories", "Catalog")
+        </div>
+        
+        @*@Html.Action("HomepageProducts", "Product")*@
+
+        <!--Home Product Categories-->
+        @Html.Widget("home_page_before_categories")
+
+        <!--Home Collection-->
+        @*@Html.Widget("home_page_before_best_sellers")*@
+
+        <div class="container jumbotron home-collection" style="background: transparent">
+            <div class="row">
+                <div class="col-12">
+                    <div class="title carousel-title" style="display: block;">
+                        <h2><strong>Trending Collections</strong></h2>
+                    </div>
+                    <div class="owl-carousel owl-carousel-collection owl-theme">
+                        <!--Col 1-->
+                        <div class="item">
+                            <div class="picture">
+                                <a href="/bridal-collection-2">
+                                    <img src="~/Themes/SadafAmir/Content/images/home/pic-1.jpg" width="100%" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="details">
+                                <h2 class="title">
+                                    <a href="/bridal-collection-2" title="Show products in category Bridal" tabindex="0">
+                                        Takhleeq-e-Ishq
+                                    </a>
+                                </h2>
+                                <div class="col-xs-12 discription">
+                                    <span>It has been designed keeping the idea of romance and love in mind. they're true love to look at, and to wear.</span>
+                                </div>
+                                <p class="text-center"><a href="/bridal-collection-2">Shop</a></p>
+                            </div>
+                        </div>
+                        <!--Col 1-->
+                        <div class="item">
+                            <div class="picture">
+                                <a href="/pret-29">
+                                    <img src="~/Themes/SadafAmir/Content/images/home/pic-2.jpg" width="100%" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="details">
+                                <h2 class="title">
+                                    <a href="/pret-29" title="Show products in category Bridal" tabindex="0">
+                                        Azalea
+                                    </a>
+                                </h2>
+                                <div class="col-xs-12 discription">
+                                    <span>Azalea is on a soft and subtle color palette that exudes timeless beauty. This collection speaks of a lifestyle.</span>
+                                </div>
+                                <p class="text-center"><a href="/pret-29">Shop</a></p>
+                            </div>
+                        </div>
+                        <!--Col 1-->
+                        <div class="item">
+                            <div class="picture">
+                                <a href="/formal">
+                                    <img src="~/Themes/SadafAmir/Content/images/home/pic-3.jpg" width="100%" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="details">
+                                <h2 class="title">
+                                    <a href="/formal" title="Show products in category Nawabzadi" tabindex="0">
+                                        Nawabzadi
+                                    </a>
+                                </h2>
+                                <div class="col-xs-12 discription">
+                                    <span>Our deluxe formals range of the spell. It speaks of our signature embellishments that are significantly very Sadaf Amir.</span>
+                                </div>
+                                <p class="text-center"><a href="/formal">Shop</a></p>
+                            </div>
+                        </div>
+                        <!--Col end-->
+                    </div>
+                    <!--Home Collection end-->
+                    <script>
+                        $('.owl-carousel-collection').owlCarousel({
+                            margin: 10,
+                            nav: true,
+                            mouseDrag: false,
+                            responsive: {
+                                0: {
+                                    items: 1,
+                                    loop: true,
+                                    mouseDrag: true
+                                },
+                                600: {
+                                    items: 2,
+                                    loop: true,
+                                    mouseDrag: true
+                                },
+                                1000: {
+                                    items: 3,
+                                    loop: false,
+                                    mouseDrag: false
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <!--Banner-->
+        @Html.Widget("home_page_main_slider2")
+        <div class="home-other container jumbotron" style="background: transparent">
+            <div class="row">
+                <div class="item col-md-6 col-sm-12">
+                    <script>
+                        $(document).ready(function () {
+                            $("#myVideo").attr('autobuffer', '');
+                            $("#myVideo").attr('playsinline', '');
+                            $("#myVideo").attr('autoplay', '');
+                        });
+                    </script>
+                    <div class="videocont">
+                        <video autoplay loop muted id="myVideo" class="video">
+                            <source src="~/Themes/SadafAmir/Content/video/home/Sadaf%20Amir%20Collection%20Video_1.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+                    @*<img src="~/Themes/SadafAmir/Content/images/home/lagan.png" width="100%" class="img-responsive" /> Lagan - *@
+                    <h3><a href="/lagan-2">The Ethereal Bride</a></h3>
+                    <p><a href="/lagan-2">A celebration of timeless beauty, an ode to eras bygone, an amalgamation of the old and the new, the traditional and the chic.</a></p>
+                    <a href="/lagan-2">Read more</a>
+			<!--Shop Bridal Collection-->
+                </div>
+                <div class="item col-md-6 col-sm-12">
+                    <img src="~/Themes/SadafAmir/Content/images/home/Pic2.jpg" width="100%" class="img-responsive" />
+                    <h3><a href="/sadafamirinterview">The Designer</a></h3>
+                    <p><a href="/sadafamirinterview">wedding bells are in the air. As the weather takes on a turn for the pleasant,the wedding season in pakistan gains momentum exponentially...</a></p>
+                    <a href="/sadafamirinterview">Read more</a>
+                </div>
+            </div>
+        </div>
+	<div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+                    <div class="elfsight-app-decbb1be-3704-4c8d-96ef-8f6d4cee0f98"></div>
+                </div>
+            </div>
+        </div>
+        @*@Html.Action("HomepageBestSellers", "Product")*@
+        @Html.Widget("home_page_before_news")
+        @Html.Action("HomePageNews", "News")
+        @Html.Widget("home_page_before_poll")
+        @Html.Action("HomePagePolls", "Poll")
+        @Html.Widget("home_page_bottom")
+    </div>
+
+</div>

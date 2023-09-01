@@ -1,0 +1,45 @@
+﻿@model PollCategoryNavigationModel
+@using Nop.Web.Models.Polls;
+
+@functions{
+    public bool BreadCrumbContainsCurrentPollCategoryId(PollCategorySimpleModel PollCategory)
+    {
+        if (Model.CurrentPollCategoryId == 0)
+            return false;
+
+        if (PollCategory.Id == Model.CurrentPollCategoryId)
+            return true;
+
+        return false;
+    }
+}
+@helper RenderPollCategoryLine(PollCategorySimpleModel PollCategory)
+{
+    bool active = PollCategory.Id == Model.CurrentPollCategoryId ;
+    bool last = PollCategory.Id == Model.CurrentPollCategoryId;
+    string liClass = active ? "active" : "inactive";
+    if (last)
+    {
+        liClass += " last";
+    }
+    <li class="@liClass">
+        <a href="@Url.RouteUrl("PollCategory", new { SeName = PollCategory.SeName })">@PollCategory.Name
+        </a>
+    </li>
+}
+@if (Model.PollCategories.Count > 0)
+{
+    <div class="block block-PollCategory-navigation">
+        <div class="title">
+            <strong>@T("PollCategories")</strong>
+        </div>
+        <div class="listbox">
+            <ul class="list">
+                @foreach (var PollCategory in Model.PollCategories)
+                {
+                    @RenderPollCategoryLine(PollCategory)
+                }
+            </ul>
+        </div>
+    </div>
+}

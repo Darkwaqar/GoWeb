@@ -1,0 +1,194 @@
+﻿@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    string dir = "/Themes/FootPrint/content/brand";
+    Html.AddTitleParts("Latest handmade men shoes brands in Pakistan");
+
+}
+<style>
+    button.accordion {
+        background-color: transparent;
+        color: #428bca;
+        cursor: pointer;
+        /*padding: 18px;*/
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 14px;
+        transition: 0.4s;
+    }
+        button.accordion:after {
+            content: 'READ MORE';
+            font-size: 13px;
+            color: #428bca;
+            margin-left: 5px;
+            color:;
+        }
+
+        button.accordion.active:after {
+            content: "CLOSE";
+            color: #428bca;
+        }
+
+    div.panel {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.6s ease-in-out;
+        opacity: 0;
+    }
+
+        div.panel.show {
+            opacity: 1;
+            max-height: 500px;
+            font-size: 14px;
+        }
+</style>
+<div id="brand" class="row no-margin">
+    <div class="col-md-12">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <img src="@dir/1-min.jpg" class="img-responsive" style="width:100%" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class=" brandtext fontpara hidden-xs firsttopqu" style="width: 59%;">
+                    AT LONG LAST, THE HAND CRAFTSMANSHIP OF LUXURIOUS LEATHER SHOE FOR MEN HAS A NAME “FOOTPRINT”, WHICH OFFERS<br> WORLD-CLASS HANDMADE SHOES THAT DEPICT OUR LEGACY OF TRADITIONAL WORKMANSHIP.
+                    <br />
+                    <br />
+                    ALREADY A PIONEER IN BESPOKE FOOTWEAR, BOTH IN CREATING AND RE-CRAFTING,<br>
+                    FOOTPRINT POSSESSES THE HIGHLY SKILLED AND TALENTED ARTISAN STYLE CRAFTSMEN WHO HAVE BEEN CREATING YOUR EXQUISITE FOOTWEAR FOR OVER TWO DECADES.
+                </div>
+                <button class="accordion hidden-md hidden-lg hidden-xs hidden-sm" style="text-align:center">READ MORE</button>
+                <div class="brandtext fontpara hidden-md hidden-lg hidden-sm">
+
+                    AT LONG LAST, THE HAND CRAFTSMANSHIP OF LUXURIOUS LEATHER SHOE FOR MEN HAS A NAME “FOOTPRINT”, WHICH OFFERS WORLD-CLASS HANDMADE SHOES THAT DEPICT OUR LEGACY OF TRADITIONAL WORKMANSHIP.
+                    <br />
+                    <br />
+
+
+                    <div class="panel">
+                        ALREADY A PIONEER IN BESPOKE FOOTWEAR, BOTH IN CREATING AND RE-CRAFTING,
+                        FOOTPRINT POSSESSES THE HIGHLY SKILLED AND TALENTED ARTISAN STYLE CRAFTSMEN WHO HAVE BEEN CREATING YOUR EXQUISITE FOOTWEAR FOR OVER TWO DECADES.
+                    </div>
+                    <button class="accordion hidden-md hidden-lg hidden-sm" style="text-align:center"></button>
+                </div>
+            </div>
+        </div>
+        <div class="row bg1">
+            <div class="col-md-4 picone"><img src="@dir/4-minagain.jpg" class="img-responsive totalheight" style="width: 100%" /></div>
+            <div class="col-md-8 firstqu  totalheight responsqueryone">
+                <div class="text-center brandtext hidden-xs firstboxqu ">
+                    <div class="subhead"><img src="@dir/linees.png">THE INNER SENSE OF ARTISTRY<img src="@dir/linees.png" style="width:7%;" /></div>
+                    <h1>Craftsmanship</h1>
+                    <p class="fontpara">
+                        IT IS NOT ENOUGH TO POSSESS THE FINEST TOOLS AND THE HIGHEST QUALITY MATERIALS. TO CREATE THE SUPERIOR QUALITY SHOE YOU EXPECT, ONE MUST POSSESS THE INNER SENSE OF ARTISTRY. ONLY THOSE WITH THE INTENSE ATTENTION TO THE MINUTEST DETAIL TRULY UNDERSTAND THIS WORK.
+                    </p>
+                </div>
+                <div class="text-center brandtext  hidden-md hidden-lg hidden-sm">
+                    <div class="subhead"><img src="@dir/linees.png" style="width:50px;" />THE INNER SENSE OF ARTISTRY<img src="@dir/linees.png" style="width:50px;" /></div>
+                    <h1>Craftsmanship</h1>
+                    <p class="fontpara">
+                        IT IS NOT ENOUGH TO POSSESS THE FINEST TOOLS AND THE HIGHEST QUALITY MATERIALS. TO CREATE THE SUPERIOR QUALITY SHOE YOU EXPECT,
+                    </p>
+                    <div class="panel">
+                        ONE MUST POSSESS THE INNER SENSE OF ARTISTRY. ONLY THOSE WITH THE INTENSE ATTENTION TO THE MINUTEST DETAIL TRULY UNDERSTAND THIS WORK.
+                    </div>
+                    <button class="accordion hidden-md hidden-lg hidden-sm" style="text-align:center"></button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row bg2">
+            <div class="col-md-4 totalheight" style="">
+                <div class="text-center minheading firstminqu" style="color:white;"><img src="@dir/2liness.png" /> SKILLED TO STYLE <img src="@dir/2liness.png" /></div>
+                <h1 style="color:white">NEW ICONIC</h1>
+            </div>
+            <div class="col-md-4 pictwo hidden-xs hidden-md"><img src="@dir/8-minagain.jpg" class="img-responsive totalheight" style="width: 100%;" /></div>
+
+            <div class="col-md-4 pictwo hidden-xs hidden-lg hidden-sm"><img src="@dir/8-minagain.jpg" class="img-responsive totalheight" style="width: 100%;" /></div>
+
+            <div class="col-md-4 pictwo hidden-lg hidden-md hidden-sm"><img src="@dir/8-minagain.jpg" class="img-responsive totalheight" style="width: 100%;" /></div>
+            <div class="col-md-4 bg3 totalheight responsequery2 hidden-xs">
+                <div class="para2 fontpara firstfontparaeqs">
+                    FOOTPRINT’S EXQUISITELY SKILLED ARTISAN STYLE CRAFTSMEN RETAIN THE VALUES OF TRADITIONAL LEATHERWORK WHILE REINTERPRETING THEM INTO HIGHLY DESIRED MODERN DESIGNS.<br><br>
+                    FROM PROCURING MATERIALS OF THE HIGHEST QUALITY TO EMPLOYING THE MOST INSPIRED CRAFTSMEN, WE STRIVE TO DISTIL THE SPIRIT OF TRADITION INTO PERFECTION FOR EACH AND EVERY SHOE WE MAKE.
+                </div>
+            </div>
+            <div class="col-md-4 bg3 totalheight responsequery2 hidden-md hidden-lg hidden-sm">
+                <div class="para2 fontpara " style="">
+                    FOOTPRINT’S EXQUISITELY SKILLED ARTISAN STYLE CRAFTSMEN RETAIN THE VALUES OF TRADITIONAL LEATHERWORK WHILE REINTERPRETING THEM INTO HIGHLY DESIRED MODERN DESIGNS. <br>
+                    <div class="panel">
+                        FROM PROCURING MATERIALS OF THE HIGHEST QUALITY TO EMPLOYING THE MOST INSPIRED CRAFTSMEN, WE STRIVE TO DISTIL THE SPIRIT OF TRADITION INTO PERFECTION FOR EACH AND EVERY SHOE WE MAKE.
+                    </div>
+                    <button class="accordion hidden-md hidden-lg hidden-sm" style="text-align:center"></button>
+                </div>
+            </div>
+        </div>
+        <div class="row bg1">
+            <div class="col-md-8 totalheight onemore responsequery3">
+                <div class="text-center brandtext hidden-xs firstsecondqu">
+                    <div class="subhead2 "><img src="@dir/linees.png" /> WE DON'T LIVE FOREVER,OUR LEGACY DOES. <img src="@dir/linees.png" /></div>
+                    <h1>LEGACY</h1>
+                    <div class="brandtext fontpara">
+                        “ORGANIC” A SINGLE WORD THAT DEFINES FOOTPRINT. OUR BESPOKE SHOES ARE WORK OF ART THAT IS NOT ONLY ENRICHED WITH GREAT ATTENTION TO DETAILS, BUT DETAILS THAT PERSONIFY AESTHETICS, LUXURY, COMFORT AND SKILLED HANDS. WE MAKE SURE THAT OUR SHOES MAKE YOUR EVERY STEP A LEGACY, WITH OUR SKILLED CRAFTSMEN, IMPORTED AND HIGHEST QUALITY MATERIALS AND MORE IMPORTANTLY CLIENT SATISFACTION.
+                    </div>
+                </div>
+                <div class="text-center brandtext hidden-md hidden-lg hidden-sm" style="padding-top:22px">
+
+                    <div class="subhead2 "><img src="@dir/linees.png" style="width:26px; height:1px;" />WE DON'T LIVE FOREVER,OUR LEGACY DOES.<img src="@dir/linees.png" style="width:26px; height:1px;" /></div>
+                    <h1>LEGACY</h1>
+                    <div class="brandtext fontpara">
+                        “ORGANIC” A SINGLE WORD THAT DEFINES FOOTPRINT. OUR BESPOKE SHOES ARE WORK OF ART THAT IS NOT ONLY ENRICHED WITH GREAT ATTENTION TO DETAILS, BUT DETAILS THAT PERSONIFY AESTHETICS, LUXURY, COMFORT AND SKILLED HANDS.
+                        <br>
+                    </div>
+                    <div class="panel">
+                        WE MAKE SURE THAT OUR SHOES MAKE YOUR EVERY STEP A LEGACY, WITH OUR SKILLED CRAFTSMEN, IMPORTED AND HIGHEST QUALITY MATERIALS AND MORE IMPORTANTLY CLIENT SATISFACTION.
+
+                    </div>
+                    <button class="accordion hidden-md hidden-lg hidden-sm" style="text-align:center"></button>
+                </div>
+            </div>
+            <div class="col-md-4 asd picthree">
+                <img src="@dir/13-minagain.jpg" class="img-responsive totalheight" style="width:100%" />
+            </div>
+        </div>
+        <div class="row bg4">
+            <div class="col-md-4 totalheight mstl firstlstqu " style="background-color:white;">
+                <div class="minheading"><img src="@dir/linees.png" /> INVEST IN YOURSELF <img src="@dir/linees.png" /></div>
+                <h1>COMMITMENT</h1>
+            </div>
+            <div class="col-md-8 lastpara fontpara totalheight ada hidden-xs firstlastsecqu" style="text-align: center;padding-left:50px;padding-right:50px">
+                OUR COMMITMENT TO OUR CUSTOMERS IS TO PROVIDE THE HIGHEST VALUE POSSIBLE IN THE SHOE WE CREATE. WE KNOW THAT OUR SHOE ARE NOT JUST FOOTWEAR, BUT AN INVESTMENT IN YOUR APPEARANCE AND IMAGE. WE ARE HUMBLED THAT YOU’VE CHOSEN US, SO THAT WE CAN PROVIDE YOU WITH NOTHING SHORT OF EXCELLENCE.
+            </div>
+            <div class="col-md-8 lastpara fontpara totalheight ada hidden-md hidden-lg hidden-sm" style="padding: 50px 50px;text-align: center;">
+                OUR COMMITMENT TO OUR CUSTOMERS IS TO PROVIDE THE HIGHEST VALUE POSSIBLE IN THE SHOE WE CREATE.
+                <div class="panel">
+                    WE KNOW THAT OUR SHOE ARE NOT JUST FOOTWEAR, BUT AN INVESTMENT IN YOUR APPEARANCE AND IMAGE. WE ARE HUMBLED THAT YOU’VE CHOSEN US, SO THAT WE CAN PROVIDE YOU WITH NOTHING SHORT OF EXCELLENCE.
+                </div>
+                <button class="accordion hidden-md hidden-lg hidden-sm" style="text-align:center"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function () {
+            this.classList.toggle("active");
+            this.previousElementSibling.classList.toggle("show");
+        }
+    }
+</script>
+
+

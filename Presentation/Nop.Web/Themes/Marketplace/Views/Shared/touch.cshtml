@@ -1,0 +1,207 @@
+﻿
+
+
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@using Nop.Web.Framework.Themes
+
+
+@{
+    //Layout = "~/Views/Shared/_IndexLayout.cshtml";
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    string dir = "/Themes/BootstrapDC/content/brand";
+
+}
+<style>
+    button.accordion {
+        background-color: transparent;
+        color: #428bca;
+        cursor: pointer;
+        /*padding: 18px;*/
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        /*button.accordion.active, button.accordion:hover {
+            background-color: #ddd;
+        }*/
+
+        button.accordion:after {
+            /*content: '\02795';*/
+            font-size: 13px;
+            color: #777;
+            float: right;
+            margin-left: 5px;
+        }
+
+        button.accordion.active:after {
+            /*content: "\2796";*/
+        }
+
+    div.panel {
+        padding: 0 18px;
+      
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.6s ease-in-out;
+        opacity: 0;
+    }
+
+        div.panel.show {
+            opacity: 1;
+            max-height: 500px;
+        }
+    
+</style>
+<div id="brand" class="row no-margin">
+    <div class="col-md-12">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <img src="@dir/1-min.jpg" class="img-responsive" style="width:100%" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class=" brandtext fontpara hidden-xs" >
+                    FOOTPRINT IS A PIONEER IN BESPOKE FOOTWEAR, EXLUSIVELY MEANT FOR THE MAN OF TASTE, POWER AND SUPREMACY. WE PRODUCE HAND-MADE FOOTWEAR THAT DEPICT OUR LEGACY OF TRADITIONAL WORKMANSHIP.
+                    <br />
+                    <br />
+                    FOOTPRINT CREATES EXCLUSIVE COMPLEXITIES; THAT OF PROMISES, LEADERSHIP, AND CLOUT. WE POSSESS HIGHLY SKILLED AND TALENTED ARTISAN STYLE CRAFTSMEN, WHO HAVE BEEN CREATING EXQUISITE FOOTWEAR FOR THE FINE YOUNG GENTLEMEN FOR OVER TWO DECADES.
+                </div>
+                <div class="brandtext fontpara hidden-md hidden-lg hidden-sm">
+                    FOOTPRINT IS A PIONEER IN BESPOKE FOOTWEAR, EXLUSIVELY MEANT FOR THE MAN OF TASTE, POWER AND SUPREMACY. WE PRODUCE HAND-MADE FOOTWEAR THAT DEPICT OUR LEGACY OF TRADITIONAL WORKMANSHIP.
+                    <br />
+                    <br />
+                    
+                        
+                    <div class="panel">
+                        FOOTPRINT CREATES EXCLUSIVE COMPLEXITIES; THAT OF PROMISES, LEADERSHIP, AND CLOUT. WE POSSESS HIGHLY SKILLED AND TALENTED ARTISAN STYLE CRAFTSMEN, WHO HAVE BEEN CREATING EXQUISITE FOOTWEAR FOR THE FINE YOUNG GENTLEMEN FOR OVER TWO DECADES.
+                    </div>
+                    <button class="accordion hidden-md hidden-lg hidden-sm" style="text-align:center">READ MORE</button>
+                 </div>
+            </div>
+        </div>
+        <div class="row bg1">
+            <div class="col-md-4 picone"><img src="@dir/4-min.jpg" class="img-responsive totalheight" style="width: 100%" /></div>
+            <div class="col-md-8 totalheight responsqueryone ">
+                <div class="text-center brandtext hidden-xs" >
+                    <div class="subhead">THE INNER SENSE OF ARTISTRY</div>
+                    <h1>Craftsmanship</h1>
+                    <p class="fontpara">
+                        WE BELIEVE THAT IT IS NOT ENOUGH TO POSSESS THE FINEST TOOLS AND THE HIGHEST QUALITY MATERIALS. TO CREATE THE SUPERIOR QUALITY SHOE YOU EXPECT, ONE MUST POSSESS THE INNER SENSE OF ARTISTRY. ONLY THOSE WITH THE INTENSE ATTENTION TO THE MINUTEST DETAIL TRULY UNDERSTAND THIS WORK. THEREFORE, OUR STAFF ENTAILS EXPERIENCED AND PROFESSIONA CRAFTSMEN, WHO UNDERSTAND THE NATURE OF CUSTOMER PERSONAL STYLES. 
+                    </p>
+                   
+                    <div class="read"><a href="/brands-text#craftsmanship">READ MORE...</a></div>
+                </div>
+                <div class="text-center brandtext  hidden-md hidden-lg hidden-sm">
+                    <div class="subhead">THE INNER SENSE OF ARTISTRY</div>
+                    <h1>Craftsmanship</h1>
+                    <p class="fontpara">
+                        WE BELIEVE THAT IT IS NOT ENOUGH TO POSSESS THE FINEST TOOLS AND THE HIGHEST QUALITY MATERIALS. TO CREATE THE SUPERIOR QUALITY SHOE YOU EXPECT, ONE MUST POSSESS THE INNER SENSE OF ARTISTRY.
+                    </p>
+                    <div class="panel">
+                        ONLY THOSE WITH THE INTENSE ATTENTION TO THE MINUTEST DETAIL TRULY UNDERSTAND THIS WORK. THEREFORE, OUR STAFF ENTAILS EXPERIENCED AND PROFESSIONA CRAFTSMEN, WHO UNDERSTAND THE NATURE OF CUSTOMER PERSONAL STYLES.
+                    </div>
+                    <button class="accordion hidden-md hidden-lg hidden-sm" style="text-align:center">READ MORE</button>
+
+                    
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row bg2">
+            <div class="col-md-4 totalheight" style="">
+                <div class="text-center minheading" style="color:white;padding-top:154px">SKILLED TO STYLE</div>
+                <h1 style="color:white">NEW ICONIC</h1>
+            </div>
+            <div class="col-md-4 pictwo"><img src="@dir/8-min.jpg" class="img-responsive totalheight" style="width: 100%" /></div>
+            <div class="col-md-4 bg3 totalheight responsequery2 hidden-xs" style=" ">
+                <div class="para2 fontpara" style="">
+                    FOOTPRINT’S EXQUISITELY SKILLED ARTISAN STYLE RETAIN THE VALUES OF TRADITIONAL LEATHERWORK, WHILE REINTERPRETING THEM INTO HIGHLY DESIRED MODERN DESIGNS. <br>FROM PROCURING MATERIALS OF THE HIGHEST QUALITY TO EMPLOYING THE MOST INSPIRED CRAFTSMEN, WE STRIVE TO DISTILL THE SPIRIT OF TRADITION INTO PERFECTION, FOR EACH AND EVERY SHOE WE MAKE.
+                    @*<div class="read"><a href="@Url.RouteUrl("Topic", new {SeName = Html.GetTopicSeName("brandstext") })">READ MORE...</a></div>*@
+                    <div class="read" style="font-size:14px;"><a href="/brands-text#newiconic">READ MORE...</a></div>
+                </div>
+            </div>
+            <div class="col-md-4 bg3 totalheight responsequery2 hidden-md hidden-lg hidden-sm">
+                <div class="para2 fontpara" style="">
+                    FOOTPRINT’S EXQUISITELY SKILLED ARTISAN STYLE RETAIN THE VALUES OF TRADITIONAL LEATHERWORK, WHILE REINTERPRETING THEM INTO HIGHLY DESIRED MODERN DESIGNS. <br>
+                    <div class="panel">
+                        FROM PROCURING MATERIALS OF THE HIGHEST QUALITY TO EMPLOYING THE MOST INSPIRED CRAFTSMEN, WE STRIVE TO DISTILL THE SPIRIT OF TRADITION INTO PERFECTION, FOR EACH AND EVERY SHOE WE MAKE.
+                    </div>
+                    <button class="accordion hidden-md hidden-lg hidden-sm" style="text-align:center">READ MORE</button>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row bg1">
+            <div class="col-md-8 totalheight onemore responsequery3">
+                <div class="text-center brandtext hidden-xs" style="padding-top:62px">
+                    <div class="subhead2 ">WE DON'T LIVE FORVER,OUR LEGACY DOES.</div>
+                    <h1>LEGACY</h1>
+                    <div class="brandtext fontpara"> “ORGANIC” THAT’S HOW WE ARE DEFINED. OUR BESPOKE SHOES ARE WORK OF ART, ENRICHED WITH GREAT ATTENTION TO DETAILS. FOOTPRINT’S STRUCTURES PERSONIFY AESTHETICS, LUXURY, COMFORT AND SKILL. WE MAKE SURE THAT OUR SHOES MAKE YOUR EVERY STEP A LEGACY.<br> WITH OVER TWO DECADES OF SERVING THE FOOTWEAR INDUSTRY IN PAKISTAN, AND OFFERING OUR SERVICES TO INTERNATIONAL BRANDS, WE ARE NOW EXPANDING OUR FACILITIES FOR A WIDE VARIETY OF INTERNATIONAL CLIENTS. OUR MOTTO IS TO PROMOTE THE SUPREMEST OF WORKMANSHIP THOSE WHO VALUE FASHION.</div>
+                    @*<div class="read"><a href="@Url.RouteUrl("Topic", new {SeName = Html.GetTopicSeName("brandstext") })">READ MORE...</a></div>*@
+                    <div class="read"><a href="/brands-text#legacy">READ MORE...</a></div>
+                </div>
+                <div class="text-center brandtext hidden-md hidden-lg hidden-sm" style="padding-top:62px">
+                    <div class="subhead2 ">WE DON'T LIVE FORVER,OUR LEGACY DOES.</div>
+                    <h1>LEGACY</h1>
+                    <div class="brandtext fontpara"> “ORGANIC” THAT’S HOW WE ARE DEFINED. OUR BESPOKE SHOES ARE WORK OF ART, ENRICHED WITH GREAT ATTENTION TO DETAILS. FOOTPRINT’S STRUCTURES PERSONIFY AESTHETICS, LUXURY, COMFORT AND SKILL. WE MAKE SURE THAT OUR SHOES MAKE YOUR EVERY STEP A LEGACY.<br> </div>
+                    <div class="panel">
+                        WITH OVER TWO DECADES OF SERVING THE FOOTWEAR INDUSTRY IN PAKISTAN, AND OFFERING OUR SERVICES TO INTERNATIONAL BRANDS, WE ARE NOW EXPANDING OUR FACILITIES FOR A WIDE VARIETY OF INTERNATIONAL CLIENTS. OUR MOTTO IS TO PROMOTE THE SUPREMEST OF WORKMANSHIP THOSE WHO VALUE FASHION.
+                    </div>
+                    <button class="accordion hidden-md hidden-lg hidden-sm" style="text-align:center">READ MORE</button>
+
+                </div>
+            </div>
+            <div class="col-md-4 asd picthree">
+                <img src="@dir/13-min.jpg" class="img-responsive totalheight" style="width:100%" />
+            </div>
+
+        </div>
+
+
+        <div class="row bg4">
+            <div class="col-md-8 lastpara fontpara totalheight ada hidden-xs" style="padding: 163px 50px;text-align: center;">
+                OUR COMMITMENT TO OUR CUSTOMERS IS TO PROVIDE THE HIGHEST VALUE POSSIBLE IN THE PAIRS WE CREATE. WE KNOW THAT OUR PRODUCTS ARE NOT JUST FOOTWEAR, BUT AN INVESTMENT IN YOUR APPEARANCE AND IMAGE. WE ARE HUMBLED THAT YOU’VE CHOSEN US, SO THAT WE CAN PROVIDE YOU WITH NOTHING SHORT OF EXCELLENCE.
+                <div class="read" style=" font-size: 14px;"><a href="/brands-text#commitment">READ MORE...</a></div>
+            </div>
+            <div class="col-md-8 lastpara fontpara totalheight ada hidden-md hidden-lg hidden-sm" style="padding: 163px 50px;text-align: center;">
+                OUR COMMITMENT TO OUR CUSTOMERS IS TO PROVIDE THE HIGHEST VALUE POSSIBLE IN THE PAIRS WE CREATE.
+                <div class="panel">
+                    WE KNOW THAT OUR PRODUCTS ARE NOT JUST FOOTWEAR, BUT AN INVESTMENT IN YOUR APPEARANCE AND IMAGE. WE ARE HUMBLED THAT YOU’VE CHOSEN US, SO THAT WE CAN PROVIDE YOU WITH NOTHING SHORT OF EXCELLENCE.
+                </div>
+                <button class="accordion hidden-md hidden-lg hidden-sm" style="text-align:center">READ MORE</button>
+            </div>
+            <div class="col-md-4 totalheight mstl" style="background-color:white">
+                <div class="minheading" style="padding-top:160px">INVEST IN YOURSELF</div>
+                <h1>COMMITMENT</h1>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function () {
+            this.classList.toggle("active");
+            this.previousElementSibling.classList.toggle("show");
+        }
+    }
+</script>
+
+

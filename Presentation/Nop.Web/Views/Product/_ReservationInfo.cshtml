@@ -1,0 +1,49 @@
+﻿@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Domain.Catalog;
+@{
+    Html.AppendScriptParts("~/scripts/public.reservation.js");
+    Html.AddCssFileParts("~/scripts/jquery-ui-themes/smoothness/jquery-ui.calendar.min.css");
+}
+<div class="attributes">
+    @if (Model.Parameters.Any())
+    {
+        <div class="container" style="margin-left:-15px">
+            <label for="parameterDropdown" class="col-form-label">@T("Products.AdditionalParameter"):</label>
+            <select class="custom-select form-control" name="parameterDropdown" id="parameterDropdown">
+                @foreach (var parameter in Model.Parameters)
+                {
+                    <option value="@parameter.Value">@parameter.Text</option>
+                }
+            </select>
+        </div>
+    }
+    @if (Model.IntervalUnit == IntervalUnit.Day)
+    {
+        <dl>
+            <dt><label class="text-prompt">@T("Products.Reservation.DateFrom"):</label></dt>
+            <dd><input name="reservationDatepickerFrom_@Model.Id" id="reservationDatepickerFrom" class="form-control datepicker" /></dd>
+            <dt><label class="text-prompt">@T("Products.Reservation.DateTo"):</label></dt>
+            <dd><input name="reservationDatepickerTo_@Model.Id" id="reservationDatepickerTo" class="form-control datepicker" /></dd>
+        </dl>
+    }
+    else
+    {
+        <dl>
+            <dt><label class="text-prompt">@T("Products.Reservation.Date"):</label></dt>
+            <dd><div id="reservationDatepicker"></div></dd>
+            <dt><label class="text-prompt">@T("Products.Reservation.Hour"):</label></dt>
+            <dd><ul id="hoursDiv" class="option-list" data-toggle="buttons"></ul></dd>
+        </dl>
+    }
+</div>
+
+<script asp-location="Footer">
+    $(document).ready(function () {
+        Reservation.init("@Model.StartDate.ToString("D")", "@Model.StartDate.Year", "@Model.StartDate.Month", "@T("Products.Noavailablereservations")",
+            "@(Url.Action("GetDatesForMonth", "Product"))", "@Model.Id",
+            "@Html.Raw(Url.Action("productdetails_attributechange", "product", new { productId = Model.Id, validateAttributeConditions = false }))");
+    });
+</script>
+
+@*Reservation.availableDates[i].Date.match(/\d+/)[0] * 1*@

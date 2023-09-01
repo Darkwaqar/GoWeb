@@ -1,0 +1,2159 @@
+﻿
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo
+@using Nop.Core.Infrastructure;
+@{
+    var displayMiniProfiler = EngineContext.Current.Resolve<Nop.Core.Domain.StoreInformationSettings>().DisplayMiniProfilerInPublicStore;
+
+    Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");
+    Html.AppendScriptParts("~/Scripts/public.common.js");
+    Html.AppendScriptParts("~/Scripts/jquery-migrate-1.2.1.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery-ui-1.10.3.custom.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery.validate.unobtrusive.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery.validate.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery-1.10.2.min.js");
+
+    //X-UA-Compatible tag
+    var commonSettings = EngineContext.Current.Resolve<CommonSettings>();
+    if (commonSettings.RenderXuaCompatible)
+    {
+        Html.AppendHeadCustomParts(string.Format("<meta http-equiv=\"X-UA-Compatible\" content=\"{0}\"/>", commonSettings.XuaCompatibleValue));
+    }
+    //custom tag(s)
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+    if (!string.IsNullOrEmpty(seoSettings.CustomHeadTags))
+    {
+        Html.AppendHeadCustomParts(seoSettings.CustomHeadTags);
+    }
+}
+@*@Html.Partial("_Notifications")*@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js gt-ie8"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Go Women</title>
+
+    <!--=================================
+    Meta tags.
+    =================================-->
+    <meta name="description" content="">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="viewport" content="minimum-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no" />
+    
+
+    <!--=================================
+    Style Sheets
+    =================================-->
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Rajdhani:400,700' rel='stylesheet' type='text/css'>-->
+
+    <!--<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">-->
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/custom-icons.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/my-instagram-gallery.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/odometer-theme-default.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/carousel-my.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/mobile-responsive.css">
+    <script src="~/Scripts/public.ajaxcart.js"></script>
+<script src="/assets/js/jquery-1.11.3.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+    @*-------------testing code-------------*@
+    @*<title>@Html.NopTitle()</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <meta name="description" content="@(Html.NopMetaDescription())" />
+    <meta name="keywords" content="@(Html.NopMetaKeywords())" />
+    <meta name="generator" content="nopCommerce" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />*@
+    @*<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet">*@
+    @*@Html.NopHeadCustom()*@
+    @*This is used so that themes can inject content into the header*@
+    @Html.Partial("Head")
+    @*@Html.Widget("head_html_tag")*@
+    @Html.NopCssFiles(this.Url, ResourceLocation.Head)
+    @Html.NopScripts(this.Url, ResourceLocation.Head)
+   
+   
+   
+  
+
+    @*-------------testing code-------------*@
+    <style>
+        #countdowntop {
+        font-size:2vw !important;
+        font-weight:bold !important;
+        }
+        option {
+        font-size:15px !important;
+        }
+        select {
+        color:black !important;
+        font-size:15px !important;
+        }
+    </style>
+    <meta name="p:domain_verify" content="ba131814a23240d0bc24336ccc1f1f01”   />
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            }; if (!f._fbq) f._fbq = n;
+            n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+        }(window,
+        document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1209251752485359', {
+            em: 'insert_email_variable,'
+        });
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id=1209251752485359&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- DO NOT MODIFY -->
+    <!-- End Facebook Pixel Code -->
+   
+    <script>
+        fbq('track', 'Search', {
+            search_string: 'leather sandals'
+        });
+    </script>
+
+
+  
+    <script>
+        fbq('track', 'ViewContent', {
+            value: 3.50,
+            currency: 'USD'
+        });
+    </script>
+
+
+    
+    <script>
+        fbq('track', 'AddToCart', {
+            value: 3.50,
+            currency: 'USD'
+        });
+    </script>
+
+
+  
+    <script>
+        fbq('track', 'AddToWishlist', {
+            value: 247.35,
+            currency: 'USD'
+        });
+    </script>
+
+    
+    <script>
+        fbq('track', 'InitiateCheckout');
+    </script>
+
+   
+    <script>
+        fbq('track', 'AddPaymentInfo');
+    </script>
+
+
+    
+    <script>
+        fbq('track', 'Purchase', {
+            value: 247.35,
+            currency: 'USD'
+        });
+    </script>
+
+
+    
+    <script>
+        fbq('track', 'Purchase', {
+            value: 247.35,
+            currency: 'USD'
+        });
+    </script>
+
+
+   
+    <script>
+        fbq('track', 'CompleteRegistration', {
+            value: 25.00,
+            currency: 'USD'
+        });
+    </script>
+    @*<script type='text/javascript'> var _d_site = _d_site || '958772DD7E29DC25099A41F7'; </script>
+    <script src='//widget.privy.com/assets/widget.js'></script>*@
+
+</head>
+<body class="getting-ready">
+
+    @Html.Partial("_Notifications")
+
+
+    <div class="pre-loading">
+        <figure class="loading-logo">
+            <img src="/assets/img/logo/logo.gif" alt="Go fashion logo" style="width: 50%;">
+        </figure>
+        <!--<div class="loading-animation">
+            <div class="loader-container arc-rotate2">
+                <div class="loader">
+                    <div class="arc"></div>
+                </div>
+            </div>
+        </div>-->
+    </div>
+   
+        <div id="SearchPanel" style="display:none">
+            <div>
+                <h3>
+                    <b>FIND YOUR STUFF</b>
+                    <br /><small>Search for products, brand and categories.</small>
+                </h3>
+              
+
+
+
+            </div>
+        </div>
+ 
+    <div class="row no-margin " id="AuthPanel5" style="display: none; background-color: #f6f6f6; height: 186px; box-shadow: inset 0px -20px 20px -20px rgba(0, 0, 0, 0.25); ">
+        <div class="col-xs-12 nopadding">
+            <div>
+                <a href="#" id="authBtn6" onclick="searchClose();">  <img src="/themes/bootstrapdc/content/images/cross.png" style="float:right;height:40px;margin-top:11px;margin-right:23px" /></a>
+                <div class="col-xs-12 nopadding">
+                    @Html.Action("SearchBox", "Catalog")
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div id="sticky-cart" class="container-fluid hidden hidden-sm hidden-xs">
+        <div class="row center-block stickey-cart-row">
+            <header class="doc-header hidden-sm hidden-xs">
+                @if (Request.Url.PathAndQuery == "/")
+                {
+
+                    <div class="container" style="background-color: #e1ccd3; width: 100%; display: none">
+                        <div class="row">
+                            <div class="col-md-12" style="background-color: #e1ccd3">
+                                <img src="/assets/img/banner/Valentines_Day_Seasonal-Ad.jpg" alt="" class="img-responsive center-block">
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="topHeader1">
+                    <div class="container">
+                        <div class="col-md-6">
+                            <h6 id="hideHeader" style="color:#f2ba81;     margin-top: 7px; font: 700 13px/12px 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;">VALENTINE'S DAY GIFT GUIDE <i class="caret ad-hide"></i></h6>
+                        </div>
+                    </div>
+                </div>*@
+                }
+                <div class="topHeader" style="min-height:109px">
+                    <div class="container-fluid">
+                        <ul class="leftLinks topLinks  hidden-sm hidden-xs">
+                            <li class="languageDropdownTriger">
+                                <a href="#">Pakistan</a>
+                                <ul class="languageDropdown clearfix">
+                                    <li>
+                                        <ul class="languages" style="border-right: none;">
+                                            <li>
+                                                <a href="#">
+                                                    <img src="assets/img/flags/flag1.jpg" alt="Go Women Demo Content">
+                                                    <span>english</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <img src="/assets/img/flags/flag2.jpg" alt="Go Women Demo Content">
+                                                    <span>french</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <img src="/assets/img/flags/flag3.jpg" alt="Go Women Demo Content">
+                                                    <span>german</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <img src="/assets/img/flags/flag4.jpg" alt="Go Women Demo Content">
+                                                    <span>italian</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <img src="/assets/img/flags/flag5.jpg" alt="Go Women Demo Content">
+                                                    <span>spanish</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>|</li>
+                            <li class="languageDropdownTriger">
+                                @Html.Action("CurrencySelector", "Common")
+                                <!-- <a href="#" style="padding-left: 0px;">US$ <i class="caret"></i></a>
+                         <ul class="languageDropdown clearfix">
+                             <li>
+                                 <ul class="currency">
+                                     <li><a href="#">USD</a></li>
+                                     <li><a href="#">aud</a></li>
+                                     <li><a href="#">GBP</a></li>
+                                     <li><a href="#">can</a></li>
+                                     <li><a href="#">EUR</a></li>
+                                 </ul>
+                             </li>
+                         </ul>-->
+
+                            </li>
+                        </ul>
+                        <ul class="topLeftLinks">
+                            <li><a class="navTriger" href="#"><i class="xv-arrows_hamburger2"></i></a></li>
+                            <li><a class="cartBtn" href="#"><i class="xv-ecommerce_cart_content"></i></a></li>
+                        </ul>
+                        <a href="/" class="logo">
+                            <img class="logo-dark" src="/assets/img/logo/logo.png" alt="" style="max-width: 333px;margin-left:21px">
+                        </a>
+                        @Html.Action("HeaderLinks", "Common")
+
+
+                    </div>
+                </div>
+                <nav class="" style="border-bottom: 2px solid black;">
+
+
+                    <div class="container">
+                        <ul class="mainNav">
+                            <li class="megaparent">
+                                <a href="#">JUST IN</a>
+                                <div class="mega-xv">
+                                    <div class="container" style="padding-bottom: 12px;">
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-1 "></div>
+                                            <div class="col-xs-12 col-md-2 custom-border">
+                                                <p>JUST IN</p>
+                                                <a href="/shop">Shop</a><br>
+                                                <a href="/shoes-5">Shoes</a><br>
+                                                <a href="#">COMING SOON</a>
+
+                                                <div class="justin-counter">
+                                                    <a href="#">
+                                                        <p class="justin-counter__number">120</p>
+                                                        <p class="justin-counter__styles">NEW STYLES</p>
+                                                        <p class="justin-counter__landed">JUST LANDED</p>
+                                                        <button class="justin-counter__btn btn">SHOP NOW</button>
+                                                    </a>
+                                                </div>
+
+                                                <div class="just-in__email">
+                                                    <!--<span  style="background-color: #000;" >
+                                                <i style="color: #fff;" class="fa fa-envelope fa-2x"></i>
+                                            </span>-->
+                                                    <div style="width: 20%; display: inline-block;">
+                                                        <p style="position: relative; top: -3px; padding-bottom: 0px; margin-bottom: 0px;">
+                                                            <i class="fa fa-envelope fa-2x" style="color: black"></i>
+                                                        </p>
+                                                        <!--<a href="#" style="font-size: xx-small;">
+                                                    <span class="fa-stack fa-lg">
+                                                        <i class="fa fa-envelope fa-2x" style="color: black"></i>
+                                                    </span>
+                                                </a>-->
+                                                    </div>
+                                                    <div style="width: 75%; display: inline-block;">
+                                                        <p style="line-height: 12px; padding-bottom: 0px; margin-bottom: 0px;">
+                                                            RECEIVE JUST IN EMAIL ALERTS <i class="fa fa-caret-right"></i>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-4 custom-border">
+
+                                                <div class="just-in__top__sub-headline">
+                                                    <p class="text-center">
+                                                        TOP JUST
+                                                        IN
+                                                    </p>
+                                                </div>
+                                                <br>
+                                                <div class="custom-row">
+                                                    <div class="">
+                                                        <a href="javascript:">
+                                                            <img src="assets/img/khadi/header-banner01.jpg"
+                                                                 class="custom-img"
+                                                                 style="height: auto;" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail">
+                                                        <div>
+                                                            <img src="https://s-media-cache-ak0.pinimg.com/736x/44/06/59/4406592a50ce5948f1a73bb586fd748b.jpg">
+                                                            <span>Simone Rocha</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail">
+                                                        <div>
+                                                            <img src="http://www.metmuseum.org/-/media/Images/Exhibitions/Imported/Poiret%20King%20of%20Fashion/73BC608E9DCC4C70AEF31A16B028972C08jpg.jpg?mw=173&mh=119">
+                                                            <span>Simone Rocha</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail">
+                                                        <div>
+                                                            <img src="https://s-media-cache-ak0.pinimg.com/236x/51/fc/78/51fc7816e4ff3cd7c7277667662f9f07.jpg">
+                                                            <span>Simone Rocha</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <a href="#" style="text-align: center;margin-top: 312px"
+                                                   class="text-center center-block">VIEW ALL JUST IN</a>
+                                            </div>
+                                            <div class="col-md-4" style="margin-top: 32px;">
+                                                <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail"
+                                                     style="padding-bottom: 15px">
+                                                    <div>
+                                                        <img src="https://s-media-cache-ak0.pinimg.com/736x/7b/5f/0f/7b5f0fafb1ab18c5b990d6eafa342af9.jpg">
+                                                        <span>Simone Rocha</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail"
+                                                     style="padding-bottom: 15px">
+                                                    <div>
+                                                        <img src="https://s-media-cache-ak0.pinimg.com/736x/91/41/0d/91410d3250b66e1ae3cad828b665ed60.jpg">
+                                                        <span>Simone Rocha</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail"
+                                                     style="padding-bottom: 15px">
+                                                    <div>
+                                                        <img src="http://www.metmuseum.org/-/media/Images/Exhibitions/Imported/Poiret%20King%20of%20Fashion/73BC608E9DCC4C70AEF31A16B028972C09jpg.jpg?mw=173&mh=119">
+                                                        <span>Simone Rocha</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <a href="javascript:">
+                                                        <img src="assets/img/khadi/header-banner02.jpg"
+                                                             class="custom-img" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            @*<li class="megaparent">
+                            <a href="#">JUST IN</a>
+                            <div class="mega-xv">
+                                <div class="container" style="padding-bottom: 12px;">
+
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-1 "></div>
+                                        <div class="col-xs-12 col-md-2 custom-border">
+                                            <p>JUST IN</p>
+                                            <a href="/Shop">Shop</a><br>
+                                            <a href="/shoes-5">Shoes</a><br>
+                                            <a href="#">COMING SOON</a>
+
+                                            <div class="justin-counter">
+                                                <a href="#">
+                                                    <p class="justin-counter__number">120</p>
+                                                    <p class="justin-counter__styles">NEW STYLES</p>
+                                                    <p class="justin-counter__landed">JUST LANDED</p>
+                                                    <button class="justin-counter__btn btn">SHOP NOW</button>
+                                                </a>
+                                            </div>
+
+                                            <div class="just-in__email">
+                                                <!--<span  style="background-color: #000;" >
+                                                    <i style="color: #fff;" class="fa fa-envelope fa-2x"></i>
+                                                </span>-->
+                                                <div style="width: 20%; display: inline-block;">
+                                                    <p style="position: relative; top: -3px; padding-bottom: 0px; margin-bottom: 0px;">
+                                                        <i class="fa fa-envelope fa-2x" style="color: black"></i>
+                                                    </p>
+                                                    <!--<a href="#" style="font-size: xx-small;">
+                                                        <span class="fa-stack fa-lg">
+                                                            <i class="fa fa-envelope fa-2x" style="color: black"></i>
+                                                        </span>
+                                                    </a>-->
+                                                </div>
+                                                <div style="width: 75%; display: inline-block;">
+                                                    <p style="line-height: 12px; padding-bottom: 0px; margin-bottom: 0px;">
+                                                        RECEIVE JUST IN EMAIL ALERTS <i class="fa fa-caret-right"></i>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-4 custom-border">
+
+                                            <div class="just-in__top__sub-headline"><p class="text-center">TOP JUST IN</p></div>
+                                            <br>
+                                            <div class="custom-row">
+                                                @Html.Action("FeaturedProducts", "Product")
+                                            </div>
+
+                                            <a href="#" style="text-align: center;margin-top: 312px" class="text-center center-block">VIEW ALL JUST IN</a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <img src="/assets/img/khadi/khaadi-10.jpg" class="custom-img" />
+                                            <img src="/assets/img/khadi/khaadi-11.jpg" class="custom-img" />
+
+                                        </div>
+                                        <div class="col-xs-12 col-md-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>*@
+                            <li class="megaparent">
+                                <a href="#">NEW ARRIVAL</a>
+                                <div class="mega-xv">
+                                    <div class="container">
+                                        <!--@Html.Action("TopMenu", "Catalog")-->
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-2 col-md-offset-1 new-arrival-border">
+                                                
+                                                <!--<h6>SHOP BY CLOTHING</h6>
+                                        <ul>
+                                            <li><a href="#">All Sale Clothing</a></li>
+                                            <li><a href="#">New to Sale</a></li>
+                                            <li><a href="#">Coats</a></li>
+                                            <li><a href="#">Dresses</a></li>
+                                            <li><a href="#">Evening</a></li>
+                                            <li><a href="#">Jackets</a></li>
+                                            <li><a href="#">Jeans</a></li>
+                                            <li><a href="#">Knitwear</a></li>
+                                            <li><a href="#">Pants</a></li>
+                                        </ul>-->
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 new-arrival-border">
+                                               
+                                                <!-- <h6>SHOP BY SHOES</h6>
+                                         <ul>
+                                             <li><a href="#">All Sale Shoes</a></li>
+                                             <li><a href="#">Boots</a></li>
+                                             <li><a href="#">Evening Shoes</a></li>
+                                             <li><a href="#">Flat Shoes</a></li>
+                                             <li><a href="#">Flatforms</a></li>
+                                             <li><a href="#">Pumps</a></li>
+                                             <li><a href="#">Sandals</a></li>
+                                             <li><a href="#">Sneakers</a></li>
+
+                                         </ul>-->
+
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 new-arrival-border">
+                                               
+                                                <!--<h6>SHOP BY BAGS</h6>
+                                        <ul>
+                                            <li><a href="#">All Sale Bags</a></li>
+                                            <li><a href="#">Clutch Bags</a></li>
+                                            <li><a href="#">Evening Bags</a></li>
+                                            <li><a href="#">Mini Bags</a></li>
+                                            <li><a href="#">Shoulder Bags</a></li>
+                                            <li><a href="#">Top Handle</a></li>
+                                            <li><a href="#">Tote Bags</a></li>
+                                        </ul>-->
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 new-arrival-border">
+                                                <!--<h6>SHOP BY ACCESSORIES</h6>
+                                        <ul>
+                                            <li><a href="#">All Sale Accessories</a></li>
+                                            <li><a href="#">Belts</a></li>
+                                            <li><a href="#">Hair Accessories</a></li>
+                                            <li><a href="#">Hats</a></li>
+                                            <li><a href="#">Jewellery and Watches</a></li>
+                                            <li><a href="#">Pouches</a></li>
+                                            <li><a href="#">Scarves</a></li>
+                                            <li><a href="#">Sunglasses</a></li>
+                                        </ul>-->
+                                                
+                                            </div>
+                                            <div class="col-xs-12 col-md-2">
+                                                <!-- <h6>SHOP BY LINGERIE</h6>
+                                         <ul>
+                                             <li><a href="#">All Sale Lingerie</a></li>
+                                             <li><a href="#">Bodysuits</a></li>
+                                             <li><a href="#">Bras</a></li>
+                                             <li><a href="#">Briefs</a></li>
+                                             <li><a href="#">Camisoles and Chemises</a></li>
+                                             <li><a href="#">Loungewear</a></li>
+                                             <li><a href="#">Robes</a></li>
+                                             <li><a href="#">Shapewear</a></li>
+                                         </ul>-->
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="megaparent">
+                                <a href="#">BAZAAR</a>
+                                <div class="mega-xv">
+                                    <div class="container">
+                                        <div class="menu-thumb-widget clearfix">
+                                            <div class="col-xs-12 col-md-2" style="border-right: 2px solid #cccccc; height: 225px;">
+                                                <h6>SHOP BY</h6>
+                                                <ul>
+                                                    <li><a href="#">This Week</a></li>
+                                                    <li><a href="#">This Month</a></li>
+                                                    <li><a href="#">New Season Now</a></li>
+                                                    <li><a href="#">Back In Stock</a></li>
+                                                    <li><a href="#">Exclusives</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <a href="#" class="thumb-unit">
+                                                <figure>
+                                                    <img src="/assets/img/nav/nav-1.jpg" alt="">
+                                                </figure>
+                                            </a>
+                                            <a href="#" class="thumb-unit">
+                                                <figure>
+                                                    <img src="/assets/img/nav/nav-2.jpg" alt="">
+                                                </figure>
+                                            </a>
+                                            <a href="#" class="thumb-unit">
+                                                <figure>
+                                                    <img src="/assets/img/nav/nav-3.jpg" alt="">
+                                                </figure>
+                                            </a>
+                                            <a href="#" class="thumb-unit">
+                                                <figure>
+                                                    <img src="/assets/img/nav/nav-2.jpg" alt="">
+                                                </figure>
+                                            </a>
+                                            <a href="#" class="thumb-unit">
+                                                <figure>
+                                                    <img src="/assets/img/nav/nav-5.jpg" alt="">
+                                                </figure>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="megaparent">
+                                <a href="#">DESIGNER WEAR</a>
+                                <div class="mega-xv" style="padding-bottom:35px">
+                                    <div class="container">
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-2 col-md-offset-1 dw-border">
+                                                <h6 style="margin-top:0px">SHOP BY</h6>
+                                                <ul>
+                                                    <li><a href="#">Designer A-Z</a></li>
+                                                    <li><a href="#">New Designers</a></li>
+                                                    <li><a href="#">Accessory</a></li>
+                                                    <li><a href="#">Bag</a></li>
+                                                    <li><a href="#">Beauty</a></li>
+                                                    <li><a href="#">Clothing</a></li>
+                                                    <li><a href="#">Jewellery</a></li>
+                                                    <li><a href="#">Lingerie</a></li>
+                                                    <li><a href="#">Shoe</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 dw-border">
+                                                <h6 style="margin-top:0px">DESIGNERS</h6>
+                                               
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 dw-border">
+                                                <h6 style="margin-top:0px">BRANDS</h6>
+                                                <ul>
+                                                    <li><a href="#">Lanvin</a></li>
+                                                    <li><a href="#">Marni</a></li>
+                                                    <li><a href="#">Miu Miu</a></li>
+                                                    <li><a href="#">Moncler</a></li>
+                                                    <li><a href="#">Oscar de la Renta</a></li>
+                                                    <li><a href="#">Prada</a></li>
+                                                    <li><a href="#">Proenza Schouler</a></li>
+                                                    <li><a href="#">Saint Laurent</a></li>
+                                                    <li><a href="#">Self-Portrait</a></li>
+                                                    <li><a href="#">Stella McCartney</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-xs-12 col-md-3">
+                                                <img src="/assets/img/khadi/dw-khaadi.jpg" alt="" class="img-responsive center-block">
+                                                <div class="col-md-10 col-md-offset-1" style="background-color: white; margin-top: -30px;">
+                                                    <h4 class="text-center">NEW: GIVENCHY'S STREET-CHIC</h4>
+                                                    <a href="#"><p class="text-center" style="text-transform: none; margin-top: -18px;">Shop Now</p></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="megaparent">
+                                <a href="#">WHATS HAWT</a>
+                                <div class="mega-xv">
+                                    <div class="container">
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-2 col-md-offset-1 hawt-border">
+                                                <h6 style="margin-top:0px">SHOP BY</h6>
+                                                <ul>
+                                                    <li><a href="#">What's New</a></li>
+                                                    <li><a href="#">New Season Now</a></li>
+                                                    <li><a href="#">Smart Buys</a></li>
+                                                    <li><a href="#">Vacation Shop</a></li>
+                                                    <li><a href="#">Winter Shop</a></li>
+                                                    <li><a href="#">What to Wear Shop</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 hawt-border">
+                                                
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 hawt-border">
+                                                <h6 style="margin-top:0px">WINTER WEAR</h6>
+                                                <ul>
+                                                    <li><a href="#">Knitwear</a></li>
+                                                    <li><a href="#">Lingerie</a></li>
+                                                    <li><a href="#">Pants</a></li>
+                                                    <li><a href="#">Shorts</a></li>
+                                                    <li><a href="#">Skirts</a></li>
+                                                    <li><a href="#">Sportswear</a></li>
+                                                    <li><a href="#">Suits</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-12 col-md-3">
+                                                <img src="/assets/img/khadi/ht-khaadi.jpg" alt="" class="img-responsive center-block">
+                                                <div class="col-md-10 col-md-offset-1" style="background-color: white; margin-top: -30px;">
+                                                    <h4 class="text-center">Vication dresses</h4>
+                                                    <a href="#"><p class="text-center" style="text-transform: none; margin-top: -18px;">Shop Now</p></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="megaparent">
+                                <a href="#">INSTANT OUTFIT</a>
+                                <div class="mega-xv">
+                                    <div class="container">
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-2 col-md-offset-1 io-border">
+                                                <h6 style="margin-top:0px">SHOP BY</h6>
+                                                <ul>
+                                                    <li><a href="#">What's New</a></li>
+                                                    <li><a href="#">Most Wanted</a></li>
+                                                    <li><a href="#">Ballet Flats</a></li>
+                                                    <li><a href="#">Over the Knee Boots</a></li>
+                                                    <li><a href="#">The Block Heel</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 io-border">
+                                                <h6 style="margin-top:0px">SHOES</h6>
+                                                <ul>
+                                                    <li><a href="#">All Shoes</a></li>
+                                                    <li><a href="#">Boots</a></li>
+                                                    <li><a href="#">Espadrilles</a></li>
+                                                    <li><a href="#">Evening Shoes</a></li>
+                                                    <li><a href="#">Flat Shoes</a></li>
+                                                    <li><a href="#">Flatforms</a></li>
+                                                    <li><a href="#">Pumps</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 io-border">
+                                                <h6 style="margin-top:0px">DESIGNERS</h6>
+                                                <ul>
+                                                    <li><a href="#">Aquazzura</a></li>
+                                                    <li><a href="#">Chloé</a></li>
+                                                    <li><a href="#">Christian Louboutin</a></li>
+                                                    <li><a href="#">Gianvito Rossi</a></li>
+                                                    <li><a href="#">Gucci</a></li>
+                                                    <li><a href="#">Isabel Marant</a></li>
+                                                    <li><a href="#">Jimmy Choo</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-12 col-md-3">
+                                                <img src="/assets/img/khadi/dw-khaadi.jpg" alt="" class="img-responsive center-block">
+                                                <div class="col-md-10 col-md-offset-1" style="background-color: white; margin-top: -30px;">
+                                                    <h4 class="text-center">THE KITTEN HEEL REINVENTED</h4>
+                                                    <a href="#"><p class="text-center" style="text-transform: none; margin-top: -18px;">Shop Now</p></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="megaparent sale-nav">
+                                <a href="#">SALE</a>
+                                <div class="mega-xv">
+                                    <div class="container">
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-2 col-md-offset-1 sale-border">
+                                                <h6 style="margin-top:0px">SHOP BY</h6>
+                                                <ul>
+                                                    <li><a href="#">What's New</a></li>
+                                                    <li><a href="#">Beauty Gifts</a></li>
+                                                    <li><a href="#">Bestsellers</a></li>
+                                                    <li><a href="#">Cult Finds</a></li>
+                                                    <li><a href="#">Travel Essentials</a></li>
+                                                    <li><a href="#">Winter Beauty</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 sale-border">
+                                                <h6 style="margin-top:0px">BEAUTY</h6>
+                                                <ul>
+                                                    <li><a href="#"> All Beauty</a></li>
+                                                    <li><a href="#"> Bath and Body</a></li>
+                                                    <li><a href="#"> Beauty Sets</a></li>
+                                                    <li><a href="#"> Candles</a></li>
+                                                    <li><a href="#"> Cosmetic Cases</a></li>
+                                                    <li><a href="#"> Fragrance</a></li>
+                                                    <li><a href="#"> Haircare</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 sale-border">
+                                                <h6 style="margin-top:0px">DESIGNERS</h6>
+                                                <ul>
+                                                    <li><a href="#">Artis Brush</a></li>
+                                                    <li><a href="#">Bobbi Brown</a></li>
+                                                    <li><a href="#">Buly 1803</a></li>
+                                                    <li><a href="#">Byredo</a></li>
+                                                    <li><a href="#">Charlotte Tilbury</a></li>
+                                                    <li><a href="#">Christian Louboutin Beauty</a></li>
+                                                    <li><a href="#">Davines</a></li>
+                                                    <li><a href="#">Diptyque</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-12 col-md-3">
+                                                <img src="/assets/img/nav/nav-12.gif" alt="" class="img-responsive">
+                                                <div class="col-md-10 col-md-offset-1" style="background-color: white; margin-top: -30px;">
+                                                    <h4 class="text-center">NEW: CHARLOTTE TILBURY’S</h4>
+                                                    <a href="#"><p class="text-center" style="text-transform: none; margin-top: -18px;">Shop Now</p></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="megaparent wife-nav">
+                                <a href="/wife">W!FE</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+</div>
+    </div>
+
+    <div class="row hidden-lg hidden-md" style="margin-top: 35%;"></div>
+
+
+
+<div class="bodyWrap">
+
+    <nav class="navbar navbar-default navbar-fixed-top hidden-lg hidden-md">
+        <div class="container-fluid" style="padding: 0px">
+            <div class="col-xs-12">
+                <div class="navbar-header">
+                    <div class="mob-head-top">
+                        <p>
+                            <span>FREE DELIVERY</span> on all orders. Enter code <span>FREEDEL</span> at checkout.
+                        </p>
+                    </div>
+                    <div class="row" style="padding-bottom: 10px;">
+                        <div class="col-xs-4 text-center" style="border-right: 1px solid;">
+                             @if(User.Identity.IsAuthenticated)
+                            { 
+                                <a href="/customer/info">My Account</a>
+                            }
+                            else { 
+                            <a href="/login">Sign In</a>
+                            }
+                        </div>
+                        <div class="col-xs-4 text-center" style="border-right: 1px solid;">
+                            <a href="/wishlists">Wishlist</a>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <a href="#">Search <i class="pull-right fa fa-search"></i> </a>
+                        </div>
+                    </div>
+                    <hr style="margin: 0 0 10px 0; border-color: lightgray;">
+                    <div class="row">
+                        <div class="col-xs-2 mob-toggle">
+                            <button class="navbar-toggle" style="border: none; background-color: transparent; float: left;"
+                                    type="button" data-toggle="collapse" data-target="#myNavbar">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <div class="col-xs-8">
+                            <a href="/">
+                                <img src="assets/img/logo/logo.png" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-2 mob-nav-bag" style="top:17px;right:8px">
+                           @* <button class="navbar-toggle" style="border: none; background-color: transparent; float: right;"
+                                    type="button">
+                                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                            </button>*@
+							<a href="/cart" style="border: none; background-color: transparent; float: right;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar" style="background-color: #222; border-color: #080808;">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">NEW ARRIVAL<span class="caret pull-right"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/shoes-7">Shoes</a></li>
+                                    <li><a href="/bags">Bags</a></li>
+                                    <li><a href="/accessories-3">Accessories</a></li>
+                                    <li><a href="/clothing-4">Clothing</a></li>
+                                    <li><a href="/shop">Shop</a></li>
+                                    <li><a href="/beachwear">BeachWear</a></li>
+                                    <li><a href="/bomber-jackets">Bomber Jackets</a></li>
+                                    <li><a href="/men-bags">Shoe Appair</a></li>
+                                    <li><a href="/women-fashionshoes">Women Fashion Shoes</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">BAZAAR<span class="caret pull-right"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">This Week</a></li>
+                                    <li><a href="#">This Month</a></li>
+                                    <li><a href="#">New Season Now</a></li>
+                                    <li><a href="#">Back In Stock</a></li>
+                                    <li><a href="#">Exclusives</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">DESIGNER WEAR<span class="caret pull-right"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Designer A-Z</a></li>
+                                    <li><a href="#">New Designers</a></li>
+                                    <li><a href="#">Accessory</a></li>
+                                    <li><a href="#">Bag</a></li>
+                                    <li><a href="#">Beauty</a></li>
+                                    <li><a href="#">Clothing</a></li>
+                                    <li><a href="#">Jewellery</a></li>
+                                    <li><a href="#">Lingerie</a></li>
+                                    <li><a href="#">Shoe</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">WHATS HAWT<span class="caret pull-right"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">What's New</a></li>
+                                    <li><a href="#">New Season Now</a></li>
+                                    <li><a href="#">Smart Buys</a></li>
+                                    <li><a href="#">Vacation Shop</a></li>
+                                    <li><a href="#">Winter Shop</a></li>
+                                    <li><a href="#">What to Wear Shop</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">INSTANT OUTFIT<span class="caret pull-right"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">What's New</a></li>
+                                    <li><a href="#">Most Wanted</a></li>
+                                    <li><a href="#">Ballet Flats</a></li>
+                                    <li><a href="#">Over the Knee Boots</a></li>
+                                    <li><a href="#">The Block Heel</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">SALE<span class="caret pull-right"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">What's New</a></li>
+                                    <li><a href="#">Beauty Gifts</a></li>
+                                    <li><a href="#">Bestsellers</a></li>
+                                    <li><a href="#">Cult Finds</a></li>
+                                    <li><a href="#">Travel Essentials</a></li>
+                                    <li><a href="#">Winter Beauty</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="doc-header hidden-sm hidden-xs">
+        @if (Request.Url.PathAndQuery == "/")
+{
+
+    <div class="container" style="background-color: #e1ccd3; width: 100%; display: none">
+        <div class="row">
+            <div class="col-md-12" style="background-color: #e1ccd3">
+                <img src="/assets/img/banner/Valentines_Day_Seasonal-Ad.jpg" alt="" class="img-responsive center-block">
+            </div>
+        </div>
+    </div>
+                @*<div class="topHeader1">
+            <div class="container">
+                <div class="col-md-6">
+                    <h6 id="hideHeader" style="color:#f2ba81;     margin-top: 7px; font: 700 13px/12px 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;">VALENTINE'S DAY GIFT GUIDE <i class="caret ad-hide"></i></h6>
+                </div>
+            </div>
+        </div>*@
+}
+        <div class="topHeader">
+            <div class="container-fluid">
+                <ul class="leftLinks topLinks  hidden-sm hidden-xs">
+                    <li class="languageDropdownTriger">
+                        <a href="#">Pakistan</a>
+                        <ul class="languageDropdown clearfix">
+                            <li>
+                                <ul class="languages" style="border-right: none;">
+                                    <li>
+                                        <a href="#">
+                                            <img src="assets/img/flags/flag1.jpg" alt="Go Women Demo Content">
+                                            <span>english</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="/assets/img/flags/flag2.jpg" alt="Go Women Demo Content">
+                                            <span>french</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="/assets/img/flags/flag3.jpg" alt="Go Women Demo Content">
+                                            <span>german</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="/assets/img/flags/flag4.jpg" alt="Go Women Demo Content">
+                                            <span>italian</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="/assets/img/flags/flag5.jpg" alt="Go Women Demo Content">
+                                            <span>spanish</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>|</li>
+                    <li class="languageDropdownTriger">
+                        @Html.Action("CurrencySelector", "Common")
+                        <!-- <a href="#" style="padding-left: 0px;">US$ <i class="caret"></i></a>
+                         <ul class="languageDropdown clearfix">
+                             <li>
+                                 <ul class="currency">
+                                     <li><a href="#">USD</a></li>
+                                     <li><a href="#">aud</a></li>
+                                     <li><a href="#">GBP</a></li>
+                                     <li><a href="#">can</a></li>
+                                     <li><a href="#">EUR</a></li>
+                                 </ul>
+                             </li>
+                         </ul>-->
+
+                    </li>
+                </ul>
+                <ul class="topLeftLinks">
+                    <li><a class="navTriger" href="#"><i class="xv-arrows_hamburger2"></i></a></li>
+                    <li><a class="cartBtn" href="#"><i class="xv-ecommerce_cart_content"></i></a></li>
+                </ul>
+                <a href="/" class="logo">
+                    <img class="logo-dark" src="/assets/img/logo/logo.png" alt="" style="max-width: 400px;">
+                </a>
+				 @Html.Action("HeaderLinks", "Common")
+		
+				
+            </div>
+        </div>
+        <nav class="bgGreyDark" style="border-bottom: 2px solid black;">
+					 
+
+            <div class="container">
+                <ul class="mainNav">
+             <li class="megaparent">
+                        <a href="#">JUST IN</a>
+                        <div class="mega-xv">
+                            <div class="container" style="padding-bottom: 12px;">
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-1 "></div>
+                                    <div class="col-xs-12 col-md-2 custom-border">
+                                        <p>JUST IN</p>
+                                        <a href="/shop">Shop</a><br>
+                                        <a href="/shoes-5">Shoes</a><br>
+                                        <a href="#">COMING SOON</a>
+
+                                        <div class="justin-counter">
+                                            <a href="#">
+                                                <p class="justin-counter__number">120</p>
+                                                <p class="justin-counter__styles">NEW STYLES</p>
+                                                <p class="justin-counter__landed">JUST LANDED</p>
+                                                <button class="justin-counter__btn btn">SHOP NOW</button>
+                                            </a>
+                                        </div>
+
+                                        <div class="just-in__email">
+                                            <!--<span  style="background-color: #000;" >
+                                <i style="color: #fff;" class="fa fa-envelope fa-2x"></i>
+                            </span>-->
+                                            <div style="width: 20%; display: inline-block;">
+                                                <p style="position: relative; top: -3px; padding-bottom: 0px; margin-bottom: 0px;">
+                                                    <i class="fa fa-envelope fa-2x" style="color: black"></i>
+                                                </p>
+                                                <!--<a href="#" style="font-size: xx-small;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-envelope fa-2x" style="color: black"></i>
+                                    </span>
+                                </a>-->
+                                            </div>
+                                            <div style="width: 75%; display: inline-block;">
+                                                <p style="line-height: 12px; padding-bottom: 0px; margin-bottom: 0px;">
+                                                    RECEIVE JUST IN EMAIL ALERTS <i class="fa fa-caret-right"></i>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 custom-border">
+
+                                        <div class="just-in__top__sub-headline">
+                                            <p class="text-center">
+                                                TOP JUST
+                                                IN
+                                            </p>
+                                        </div>
+                                        <br>
+                                        <div class="custom-row">
+                                            <div class="">
+                                                <a href="javascript:">
+                                                    <img src="assets/img/khadi/header-banner01.jpg"
+                                                         class="custom-img"
+                                                         style="height: auto;" />
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail">
+                                                <div>
+                                                    <img src="https://s-media-cache-ak0.pinimg.com/736x/44/06/59/4406592a50ce5948f1a73bb586fd748b.jpg">
+                                                    <span>Simone Rocha</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail">
+                                                <div>
+                                                    <img src="http://www.metmuseum.org/-/media/Images/Exhibitions/Imported/Poiret%20King%20of%20Fashion/73BC608E9DCC4C70AEF31A16B028972C08jpg.jpg?mw=173&mh=119">
+                                                    <span>Simone Rocha</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail">
+                                                <div>
+                                                    <img src="https://s-media-cache-ak0.pinimg.com/236x/51/fc/78/51fc7816e4ff3cd7c7277667662f9f07.jpg">
+                                                    <span>Simone Rocha</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <a href="#" style="text-align: center;margin-top: 312px"
+                                           class="text-center center-block">VIEW ALL JUST IN</a>
+                                    </div>
+                                    <div class="col-md-4" style="margin-top: 32px;">
+                                        <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail"
+                                             style="padding-bottom: 15px">
+                                            <div>
+                                                <img src="https://s-media-cache-ak0.pinimg.com/736x/7b/5f/0f/7b5f0fafb1ab18c5b990d6eafa342af9.jpg">
+                                                <span>Simone Rocha</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail"
+                                             style="padding-bottom: 15px">
+                                            <div>
+                                                <img src="https://s-media-cache-ak0.pinimg.com/736x/91/41/0d/91410d3250b66e1ae3cad828b665ed60.jpg">
+                                                <span>Simone Rocha</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-18 col-sm-6 col-md-4 cutom-thumbnail"
+                                             style="padding-bottom: 15px">
+                                            <div>
+                                                <img src="http://www.metmuseum.org/-/media/Images/Exhibitions/Imported/Poiret%20King%20of%20Fashion/73BC608E9DCC4C70AEF31A16B028972C09jpg.jpg?mw=173&mh=119">
+                                                <span>Simone Rocha</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <a href="javascript:">
+                                                <img src="assets/img/khadi/header-banner02.jpg"
+                                                     class="custom-img" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    @*<li class="megaparent">
+                        <a href="#">JUST IN</a>
+                        <div class="mega-xv">
+                            <div class="container" style="padding-bottom: 12px;">
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-1 "></div>
+                                    <div class="col-xs-12 col-md-2 custom-border">
+                                        <p>JUST IN</p>
+                                        <a href="/Shop">Shop</a><br>
+                                        <a href="/shoes-5">Shoes</a><br>
+                                        <a href="#">COMING SOON</a>
+
+                                        <div class="justin-counter">
+                                            <a href="#">
+                                                <p class="justin-counter__number">120</p>
+                                                <p class="justin-counter__styles">NEW STYLES</p>
+                                                <p class="justin-counter__landed">JUST LANDED</p>
+                                                <button class="justin-counter__btn btn">SHOP NOW</button>
+                                            </a>
+                                        </div>
+
+                                        <div class="just-in__email">
+                                            <!--<span  style="background-color: #000;" >
+                                                <i style="color: #fff;" class="fa fa-envelope fa-2x"></i>
+                                            </span>-->
+                                            <div style="width: 20%; display: inline-block;">
+                                                <p style="position: relative; top: -3px; padding-bottom: 0px; margin-bottom: 0px;">
+                                                    <i class="fa fa-envelope fa-2x" style="color: black"></i>
+                                                </p>
+                                                <!--<a href="#" style="font-size: xx-small;">
+                                                    <span class="fa-stack fa-lg">
+                                                        <i class="fa fa-envelope fa-2x" style="color: black"></i>
+                                                    </span>
+                                                </a>-->
+                                            </div>
+                                            <div style="width: 75%; display: inline-block;">
+                                                <p style="line-height: 12px; padding-bottom: 0px; margin-bottom: 0px;">
+                                                    RECEIVE JUST IN EMAIL ALERTS <i class="fa fa-caret-right"></i>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 custom-border">
+
+                                        <div class="just-in__top__sub-headline"><p class="text-center">TOP JUST IN</p></div>
+                                        <br>
+                                        <div class="custom-row">
+                                            @Html.Action("FeaturedProducts", "Product")
+                                        </div>
+
+                                        <a href="#" style="text-align: center;margin-top: 312px" class="text-center center-block">VIEW ALL JUST IN</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img src="/assets/img/khadi/khaadi-10.jpg" class="custom-img" />
+                                        <img src="/assets/img/khadi/khaadi-11.jpg" class="custom-img" />
+
+                                    </div>
+                                    <div class="col-xs-12 col-md-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>*@
+                    <li class="megaparent">
+                        <a href="#">NEW ARRIVAL</a>
+                        <div class="mega-xv">
+                            <div class="container">
+							<!--@Html.Action("TopMenu", "Catalog")-->
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-2 col-md-offset-1 new-arrival-border">
+									
+                                        <!--<h6>SHOP BY CLOTHING</h6>
+                                        <ul>
+                                            <li><a href="#">All Sale Clothing</a></li>
+                                            <li><a href="#">New to Sale</a></li>
+                                            <li><a href="#">Coats</a></li>
+                                            <li><a href="#">Dresses</a></li>
+                                            <li><a href="#">Evening</a></li>
+                                            <li><a href="#">Jackets</a></li>
+                                            <li><a href="#">Jeans</a></li>
+                                            <li><a href="#">Knitwear</a></li>
+                                            <li><a href="#">Pants</a></li>
+                                        </ul>-->
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 new-arrival-border">
+                                       <!-- <h6>SHOP BY SHOES</h6>
+                                        <ul>
+                                            <li><a href="#">All Sale Shoes</a></li>
+                                            <li><a href="#">Boots</a></li>
+                                            <li><a href="#">Evening Shoes</a></li>
+                                            <li><a href="#">Flat Shoes</a></li>
+                                            <li><a href="#">Flatforms</a></li>
+                                            <li><a href="#">Pumps</a></li>
+                                            <li><a href="#">Sandals</a></li>
+                                            <li><a href="#">Sneakers</a></li>
+
+                                        </ul>-->
+										
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 new-arrival-border">
+                                        <!--<h6>SHOP BY BAGS</h6>
+                                        <ul>
+                                            <li><a href="#">All Sale Bags</a></li>
+                                            <li><a href="#">Clutch Bags</a></li>
+                                            <li><a href="#">Evening Bags</a></li>
+                                            <li><a href="#">Mini Bags</a></li>
+                                            <li><a href="#">Shoulder Bags</a></li>
+                                            <li><a href="#">Top Handle</a></li>
+                                            <li><a href="#">Tote Bags</a></li>
+                                        </ul>-->
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 new-arrival-border">
+                                        <!--<h6>SHOP BY ACCESSORIES</h6>
+                                        <ul>
+                                            <li><a href="#">All Sale Accessories</a></li>
+                                            <li><a href="#">Belts</a></li>
+                                            <li><a href="#">Hair Accessories</a></li>
+                                            <li><a href="#">Hats</a></li>
+                                            <li><a href="#">Jewellery and Watches</a></li>
+                                            <li><a href="#">Pouches</a></li>
+                                            <li><a href="#">Scarves</a></li>
+                                            <li><a href="#">Sunglasses</a></li>
+                                        </ul>-->
+                                    </div>
+                                    <div class="col-xs-12 col-md-2">
+                                       <!-- <h6>SHOP BY LINGERIE</h6>
+                                        <ul>
+                                            <li><a href="#">All Sale Lingerie</a></li>
+                                            <li><a href="#">Bodysuits</a></li>
+                                            <li><a href="#">Bras</a></li>
+                                            <li><a href="#">Briefs</a></li>
+                                            <li><a href="#">Camisoles and Chemises</a></li>
+                                            <li><a href="#">Loungewear</a></li>
+                                            <li><a href="#">Robes</a></li>
+                                            <li><a href="#">Shapewear</a></li>
+                                        </ul>-->
+										
+                                    </div>
+
+                                </div>
+								
+                            </div>
+                        </div>
+                    </li>
+                    <li class="megaparent">
+                        <a href="#">BAZAAR</a>
+                        <div class="mega-xv">
+                            <div class="container">
+                                <div class="menu-thumb-widget clearfix">
+                                    <div class="col-xs-12 col-md-2" style="border-right: 2px solid #cccccc; height: 225px;">
+                                        <h6>SHOP BY</h6>
+                                        <ul>
+                                            <li><a href="#">This Week</a></li>
+                                            <li><a href="#">This Month</a></li>
+                                            <li><a href="#">New Season Now</a></li>
+                                            <li><a href="#">Back In Stock</a></li>
+                                            <li><a href="#">Exclusives</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <a href="#" class="thumb-unit">
+                                        <figure>
+                                            <img src="/assets/img/nav/nav-1.jpg" alt="">
+                                        </figure>
+                                    </a>
+                                    <a href="#" class="thumb-unit">
+                                        <figure>
+                                            <img src="/assets/img/nav/nav-2.jpg" alt="">
+                                        </figure>
+                                    </a>
+                                    <a href="#" class="thumb-unit">
+                                        <figure>
+                                            <img src="/assets/img/nav/nav-3.jpg" alt="">
+                                        </figure>
+                                    </a>
+                                    <a href="#" class="thumb-unit">
+                                        <figure>
+                                            <img src="/assets/img/nav/nav-2.jpg" alt="">
+                                        </figure>
+                                    </a>
+                                    <a href="#" class="thumb-unit">
+                                        <figure>
+                                            <img src="/assets/img/nav/nav-5.jpg" alt="">
+                                        </figure>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                    <li class="megaparent">
+                        <a href="#">DESIGNER WEAR</a>
+                        <div class="mega-xv" style="padding-bottom:35px">
+                            <div class="container">
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-2 col-md-offset-1 dw-border">
+                                        <h6 style="margin-top:0px">SHOP BY</h6>
+                                        <ul>
+                                            <li><a href="#">Designer A-Z</a></li>
+                                            <li><a href="#">New Designers</a></li>
+                                            <li><a href="#">Accessory</a></li>
+                                            <li><a href="#">Bag</a></li>
+                                            <li><a href="#">Beauty</a></li>
+                                            <li><a href="#">Clothing</a></li>
+                                            <li><a href="#">Jewellery</a></li>
+                                            <li><a href="#">Lingerie</a></li>
+                                            <li><a href="#">Shoe</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 dw-border">
+                                        <h6 style="margin-top:0px">DESIGNERS</h6>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 dw-border">
+                                        <h6 style="margin-top:0px">BRANDS</h6>
+                                        <ul>
+                                            <li><a href="#">Lanvin</a></li>
+                                            <li><a href="#">Marni</a></li>
+                                            <li><a href="#">Miu Miu</a></li>
+                                            <li><a href="#">Moncler</a></li>
+                                            <li><a href="#">Oscar de la Renta</a></li>
+                                            <li><a href="#">Prada</a></li>
+                                            <li><a href="#">Proenza Schouler</a></li>
+                                            <li><a href="#">Saint Laurent</a></li>
+                                            <li><a href="#">Self-Portrait</a></li>
+                                            <li><a href="#">Stella McCartney</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-3">
+                                        <img src="/assets/img/khadi/dw-khaadi.jpg" alt="" class="img-responsive center-block">
+                                        <div class="col-md-10 col-md-offset-1" style="background-color: white; margin-top: -30px;">
+                                            <h4 class="text-center">NEW: GIVENCHY'S STREET-CHIC</h4>
+                                            <a href="#"><p class="text-center" style="text-transform: none; margin-top: -18px;">Shop Now</p></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="megaparent">
+                        <a href="#">WHATS HAWT</a>
+                        <div class="mega-xv">
+                            <div class="container">
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-2 col-md-offset-1 hawt-border">
+                                        <h6 style="margin-top:0px">SHOP BY</h6>
+                                        <ul>
+                                            <li><a href="#">What's New</a></li>
+                                            <li><a href="#">New Season Now</a></li>
+                                            <li><a href="#">Smart Buys</a></li>
+                                            <li><a href="#">Vacation Shop</a></li>
+                                            <li><a href="#">Winter Shop</a></li>
+                                            <li><a href="#">What to Wear Shop</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 hawt-border">
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 hawt-border">
+                                        <h6 style="margin-top:0px">WINTER WEAR</h6>
+                                        <ul>
+                                            <li><a href="#">Knitwear</a></li>
+                                            <li><a href="#">Lingerie</a></li>
+                                            <li><a href="#">Pants</a></li>
+                                            <li><a href="#">Shorts</a></li>
+                                            <li><a href="#">Skirts</a></li>
+                                            <li><a href="#">Sportswear</a></li>
+                                            <li><a href="#">Suits</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <img src="/assets/img/khadi/ht-khaadi.jpg" alt="" class="img-responsive center-block">
+                                        <div class="col-md-10 col-md-offset-1" style="background-color: white; margin-top: -30px;">
+                                            <h4 class="text-center">Vication dresses</h4>
+                                            <a href="#"><p class="text-center" style="text-transform: none; margin-top: -18px;">Shop Now</p></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="megaparent">
+                        <a href="#">INSTANT OUTFIT</a>
+                        <div class="mega-xv">
+                            <div class="container">
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-2 col-md-offset-1 io-border">
+                                        <h6 style="margin-top:0px">SHOP BY</h6>
+                                        <ul>
+                                            <li><a href="#">What's New</a></li>
+                                            <li><a href="#">Most Wanted</a></li>
+                                            <li><a href="#">Ballet Flats</a></li>
+                                            <li><a href="#">Over the Knee Boots</a></li>
+                                            <li><a href="#">The Block Heel</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 io-border">
+                                        <h6 style="margin-top:0px">SHOES</h6>
+                                        <ul>
+                                            <li><a href="#">All Shoes</a></li>
+                                            <li><a href="#">Boots</a></li>
+                                            <li><a href="#">Espadrilles</a></li>
+                                            <li><a href="#">Evening Shoes</a></li>
+                                            <li><a href="#">Flat Shoes</a></li>
+                                            <li><a href="#">Flatforms</a></li>
+                                            <li><a href="#">Pumps</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 io-border">
+                                        <h6 style="margin-top:0px">DESIGNERS</h6>
+                                        <ul>
+                                            <li><a href="#">Aquazzura</a></li>
+                                            <li><a href="#">Chloé</a></li>
+                                            <li><a href="#">Christian Louboutin</a></li>
+                                            <li><a href="#">Gianvito Rossi</a></li>
+                                            <li><a href="#">Gucci</a></li>
+                                            <li><a href="#">Isabel Marant</a></li>
+                                            <li><a href="#">Jimmy Choo</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <img src="/assets/img/khadi/dw-khaadi.jpg" alt="" class="img-responsive center-block">
+                                        <div class="col-md-10 col-md-offset-1" style="background-color: white; margin-top: -30px;">
+                                            <h4 class="text-center">THE KITTEN HEEL REINVENTED</h4>
+                                            <a href="#"><p class="text-center" style="text-transform: none; margin-top: -18px;">Shop Now</p></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="megaparent sale-nav">
+                        <a href="#">SALE</a>
+                        <div class="mega-xv">
+                            <div class="container">
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-2 col-md-offset-1 sale-border">
+                                        <h6 style="margin-top:0px">SHOP BY</h6>
+                                        <ul>
+                                            <li><a href="#">What's New</a></li>
+                                            <li><a href="#">Beauty Gifts</a></li>
+                                            <li><a href="#">Bestsellers</a></li>
+                                            <li><a href="#">Cult Finds</a></li>
+                                            <li><a href="#">Travel Essentials</a></li>
+                                            <li><a href="#">Winter Beauty</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 sale-border">
+                                        <h6 style="margin-top:0px">BEAUTY</h6>
+                                        <ul>
+                                            <li><a href="#"> All Beauty</a></li>
+                                            <li><a href="#"> Bath and Body</a></li>
+                                            <li><a href="#"> Beauty Sets</a></li>
+                                            <li><a href="#"> Candles</a></li>
+                                            <li><a href="#"> Cosmetic Cases</a></li>
+                                            <li><a href="#"> Fragrance</a></li>
+                                            <li><a href="#"> Haircare</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2 sale-border">
+                                        <h6 style="margin-top:0px">DESIGNERS</h6>
+                                        <ul>
+                                            <li><a href="#">Artis Brush</a></li>
+                                            <li><a href="#">Bobbi Brown</a></li>
+                                            <li><a href="#">Buly 1803</a></li>
+                                            <li><a href="#">Byredo</a></li>
+                                            <li><a href="#">Charlotte Tilbury</a></li>
+                                            <li><a href="#">Christian Louboutin Beauty</a></li>
+                                            <li><a href="#">Davines</a></li>
+                                            <li><a href="#">Diptyque</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <img src="/assets/img/nav/nav-12.gif" alt="" class="img-responsive">
+                                        <div class="col-md-10 col-md-offset-1" style="background-color: white; margin-top: -30px;">
+                                            <h4 class="text-center">NEW: CHARLOTTE TILBURY’S</h4>
+                                            <a href="#"><p class="text-center" style="text-transform: none; margin-top: -18px;">Shop Now</p></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="megaparent wife-nav">
+                        <a href="/wife">W!FE</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+<script src="/assets/js/packery.pkgd.min.js"></script>
+<script src="/assets/js/masonry.pkgd.min.js"></script>
+<script src="/assets/js/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="project.js"></script>
+
+
+
+@RenderBody()
+
+
+    @Html.Action("Footer", "Common")
+   
+
+</div>
+<script type="text/javascript">
+            AjaxCart.init(true, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+        </script>
+    @*<script type='text/javascript'> var _d_site = _d_site || '958772DD7E29DC25099A41F7'; </script>
+    <script src='//widget.privy.com/assets/widget.js'></script>*@
+
+
+ 
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93337233-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    <!-- Google Code for Remarketing Tag -->
+    <!--------------------------------------------------
+    Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+    --------------------------------------------------->
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 859079174;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/859079174/?guid=ON&amp;script=0" />
+        </div>
+    </noscript>
+    <script type='text/javascript'> var _d_site = _d_site || '958772DD7E29DC25099A41F7'; </script>
+        @*<script src='//widget.privy.com/assets/widget.js'></script>*@
+
+    <script>
+        function toggleIcon(e) {
+            console.log(e);
+            $(e.target)
+                .prev('.panel-heading')
+                .find(".more-less")
+                .toggleClass('fa-caret-right fa-caret-down');
+        }
+        $('.panel-group').on('hidden.bs.collapse', toggleIcon);
+        $('.panel-group').on('shown.bs.collapse', toggleIcon);
+    </script>
+    <script>
+        $(".thumb").click(function () {
+            var thumbsrc = $(this).attr('src');
+            var image = $("#placesrc");
+            image.fadeOut('fast', function () {
+                image.attr('src', thumbsrc);
+                image.fadeIn('fast');
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#countdown').countdown('2017/04/28', function (event) {
+                $(this).html(event.strftime('%d : %H : %M : %S '));
+            });
+
+            function calculateVisibilityForDiv() {
+                var div$ = $("#footer-top-top");
+                var windowHeight = $(window).height(),
+                    docScroll = $(document).scrollTop(),
+                    divPosition = div$.offset().top,
+                    divHeight = div$.height(),
+                    hiddenBefore = docScroll - divPosition,
+                    hiddenAfter = (divPosition + divHeight) - (docScroll + windowHeight);
+
+                if ((docScroll > divPosition + divHeight) || (divPosition > docScroll + windowHeight)) {
+                    return 0;
+                } else {
+                    var result = 100;
+
+                    if (hiddenBefore > 0) {
+                        result -= (hiddenBefore * 100) / divHeight;
+                    }
+
+                    if (hiddenAfter > 0) {
+                        result -= (hiddenAfter * 100) / divHeight;
+                    }
+
+                    return result;
+                }
+            }
+
+            function fixDiv() {
+                divWidth = $("#fixedSection .container").width() / 4;
+                var $cache = $('.t1-rightcolumn');
+                var divTop = $("#fixedSection .container:first .row:first").position().top;
+                var divBottom = 0;
+                if ($(window).scrollTop() > divTop && !(($(document).height() - $(window).scrollTop() - divBottom) <= $(window).height()) && calculateVisibilityForDiv() <= 0) {
+                    $cache.css({
+                        'position': 'fixed',
+                        'top': '0px',
+                        'width': divWidth + "px",
+                        'height': $(window).height(),
+                        'margin-top': '0',
+                        'right': (($("#fixedSection").width() - $("#fixedSection .container").width()) / 2) - 8
+                    });
+                }
+                else if (calculateVisibilityForDiv() > 0) {
+                    var topPos = $('.t1-rightcolumn').prev().height() - ($('.t1-rightcolumn').height());
+                    $cache.css({
+                        'position': 'relative',
+                        'top': topPos,
+                        'width': divWidth + "px",
+                        'margin-top': '0',
+                        'height': $(window).height(),
+                        'right': 'auto'
+                    });
+                }
+                else {
+                    $cache.css({
+                        'position': 'relative',
+                        'top': 'auto',
+                        'width': divWidth + "px",
+                        'margin-top': '20px',
+                        'height': $(window).height(),
+                        'right': 'auto'
+                    });
+                }
+            }
+
+            $(window).scroll(fixDiv);
+            fixDiv();
+        });   // end of jQuery
+
+        !function (a) {
+            "function" == typeof define && define.amd ? define(["jquery"], a) : a(jQuery)
+        }(function (a) {
+            "use strict";
+            function b(a) {
+                if (a instanceof Date) return a;
+                if (String(a).match(g)) return String(a).match(/^[0-9]*$/) && (a = Number(a)), new Date(a);
+                throw new Error("Couldn't cast `" + a + "` to a date object.")
+            }
+
+            function c(a) {
+                return function (b) {
+                    var c = b.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);
+                    if (c) for (var e = 0, f = c.length; f > e; ++e) {
+                        var g = c[e].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/), i = new RegExp(g[0]), j = g[1] || "", k = g[3] || "", l = null;
+                        g = g[2], h.hasOwnProperty(g) && (l = h[g], l = Number(a[l])), null !== l && ("!" === j && (l = d(k, l)), "" === j && 10 > l && (l = "0" + l.toString()), b = b.replace(i, l.toString()))
+                    }
+                    return b = b.replace(/%%/, "%")
+                }
+            }
+
+            function d(a, b) {
+                var c = "s", d = "";
+                return a && (a = a.replace(/(:|;|\s)/gi, "").split(/\,/), 1 === a.length ? c = a[0] : (d = a[0], c = a[1])), 1 === Math.abs(b) ? d : c
+            }
+
+            var e = 100, f = [], g = [];
+            g.push(/^[0-9]*$/.source), g.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source), g.push(/[0-9]{4}(\/[0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source), g = new RegExp(g.join("|"));
+            var h = {
+                Y: "years",
+                m: "months",
+                w: "weeks",
+                d: "days",
+                D: "totalDays",
+                H: "hours",
+                M: "minutes",
+                S: "seconds"
+            }, i = function (b, c, d) {
+                this.el = b, this.$el = a(b), this.interval = null, this.offset = {}, this.setFinalDate(c), this.instanceNumber = f.length, f.push(this), this.$el.data("countdown-instance", this.instanceNumber), d && (this.$el.on("update.countdown", d), this.$el.on("stoped.countdown", d), this.$el.on("finish.countdown", d)), this.start()
+            };
+            a.extend(i.prototype, {
+                start: function () {
+                    if (null !== this.interval) throw new Error("Countdown is already running!");
+                    var a = this;
+                    this.update(), this.interval = setInterval(function () {
+                        a.update.call(a)
+                    }, e)
+                }, stop: function () {
+                    clearInterval(this.interval), this.interval = null, this.dispatchEvent("stoped")
+                }, pause: function () {
+                    this.stop.call(this)
+                }, resume: function () {
+                    this.start.call(this)
+                }, remove: function () {
+                    this.stop(), delete f[this.instanceNumber]
+                }, setFinalDate: function (a) {
+                    this.finalDate = b(a)
+                }, update: function () {
+                    return 0 === this.$el.closest("html").length ? (this.remove(), void 0) : (this.totalSecsLeft = this.finalDate.valueOf() - (new Date).valueOf(), this.totalSecsLeft = Math.ceil(this.totalSecsLeft / 1e3), this.totalSecsLeft = this.totalSecsLeft < 0 ? 0 : this.totalSecsLeft, this.offset = {
+                        seconds: this.totalSecsLeft % 60,
+                        minutes: Math.floor(this.totalSecsLeft / 60) % 60,
+                        hours: Math.floor(this.totalSecsLeft / 60 / 60) % 24,
+                        days: Math.floor(this.totalSecsLeft / 60 / 60 / 24) % 7,
+                        totalDays: Math.floor(this.totalSecsLeft / 60 / 60 / 24),
+                        weeks: Math.floor(this.totalSecsLeft / 60 / 60 / 24 / 7),
+                        months: Math.floor(this.totalSecsLeft / 60 / 60 / 24 / 30),
+                        years: Math.floor(this.totalSecsLeft / 60 / 60 / 24 / 365)
+                    }, 0 === this.totalSecsLeft ? (this.stop(), this.dispatchEvent("finish")) : this.dispatchEvent("update"), void 0)
+                }, dispatchEvent: function (b) {
+                    var d = a.Event(b + ".countdown");
+                    d.finalDate = this.finalDate, d.offset = a.extend({}, this.offset), d.strftime = c(this.offset), this.$el.trigger(d)
+                }
+            }), a.fn.countdown = function () {
+                var b = Array.prototype.slice.call(arguments, 0);
+                return this.each(function () {
+                    var c = a(this).data("countdown-instance");
+                    if (void 0 !== c) {
+                        var d = f[c], e = b[0];
+                        i.prototype.hasOwnProperty(e) ? d[e].apply(d, b.slice(1)) : null === String(e).match(/^[$A-Z_][0-9A-Z_$]*$/i) ? d.setFinalDate.call(d, e) : a.error("Method %s does not exist on jQuery.countdown".replace(/\%s/gi, e))
+                    } else new i(this, b[0], b[1])
+                })
+            }
+        });
+    </script>
+    <style>
+        .rotateI {
+            -webkit-transition-duration: 0.6s;
+            -moz-transition-duration: 0.6s;
+            -ms-transition-duration: 0.6s;
+            -o-transition-duration: 0.6s;
+            transition-duration: 0.6s;
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        .rotatedNeg {
+            -webkit-transition-duration: 0.6s !important;
+            -moz-transition-duration: 0.6s !important;
+            -ms-transition-duration: 0.6s !important;
+            -o-transition-duration: 0.6s !important;
+            transition-duration: 0.6s !important;
+            -webkit-transform: rotate(-180deg) !important;
+            -moz-transform: rotate(-180deg) !important;
+            -ms-transform: rotate(-180deg) !important;
+            -o-transform: rotate(-180deg) !important;
+            transform: rotate(-180deg) !important;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("header .container:first").slideToggle();
+            $('#countdowntop').countdown('2017/05/22', function (event) {
+                $(this).html(event.strftime('%d : %H : %M : %S '));
+            });
+
+            $("header .container:first").slideToggle();
+            $('#countdownmobile').countdown('2017/05/22', function (event) {
+                $(this).html(event.strftime('%d : %H : %M : %S '));
+            });
+
+
+            $(document).on('click', '#hideHeader', function () {
+                $("header .container:first").slideToggle();
+                $('.rotateI').toggleClass("rotatedNeg");
+            });
+
+        });   // end of jQuery
+
+        !function (a) {
+            "function" == typeof define && define.amd ? define(["jquery"], a) : a(jQuery)
+        }(function (a) {
+            "use strict";
+            function b(a) {
+                if (a instanceof Date) return a;
+                if (String(a).match(g)) return String(a).match(/^[0-9]*$/) && (a = Number(a)), new Date(a);
+                throw new Error("Couldn't cast `" + a + "` to a date object.")
+            }
+
+            function c(a) {
+                return function (b) {
+                    var c = b.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);
+                    if (c) for (var e = 0, f = c.length; f > e; ++e) {
+                        var g = c[e].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/), i = new RegExp(g[0]), j = g[1] || "", k = g[3] || "", l = null;
+                        g = g[2], h.hasOwnProperty(g) && (l = h[g], l = Number(a[l])), null !== l && ("!" === j && (l = d(k, l)), "" === j && 10 > l && (l = "0" + l.toString()), b = b.replace(i, l.toString()))
+                    }
+                    return b = b.replace(/%%/, "%")
+                }
+            }
+
+            function d(a, b) {
+                var c = "s", d = "";
+                return a && (a = a.replace(/(:|;|\s)/gi, "").split(/\,/), 1 === a.length ? c = a[0] : (d = a[0], c = a[1])), 1 === Math.abs(b) ? d : c
+            }
+
+            var e = 100, f = [], g = [];
+            g.push(/^[0-9]*$/.source), g.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source), g.push(/[0-9]{4}(\/[0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source), g = new RegExp(g.join("|"));
+            var h = {
+                Y: "years",
+                m: "months",
+                w: "weeks",
+                d: "days",
+                D: "totalDays",
+                H: "hours",
+                M: "minutes",
+                S: "seconds"
+            }, i = function (b, c, d) {
+                this.el = b, this.$el = a(b), this.interval = null, this.offset = {}, this.setFinalDate(c), this.instanceNumber = f.length, f.push(this), this.$el.data("countdown-instance", this.instanceNumber), d && (this.$el.on("update.countdown", d), this.$el.on("stoped.countdown", d), this.$el.on("finish.countdown", d)), this.start()
+            };
+            a.extend(i.prototype, {
+                start: function () {
+                    if (null !== this.interval) throw new Error("Countdown is already running!");
+                    var a = this;
+                    this.update(), this.interval = setInterval(function () {
+                        a.update.call(a)
+                    }, e)
+                }, stop: function () {
+                    clearInterval(this.interval), this.interval = null, this.dispatchEvent("stoped")
+                }, pause: function () {
+                    this.stop.call(this)
+                }, resume: function () {
+                    this.start.call(this)
+                }, remove: function () {
+                    this.stop(), delete f[this.instanceNumber]
+                }, setFinalDate: function (a) {
+                    this.finalDate = b(a)
+                }, update: function () {
+                    return 0 === this.$el.closest("html").length ? (this.remove(), void 0) : (this.totalSecsLeft = this.finalDate.valueOf() - (new Date).valueOf(), this.totalSecsLeft = Math.ceil(this.totalSecsLeft / 1e3), this.totalSecsLeft = this.totalSecsLeft < 0 ? 0 : this.totalSecsLeft, this.offset = {
+                        seconds: this.totalSecsLeft % 60,
+                        minutes: Math.floor(this.totalSecsLeft / 60) % 60,
+                        hours: Math.floor(this.totalSecsLeft / 60 / 60) % 24,
+                        days: Math.floor(this.totalSecsLeft / 60 / 60 / 24) % 7,
+                        totalDays: Math.floor(this.totalSecsLeft / 60 / 60 / 24),
+                        weeks: Math.floor(this.totalSecsLeft / 60 / 60 / 24 / 7),
+                        months: Math.floor(this.totalSecsLeft / 60 / 60 / 24 / 30),
+                        years: Math.floor(this.totalSecsLeft / 60 / 60 / 24 / 365)
+                    }, 0 === this.totalSecsLeft ? (this.stop(), this.dispatchEvent("finish")) : this.dispatchEvent("update"), void 0)
+                }, dispatchEvent: function (b) {
+                    var d = a.Event(b + ".countdown");
+                    d.finalDate = this.finalDate, d.offset = a.extend({}, this.offset), d.strftime = c(this.offset), this.$el.trigger(d)
+                }
+            }), a.fn.countdown = function () {
+                var b = Array.prototype.slice.call(arguments, 0);
+                return this.each(function () {
+                    var c = a(this).data("countdown-instance");
+                    if (void 0 !== c) {
+                        var d = f[c], e = b[0];
+                        i.prototype.hasOwnProperty(e) ? d[e].apply(d, b.slice(1)) : null === String(e).match(/^[$A-Z_][0-9A-Z_$]*$/i) ? d.setFinalDate.call(d, e) : a.error("Method %s does not exist on jQuery.countdown".replace(/\%s/gi, e))
+                    } else new i(this, b[0], b[1])
+                })
+            }
+        });
+    </script>
+    <script>
+        jQuery(document).ready(function ($) {
+
+            $('#myCarousel').carousel({
+                interval: 5000
+            });
+
+            $('#carousel-text').html($('#slide-content-0').html());
+
+            //Handles the carousel thumbnails
+            $('[id^=carousel-selector-]').click(function () {
+                var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+                var id = parseInt(id);
+                $('#myCarousel').carousel(id);
+            });
+
+
+            // When the carousel slides, auto update the text
+            $('#myCarousel').on('slid.bs.carousel', function (e) {
+                var id = $('.item.active').data('slide-number');
+                $('#carousel-text').html($('#slide-content-' + id).html());
+            });
+        });
+    </script>
+    <script>
+        $('.customCarousel').carousel({
+            interval: 4000
+        });
+
+        // handles the carousel thumbnails
+        $('[id^=carousel-selector]').click(function () {
+            var id_selector = $(this).attr('id');
+            var id = id_selector.substr(id_selector.length - 1);
+            id = parseInt(id);
+            var parent = $(this).closest('ul').data('carousel');
+            $('#myCarousel' + parent).carousel(id);
+            $('[id^=carousel-selector' + parent + '-]').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        // when the carousel slides, auto update
+        $('.customCarousel').on('slid', function (e) {
+            var cont = $(this).data('carousel');
+            var id = $('#myCarousel' + cont + ' .item.active').data('slide-number');
+            id = parseInt(id);
+            $('[id^=carousel-selector' + cont + '-]').removeClass('selected');
+            $('[id^=carousel-selector' + cont + '-' + id + ']').addClass('selected');
+        });
+    </script>
+
+
+    <!--video bg script starts-->
+    <script type="text/javascript">
+        /*mbYT player script starts*/
+        /*$(document).ready(function () {
+            $(".playerC").mb_YTPlayer();
+        });*/
+        /*mbYT player script ends*/
+
+        /*coverVid player script ends*/
+        /*$('.covervid-video').coverVid(100, 40);*/
+        /*coverVid player script ends*/
+
+        $('.vidbg-box').vidbg({
+            'mp4': 'http://example.com/video.mp4',
+            'webm': 'path/to/video.webm',
+            'poster': 'path/to/fallback-image.png',
+        }, {
+            /*volume: 1,
+            playbackRate: 0,
+            muted: true,
+            loop: true,
+            position: '50% 50%',
+            resizing: true,
+            overlay: false,
+            overlayColor: '#000',
+            overlayAlpha: '0.3',*/
+        });
+
+    </script>
+
+    <script>
+        
+            $(window).scroll(function () {
+                console.log("abc")
+                if ($(window).scrollTop() > $(".bgGreyDark").offset().top) {
+                    $("#sticky-cart").removeClass("hidden");
+                    $("#sticky-cart").css({
+                        "position": "fixed",
+                        "background-color": "white",
+                        "z-index": "99999",
+                        "width": "100%",
+                        "top": "0px",
+                        "box-shadow": "0px 0px 5px 0px #c5c5c5"
+                    });
+                } else {
+                    $("#sticky-cart").addClass("hidden");
+                }
+            });
+       
+    </script>
+    <script>
+        function searchOpen() {
+            console.log("abc");
+            if (document.getElementById("AuthPanel5").style.display == "none") {
+
+                //closeIfOpened("SearchPanel");
+                $("#AuthPanel5").show("slow");
+                $("#AuthPanel").hide("slow")
+                return;
+            }
+            $("#AuthPanel3").hide("slow");
+
+
+            //if (document.getElementById("SearchPanel").style.display == "none") {
+            //    closeIfOpened("AuthPanel5");
+            //    $("#SearchPanel").show("slow");
+            //    return;
+            //}
+            //$("#SearchPanel").hide("slow");
+
+        }
+    </script>
+    <script type="text/javascript">
+            function performSearch2()
+            {
+                $('#fldSearch2').toggle('fast'); doSearch2();
+                $('#inputSearch2').focus();
+            }
+            $("#small-search-box-form2").submit(function(event) {
+                if ($("#inputSearch2").val() == "") {
+                    alert('@Html.Raw(HttpUtility.JavaScriptStringEncode(T("Search.EnterSearchTerms").Text))');
+                    $("#inputSearch2").focus();
+                    event.preventDefault();
+                }
+            });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("def");
+                    $('#inputSearch2').autocomplete({
+                        delay: 500,
+                        minLength: 3,
+                        source: '@(Url.RouteUrl("ProductSearchAutoComplete"))',
+                        appendTo: '.search-box',
+                        select: function(event, ui) {
+                            $("#inputSearch2").val(ui.item.label);
+                            setLocation(ui.item.producturl);
+                            return false;
+                        }
+                    })
+                        .data("ui-autocomplete")._renderItem = function(ul, item) {
+                            var t = item.label;
+                            //html encode
+                            t = htmlEncode(t);
+                            return $("<li></li>")
+                                .data("item.autocomplete", item)
+                                .append("<a>@(true ? Html.Raw("<img src='\" + item.productpictureurl + \"'>") : null)<span>" + t + "</span></a>")
+                                .appendTo(ul);
+                        };
+                });
+    </script>
+
+    @*@Html.Widget("header_links_after")*@
+
+    <script>
+        function doSearch2() {
+            var txt = $("#inputSearch2").val();
+            if (txt.length > 0) {
+                window.location = "/Search?q=" + txt;
+            }
+
+        }
+
+
+    </script>
+    <script>
+       function searchClose(){
+                if (document.getElementById("AuthPanel5").style.display == "none") {
+                    closeIfOpened("SearchPanel");
+                    $("#AuthPanel5").show("slow");
+                    return;
+                }
+                $("#AuthPanel5").hide("slow");
+       }
+    </script>
+    
+</body>
+</html>

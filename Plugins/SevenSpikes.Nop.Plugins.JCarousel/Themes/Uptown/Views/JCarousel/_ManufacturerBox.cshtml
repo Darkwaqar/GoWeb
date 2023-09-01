@@ -1,0 +1,19 @@
+﻿@using Nop.Web.Models.Catalog
+
+@model ManufacturerModel
+
+<div class="manufacturer-item">
+    <h2 class="title">
+        <a href="@Url.RouteUrl("Manufacturer", new { SeName = Model.SeName })" title="@Model.PictureModel.Title">
+            <span class="manufacturer-item-text-wrapper">
+                <span class="manufacturer-item-name">@Model.Name</span>
+                <span class="manufacturer-item-count">@Html.Widget("uptown_manufacturer_box_products_count", @Model.Id) @T("SevenSpikes.Themes.Uptown.Common.Products.Count.Title")</span>
+            </span>
+        </a>
+    </h2>
+    <div class="picture">
+        <a href="@Url.RouteUrl("Manufacturer", new { SeName = Model.SeName })" title="@Model.PictureModel.Title">
+            <img alt="@Model.PictureModel.AlternateText" src="@Model.PictureModel.ImageUrl" title="@Model.PictureModel.Title" />
+        </a>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿@model Nop.Admin.Models.PushNotifications.PushModel
+@{
+    Layout = "_AdminLayout";
+    //page title
+    ViewBag.Title = T("Admin.PushNotifications.Send").Text;
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        <div class="form-horizontal">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="caption">
+                            <i class="fa fa-cubes"></i>
+                            @T("Admin.PushNotifications")
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Title)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.Title)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.MessageText)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.MessageText)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.ClickUrl)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.ClickUrl)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.PictureId)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.PictureId)
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-sm-offset-3 col-md-9 col-sm-9">
+                                    <input type="submit" name="generatekey" class="btn green" value="@T("Admin.PushNotifications.Send")" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

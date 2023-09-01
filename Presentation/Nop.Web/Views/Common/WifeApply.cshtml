@@ -1,0 +1,191 @@
+﻿@model WifeApplyModel
+@using Nop.Web.Models.Vendors;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.WifeApply").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-wife-page");
+}
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.CountryId)").change(function () {
+                var selectedItem = $(this).val();
+                var ddlStates = $("#@Html.FieldIdFor(model => model.StateProvinceId)");
+             var statesProgress = $("#states-loading-progress");
+             statesProgress.show();
+             $.ajax({
+                 cache: false,
+                 type: "GET",
+                 url: "@(Url.RouteUrl("GetStatesByCountryId"))",
+                 data: { "countryId": selectedItem, "addSelectStateItem": "true" },
+                    success: function (data) {
+                        ddlStates.html('');
+                        $.each(data, function (id, option) {
+                            ddlStates.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                        statesProgress.hide();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve states.');
+                        statesProgress.hide();
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.SellOnline)").click(toggleSellOnline);
+            $("#@Html.FieldIdFor(model => model.Physically)").click(togglePhysically);
+            toggleSellOnline();
+            togglePhysically();
+        });
+         function toggleSellOnline() {
+            if ($('#@Html.FieldIdFor(model => model.SellOnline)').is(':checked')) {
+                $('#pnlWebsite').show();
+                $('#pnlFacebookLink').show();
+            } else {
+                $('#pnlWebsite').hide();
+                $('#pnlFacebookLink').hide();
+            }
+        }
+         function togglePhysically() {
+            if ($('#@Html.FieldIdFor(model => model.Physically)').is(':checked')) {
+                $('#pnlShopAddress').show();
+            } else {
+                $('#pnlShopAddress').hide();
+                
+            }
+        }
+    </script>
+<div class="page apply-wife-page">
+    <div class="page-title">
+        <h1>@T("PageTitle.WifeApply")</h1>
+    </div>
+    <div class="page-body">
+        @Html.Widget("contactvendor_top")
+        @if (Model.SuccessfullySent)
+        {
+            <div class="result">
+                @Model.Result
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm(null, null, FormMethod.Post, new RouteValueDictionary { { "enctype", "multipart/form-data" } }))
+            {
+                @Html.AntiForgeryToken()
+                var validationSummary = Html.ValidationSummary(true);
+                if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                {
+                    <div class="message-error">@validationSummary</div>
+                }
+                <div class="fieldset">
+                    <div class="form-fields">
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.Name)
+                            @Html.TextBoxFor(model => model.Name, new { @class = "name", placeholder = T("WifeApply.Name") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.BusinessName)
+                            @Html.TextBoxFor(model => model.BusinessName, new { @class = "businessname", placeholder = T("WifeApply.BusinessName") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.BusinessName)
+                        </div>
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.ContactNumber)
+                            @Html.TextBoxFor(model => model.ContactNumber, new { @class = "ContactNumber", placeholder = T("WifeApply.ContactNumber") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.ContactNumber)
+                        </div>
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.Email)
+                            @Html.TextBoxFor(model => model.Email, new { @class = "Email", placeholder = T("WifeApply.Email") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.CountryId)
+                            @Html.DropDownListFor(model => model.CountryId, Model.AvailableCountries, new { @class = "CountryId", placeholder = T("WifeApply.CountryId") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.CountryId)
+                        </div>
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.StateProvinceId)
+                            @Html.DropDownListFor(model => model.StateProvinceId, Model.AvailableStates, new { @class = "StateProvinceId", placeholder = T("WifeApply.StateId") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.StateProvinceId)
+                        </div>
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.City)
+                            @Html.TextBoxFor(model => model.City, new { @class = "City", placeholder = T("WifeApply.City") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.City)
+                        </div>
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.SellOnline)
+                            @Html.CheckBoxFor(model => model.SellOnline, new { @class = "SellOnline", placeholder = T("WifeApply.SellOnline") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.SellOnline)
+                        </div>
+                        <div id="pnlWebsite" class="inputs">
+                            @Html.LabelFor(model => model.Website)
+                            @Html.TextBoxFor(model => model.Website, new { @class = "Website", placeholder = T("WifeApply.Website") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Website)
+                        </div>
+                        <div id="pnlFacebookLink" class="inputs">
+                            @Html.LabelFor(model => model.FacebookLink)
+                            @Html.TextBoxFor(model => model.FacebookLink, new { @class = "FacebookLink", placeholder = T("WifeApply.FacebookLink") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.FacebookLink)
+                        </div>
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.Physically)
+                            @Html.CheckBoxFor(model => model.Physically, new { @class = "Physically", placeholder = T("WifeApply.Physically") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Physically)
+                        </div>
+                        <div id="pnlShopAddress" class="inputs">
+                            @Html.LabelFor(model => model.ShopAddress)
+                            @Html.TextBoxFor(model => model.ShopAddress, new { @class = "ShopAddress", placeholder = T("WifeApply.ShopAddress") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.ShopAddress)
+                        </div>
+                        <div id="pnlTypeOfProducts" class="inputs">
+                            @Html.LabelFor(model => model.TypeOfProducts)
+                            @Html.TextBoxFor(model => model.TypeOfProducts, new { @class = "TypeOfProducts", placeholder = T("WifeApply.TypeOfProducts") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.TypeOfProducts)
+                        </div>
+                        <div class="inputs">
+                            @Html.Label(T("WifeApply.ProductImage").Text)
+                            <input name="uploadedFile" type="file" />
+                        </div>
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.Enquiry)
+                            @Html.TextAreaFor(model => model.Enquiry, new { @class = "enquiry", placeholder = T("WifeApply.Enquiry.Hint") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Enquiry)
+                        </div>
+                        @if (Model.DisplayCaptcha)
+                        {
+                            <div class="captcha-box">
+                                @Html.Raw(Html.GenerateCaptcha())
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="buttons">
+                    <input type="submit" name="send-email" class="button-1 contact-us-button" value="@T("WifeApply.Button")" />
+                </div>
+            }
+        }
+        @Html.Widget("contactvendor_bottom")
+    </div>
+</div>

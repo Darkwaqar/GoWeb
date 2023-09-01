@@ -1,0 +1,61 @@
+﻿@model int
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Catalog;
+@using Nop.Web.Factories;
+@{
+    var Categories = EngineContext.Current.Resolve<ICategoryService>().GetProductCategoriesByProductId(Model).Select(x => x.CategoryId).ToList();
+    var products = EngineContext.Current.Resolve<IProductService>().SearchProducts(categoryIds: Categories);
+    var productlist = EngineContext.Current.Resolve<IProductModelFactory>().PrepareProductOverviewModels(products.Where(i => i.Id != Model), true, true, productThumbPictureSize: 360).Take(5).ToList();
+}
+<div id="short-related-products" class="carousel slide hidden-xs" data-ride="carousel">
+    <!-- Indicators -->
+    <!-- Wrapper for slides -->
+    <div class="controls">
+    <a href="#short-related-products" role="button" data-slide="prev">
+        <span class="fa fa-angle-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a href="#short-related-products" role="button" data-slide="next">
+        <span class="fa fa-angle-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    </div>
+    <div class="carousel-inner" role="listbox">
+        @{
+            bool isFirstItem = true;
+        }
+        @foreach (var item in productlist)
+        {
+            if (isFirstItem)
+            {
+                <div class="item active">
+                    <a href="/@item.SeName">
+                        <img src="@item.DefaultPictureModel.ImageUrl">
+                        <div class="name">
+                            @item.Name
+                        </div>
+                    </a>
+                </div>
+                isFirstItem = false;
+            }
+            else
+            {
+                <div class="item">
+                    <a href="/@item.SeName">
+                        <img src="@item.DefaultPictureModel.ImageUrl">
+                        <div class="name">
+                            @item.Name
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+    <!-- Left and right controls -->
+</div>
+<script>
+    $('.carousel').carousel({
+        interval: false
+    });
+</script>
+

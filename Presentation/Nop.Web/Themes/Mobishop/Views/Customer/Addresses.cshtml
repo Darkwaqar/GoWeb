@@ -1,0 +1,180 @@
+﻿@model CustomerAddressListModel
+@using Nop.Web.Models.Customer;
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Account").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-account-page");
+    Html.AppendPageCssClassParts("html-address-list-page");
+}
+@section left
+{
+    @Html.Action("CustomerNavigation", "Customer", new { selectedTabId = CustomerNavigationEnum.Addresses })
+}
+<div class="page account-page address-list-page">
+    <div class="page-title">
+        <h1>@T("Account.MyAccount") - @T("Account.CustomerAddresses")</h1>
+    </div>
+    <div class="page-body">
+
+
+        <div class="add-button">
+            <input type="button" class="button-1 add-address-button" onclick="location.href='@Url.RouteUrl("CustomerAddressAdd")'" value="@T("Common.AddNew")" />
+        </div>
+
+        @if (Model.Addresses.Count > 0)
+        {
+            using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="address-list">
+                    @for (int i = 0; i < Model.Addresses.Count; i++)
+                    {
+                        var address = Model.Addresses[i];
+                        <div class="section address-item">
+                            <div class="title">
+                                <strong>@address.FirstName @address.LastName</strong>
+                            </div>
+                            <ul class="info">
+                                <li class="name">
+                                    @address.FirstName @address.LastName
+                                </li>
+                                <li class="email">
+                                    @Html.LabelFor(model => model.Addresses[i].Email, new { }, ":")
+                                    @address.Email
+                                </li>
+                                @if (address.PhoneEnabled)
+                                {
+                                    <li class="phone">
+                                        @Html.LabelFor(model => model.Addresses[i].PhoneNumber, new { }, ":")
+                                        @address.PhoneNumber
+                                    </li>
+                                }
+                                @if (address.FaxEnabled)
+                                {
+                                    <li class="fax">
+                                        @Html.LabelFor(model => model.Addresses[i].FaxNumber, new { }, ":")
+                                        @address.FaxNumber
+                                    </li>
+                                }
+                                @if (address.CompanyEnabled && !String.IsNullOrEmpty(address.Company))
+                                {
+                                    <li class="company">@address.Company</li>
+                                }
+                                @if (address.StreetAddressEnabled)
+                                {
+                                    <li class="address1">
+                                        @address.Address1
+                                    </li>
+                                }
+                                @if (address.StreetAddress2Enabled && !String.IsNullOrEmpty(address.Address2))
+                                {
+                                    <li class="address2">
+                                        @address.Address2
+                                    </li>
+                                }
+                                @if (address.CityEnabled || address.StateProvinceEnabled || address.ZipPostalCodeEnabled)
+                                {
+                                    var cityStateZip = "";
+                                    if (address.CityEnabled)
+                                    {
+                                        cityStateZip = address.City;
+                                        if (address.StateProvinceEnabled || address.ZipPostalCodeEnabled)
+                                        {
+                                            cityStateZip += ",";
+                                        }
+                                    }
+                                    if (address.StateProvinceEnabled)
+                                    {
+                                        if (!String.IsNullOrEmpty(cityStateZip))
+                                        {
+                                            cityStateZip += " ";
+                                        }
+                                        cityStateZip += address.StateProvinceName;
+                                    }
+                                    if (address.ZipPostalCodeEnabled)
+                                    {
+                                        if (!String.IsNullOrEmpty(cityStateZip))
+                                        {
+                                            cityStateZip += " ";
+                                        }
+                                        cityStateZip += address.ZipPostalCode;
+                                    }
+
+                                    <li class="city-state-zip">
+                                        @cityStateZip
+                                    </li>
+                                }
+                                @if (address.CountryEnabled && !String.IsNullOrEmpty(address.CountryName))
+                                {
+                                    <li class="country">
+                                        @address.CountryName
+                                    </li>
+                                }
+                                @if (!String.IsNullOrEmpty(address.FormattedCustomAddressAttributes))
+                                {
+                                    <li class="custom-attributes-view">
+                                        @Html.Raw(address.FormattedCustomAddressAttributes)
+                                    </li>
+                                }
+                            </ul>
+                            <div class="buttons">
+                                <button type="button" class="button-2 edit-address-button" onclick="location.href = '@(Url.RouteUrl("CustomerAddressEdit", new {addressId = address.Id}))'" value="@T("Common.Edit")">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" data-prefix="far" data-icon="edit" class="svg-inline--fa fa-edit fa-w-18" role="img" viewBox="0 0 576 512"><path fill="currentColor" d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174L402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z" /></svg>
+
+
+
+
+                                   
+                                </button>
+                                <button type="button" class="button-2 delete-address-button" onclick="deletecustomeraddress(@(address.Id))" value="@T("Common.Delete")">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M192 188v216c0 6.627-5.373 12-12 12h-24c-6.627 0-12-5.373-12-12V188c0-6.627 5.373-12 12-12h24c6.627 0 12 5.373 12 12zm100-12h-24c-6.627 0-12 5.373-12 12v216c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12V188c0-6.627-5.373-12-12-12zm132-96c13.255 0 24 10.745 24 24v12c0 6.627-5.373 12-12 12h-20v336c0 26.51-21.49 48-48 48H80c-26.51 0-48-21.49-48-48V128H12c-6.627 0-12-5.373-12-12v-12c0-13.255 10.745-24 24-24h74.411l34.018-56.696A48 48 0 0 1 173.589 0h100.823a48 48 0 0 1 41.16 23.304L349.589 80H424zm-269.611 0h139.223L276.16 50.913A6 6 0 0 0 271.015 48h-94.028a6 6 0 0 0-5.145 2.913L154.389 80zM368 128H80v330a6 6 0 0 0 6 6h276a6 6 0 0 0 6-6V128z" /></svg>
+
+
+
+
+                                   
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <script type="text/javascript">
+                    function deletecustomeraddress(addressId) {
+                        if (confirm('@T("Admin.Common.AreYouSure")')) {
+                            var postData = {
+                                addressId: addressId
+                            };
+                            addAntiForgeryToken(postData);
+
+                            $.ajax({
+                                cache: false,
+                                type: 'POST',
+                                url: '@Url.Action("AddressDelete", "Customer")',
+                                data: postData,
+                                dataType: 'json',
+                                success: function(data) {
+                                    location.href = data.redirect;
+                                },
+                                error: function(xhr, ajaxOptions, thrownError) {
+                                    alert('Failed to delete');
+                                }
+                            });
+                        }
+                    }
+                </script>
+            }
+        }
+        else
+        {
+            <div class="no-data">
+                @T("Account.CustomerAddresses.NoAddresses")
+            </div>
+        }
+
+    </div>
+</div>

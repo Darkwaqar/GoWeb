@@ -1,0 +1,64 @@
+﻿@using Nop.Web.Models.Customer;
+@using Nop.Web.Framework.UI;
+
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.CheckGiftCardBalance").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-account-page");
+}
+
+@section left
+{
+    @Html.Action("CustomerNavigation", "Customer", new { selectedTabId = CustomerNavigationEnum.GdprTools })
+}
+@using (Html.BeginRouteForm("GdprTools", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="page account-page check-gift-card-balance-page">
+        <div class="page-title">
+            <h1>@T("Account.MyAccount") - @T("Account.Gdpr")</h1>
+        </div>
+        <div class="page-body">
+           @if (!string.IsNullOrEmpty(Model.Result))
+           {
+            <div class="result">
+                @Model.Result
+            </div>
+           }
+            <div class="fieldset">
+                <div class="title">
+                    <strong>@T("Account.Gdpr.Export")</strong>
+                </div>
+                <div class="form-fields">
+                    @T("Account.Gdpr.Export.Hint")
+                </div>
+                <div class="buttons">
+                    <input type="submit" name="export-data" class="button-1 gdpr-export-data-button" value="@T("Account.Gdpr.Export.Button")" />
+                </div>
+            </div>
+            <div class="fieldset">
+                <div class="title">
+                    <strong>@T("Account.Gdpr.Delete")</strong>
+                </div>
+                <div class="form-fields">
+                    @T("Account.Gdpr.Delete.Hint")
+                </div>
+                <div class="buttons">
+                    <input type="submit" id="delete-account" name="delete-account" class="button-1 gdpr-delete-account-button" value="@T("Account.Gdpr.Delete.Button")" />
+                    
+                    <script asp-location="Footer">
+                        $(document).ready(function() {
+                            $('#delete-account').click(function() {
+                                return confirm('@T("Common.AreYouSure")');
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

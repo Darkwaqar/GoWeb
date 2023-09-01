@@ -1,0 +1,81 @@
+﻿@model ShoppingCartModel.DiscountBoxModel
+@using Nop.Web.Models.ShoppingCart;
+@if (Model.Display)
+{
+    <div class="coupon-box">
+        <div class="title">
+            <strong>@T("ShoppingCart.DiscountCouponCode")</strong>
+        </div>
+        <div class="hint">
+            @T("ShoppingCart.DiscountCouponCode.Tooltip")
+        </div>
+        <div class="coupon-code">
+            <input name="discountcouponcode" id="discountcouponcode" type="text" class="discount-coupon-code" />
+            <button type="button" name="applydiscountcouponcode" id="applydiscountcouponcode"
+                    class="button-2 apply-discount-coupon-code-button" data-href="@Url.RouteUrl("ApplyDiscountCoupon")">@T("ShoppingCart.DiscountCouponCode.Button")</button>
+        </div>
+        @foreach (var message in Model.Messages)
+        {
+            <div class="@(Model.IsApplied ? "message-success" : "message-failure")">
+                @message
+            </div>
+        }
+        @foreach (var discount in Model.AppliedDiscountsWithCodes)
+        {
+            <div class="current-code">
+                <span class="applied-discount-code">@string.Format(T("ShoppingCart.DiscountCouponCode.CurrentCode").Text, discount.CouponCode)</span>
+                @*empty value (little hack for FormValueExistsAttribute)*@
+                <button type="button" name="removediscount" data-href="@Url.RouteUrl("RemoveDiscountCoupon", new { discountId = discount.Id})" value=" " title="@T("Common.Remove")" class="remove-discount-button" />
+            </div>
+        }
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#discountcouponcode').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    $('#applydiscountcouponcode').click();
+                    return false;
+                }
+            });
+        });
+    </script>
+
+    <script>
+    $(document).ready(function () {
+        $("#applydiscountcouponcode").click(function () {
+            var href = $(this).closest('[data-href]').data('href');
+            var couponCodeData = {
+                discountcouponcode: $('#discountcouponcode').val(),
+            };
+            addAntiForgeryToken(couponCodeData);
+            $.ajax({
+                cache: false,
+                type: "POST",
+                data: couponCodeData,
+                url: href,
+                success: function (data) {
+                    $('#ordersummarypagecart').replaceWith(data.cart);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve Shopping Cart Page.');
+                }
+            });
+        });
+        $(".remove-discount-button").click(function () {
+            var href = $(this).closest('[data-href]').data('href');
+            $.ajax({
+                cache: false,
+                type: "POST",
+                data: addAntiForgeryToken(),
+                url: href,
+                success: function (data) {
+                    $('#ordersummarypagecart').replaceWith(data.cart);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve Shopping Cart Page.');
+                }
+            });
+        });
+    });
+    </script>
+}

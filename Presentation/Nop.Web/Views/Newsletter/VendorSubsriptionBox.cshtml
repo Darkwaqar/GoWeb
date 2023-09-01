@@ -1,0 +1,73 @@
+﻿@model NewsLetterSubscription
+@using Nop.Core.Domain.Messages
+<div class="newsletter">
+    <div class="title">
+        <strong>@T("Newsletter.Title")</strong>
+    </div>
+    <div class="newsletter-subscribe" id="vendornewsletter-subscribe-block">
+        <div class="vendornewsletter-email" >
+            <div id="vendoremail" style="display: none;">
+                @Html.TextBoxFor(x => x.Email, new { id = "vendornewsletter", @class = "newsletter-subscribe-text", placeholder = T("Newsletter.Email.Placeholder"), value = Model.Email })
+            </div>
+            <input type="button" value="@T(Model.Active?"Newsletter.Options.UnSubscribe":"Newsletter.Options.Subscribe")" id="vendornewsletter-subscribe-button" class="button-1 newsletter-subscribe-button" />
+            @Html.Hidden("vendorId",Model.VendorId)
+        </div>
+        <div class="newsletter-validation">
+            <span id="vendorsubscribe-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span>
+        </div>
+    </div>
+    <div class="newsletter-result" id="vendornewsletter-result-block"></div>
+    <script type="text/javascript">
+        function vendornewsletter_subscribe(subscribe) {
+            var subscribeProgress = $("#vendorsubscribe-loading-progress");
+            var emailblock = $("#vendoremail");
+            subscribeProgress.show();
+            var postData = {
+                vendorId: $("#vendorId").val(),
+                email: $("#vendornewsletter").val()
+            };
+            if ($("#vendornewsletter").val() == "") {
+                subscribeProgress.hide();
+                emailblock.show();
+            }
+            else {
+                $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@(Url.RouteUrl("SubscribeVendorNewsletter"))",
+                data: postData,
+                success: function(data) {
+                    subscribeProgress.hide();
+                    $("#vendornewsletter-result-block").html(data.Result);
+                    if (data.Success) {
+                        $('#vendornewsletter-subscribe-button').val(data.Active);
+                        $('#vendornewsletter-result-block').fadeIn("slow").delay(2000).fadeOut("slow");
+                        emailblock.hide();
+                    } else {
+                        $('#vendornewsletter-result-block').fadeIn("slow").delay(2000).fadeOut("slow");
+                        emailblock.show();
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert('Failed to subscribe.');
+                    console.log(xhr)
+                    subscribeProgress.hide();
+                }
+            });
+            }
+
+        }
+
+        $(document).ready(function () {
+            $('#vendornewsletter-subscribe-button').click(function () {
+                        vendornewsletter_subscribe('false');
+            });
+            $("#newsletter-email").keydown(function (event) {
+                if (event.keyCode == 13) {
+                    $("#vendornewsletter-subscribe-button").click();
+                    return false;
+                }
+            });
+        });
+    </script>
+</div>

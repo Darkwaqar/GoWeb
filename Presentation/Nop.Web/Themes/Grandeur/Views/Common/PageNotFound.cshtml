@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.PageNotFound").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-not-found-page");
+}
+<div id="main">
+    @Html.Action("TopMenu", "Catalog")
+
+    <section class="page-not-found">
+        <header>
+            <h1>404</h1>
+            <p>There is no such page.</p>
+        </header>
+        <a class="btn btn-cross" href="/">START FROM THE BEGINNING</a>
+    </section>
+</div>

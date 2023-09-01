@@ -1,0 +1,78 @@
+﻿@model CurrencySelectorModel
+@using Nop.Web.Models.Common;
+@using Nop.Core;
+@using Nop.Core.Infrastructure;
+@{
+    var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+
+    var currencies = Model.AvailableCurrencies.Select(x => new SelectListItem
+        {
+            Text = x.Name,
+            Value = webHelper.ModifyQueryString(Url.RouteUrl("ChangeCurrency", new { customercurrency = x.Id }), "returnurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl), null),
+            Selected = x.Id.Equals(Model.CurrentCurrencyId)
+        });
+
+    var selectedCurrency = currencies.Where(y => y.Selected == true).FirstOrDefault();
+
+    //for (int i = 0; i < currencies.; i++)
+    //{
+        
+    //}
+
+}
+
+<style>
+    .currencydropdown {
+        font-size: 9px;
+        font-family: 'Raleway', sans-serif;
+        padding:10px !important;
+    }
+
+</style>
+
+<a href="#" style="padding-left: 0px;">@selectedCurrency.Text<i class="caret"></i></a>
+<ul class="languageDropdown clearfix">
+    <li>
+        <ul class="currency">
+            @if (Model.AvailableCurrencies.Count > 1)
+{
+    foreach (var item in currencies)
+    {
+        <li onclick="javascript:window.location='@item.Value'" class="currencydropdown">@item.Text</li>
+    }
+}
+        </ul>
+    </li>
+</ul>
+    
+
+
+@*<style>
+        #customerCurrency {
+            border: none !important;
+            font-size: 11px;
+        }
+
+            #customerCurrency > option {
+                border: none !important;
+                font-size: 11px;
+            }
+    </style>
+    @if (Model.AvailableCurrencies.Count > 1)
+    {
+        <div class="currency-selector">
+            @{
+        var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+
+        var currencies = Model.AvailableCurrencies.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = webHelper.ModifyQueryString(Url.RouteUrl("ChangeCurrency", new { customercurrency = x.Id }), "returnurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl), null),
+                Selected = x.Id.Equals(Model.CurrentCurrencyId)
+            });
+
+            @Html.DropDownList("customerCurzrency", currencies, new { onchange = "setLocation(this.value);" })
+            }
+        </div>
+
+    }*@

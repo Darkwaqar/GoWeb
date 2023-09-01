@@ -1,0 +1,93 @@
+﻿@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@using Nop.Services.Catalog;
+@using Nop.Services.Media;
+@using Nop.Web.Models.Media;
+@model Int32
+
+
+@using Nop.Core
+@using Nop.Core.Caching
+@using Nop.Core.Domain.Media
+@using Nop.Services.Catalog
+@using Nop.Services.Localization
+@using Nop.Services.Media
+
+@helper GetPictureForCategory(int categoryID)
+{
+var workContext = EngineContext.Current.Resolve<IWorkContext>();
+var storeContext = EngineContext.Current.Resolve<IStoreContext>();
+var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+var cacheManager = EngineContext.Current.ContainerManager.Resolve<ICacheManager>("nop_cache_static");
+var categoryService = EngineContext.Current.Resolve<ICategoryService>();
+var pictureService = EngineContext.Current.Resolve<IPictureService>();
+var localizationService = EngineContext.Current.Resolve<ILocalizationService>();
+var mediaSettings = EngineContext.Current.Resolve<MediaSettings>();
+
+int pictureSize = mediaSettings.DefaultImageQuality;
+var categoryPictureCacheKey = string.Format(Nop.Web.Infrastructure.Cache.ModelCacheEventConsumer.CATEGORY_PICTURE_MODEL_KEY, categoryID, pictureSize, true, workContext.WorkingLanguage.Id, webHelper.IsCurrentConnectionSecured(), storeContext.CurrentStore.Id);
+
+var pictureModel = cacheManager.Get(categoryPictureCacheKey, () =>
+{
+    var category = categoryService.GetCategoryById(categoryID);
+
+    var picture = pictureService.GetPictureById(category.PictureId);
+
+    return new Nop.Web.Models.Media.PictureModel
+    {
+        ImageUrl = pictureService.GetPictureUrl(picture, pictureSize),
+        Title = string.Format(localizationService.GetResource("Media.Category.ImageLinkTitleFormat"), category.GetLocalized(x => x.Name)),
+        AlternateText = string.Format(localizationService.GetResource("Media.Category.ImageAlternateTextFormat"), category.GetLocalized(x => x.Name))
+    };
+});
+
+var result = string.Format("<img class=\"animate attachment-full size-full\" src=\"{0}\" alt=\"{1}\" title=\"{2}\" />", pictureModel.ImageUrl, pictureModel.AlternateText, pictureModel.Title);
+
+    @Html.Raw(result)
+}
+
+
+
+@{
+
+    var categories = EngineContext.Current.Resolve<ICategoryService>
+    ().GetAllCategoriesByParentCategoryId(Model);
+    var media = EngineContext.Current.Resolve<IPictureService>();
+
+}
+
+
+
+
+@using Nop.Web.Models.Catalog;
+@if (categories.Count > 0)
+{
+
+    <div class="home-item-grid">
+        @foreach (var item in categories)
+        {
+
+            
+
+            <a href="/@item.Name" class="homeBox__image  @item.Name">
+                <div class="homeBox__imageBox">
+
+                    <div class="homeBox__titleBox tr serif">
+                        <div class="homeBox__titleBox__wrapper">
+                            @*<span class="label">Discover &amp; Shop</span>*@
+                            <span class="title ">@item.Name</span>
+                        </div>
+
+                    </div>
+                    @GetPictureForCategory(item.Id)
+
+
+                </div>
+            </a>
+
+        }
+    </div>
+
+}

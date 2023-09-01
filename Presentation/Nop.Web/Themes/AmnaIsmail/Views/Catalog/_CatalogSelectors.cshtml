@@ -1,0 +1,42 @@
+﻿@model CatalogPagingFilteringModel
+@using growonline.Web.Models.Catalog;
+<div class="row no-margin " >
+    <div class="col-md-12 nopadding">
+        <div class="form-inline text-right">
+            @*view mode*@
+            @if (Model.AllowProductViewModeChanging)
+            {
+                @*<span>@T("Catalog.ViewMode")</span>*@
+                if (Model.AvailableViewModes.Count > 1)
+                {
+                    var gridMode = Model.AvailableViewModes[0];
+                    var listMode = Model.AvailableViewModes[1];
+                    <div id="products-viewmode" class="btn-group pull-right hidden-xs">
+                        <a class="active tooltipOn" data-toggle="tooltip" title="@gridMode.Text" href="@gridMode.Value"><i class="glyphicon glyphicon-th"></i></a>
+                        <a class="tooltipOn" data-toggle="tooltip" title="@listMode.Text" href="@listMode.Value"><i class="glyphicon glyphicon-th-list"></i></a>
+                    </div>
+                    @*<a class="viewmode-icon grid @if(gridMode.Selected){<text>selected</text>}" title="@gridMode.Text">@gridMode.Text</a>
+                        <a class="viewmode-icon list @if (listMode.Selected){<text>selected</text>}" title="@listMode.Text">@listMode.Text</a>*@
+                }
+            }
+            @*sorting*@
+            @if (Model.AllowProductSorting)
+            {
+                <div class="form-group form-group-sm">
+                    @*<label for="products-orderby " class="filter-label">@T("Catalog.OrderBy"):</label>*@
+                    @Html.DropDownList("products-orderby", Model.AvailableSortOptions, new { onchange = "setLocation(this.value);", @class = "ddl" })
+                </div>
+            }
+            @*page size*@
+            @if (Model.AllowCustomersToSelectPageSize)
+            {
+                <div class="form-group form-group-sm">
+                    @*<label for="products-pagesize" class="filter-label">@T("Catalog.PageSize.PerPage"):</label>*@
+                    @Html.DropDownList("products-pagesize", Model.PageSizeOptions, new { onchange = "setLocation(this.value);", @class = "ddl" })
+
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

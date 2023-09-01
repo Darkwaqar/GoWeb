@@ -1,0 +1,124 @@
+﻿@model CustomerDeviceModel
+@using Nop.Services
+@using Nop.Core.Domain.Fcm
+
+@Html.ValidationSummary(true)
+<div class="content">
+    <div class="form-horizontal">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @Html.HiddenFor(model => model.Device.Id)
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.DeviceId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.DeviceId)
+                            @Html.ValidationMessageFor(model => model.Device.DeviceId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.Brand)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.Brand)
+                            @Html.ValidationMessageFor(model => model.Device.Brand)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.OSVersion)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.OSVersion)
+                            @Html.ValidationMessageFor(model => model.Device.OSVersion)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.Carrier)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.Carrier)
+                            @Html.ValidationMessageFor(model => model.Device.Carrier)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.DeviceOS)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.Device.DeviceOS, ((FcmApplicationType)Model.Device.DeviceOS).ToSelectList())
+                            @Html.ValidationMessageFor(model => model.Device.DeviceOS)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.Package)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.Package)
+                            @Html.ValidationMessageFor(model => model.Device.Package)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.DeviceRam)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.DeviceRam)
+                            @Html.ValidationMessageFor(model => model.Device.DeviceRam)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.Longitude)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.Longitude)
+                            @Html.ValidationMessageFor(model => model.Device.Longitude)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.Latitude)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.Latitude)
+                            @Html.ValidationMessageFor(model => model.Device.Latitude)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.Active)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.Active)
+                            @Html.ValidationMessageFor(model => model.Device.Active)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.CreatedOnUtc)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.CreatedOnUtc)
+                            @Html.ValidationMessageFor(model => model.Device.CreatedOnUtc)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Device.UpdatedOnUtc)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Device.UpdatedOnUtc)
+                            @Html.ValidationMessageFor(model => model.Device.UpdatedOnUtc)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+﻿@model VendorNavigationModel
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Infrastructure
+@using Nop.Services.Vendors
+@using Nop.Services.Seo
+@{
+    var vendors = EngineContext.Current.Resolve<IVendorService>().GetAllVendors();
+    var brands = vendors.Where(vendor => vendor.Brand).Take(10).ToList();
+    var designers = vendors.Where(vendor => vendor.Designer).Take(10).ToList();
+    var brandsEmergings = vendors.Where(vendor => vendor.Brand && vendor.Emerging).Take(10).ToList();
+    var designerEmergings = vendors.Where(vendor => vendor.Designer && vendor.Emerging).Take(10).ToList();
+    var Stablishbrands = vendors.Where(vendor => vendor.Brand && vendor.Stablish).Take(10).ToList();
+    var Stablishdesigners = vendors.Where(vendor => vendor.Designer && vendor.Stablish).Take(10).ToList();
+
+}
+
+@if (designers.Count > 0)
+{
+    <div class="block block-vendor-navigation">
+        <div class="title">
+            <strong>Designer</strong>
+        </div>
+        <div class="listbox">
+
+            <div class="filter__box__search">
+                <input id="designerinput" onkeyup="searchdesigner()" class="search-vendor" placeholder="Search" />
+                <button class="filter__box__search__button" ></button>
+            </div>
+            
+
+            <ul class="list" id="designerul">
+                @foreach (var vendor in designers)
+                {
+                    <li><a href="@Url.RouteUrl("Vendor", new { SeName = vendor.GetSeName() })">@vendor.Name</a>
+                    </li>
+                }
+            </ul>            
+            @if (Model.TotalVendors > Model.Vendors.Count)
+            {
+                <div class="view-all">
+                    <a href="@Url.RouteUrl("VendorList")">@T("Vendors.ViewAll")</a>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@if (brands.Count > 0)
+{
+    <div class="block block-vendor-navigation">
+        <div class="title">
+            <strong>Brands</strong>
+        </div>
+        <div class="listbox">
+
+            <div class="filter__box__search">
+                <input id="brandinput" onkeyup="searchbrand()" class="search-vendor" placeholder="Search" />
+                <button class="filter__box__search__button"></button>
+            </div>
+
+
+            <ul class="list" id="brandul">
+                @foreach (var vendor in brands)
+                {
+                    <li>
+                        <a href="@Url.RouteUrl("Vendor", new { SeName = vendor.GetSeName() })">@vendor.Name</a>
+                    </li>
+                }
+            </ul>
+            @if (Model.TotalVendors > Model.Vendors.Count)
+            {
+                <div class="view-all">
+                    <a href="@Url.RouteUrl("VendorList")">@T("Vendors.ViewAll")</a>
+                </div>
+            }
+        </div>
+    </div>
+}
+<script>
+    function searchbrand() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("brandinput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("brandul");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+
+            }
+        }
+    }
+
+    function searchdesigner() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("designerinput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("designerul");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+
+            }
+        }
+    }
+</script>
+

@@ -1,0 +1,16 @@
+﻿@model IList<ProductOverviewModel>
+@using Nop.Web.Models.Catalog;
+@if (Model.Count > 0)
+{
+    var previousProduct = Model.FirstOrDefault();
+    var nextProduct = Model.Skip(1).Take(1).FirstOrDefault();
+    if (previousProduct != null)
+    {
+        <a class="btn btn-gray btn-prev" href="@previousProduct.SeName"><i></i></a>
+    }
+    if (nextProduct != null)
+    {
+        <a class="btn btn-gray btn-next" href="@nextProduct.SeName"><i></i></a>
+    }
+    
+}

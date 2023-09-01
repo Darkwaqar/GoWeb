@@ -1,0 +1,147 @@
+﻿@model ContactUsModel
+@using Nop.Web.Models.Common;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ContactUs").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-contact-page");
+}
+<div class="page contact-page">
+    <div class="page-title">
+        <h1>@T("PageTitle.ContactUs")</h1>
+    </div>
+    <div class="page-body">
+        @Html.Action("TopicBlock", "Topic", new { systemName = "ContactUs" })
+        @Html.Widget("contactus_top")
+        @if (Model.SuccessfullySent)
+        {
+            <div class="result">
+                @Model.Result
+            </div>
+        }
+        else
+        {
+
+            <div class="form">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    var validationSummary = Html.ValidationSummary(true);
+                    if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                    {
+                        <div class="message-error">@validationSummary</div>
+                    }
+                    <div class="fieldset">
+                        <div class="form-fields">
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.FullName)
+                                @Html.TextBoxFor(model => model.FullName, new { @class = "fullname", placeholder = T("sadafamir.Full.Name") })
+                                @Html.RequiredHint()
+                                @Html.ValidationMessageFor(model => model.FullName)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.Email)
+                                @Html.TextBoxFor(model => model.Email, new { @class = "email", placeholder = T("sadafamir.ContactUs.Email.Hint") })
+                                @Html.RequiredHint()
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                            @if (Model.SubjectEnabled)
+                            {
+                                <div class="inputs">
+                                    @Html.LabelFor(model => model.Subject)
+                                    @Html.TextBoxFor(model => model.Subject, new { @class = "subject", placeholder = T("ContactUs.Subject.Hint") })
+                                    @Html.RequiredHint()
+                                    @Html.ValidationMessageFor(model => model.Subject)
+                                </div>
+                            }
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.PhoneNumber)
+                                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "number", placeholder = T("ContactUs.PhoneNumber.Hint") })
+                                @Html.RequiredHint()
+                                @Html.ValidationMessageFor(model => model.PhoneNumber)
+                            </div>
+                           @* <div class="inputs">
+                                @Html.LabelFor(model => model.OrderNumber)
+                                @Html.TextBoxFor(model => model.OrderNumber, new { @class = "fullname", placeholder = T("ContactUs.OrderNumber.Hint") })
+                                @Html.ValidationMessageFor(model => model.OrderNumber)
+                            </div> *@
+                           @* <div class="inputs">
+                                @Html.LabelFor(model => model.Country)
+                                @Html.TextBoxFor(model => model.Country, new { @class = "fullname", placeholder = T("ContactUs.Country.Hint") })
+                                @Html.ValidationMessageFor(model => model.Country)
+                            </div> *@
+
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.Enquiry)
+                                @Html.TextAreaFor(model => model.Enquiry, new { @class = "enquiry", placeholder = T("sadafamir.ContactUs.Enquiry.Hint") })
+                                @Html.ValidationMessageFor(model => model.Enquiry)
+                            </div>
+                            @if (Model.DisplayCaptcha)
+                            {
+                                <div class="captcha-box">
+                                    @Html.Raw(Html.GenerateCaptcha())
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <input type="submit" name="send-email" class="button-1 contact-us-button" value="@T("ContactUs.Button")" />
+                    </div>
+                }
+            </div>
+
+            <div class="address-all">
+		<h1 class="title">Locations</h1>
+                <div class="locations">
+                    <h1 class="city">Karachi</h1>
+                    <p>
+                        <span>Ocean Mall, Clifton</span>
+                        <span>1st Floor,karachi</span>
+                        <a style="text-decoration: none;" href="tel:0213-5166-539" target="_blank">
+                            <span>Tel:+92-213-5166-539</span>
+                        </a>
+                    </p>
+                    <p>
+                        <span>Dolmen Mall, Tariq Road</span>
+                        <span>Ground Floor, karachi</span>
+                        <a style="text-decoration: none;" href="tel:0213-4321-212" target="_blank">
+                            <span>Tel:+92-213-4321-212</span>
+                        </a>
+                    </p>
+                    <p>
+                        <span>Luckyone Mall, Rashid Minhas Road</span>
+                        <span>Lower Ground Floor, karachi</span>
+                        <a style="text-decoration: none;" href="tel:0213-7181-171" target="_blank">
+                            <span>Tel:+92-213-7181-171</span>
+                        </a>
+                    </p>
+                </div>
+                <div class="locations">
+                    <h1 class="city">Lahore</h1>
+                    <p>
+                        <span>Vogue Tower, M.M Alam Road </span>
+                        <span>Ground Floor, Lahore</span>
+                    </p>
+                    <p>
+                        <span>Gulberg Galleria, Gulberg</span>
+                        <span>First Floor, 18 Main Blvd, Lahore</span>
+                        <a style="text-decoration: none;" href="tel:042-357-767-79" target="_blank">
+                            <span>Tel:+92-42-357-767-79</span>
+                        </a>
+                    </p>
+                </div>
+                <div class="locations">
+                    <h1 class="city">Hyderabad</h1>
+                    <p>
+                        <span>Hero Tower</span>
+                        <span>Ground Floor, Hyderabad</span>
+                        <span class="Comming-Soon">Comming Soon</span>
+                    </p>
+                </div>
+            </div>
+        }
+        @Html.Widget("contactus_bottom")
+    </div>
+</div>

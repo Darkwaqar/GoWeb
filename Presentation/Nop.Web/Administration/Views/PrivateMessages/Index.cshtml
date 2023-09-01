@@ -1,0 +1,83 @@
+﻿@model PrivateMessageIndexModel
+@using Nop.Admin.Models.PrivateMessages;
+@using Nop.Core
+@using Nop.Services.Common
+@{
+    const string prefix = "chat";
+    const string hidePanelAttributeName = "HideChatPanel";
+    var hidePanel = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer.GetAttribute<bool>(hidePanelAttributeName);
+    Html.AddScriptParts("~/Scripts/jquery.signalr-2.1.0.min.js");
+    Html.AddScriptParts("~/signalr/hubs");
+    Html.AddScriptParts("~/Scripts/jquery.chat.js");
+}
+<!-- DIRECT CHAT -->
+<div class="box box-warning direct-chat direct-chat-warning  @if (hidePanel){<text>collapsed-box</text>}" id="@(prefix)-box">
+    <div class="box-header with-border">
+        <i class="fa fa-comments"></i>
+        <h3 class="box-title">Direct Chat</h3>
+
+        <div class="box-tools pull-right">
+            <span data-toggle="tooltip" title="" class="badge bg-yellow" id="totalMessages" data-original-title="3 New Messages">@Model.NumberOfUnreadMessage</span>
+            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
+                <i class="fa fa-comments"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" onclick="Chat.reloadChat()">
+                <i class="fa fa-repeat"></i>
+            </button>
+            <button class="btn btn-box-tool" data-widget="collapse">
+                @if (hidePanel)
+                {
+                    <text><i class="fa fa-plus"></i></text>
+                }
+                else
+                {
+                    <text><i class="fa fa-minus"></i></text>
+                }
+            </button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <!-- Conversations are loaded here -->
+        <div class="direct-chat-messages">
+            @Html.Raw(Model.Conversations)
+        </div>
+        <!--/.direct-chat-messages-->
+        <!-- Contacts are loaded here -->
+        <div class="direct-chat-contacts">
+            <ul class="contacts-list">
+                @Html.Raw(Model.Inbox)
+            </ul>
+            <!-- /.contatcts-list -->
+        </div>
+        <!-- /.direct-chat-pane -->
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        <form action="#" method="post" id="sendchatform">
+            @Html.AntiForgeryToken()
+            <div class="input-group">
+                @Html.HiddenFor(model => model.FromCustomerId)
+                @Html.HiddenFor(model => model.ToCustomerId)
+                @Html.TextBoxFor(model => model.Message, new { @class = "form-control" })
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-warning btn-flat" onclick="Chat.sendChat()">Send</button>
+                </span>
+            </div>
+        </form>
+        <script type="text/javascript">
+                    Chat.init('#sendchatform', '#converstation', '#chat-contacts', '#totalMessages', '#@(Html.FieldIdFor(model => model.ToCustomerId))','#@(Html.FieldIdFor(model => model.FromCustomerId))','#@(Html.FieldIdFor(model => model.Message))',true)
+        </script>
+    </div>
+    <!-- /.box-footer-->
+</div>
+<!--/.direct-chat -->
+
+<script>
+    $(document).ready(function () {
+        $('#@(prefix)-box').on('click', 'button[data-widget="collapse"]', function () {
+            var collapsed = !$('#@(prefix)-box').hasClass('collapsed-box');
+            saveUserPreferences('@(Url.Action("SavePreference", "Preferences"))', '@hidePanelAttributeName', collapsed);
+        });
+    });
+</script>

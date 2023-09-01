@@ -1,0 +1,96 @@
+
+@media(Min-width: 900px)
+{
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas: ". . ." ". . ." ". . ." ". . .";
+    }
+}
+
+.grid-container {
+    text-align: center;
+    font-size: 12px;
+    /*background-image: url(../images/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;*/
+}
+
+.grid-container .grid-item1 {
+    padding: 20px;
+    grid-column: 1 / 5;
+    place-items: center;
+}
+
+.grid-container .grid-item2 {
+    padding: 20px;
+    grid-column: 1 / 3;
+    place-items: center;
+}
+
+
+.grid-container .grid-item3 {
+    padding: 20px;
+    grid-column: 3 / 5;
+    place-items: center;
+}
+
+.grid-container .grid-item3 div{
+    margin: 10px;
+}
+.grid-container .grid-item3 div:first-child{
+    margin-top:0;
+}
+
+.grid-container .amount select,
+.grid-container input, 
+.grid-container textarea {
+    width: 100%;
+    border: 1px solid #bbbbbb;
+}
+
+.grid-container .grid-item3 button {
+    width: 100%;
+    height: 35px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    font-size: 12px;
+}
+
+.grid-container .grid-item3 .Btn-submit div {
+    margin: 10px 0 !important;
+}
+
+.grid-container .grid-item3 .clickhere .RESET {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    margin-right: 10px;
+}
+
+.grid-container .grid-item3 .clickhere .RESET,
+.grid-container .grid-item3 .clickhere p {
+    display: inline-block;
+}
+.grid-container .grid-item3 .clickhere P:last-child a {
+    text-decoration: underline;
+}
+
+
+
+.grid-container .owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot {
+    width: 44px;
+    font-size: 30px;
+}
+
+.grid-container .grid-item2 #bigImage {
+    width: 100%;
+}
+
+.grid-container .grid-item2 .sliderProduct {
+    width: 90%;
+    display: inline-block;
+    margin: 0 5%;
+}

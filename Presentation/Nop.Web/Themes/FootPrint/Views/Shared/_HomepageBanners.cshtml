@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+    string imgpath = System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/themes/FootPrint/content/home-banners";
+}
+<div class="row no-margin homepagebanners">  
+    <div class="col-md-12">
+        <div class="row">
+            @*Left Row*@
+            <div class="col-md-6">
+                <div class="row" style=" border: solid 2px #fff;">
+                    <div class="col-md-12">
+                        <div class="rollover" onclick="setLocation('/latest')" style="opacity:1">
+                            <div class="title-container">
+                                <div class="title-second">
+                                    <img src="@imgpath/latesttext.png" style="width: 50%; height: auto;"/>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="@imgpath/latest.jpg" class="img-responsive" />
+                    </div>
+                </div>
+                <div class="row" style=" border: solid 2px #fff;">
+                    <div class="col-md-12 col-xs-12" >
+                        <div class="rollover" onclick="setLocation('/formal-2')" style="opacity:1">
+                            <div class="title-container">
+                                <div class="title-second">
+                                    <img src="@imgpath/formaltext.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12"><img src="@imgpath/formal.jpg" class="img-responsive" /></div>
+                    </div>
+                </div>
+                <div class="row" style=" border: solid 2px #fff;">
+                    <div class="col-md-12" >
+                        <div class="rollover" onclick="setLocation('/bespoke-footprint')" style="opacity:1">
+                            <div class="title-container">
+                                <div class="title-second">
+                                    <img src="@imgpath/HANDMASTER1.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <img src="@imgpath/8.jpg" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+            @*Right Row *@
+            <div class="col-md-6">
+                <div class="row" style=" border: solid 2px #fff;">
+                    <div class="col-md-12 col-xs-12" >
+                        <div class="rollover" onclick="setLocation('/fashion')" style="opacity:1">
+                            <div class="title-container">
+                                <div class="title-second">
+                                    <img src="@imgpath/premiumtext.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12"><img src="@imgpath/fashion.jpg" class="img-responsive" /></div>
+                    </div>
+                </div>
+                <div class="row" style=" border: solid 2px #fff;">
+
+                    <div class="col-md-12" >
+                        <div class="rollover" onclick="setLocation('/casual')" style="opacity:1">
+                            <div class="title-container">
+                                <div class="title-second">
+                                    <img src="@imgpath/casualtext.png" style="width: 50%; height: auto;"/>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="@imgpath/casual.jpg" class="img-responsive" />
+                    </div>
+                </div>
+                <div class="row" style=" border: solid 2px #fff;">
+                    <div class="col-md-12" >
+                        <div class="rollover" onclick="setLocation('/classic')" style="opacity:1">
+                            <div class="title-container">
+                                <div class="title-second">
+                                    <img src="@imgpath/classictext.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12"><img src="@imgpath/classic.jpg" class="img-responsive" /></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="rollover" onclick="setLocation('/bespoke-footprint')" style="opacity:1">
+                    <div class="title-container">
+                        <div class="title-second">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <video autoplay loop muted poster="@imgpath/12.jpg"  type="video/mp4" >
+                        <source src="~/Themes/FootPrint/Content/making.mp4" type="video/mp4">
+                        <source src="~/Themes/FootPrint/Content/making.ogg" type="video/ogg">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

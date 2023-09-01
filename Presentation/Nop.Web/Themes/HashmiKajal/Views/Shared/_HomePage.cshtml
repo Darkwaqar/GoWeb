@@ -1,0 +1,372 @@
+﻿@using Nop.Core.Infrastructure
+
+@using Nop.Core
+@using Nop.Core.Domain.Orders
+@using System.Linq;
+@using Nop.Services.Orders;
+
+@{
+    var shoppingCartEnabled = EngineContext.Current.Resolve<Nop.Services.Security.IPermissionService>().Authorize(Nop.Services.Security.StandardPermissionProvider.EnableShoppingCart);
+
+    var totatProduct = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer.ShoppingCartItems
+                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                    .LimitPerStore(EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id)
+                    .ToList()
+                    .GetTotalProducts();
+}
+<link href="https://fonts.googleapis.com/css?family=Allura&display=swap" rel="stylesheet">
+<!--row-->
+<div class="backimage">
+    <a href="/">
+        <img src="~/Themes/HashmiKajal/Content/homePage/images/hashmi.png" />
+    </a>
+    <div class="majestic">
+        <img src="~/Themes/HashmiKajal/Content/homePage/images/majestic.png" />
+    </div>
+</div>
+<!--row-->
+<!--row Menu-->
+<!--row responsive nav Menu-->
+<div class="responsive-nav-wrapper-parent">
+    <div class="responsive-nav-wrapper">
+        <div class="menu-title" id="menu-title">
+            <span>@T("SevenSpikes.Themes.Common.MenuTitle")</span>
+        </div>
+        <div id="mobile-links">    </div>
+        @*<div class="search-wrap">
+                    <span>@T("Search")</span>
+                </div>
+            <div class="wishlist-button">
+                <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                    <span class="cart-label">@T("Wishlist")</span>
+                </a>
+            </div>*@
+        <div class="shopping-cart-link">
+            <a href="@Url.RouteUrl("ShoppingCart")">@T("ShoppingCart")</a>
+        </div>
+        <div class="filters-button">
+            <span>@T("SevenSpikes.Themes.Common.Filters")</span>
+        </div>
+        @*<div class="personal-button" id="header-links-opener">
+                <span>@T("SevenSpikes.Themes.Common.Personal")</span>
+            </div>*@
+    </div>
+</div>
+<div class="container-item-res headerbg" id="Mynavmenu">
+    <div class="menu menu1"></div>
+    <!--tesc-->
+    <div class="header-menu ps-container">
+        <div class="close-menu">
+            <span>@T("SevenSpikes.Themes.Common.CloseMenu")</span>
+        </div>
+        @{
+            var menuHtml = Html.Widget("theme_header_menu");
+        }
+        @if (!MvcHtmlString.IsNullOrEmpty(menuHtml))
+        {
+            @menuHtml
+        }
+        else
+        {
+            @Html.Action("TopMenu", "Catalog")
+        }
+    </div>
+    <!--tesc1-->
+    <div class="menu">
+        <ul class="ecommerce header-menu-home">
+            @*<li><a href="#"><i class="fa fa-search" aria-hidden="true" onclick="openSearch()"> </i> </a></li>*@
+            <li><a href="/customer/info"><i class="fa fa-user" aria-hidden="true"> </i> </a></li>
+            <li><a href="/wishlist"><i class="fa fa-heart" aria-hidden="true"></i> </a></li>
+            <li style=" padding: 0;">
+                @if (shoppingCartEnabled)
+                {
+                    <div id="topcartlink">
+                        <a href="@Url.RouteUrl("ShoppingCart")">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            <p id="carty">
+                                <span class="cart-qty" id="cart-qty">
+                                    @T("ShoppingCart.HeaderQuantity", totatProduct)
+                                </span>
+                            </p>
+                        </a>
+                        @Html.Action("flyoutshoppingcart", "shoppingcart")
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('.header-menu-home').on('mouseenter', '#topcartlink', function () {
+                                $('#flyout-cart').addClass('active');
+                            });
+                            $('.header-menu-home').on('mouseleave', '#topcartlink', function () {
+                                $('#flyout-cart').removeClass('active');
+                            });
+                            $('.header-menu-home').on('mouseenter', '#flyout-cart', function () {
+                                $('#flyout-cart').addClass('active');
+                            });
+                            $('.header-menu-home').on('mouseleave', '#flyout-cart', function () {
+                                $('#flyout-cart').removeClass('active');
+                            });
+                        });
+                    </script>
+                }
+            </li>
+        </ul>
+        <!--seach overlay  -->
+        <div id="myOverlay" class="overlay animated slideInUp">
+            <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+            <div class="overlay-content">
+                @Html.Action("SearchBox", "Catalog")
+            </div>
+        </div>
+    </div>
+    <!--tesc11-->
+</div>
+<!--row Menu End-->
+<!--row-->
+<!-- The video -->
+<div class="videocont">
+    <video autoplay loop muted id="myVideo" class="video">
+        <source src="~/Themes/HashmiKajal/Content/homePage/images/Hashmi with packaging 24sec.mov" type="video/mp4">
+    </video>
+</div>
+<!-- The video -->
+<!--row-->
+
+<div class="main-container-grid">
+    <!-- The body -->
+    <!--row-->
+    <div class="inner-container-grid ">
+        <div class="silverdescbrand body-item body-item-text float-r">
+            <div class="item-text-div">
+                <div class="inner-div-grid-inner">
+                    <a href="/kajal-majestic-black">
+                        <h1 class="silverheading silverdescheadingg headinggColor">
+                            <img src="/Themes/HashmiKajal/Content/homePage/images/Home-anas/maje-blacText1.png"
+                                 style="max-width: 270px;width: 100%;display: inline-block;vertical-align: middle;">
+                            @* <span style=" vertical-align: middle; margin-left: -5px;">Black</span> *@
+                        </h1>
+                    </a>
+                    <p class="silverdesc silverdescText">
+                        @*Hashmi is still setting the pace for premium eye makeup products and
+                        is now set to break new grounds with most trendiest packaging and improved
+                        quality for more shiny intense black eyes.*@
+@*The Market Leader For Premium Eye Makeup Products, Hashmi Introduces Its Latest Innovation; ‘Majestic Black Kajal’, An Advanced Herbal Formula In A Trendy Packaging For The Perfect Smooth Satin Black Finish,For The Woman Of Today. *@
+The market leader in premiuim eye makeup products, Hashmi introduces their latest innovation; Majestic Black Kajal. An advanced herbal formula in trendy packaging, delivering a perfectly smooth satin black finish, for the modern woman
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="body-item-imgage body-item padding-none">
+            <img src="~/Themes/HashmiKajal/Content/homePage/images/Home-anas/stickbanner-web.jpg" />
+        </div>
+    </div>
+    <!-- row -->
+    <div class="inner-container-grid ">
+        <div class="silverdescbrand body-item body-item-text">
+            <div class="item-text-div">
+                <div class="inner-div-grid-inner">
+                    @*<h1 class="silverheading">Majestic Women</h1>*@
+                    <img class="img-responsive silverheading" src="~/Themes/HashmiKajal/Content/homePage/images/Home-anas/maje-black1.png"
+                         style="max-width: 270px; width: 100%;" />
+                    <p class="silverdesc silverdescText">
+                        @*Hashmi, partnered with Pakistan's leading beauty institutions for its members to learn professional skills*@
+@*Loyal Customers Of Hashmi Kajal Have An Amazing Opportunity To Be A ‘Majestic Woman’ By Learning Makeup Skills From Professionals, As The Brand Is Now Partnering With Renowned Beauty Clinics Of Pakistan. 
+*@
+Hashmi provides its loyal customers a fantastic opportunity to join the league of Majestic Women and learn makeup skills from industry professionals. The brand has partnered with renowned beauty clinics of Pakistan to provide their customers with expert advice.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="body-item float-r">
+            <img src="~/Themes/HashmiKajal/Content/homePage/images/Home-anas/10.jpg" />
+        </div>
+    </div>
+    <!--row-->
+    <div class="inner-container-grid ">
+        <div class="silverdescbrand body-item body-item-text float-r">
+            <div class="item-text-div inner-div-grid">
+                @*<div class="inner-div-grid-inner">
+                        <img src="~/Themes/HashmiKajal/Content/homePage/images/Home-anas/kajalStick.png" />
+                    </div>*@
+                <div class="inner-div-grid-inner">
+                        <a href="/about-us-3">
+                            <img class="img-responsive silverheading" src="~/Themes/HashmiKajal/Content/homePage/images/Home-anas/newlook1.png" style="max-width: 400px; width: 100%;" />
+                        </a>
+                        <p class="silverdesc silverdescText">
+                            @*As part of its 225-year legacy of excellence, Hashmi Group introduced its new corporate logo.
+                            A novel corporate identity will be initially appeared on the dynamic new global packaging of 'Majestic Black',
+                            one of the most successful products in the Company's makeup roaster. *@
+@*225 Years In The Making, Hashmi Group Has A Corporate Identity Well Recognized In The Market. Revamping Its Look With A New Corporate Logo, The Company Continues To Achieve New Heights, As Apparent By The Launch Of ‘Majestic Black Kajal’ The Most Successful Product To Emerge From The Brand’s Makeup Roster.
+*@
+With 225 years of expertise, Hashmi Group has an enviable corporate identity in the market. Revamping their entire portfolio with a new corporate logo, the company has raised the bar even higher; apparent from the resoundingly successful launch of 'Majestic Black Kajal' which has garnered a spot as the most powerful product on the brand's makeup roster.
+                        </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="body-item">
+            <img src="~/Themes/HashmiKajal/Content/homePage/images/Home-anas/11.jpg" />
+        </div>
+    </div>
+
+    @*<!--Image Compare-->
+    <div class="ImageCompareDiv">
+        <div class=" myImageCompare">
+            <div id="myImageCompare">
+                <!-- The first div will be the front element, to prevent FOUC add a style="display: none;" -->
+                <div style="display: none;">
+                    <img src="~/Themes/HashmiKajal/Content/homePage/images/before.jpg" alt="Before" />
+                </div>
+                <!-- This div will be the back element          after-banner.jpg -->
+                <div>
+                    <img src="~/Themes/HashmiKajal/Content/homePage/images/after.jpg" alt="After" />
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+</div>
+<!--HomepageProducts-->
+<!--row-->
+<div class="Homepage-Products">
+    <div>
+        @Html.Action("HomepageProducts", "Product")
+    </div>
+</div>
+<!--row-->
+
+<div class="instaCompareRow">
+    <div eapps-link="titleContainer">
+        <div class="eui-widget-title eapps-instagram-feed-title" style="display: block;">Follow us on Instagram</div>
+    </div>
+<div class="compair-instafeed">
+    <div class="instaComCol instaComCol-float-right">
+        <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+        <div class="elfsight-app-24d9095f-581a-4346-9e22-7a9fa4f09310"></div>
+        @*<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+        <div class="elfsight-app-de1d8e91-8a27-4829-a957-51970c139cd7"></div>*@
+    </div>
+    <!--Image Compare-->
+    <div class="ImageCompareDiv instaComCol instaComCol-left">
+        <div class="myImageCompare">
+            <div id="myImageCompare">
+                <!-- The first div will be the front element, to prevent FOUC add a style="display: none;" -->
+                <div style="display: none;">
+                    <img src="~/Themes/HashmiKajal/Content/homePage/images/before12.jpg" alt="Before" />
+                </div>
+                <!-- This div will be the back element          after-banner.jpg -->
+                <div>
+                    <img src="~/Themes/HashmiKajal/Content/homePage/images/after12.jpg" alt="After" />
+                </div>
+            </div>
+        </div>
+        <div class="myImageCompareK">
+            <div id="myImageCompareK">
+                <!-- The first div will be the front element, to prevent FOUC add a style="display: none;" -->
+                <div style="display: none;">
+                    <img src="~/Themes/HashmiKajal/Content/homePage/images/before13.jpg" alt="Before" />
+                </div>
+                <!-- This div will be the back element          after-banner.jpg -->
+                <div>
+                    <img src="~/Themes/HashmiKajal/Content/homePage/images/after13.jpg" alt="After" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--row-->
+<!--NewsletterBox-->
+<div style=" padding: 15px 0; background-color: #fff;">
+    <div class="textcom  ImageCompareDiv">
+        <div class="NewsletterBox">
+            <div class="newsletter">
+                <h1 class="silverheading">Get Beauty Tips</h1>
+                <p class="silverdesc Subscribe-now">Subscribe now to get the latest trends of beauty & fashion</p>
+            </div>
+            @Html.Action("NewsletterBox", "Newsletter")
+        </div>
+    </div>
+</div>
+<!--row-->
+
+<script>
+
+    $(document).scroll(function () {
+        if ($(window).width() >= 984) {
+            //sticky Menu Function
+            if ($(document).scrollTop() > $(".backimage").height()) {
+                $("#Mynavmenu").addClass("sticky")
+            } else {
+                $("#Mynavmenu").removeClass("sticky")
+            }
+            //sticky Menu Function End
+        } else if ($(window).width() <= 983) {
+            $("#Mynavmenu").removeClass("sticky")
+        }
+    });
+
+
+    function openSearch() {
+        document.getElementById("myOverlay").style.display = "block";
+    }
+
+    function closeSearch() {
+        document.getElementById("myOverlay").style.display = "none";
+    }
+
+    $(document).ready(function () {
+        $(".body-item-text").height($(".body-item-imgage img").height());
+
+        $('#myImageCompare').imagesCompare();
+
+        $('#myImageCompareK').imagesCompare().data('imagesCompare');
+
+        $(".close-menu").click(function () {
+            if (!$(".ps-container").hasClass("open")) {
+                $("#menu-title").removeClass("close")
+            }
+        });
+
+        $(".overlayOffCanvas").click(function () {
+            if (!$(".ps-container").hasClass("open")) {
+                $("#menu-title").removeClass("close")
+            }
+        });
+
+        /*First Div home page height*/
+
+        $(".image1").height($(".grid-item-text").height());
+/*        $(window).resize(function () {
+            $(".image1").height($(".grid-item-text").height());
+
+            $(".backimage").height($(window).height() / 1.1);
+            $(".backimage").height($(".backimage").height() - $(".admin-header-links").height());
+        })
+        $(".backimage").height($(window).height() / 1.1);
+        $(".backimage").height($(".backimage").height() - $(".admin-header-links").height());
+*/
+        /*First Div home page height*/
+
+        /*compare row */
+
+        if ($(window).width() > 1000) {
+            $("#compareText").width($(window).width() / 2);
+        } else {
+            $("#compareText").width($(window).width());
+            $("#compareText").removeAttr('style', 'width');
+        }
+
+        $(window).resize(function () {
+            $(".body-item-text").height($(".body-item-imgage img").height());
+
+            if ($(window).width() > 1000) {
+                $("#compareText").width($(window).width() / 2);
+
+            } else {
+                $("#compareText").width($(window).width());
+                $("#compareText").removeAttr('style', 'width');
+            }
+        });
+        /*compare row */
+    })
+</script>

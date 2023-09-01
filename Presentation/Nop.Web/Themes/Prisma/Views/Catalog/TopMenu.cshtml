@@ -1,0 +1,707 @@
+﻿@using Nop.Web.Models.Catalog
+@using Nop.Core.Infrastructure
+@using Nop.Services.Vendors
+@using Nop.Services.Seo
+@using Nop.Services.Catalog;
+@model TopMenuModel
+
+@{
+    var vendors = EngineContext.Current.Resolve<IVendorService>().GetAllVendors();
+    var brands = vendors.Where(vendor => vendor.Brand).Take(10).ToList();
+    var designers = vendors.Where(vendor => vendor.Designer).Take(10).ToList();
+    var brandsEmergings = vendors.Where(vendor => vendor.Brand && vendor.Emerging).Take(10).ToList();
+    var designerEmergings = vendors.Where(vendor => vendor.Designer && vendor.Emerging).Take(10).ToList();
+    var Stablishbrands = vendors.Where(vendor => vendor.Brand && vendor.Stablish).Take(10).ToList();
+    var Stablishdesigners = vendors.Where(vendor => vendor.Designer && vendor.Stablish).Take(10).ToList();
+    var topMenuCategories = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
+
+    var latest = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(621);
+    var men = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(370);
+    var women = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(378);
+
+
+}
+
+<div class="header-menu">
+    <div class="navigation-wrapper">
+        <div class="close-menu">
+            <span>@T("SevenSpikes.Themes.Common.CloseMenu")</span>
+        </div>
+    </div>
+    @{
+        var menuHtml = Html.Widget("theme_header_menu");
+    }
+    @if (!MvcHtmlString.IsNullOrEmpty(menuHtml))
+    {
+        @menuHtml
+    }
+
+</div>
+
+
+
+@helper RenderCategoryLine(CategorySimpleModel category)
+        {
+    <li>
+        @if (category.SubCategories.Count > 0)
+        {
+            <a class="with-subcategories" href="@Url.RouteUrl("Category", new { SeName = category.SeName })">@category.Name</a>
+            <div class="plus-button"></div>
+            <div class="sublist-wrap">
+                <div class="navigation-wrapper">
+                    <div class="close-menu">
+                        <span>@T("SevenSpikes.Themes.Common.CloseMenu")</span>
+                    </div>
+                    <div class="back-button">
+                        <span>@T("SevenSpikes.Themes.Common.BackSublist")</span>
+                    </div>
+                </div>
+                <ul class="sublist">
+
+
+                    @foreach (var subCategory in category.SubCategories)
+        {
+                        @RenderCategoryLine(subCategory)
+                    }
+                </ul>
+            </div>
+        }
+        else
+        {
+            if (category.NumberOfProducts.HasValue)
+            {
+                <a href="@Url.RouteUrl("Category", new { SeName = category.SeName })">@category.Name @T("Categories.TotalProducts", category.NumberOfProducts.Value)</a>
+            }
+            else
+            {
+                <a href="@Url.RouteUrl("Category", new { SeName = category.SeName })">@category.Name</a>
+            }
+        }
+    </li>
+}
+@*
+    <ul class="mainNav hidden-xs">
+
+        <li class="megaparent">
+            <a href="/latest-2">LATEST</a>
+            <div class="mega-xv">
+                <div class="container">
+                    <div class="row flex">
+                        <div class="col-xs-6 col-sm-5 col-md-5 top-menu-border">
+                            <div class="col-sm-12 col-md-12">
+                                <a href="/vendor/all">
+                                    <img class="img-responsive" src="~/Themes/Prisma/Content/img/header-banner01.jpg" />
+                                </a>
+                            </div>
+
+                            <div class="col-sm-4 col-md-4 text-center padding-top">
+                                <a href="/black-silhouttes">
+                                    <img class="img-responsive margin-auto" src="~/Themes/Prisma/Content/img/product-1.jpg">
+                                    <span>black-silhouttes</span>
+                                </a>
+                            </div>
+                            <div class="col-sm-4 col-sm-4 col-md-4 text-center padding-top">
+                                <a href="/eastern-1">
+                                    <img class="img-responsive margin-auto" src="~/Themes/Prisma/Content/img/product-2.jpg">
+                                    <span>Chirawan Lewis</span>
+                                </a>
+                            </div>
+                            <div class="col-sm-4 col-sm-4 col-md-4 text-center padding-top">
+                                <a href="/angel">
+                                    <img class="img-responsive margin-auto" src="~/Themes/Prisma/Content/img/product-3.jpg">
+                                    <span>Angel</span>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-6 col-sm-2 col-md-2 top-menu-border text-center">
+                            @if (latest.Count != 0)
+                            {
+                                <ul class="latest">
+                                    @foreach (var category in latest)
+                                    {
+                                        <li><a href="@category.GetSeName()">@category.Name</a></li>
+                                    }
+                                    <li class="underline italic"><a href="/latest-2">See All</a></li>
+                                </ul>
+                            }
+
+                            <div class="hidden-xs justin-counter brand-arive">
+                                <p class="justin-counter__number">3</p>
+                                <p class="justin-counter__styles">NEW BRANDS</p>
+                                <p class="justin-counter__landed">JUST LANDED</p>
+                                <a href="/vendor/all"><button class="justin-counter__btn btn">SHOP NOW</button></a>
+                            </div>
+
+                            <div class="just-in__email margin-top-small">
+                                <div style="width: 20%; display: inline-block;">
+                                    <p style="position: relative; top: -3px; padding-bottom: 0px; margin-bottom: 0px;">
+                                        <i class="fa fa-envelope fa-2x" style="color: black"></i>
+                                    </p>
+                                </div>
+                                <div style="width: 75%; display: inline-block;">
+                                    <p style="line-height: 12px; padding-bottom: 0px; margin-bottom: 0px;">
+                                        RECEIVE JUST IN EMAIL ALERTS <i class="fa fa-caret-right"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-5">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="row">
+                                    <div class="hidden-xs  col-sm-4 col-md-4 text-center">
+                                        <a href="/2-pcs-suit-lawn-pl-742">
+                                            <img class="img-responsive margin-auto" src="~/Themes/Prisma/Content/img/product-4.jpg">
+                                            <span>SUIT LAWN</span>
+                                        </a>
+                                    </div>
+                                    <div class=" hidden-xs col-sm-4 col-md-4 text-center">
+                                        <a href="/black-lehenga">
+                                            <img class="img-responsive margin-auto" src="~/Themes/Prisma/Content/img/product-5.jpg">
+                                            <span>Black Lehenga</span>
+                                        </a>
+                                    </div>
+                                    <div class="hidden-xs col-sm-4 col-md-4 text-center">
+                                        <a href="/aqua-blue">
+                                            <img class="img-responsive margin-auto" src="~/Themes/Prisma/Content/img/product-6.jpg">
+                                            <span>Aqua Blue</span>
+                                        </a>
+                                    </div>
+                                    <div class="hidden-xs col-sm-12 col-md-12 margin-top text-center padding-top">
+                                        <a href="/vendor/all">
+                                            <img src="~/Themes/Prisma/Content/img/header-banner02.jpg"
+                                                 class="img-responsive margin-auto" />
+                                        </a>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-12 margin-top text-right">
+                                        <a href="/vendor/all"><span>VIEW ALL JUST IN</span></a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="megaparent">
+            <a href="/men-8">MEN</a>
+            <div class="mega-xv">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 top-menu-border  ">
+                            <div class="row top-menu-men-row">
+                                @foreach (var category in men.Take(2))
+                                {
+                                    <div class="col-sm-6 col-md-3">
+                                        <a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })"><h6 class="italic">@category.Name</h6></a>
+                                       @{ var SubCategories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(category.Id);}
+                                        <ul>
+                                            @foreach (var subcategory in SubCategories)
+                                            {
+                                                <li><a href="@Url.RouteUrl("Category", new { SeName = subcategory.GetSeName()})">@subcategory.Name</a></li>
+                                            }
+                                            <li class="underline italic"><a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })">See All</a></li>
+                                        </ul>
+                                    </div>
+                                }
+                                <div class="col-sm-12 col-md-6 text-center">
+                                    <a href="/footprint-3"><img src="~/Themes/Prisma/Content/img/dummy.jpg" class="img-responsive" alt=""></a>
+                                    <h6 class="no-decoration">TRAVAL</h6>
+                                </div>
+
+                                <div class="hidden-sm col-md-6 text-center">
+                                    <a href="/footprint-3"><img src="~/Themes/Prisma/Content/img/dummy.jpg" class="img-responsive" alt=""></a>
+                                    <h6 class="no-decoration">Kameez Shalwar</h6>
+                                </div>
+                                <div class="hidden-sm col-md-6  text-center">
+                                    <a href="/footprint-3"><img src="~/Themes/Prisma/Content/img/dummy.jpg" class="img-responsive" alt=""></a>
+                                    <h6 class="no-decoration">Grooms Wear</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 flex">
+                            <div class="hidden-sm col-md-6 ">
+                                <a href="/ismail-farid-2"> <img src="~/Themes/Prisma/Content/img/man-2.jpg" class="img-responsive" alt=""></a>
+                            </div>
+                            <div class="col-sm-12 col-md-6 ">
+
+                                <div class="row row-height-50">
+                                    @foreach (var category in men.Skip(2).Take(2))
+                                    {
+                                        <div class="col-sm-6 col-md-6 ">
+                                            <a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })"><h6 class="italic">@category.Name</h6></a>
+                                            @{ var SubCategories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(category.Id);}
+                                            <ul>
+                                                @foreach (var subcategory in SubCategories)
+                                                {
+                                                    <li><a href="@Url.RouteUrl("Category", new { SeName = subcategory.GetSeName()})">@subcategory.Name</a></li>
+                                                }
+                                                <li class="underline italic"><a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })">See All</a></li>
+                                            </ul>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="row row-height-50">
+                                    @foreach (var category in men.Skip(4).Take(2))
+                                    {
+                                        <div class="col-sm-6 col-md-6 ">
+                                            <a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })"><h6 class="italic">@category.Name</h6></a>
+                                            @{ var SubCategories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(category.Id);}
+                                            <ul>
+                                                @foreach (var subcategory in SubCategories)
+                                                {
+                                                    <li><a href="@Url.RouteUrl("Category", new { SeName = subcategory.GetSeName()})">@subcategory.Name</a></li>
+                                                }
+                                                <li class="underline italic"><a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })">See All</a></li>
+                                            </ul>
+                                        </div>
+                                                }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="megaparent">
+            <a href="/women-5">WOMEN</a>
+            <div class="mega-xv">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 top-menu-border  ">
+                            <div class="row top-menu-men-row">
+                                @foreach (var category in women.Take(2))
+                                {
+                                    <div class="col-sm-6 col-md-3">
+                                        <a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })"><h6 class="italic">@category.Name</h6></a>
+                                        @{ var SubCategories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(category.Id);}
+                                        <ul>
+                                            @foreach (var subcategory in SubCategories)
+                                            {
+                                                <li><a href="@Url.RouteUrl("Category", new { SeName = subcategory.GetSeName()})">@subcategory.Name</a></li>
+                                            }
+                                            <li class="underline italic"><a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })">See All</a></li>
+                                        </ul>
+                                    </div>
+                                            }
+                                <div class="col-sm-12 col-md-6 text-center">
+                                    <a href="/footprint-3"><img src="~/Themes/Prisma/Content/img/dummy.jpg" class="img-responsive" alt=""></a>
+                                    <h6 class="no-decoration">Stitched Lawn</h6>
+                                </div>
+
+                                <div class="hidden-sm col-md-6 text-center">
+                                    <a href="/footprint-3"><img src="~/Themes/Prisma/Content/img/dummy.jpg" class="img-responsive" alt=""></a>
+                                    <h6 class="no-decoration">Hair Care & Styling</h6>
+                                </div>
+                                <div class="hidden-sm col-md-6  text-center">
+                                    <a href="/footprint-3"><img src="~/Themes/Prisma/Content/img/dummy.jpg" class="img-responsive" alt=""></a>
+                                    <h6 class="no-decoration">Luxury Pret </h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 flex">
+                            <div class="hidden-sm col-md-6 ">
+                                <a href="/ismail-farid-2"> <img src="~/Themes/Prisma/Content/img/women-1.jpg" class="img-responsive" alt=""></a>
+                            </div>
+                            <div class="col-sm-12 col-md-6 ">
+
+                                <div class="row row-height-50">
+                                    @foreach (var category in women.Skip(2).Take(2))
+                                    {
+                                        <div class="col-sm-6 col-md-6 ">
+                                            <a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })"><h6 class="italic">@category.Name</h6></a>
+                                            @{ var SubCategories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(category.Id);}
+                                            <ul>
+                                                @foreach (var subcategory in SubCategories)
+                                                {
+                                                    <li><a href="@Url.RouteUrl("Category", new { SeName = subcategory.GetSeName()})">@subcategory.Name</a></li>
+                                                }
+                                                <li class="underline italic"><a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })">See All</a></li>
+                                            </ul>
+                                        </div>
+                                                }
+                                </div>
+                                <div class="row row-height-50">
+                                    @foreach (var category in women.Skip(4).Take(2))
+                                    {
+                                        <div class="col-sm-6 col-md-6 ">
+                                            <a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })"><h6 class="italic">@category.Name</h6></a>
+                                            @{ var SubCategories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(category.Id);}
+                                            <ul>
+                                                @foreach (var subcategory in SubCategories)
+                                                {
+                                                    <li><a href="@Url.RouteUrl("Category", new { SeName = subcategory.GetSeName()})">@subcategory.Name</a></li>
+                                                }
+                                                <li class="underline italic"><a href="@Url.RouteUrl("Category", new { SeName = category.GetSeName() })">See All</a></li>
+                                            </ul>
+                                        </div>
+                                                }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="megaparent">
+            @*<a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[2].SeName })">DESIGNER</a>
+        <a href="/vendor/all?Designer=true">DESIGNER</a>
+        <div class="mega-xv">
+            <div class="container">
+                <div class="row flex">
+                    <div class="hidden-xs  col-sm-2 col-md-2 top-menu-border text-align-center-small ">
+                        <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                            <h6 class="italic">FILTERD BY</h6>
+                        </a>
+                        <ul>
+                            @if (topMenuCategories[4].SubCategories.Count > 0)
+                            {
+                                foreach (var catagory in topMenuCategories[4].SubCategories)
+                                {
+                                    <li><a href="@Url.RouteUrl("Category", new { SeName = catagory.SeName })">@catagory.Name</a></li>
+                                }
+                            }
+                        </ul>
+
+                        <div class="trending-shopnow">
+                            <div class="hidden-xs justin-counter">
+                                <h3 class="italic">TRENDING</h3>
+                                <a href="/vendor/all"><button class="justin-counter__btn btn">SHOP NOW</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6  col-sm-2 col-md-2">
+                        <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                            <h6 class="italic">EMERGING DESIGNERS</h6>
+                        </a>
+                        <ul>
+                            @if (designerEmergings.Count > 0)
+                            {
+                                foreach (var designer in designerEmergings)
+                                {
+                                    <li><a href="@Url.RouteUrl("vendor", new { SeName = designer.GetSeName() })">@designer.Name</a></li>
+                                }
+                                <li class="padding-top-40 underline italic"><a href="/vendor/all">SEE ALL</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="hidden-xs col-sm-3 col-md-3 top-menu-border ">
+                        <a href="/hsy-2">
+                            <h6 class="text-center italic">FEATURED DESIGNER</h6>
+                            <img class="img-responsive" src="~/Themes/Prisma/Content/img/HSY.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="col-xs-6  col-sm-2 col-md-2  text-align-center-small">
+                        <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                            <h6 class="italic">ESTABLISH DESIGNER</h6>
+                        </a>
+                        <ul>
+
+                            @if (Stablishdesigners.Count > 0)
+                            {
+
+                                foreach (var brand in Stablishdesigners)
+                                {
+                                    <li><a href="@Url.RouteUrl("vendor", new { SeName = brand.GetSeName() })">@brand.Name</a></li>
+                                }
+                                <li class="padding-top-40 underline italic"><a href="/vendor/all">SEE ALL</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="hidden-xs col-sm-3 col-md-3 padding-top-small ">
+                        <a href="/deepakperwani-2">
+                            <h6 class="text-center italic">IN FOCUS</h6>
+                            <img class="img-responsive" src="~/Themes/Prisma/Content/img/designer-1.jpg" alt="">
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="megaparent">
+        <a href="/vendor/all?brand=true">BRAND</a>
+        <div class="mega-xv">
+            <div class="container">
+                <div class="row flex">
+                    <div class="hidden-xs  col-sm-2 col-md-2 top-menu-border text-align-center-small ">
+                        <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                            <h6 class="italic">FILTERD BY</h6>
+                        </a>
+                        <ul>
+                            <li><a href="/the-spring-2018-collection">THE SPRING 2018 COLLECTION</a></li>
+                            <li><a href="/shirts-and-tops-2">SHIRTS AND TOPS</a></li>
+                            <li><a href="/shalwars-and-bottoms">SHALWARS AND BOTTOMS</a></li>
+
+                        </ul>
+
+                        <div class="trending-shopnow">
+                            <div class="hidden-xs justin-counter">
+                                <h3 class="italic">TRENDING</h3>
+                                <a href="/vendor/all"><button class="justin-counter__btn btn">SHOP NOW</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6  col-sm-2 col-md-2">
+                        <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                            <h6 class="italic">EMERGING BRANDS</h6>
+                        </a>
+                        <ul>
+
+                            @if (brandsEmergings.Count > 0)
+                            {
+                                foreach (var designer in brandsEmergings)
+                                {
+                            <li><a href="@Url.RouteUrl("vendor", new { SeName = designer.GetSeName() })">@designer.Name</a></li>
+                                }
+                            <li class="padding-top-40 underline italic"><a href="/vendor/all">SEE ALL</a></li>
+                            }
+
+                        </ul>
+                    </div>
+                    <div class="hidden-xs col-sm-3 col-md-3 top-menu-border ">
+                        <a href="/gulabo-2">
+                            <h6 class="text-center italic">IN FOCUS</h6>
+                            <img class="img-responsive" src="~/Themes/Prisma/Content/img/Maheen_Khan.jpg" alt="">
+                        </a>
+
+
+
+                    </div>
+                    <div class="col-xs-6  col-sm-2 col-md-2  text-align-center-small">
+                        <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                            <h6 class="italic">ESTABLISH BRAND</h6>
+                        </a>
+                        <ul>
+
+                            @if (Stablishbrands.Count > 0)
+                            {
+
+                                foreach (var brand in Stablishbrands)
+                                {
+                            <li><a href="@Url.RouteUrl("vendor", new { SeName = brand.GetSeName() })">@brand.Name</a></li>
+                                }
+                            <li class="padding-top-40 underline italic"><a href="/vendor/all">SEE ALL</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="hidden-xs col-sm-3 col-md-3 padding-top-small ">
+
+
+                        <a href="/atiqa-odho-2">
+                            <h6 class="text-center italic">FEATURED BRAND</h6>
+                            <img class="img-responsive" src="~/Themes/Prisma/Content/img/brand-1.jpg" alt="">
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="megaparent">
+        <a href="/exclusive">Exclusive</a>
+        <div class="mega-xv">
+            <div class="container">
+                <div class="row flex">
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <img class="img-responsive" src="~/Themes/Prisma/Content/img/whats_new.jpg" alt="">
+                    </div>
+                    <div class="col-sm-3 col-md-3 top-menu-border">
+                        <div class="row-height-50">
+                            <div class="col-md-6 ">
+                                <h6>Brands</h6>
+                                <ul>
+                                    <li><a href="#">Fahad Husayn</a></li>
+                                    <li><a href="#">Hassan Shehryar</a></li>
+                                    <li><a href="#">Umer sayeed</a></li>
+                                    <li><a href="#">Maheen Khan</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 ">
+                                <h6>Brands</h6>
+                                <ul>
+                                    <li><a href="#">Fahad Husayn</a></li>
+                                    <li><a href="#">Hassan Shehryar</a></li>
+                                    <li><a href="#">Umer sayeed</a></li>
+                                    <li><a href="#">Maheen Khan</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row-height-50">
+                            <div class="hidden-sm col-md-6  padding-top ">
+                                <h6>Brands</h6>
+                                <ul>
+                                    <li><a href="#">Fahad Husayn</a></li>
+                                    <li><a href="#">Hassan Shehryar</a></li>
+                                    <li><a href="#">Umer sayeed</a></li>
+                                    <li><a href="#">Maheen Khan</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                            <div class="hidden-sm col-md-6 padding-top">
+                                <h6>Brands</h6>
+                                <ul>
+                                    <li><a href="#">Fahad Husayn</a></li>
+                                    <li><a href="#">Hassan Shehryar</a></li>
+                                    <li><a href="#">Umer sayeed</a></li>
+                                    <li><a href="#">Maheen Khan</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img src="~/Themes/Prisma/Content/img/Content-shop.jpg" alt="" class="img-responsive center-block">
+
+                            </div>
+                            <div class="col-sm-6 col-md-6 padding-top">
+                                <img src="~/Themes/Prisma/Content/img/Shop-the-look.jpg" alt="" class="img-responsive center-block">
+
+                            </div>
+                            <div class="col-sm-6 col-md-6 padding-top">
+                                <img src="~/Themes/Prisma/Content/img/Shop-the-video.jpg" alt="" class="img-responsive center-block">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="megaparent sale-nav">
+        <a href="#">SALE</a>
+        <div class="mega-xv">
+            <div class="container">
+                <div class="row flex">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 heading-men top-menu-border">
+                        <p>WOMEN</p>
+                        <div class="col-xs-6 col-sm-6 col-md-6 pull-right">
+                            <img class="img-responsive" src="~/Themes/Prisma/Content/img/leftbanner.jpg" alt="">
+                        </div>
+                        <div class="row-height-50">
+                            <div class="col-md-3">
+                                <h6>Brands</h6>
+                                <ul>
+                                    <li><a href="#">Fahad Husayn</a></li>
+                                    <li><a href="#">Hassan Shehryar</a></li>
+                                    <li><a href="#">Umer sayeed</a></li>
+                                    <li><a href="#">Maheen Khan</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Interview & Stories</h6>
+                                <ul>
+                                    <li><a href="#">HSy</a></li>
+                                    <li><a href="#">Fashion Trends</a></li>
+                                    <li><a href="#">What to wear</a></li>
+                                    <li><a href="#">Fashion Week</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row-height-50">
+                            <div class="col-md-3">
+                                <h6>Categories</h6>
+                                <ul>
+                                    <li><a href="#">Lawn</a></li>
+                                    <li><a href="#">Shirts</a></li>
+                                    <li><a href="#">Suiting</a></li>
+                                    <li><a href="#">Bridal</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Collection</h6>
+                                <ul>
+                                    <li><a href="#">Summer Collection</a></li>
+                                    <li><a href="#">Bridal Collection</a></li>
+                                    <li><a href="#">2018 Collection</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 heading-men">
+                        <p>MEN</p>
+                        <div class="col-xs-6 col-sm-6 col-md-6 pull-right">
+                            <img class="img-responsive" src="~/Themes/Prisma/Content/img/rightbanner.jpg" alt="">
+                        </div>
+                        <div class="row-height-50">
+                            <div class="col-md-3">
+                                <h6>Brands</h6>
+                                <ul>
+                                    <li><a href="#">Fahad Husayn</a></li>
+                                    <li><a href="#">Hassan Shehryar</a></li>
+                                    <li><a href="#">Umer sayeed</a></li>
+                                    <li><a href="#">Maheen Khan</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Interview & Stories</h6>
+                                <ul>
+                                    <li><a href="#">HSy</a></li>
+                                    <li><a href="#">Fashion Trends</a></li>
+                                    <li><a href="#">What to wear</a></li>
+                                    <li><a href="#">Fashion Week</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row-height-50">
+                            <div class="col-md-3">
+                                <h6>Categories</h6>
+                                <ul>
+                                    <li><a href="#">Lawn</a></li>
+                                    <li><a href="#">Shirts</a></li>
+                                    <li><a href="#">Suiting</a></li>
+                                    <li><a href="#">Bridal</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Collection</h6>
+                                <ul>
+                                    <li><a href="#">Summer Collection</a></li>
+                                    <li><a href="#">Bridal Collection</a></li>
+                                    <li><a href="#">2018 Collection</a></li>
+                                    <li class="underline italic"><a href="#">See All</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="megaparent wife-nav">
+        <a href="#">W!FE</a>
+        <div class="mega-xv">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <a>
+                            <img src="~/Themes/Prisma/Content/img/wife.jpg" alt="" class="img-responsive center-block">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+
+*@

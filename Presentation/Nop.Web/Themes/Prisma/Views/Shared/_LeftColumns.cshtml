@@ -1,0 +1,61 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Configuration
+@using Nop.Services.Vendors
+@{
+    //current category ID
+    int currentCategoryId = 0;
+
+    //current vendor ID
+    int vendorId = 0;
+    string controllerName = Url.RequestContext.RouteData.Values["controller"].ToString();
+    string actionName = Url.RequestContext.RouteData.Values["action"].ToString();
+
+    if (controllerName.Equals("catalog", StringComparison.InvariantCultureIgnoreCase) && actionName.Equals("category", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentCategoryId = Convert.ToInt32(Url.RequestContext.RouteData.Values["categoryId"].ToString());
+    }
+
+    if (controllerName.Equals("catalog", StringComparison.InvariantCultureIgnoreCase) && actionName.Equals("Vendor", StringComparison.InvariantCultureIgnoreCase))
+    {
+        vendorId = Convert.ToInt32(Url.RequestContext.RouteData.Values["vendorId"].ToString());
+        currentCategoryId = EngineContext.Current.Resolve<IVendorService>().GetVendorById(vendorId).MapedCatagory;
+    }
+
+    //current manufacturer ID
+    int currentManufacturerId = 0;
+    if (controllerName.Equals("catalog", StringComparison.InvariantCultureIgnoreCase) && actionName.Equals("manufacturer", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentManufacturerId = Convert.ToInt32(Url.RequestContext.RouteData.Values["manufacturerId"].ToString());
+    }
+
+    //current product ID
+    int currentProductId = 0;
+    if (controllerName.Equals("product", StringComparison.InvariantCultureIgnoreCase) && actionName.Equals("productdetails", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentProductId = Convert.ToInt32(Url.RequestContext.RouteData.Values["productId"].ToString());
+    }
+}
+
+<div class="side-2">
+   
+    @*@Html.Action("CategoryNavigation", "Catalog", new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })*@
+    @Html.Widget("left_side_column_before")
+
+    @Html.Widget("left_side_column_after_category_navigation")
+    @*@Html.Action("ManufacturerNavigation", "Catalog", new { currentManufacturerId = currentManufacturerId })*@
+    @Html.Action("VendorNavigation", "Catalog")
+    @Html.Action("RecentlyViewedProductsBlock", "Product", new { productThumbPictureSize = 64 })
+    @Html.Action("PopularProductTags", "Catalog")
+    @Html.Action("PollBlock", "Poll", new { systemKeyword = "LeftColumnPoll" })
+    @Html.Widget("left_side_column_after")
+
+    @*<script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery('.center-2, .side-2').theiaStickySidebar({
+                    // Settings
+                    additionalMarginTop: 180
+                });
+            });
+    </script>*@
+</div>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SupportedWidgetZones>
+  <WidgetZone>uptown_color_squares</WidgetZone>
+  <WidgetZone>uptown_theme_logo</WidgetZone>
+  <WidgetZone>uptown_theme_footer_logo</WidgetZone>
+  <WidgetZone>uptown_category_box_products_count</WidgetZone>
+  <WidgetZone>uptown_manufacturer_box_products_count</WidgetZone>
+  <WidgetZone>uptown_vendor_box_products_count</WidgetZone>
+  <WidgetZone>head_html_tag_after_css_files_uptown</WidgetZone>
+</SupportedWidgetZones>

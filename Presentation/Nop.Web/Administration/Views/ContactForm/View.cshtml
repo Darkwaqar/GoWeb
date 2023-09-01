@@ -1,0 +1,140 @@
+﻿@model ContactFormModel
+
+@{
+    //page title
+    ViewBag.Title = T("Admin.System.ContactForm.Details").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("Contact Us form");
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Admin.System.ContactForm.Details")
+            <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink(T("Admin.System.ContactForm.BackToList").Text, "List")</small>
+        </h1>
+        <div class="pull-right">
+            <span id="log-delete" class="btn bg-red">
+                <i class="fa fa-trash-o"></i>
+                @T("Admin.Common.Delete")
+            </span>
+            @if (Model.QueuedEmailId == 0)
+            {
+                <a href="@Url.Action("Reply")/@(Model.Id)" id="log-reply" name="reply" class="btn bg-green">
+                    <i class="fa fa-envelope-o"></i>
+                    @T("Admin.Common.Reply")
+                </a>
+            }
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="form-horizontal">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    @Html.ValidationSummary(true)
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.CreatedOn)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.CreatedOn)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.FullName)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.FullName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Email)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.Email)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Subject)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.Subject)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Enquiry)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.Raw(Model.Enquiry)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.ContactAttributeDescription)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.Raw(Model.ContactAttributeDescription)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.IpAddress)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.IpAddress)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Store)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.Store)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.EmailAccountName)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopDisplayFor(model => model.EmailAccountName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.QueuedEmailId)
+                            </div>
+                            <div class="col-md-9">
+                                <div class="input-group input-group-short">
+                                    @if (Model.QueuedEmailId > 0)
+                                    {
+                                        <div class="input-group-btn">
+                                            <a href="@Url.Action("Edit","QueuedEmail", new { Id = Model.QueuedEmailId})" class="btn btn-primary">@T("Admin.Common.View")</a>
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-text-row">@T("Admin.System.QueuedEmails.Fields.SentOn.NotSent")</div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Html.DeleteConfirmation("log-delete")

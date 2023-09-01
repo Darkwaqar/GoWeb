@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+}
+
+@{
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+    var isManufacturer = Url.RequestContext.RouteData.Values["action"].ToString().Equals("manufacturer", StringComparison.InvariantCultureIgnoreCase);
+}
+
+
+@Html.Widget("body_start_html_tag_after")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+<div class="scripts" style="position: absolute; display: none; visibility: hidden">
+    @Html.NopScripts(this.Url, ResourceLocation.Foot)
+    <script type="text/javascript" src="~/Themes/Grandeur/Content/libs/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="~/Themes/Grandeur/Content/scripts/jquery.smoothState.js"></script>
+    <script type="text/javascript" src="~/Themes/Grandeur/Content/scripts/TweenMax.min.js"></script>
+    <script type="text/javascript" src="~/Themes/Grandeur/Content/libs/jquery/plugins/jquery.cookie.js"></script>
+    <script type="text/javascript" src="~/Themes/Grandeur/Content/scripts/jquery.scrollmagic.min.js"></script>
+    <script type="text/javascript" src="~/Themes/Grandeur/Content/scripts/common.js"></script>
+    <script type="text/javascript" src="~/Scripts/public.common.js"></script>
+    <script type="text/javascript" src="~/Scripts/public.ajaxcart.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        AjaxCart.init(false, 'footer .cart-qty', 'footer .wishlist-qty', '#flyout-cart');
+    </script>
+</div>
+<div id="main">
+    <section class="@(isHomePage ? "page-home" : isManufacturer? "page-test": "page-inner page-about") in">
+        @Html.Action("TopMenu", "Catalog")
+        @Html.Widget("content_before")
+
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb")
+        }
+        @RenderBody()
+        @Html.Widget("content_after")
+        <footer>
+            @Html.Partial("_Notifications")
+            @Html.Action("EuCookieLaw", "Common")
+            @Html.Partial("Header")
+            <span class="btn-group">
+                @Html.Action("TaxTypeSelector", "Common")
+                @Html.Action("CurrencySelector", "Common")
+                @Html.Action("LanguageSelector", "Common")
+                @Html.Action("Footer", "Common")
+            </span>
+        </footer>
+        @*@Html.Action("Index", "PrivateMessages")*@
+        @Html.Widget("body_end_html_tag_before")
+        <a class="welltrade" href="/" target="_blank"></a>
+        <div class="overlay"></div>
+    </section>
+
+
+</div>
+

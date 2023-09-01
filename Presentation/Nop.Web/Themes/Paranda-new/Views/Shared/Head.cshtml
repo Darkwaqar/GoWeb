@@ -1,0 +1,78 @@
+﻿@using Nop.Core;
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Framework.UI
+@{
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+    var isTopicPage = controllerName.Equals("topic", StringComparison.InvariantCultureIgnoreCase);
+
+    //add browser specific CSS files
+    var browser = Request.Browser;
+    if (browser.Browser == "IE" && browser.MajorVersion == 8)
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/ie8.css", themeName));
+    }
+    //add main CSS file
+    if (supportRtl)
+    {
+        //Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.rtl.css", themeName));
+    }
+    else
+    {
+
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/main.css", themeName));
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/fullpage.css", themeName));
+        // Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.css", themeName));
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/layout.css", themeName));
+    }
+
+    //add jQuery UI css file
+    Html.AppendCssFileParts("~/Content/jquery-ui-themes/smoothness/jquery-ui-1.10.3.custom.min.css");
+
+    if (browser.Browser == "IE" && browser.MajorVersion == 8)
+    {
+        Html.AddScriptParts("~/Scripts/selectivizr.min.js");
+        Html.AddScriptParts("~/Scripts/respond.min.js");
+    }
+
+    <link rel="manifest" href="@string.Format("/Themes/{0}/Content/manifest.json", themeName)">
+    Html.AddScriptParts("https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js");
+    Html.AddScriptParts("https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js");
+    //Html.AddScriptParts(string.Format("~/Themes/{0}/Content/scripts/pwabuilder-sw-register.js", themeName));
+    Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/jquery.js", themeName));
+    Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/jquery.easings.min.js", themeName));
+    
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+
+    if (isHomePage || isTopicPage)
+    {
+        Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/jquery.multiscroll.js", themeName));
+
+    }
+    Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/fullpage.js", themeName));
+    // Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/custom.js", themeName));
+    //Html.AddScriptParts(string.Format("~/Themes/{0}/Content/scripts/firebase-messaging-sw.js", themeName));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

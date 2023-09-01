@@ -1,0 +1,46 @@
+﻿@model IList<ProductOverviewModel>
+@using Nop.Web.Models.Catalog;
+
+<link href="~/Themes/Uptown/Content/owl/assets-css/owl.theme.default.min.css" rel="stylesheet" />
+<link href="~/Themes/Uptown/Content/owl/assets-css/owl.carousel.css" rel="stylesheet" />
+
+<script src="~/Themes/Uptown/Content/owl/owl.carousel.js"></script>
+<script src="~/Themes/Uptown/Content/owl/owl.carousel.min.js"></script>
+
+@if (Model.Count > 0)
+{
+    <div class="product-grid home-page-product-grid">
+        <div class="title">
+            <strong>@T("EDPHomePage.Products")</strong>
+        </div>
+        @*<div class="item-grid">*@
+        <div class="item-grid owl-carousel-grid">
+            @foreach (var item in Model.Take(8))
+            {
+                <div class="item-box">
+                    @Html.Partial("_ProductBox", item)
+                </div>
+            }
+        </div>
+    </div>
+}
+
+<script>
+    $('.owl-carousel-grid').owlCarousel({
+        loop: true,
+        margin: 10,
+        navContainer: false,
+        nav: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 4
+            }
+        }
+    });
+</script>

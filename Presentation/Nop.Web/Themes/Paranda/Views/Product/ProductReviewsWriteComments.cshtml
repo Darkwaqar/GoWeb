@@ -1,0 +1,230 @@
+﻿@model ProductReviewsModel
+@using Nop.Web.Models.Catalog;
+@using Nop.Services.Common;
+@using Nop.Web.Framework.Themes;
+@using Nop.Core.Infrastructure;
+@{
+    // Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    Html.AddTitleParts(Model.ProductName);
+    Html.AddTitleParts(T("PageTitle.ProductReviews").Text);
+    var currentCustomer = Nop.Core.Infrastructure.EngineContext.Current.Resolve<Nop.Core.IWorkContext>().CurrentCustomer;
+    var FirstName = currentCustomer.GetAttribute<string>(Nop.Core.Domain.Customers.SystemCustomerAttributeNames.FirstName);
+    var Email = currentCustomer.Email;
+
+}
+
+@*<div class="page-header page-header-custom">
+        <h3 class="text-center">@T("Reviews.ProductReviewsFor") <a href="@Url.RouteUrl("Product", new { SeName = Model.ProductSeName })">@Model.ProductName</a></h3>
+    </div>*@
+<div class="page-body">
+    @Html.Widget("productreviews_page_top", Model.ProductId)
+    @if (Model.AddProductReview.SuccessfullyAdded)
+    {
+        <div class="text-success text-center">
+            @Model.AddProductReview.Result
+        </div>
+    }
+    else
+    {
+
+        <div class="row" id="review-form">
+            <input type="hidden" id="add-review" name="add-review" />
+            <div class="col-sm-12">
+                <div class="form-horizontal">
+                    <div class="row">
+                        @*@Html.LabelFor(model => model.AddProductReview.Title, new { @class = "col-sm-2 control-label" }, ":")*@
+                        <div class="col-sm-12">
+
+                            @*@Html.TextBoxFor(model => model.AddProductReview.Title, Model.AddProductReview.CanCurrentCustomerLeaveReview ? (object)(new { @class = "textbox2" }) : (object)(new { @class = "textbox2", disabled = "disabled" }))*@
+                            @*@Html.TextBoxFor(model => Model.AddProductReview.Title, new { Class = "textbox23", placeholder = "Name" , @value="@FirstName" })*@
+                            <input type="text" name="AddProductReview.Title" value="@FirstName" class="textbox23" placeholder="Name" />
+                            @Html.ValidationMessageFor(model => model.AddProductReview.Title)
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        @*@Html.LabelFor(model => model.AddProductReview.Title, new { @class = "col-sm-2 control-label" }, ":")*@
+                        <div class="col-sm-12">
+
+                            @*@Html.TextBoxFor(model => model.AddProductReview.Title, Model.AddProductReview.CanCurrentCustomerLeaveReview ? (object)(new { @class = "textbox2" }) : (object)(new { @class = "textbox2", disabled = "disabled" }))*@
+                            @*@Html.TextBoxFor(model => Model.AddProductReview.Title, new { Class = "textbox23", placeholder = "Email" })*@
+                            <input type="text" name="AddProductReview.Title" value="@Email" class="textbox23" placeholder="EMAIL" />
+                            @Html.ValidationMessageFor(model => model.AddProductReview.Title)
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div>
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.AddProductReview.Rating, new { @class = "col-sm-2 control-label" }, ":")*@
+                        <div class="col-sm-12 text-center nopadding">
+                            <p style="font-size:10px;color:#999;letter-spacing:0.6px">RATE US BETWEEN 01 (LIKELY) AND 05 (VERY LIKELY)</p>
+                            <ul class="list-inline">
+                                <li class="rating-options">
+                                    @*<label class="checkbox-inline text-danger">
+                                            @T("Reviews.Fields.Rating.Bad")
+                                        </label>*@
+                                    @*<label class="checkbox-inline" >
+                                            <img src="/themes/bootstrapdc/content/images/white/0-box.png" />
+                                            @Html.RadioButtonFor(model => model.AddProductReview.Rating, "1", new { id = "addproductrating_1" })
+                                        </label>
+                                        <label class="checkbox-inline" >
+                                            <img src="/themes/bootstrapdc/content/images/white/1-box.png" />
+                                            @Html.RadioButtonFor(model => model.AddProductReview.Rating, "2", new { id = "addproductrating_2" })
+                                        </label>
+                                        <label class="checkbox-inline" >
+                                            <img src="/themes/bootstrapdc/content/images/white/2-box.png" />
+                                            @Html.RadioButtonFor(model => model.AddProductReview.Rating, "3", new { id = "addproductrating_3" })
+                                        </label>
+                                        <label class="checkbox-inline" >
+                                            <img src="/themes/bootstrapdc/content/images/white/3-box.png" />
+                                            @Html.RadioButtonFor(model => model.AddProductReview.Rating, "4", new { id = "addproductrating_4" })
+                                        </label>
+                                        <label class="checkbox-inline" >
+                                            <img src="/themes/bootstrapdc/content/images/white/4-box.png" />
+                                            @Html.RadioButtonFor(model => model.AddProductReview.Rating, "5", new { id = "addproductrating_5" })
+                                        </label>*@
+                                    @CreateStars(-1)
+                                    @*<label class="checkbox-inline text-success">
+                                            @T("Reviews.Fields.Rating.Excellent")
+                                        </label>*@
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+                @helper  CreateStars(int selectedStar)
+                 {
+                 var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+                 for (int i = 0; i < 5; i++)
+                 {
+                     //!-- White
+                     <label class="checkbox-inline" @*id="star_1"*@>
+                         <img id="checkbox-inline_@(i + 1)" onclick="javascript:ClickStar('checkbox-inline_@(i + 1)');" src=@(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/" + @currentThemeName + "/content/images/white/" + @i +"-box.png") />
+                         @Html.RadioButtonFor(model => model.AddProductReview.Rating, (i + 1) + "", new { id = "addproductrating_1" + (i + 1) })
+                     </label>
+                 
+                 }
+            }
+
+                @{
+                    var validationSummary = Html.ValidationSummary(true);
+                    if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                    {
+                        <div class="text-danger">@validationSummary</div>
+                    }
+                }
+                <div class="form-horizontal">
+
+                    <div class="row">
+                        @*@Html.LabelFor(model => model.AddProductReview.ReviewText, new { @class = "col-sm-2 control-label" }, ":")*@
+                        <div class="col-sm-12">
+                            @*@Html.TextAreaFor(model => model.AddProductReview.ReviewText, Model.AddProductReview.CanCurrentCustomerLeaveReview ? (object)(new { @class = "textbox2", rows = "10" }) : (object)(new { @class = "textbox2", rows = "10", disabled = "disabled" }))*@
+                            @Html.TextAreaFor(i => i.AddProductReview.ReviewText, new { Class = "textbox23", id = "comment", Row = "20", placeholder = "comment", style = "height:121px" })
+                            @Html.ValidationMessageFor(model => model.AddProductReview.ReviewText)
+                        </div>
+                    </div>
+
+                    @if (Model.AddProductReview.DisplayCaptcha)
+                    {
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                @Html.Raw(Html.GenerateCaptcha())
+                            </div>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <div class="col-sm-12 text-center">
+
+                            <input type="button" class="btn-small" data-dismiss="modal" value="Close" style="background-color: #8DA7A8" />
+                            <input type="button" name="add-review" id="add_review" class="btn-small" value="Send" style="margin-left:20px" />
+                        </div>
+
+                        <div style="color:red; margin-top:10px; font-size:12px;text-align:center" id="review_msg">
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+                    }
+
+</div>
+
+<script>
+    function ClickStar(i)
+    {
+        var maxRun = i.split("_");
+        var prefix = maxRun[0];
+        var iterator = maxRun[1];
+
+        for (var counter = 0; counter < 5; counter++)
+        {
+            if (counter + 1 <= iterator)
+                $("#" + prefix +"_" + (counter + 1)).attr("src", "/themes/Paranda/content/images/blue/" + counter + "-box.png");
+            else
+                $("#" + prefix +"_" + (counter + 1)).attr("src", "/themes/Paranda/content/images/white/" + counter + "-box.png");
+
+        }
+    }
+
+    (function () {
+
+        $("#add_review").on("click", function () {
+            var jobValue = document.getElementById('comment').value
+            if (jobValue == "") {
+
+                displayBarNotification("COMMENT IS REQUIRED", 'success', 50000);
+                return;
+            }
+
+            var formdata = $("#reviewform").serialize();
+            $.post("/productreviews/@Model.ProductId", formdata, function (res) {
+
+                if (!res.Status) {
+                    $("#review_msg").text(res.Message);
+                } else {
+                    $("#write_review_popup").modal("hide");
+
+                  //  location.href = window.location;
+                    displayBarNotification("THANK YOU FOR YOUR REVIEW. WE VALUE YOUR FEEDBACK.", 'success', 50000);
+                    setTimeout(function () { location.href = window.location; }, 2000);
+                   // window.location.reload();
+                }
+
+            });
+        });
+
+        var $selectedStar = null;
+        $(".checkbox-inline").on("click", function () {
+            var $star = $(this);
+            var num = $star.attr("id").split('_')[1];
+            for (var i = 1; i <= 10; i++)
+            {
+                if (i <= num) {
+                    $("#star_" + i).removeClass("fa-star-o");
+                    $("#star_" + i).addClass("fa-star");
+                } else {
+                    $("#star_" + i).removeClass("fa-star");
+                    $("#star_" + i).addClass("fa-star-o");
+                }
+            }
+
+        });
+
+
+    }());
+</script>

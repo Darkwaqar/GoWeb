@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SupportedWidgetZones>
+  <WidgetZone>categories-banner</WidgetZone>
+  <WidgetZone>home_page_categories_banner</WidgetZone>
+  <WidgetZone>home_page_bottom_left_slider</WidgetZone>
+  <WidgetZone>home_page_bottom_right_slider</WidgetZone>
+  <WidgetZone>Hashmikajal_homePage_Banner1</WidgetZone>
+  <WidgetZone>Hashmikajal_homePage_Banner2</WidgetZone>
+  <WidgetZone>Hashmikajal_homePage_Banner3</WidgetZone>
+  <WidgetZone>Hashmikajal_homePage_Banner4</WidgetZone>
+  <WidgetZone>Hashmikajal_homePage_Banner5</WidgetZone>
+  <WidgetZone>Hashmikajal_homePage_Banner6</WidgetZone>
+</SupportedWidgetZones>

@@ -1,0 +1,329 @@
+﻿@model FooterModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Common;
+
+
+
+<div id="footer-top-top" class="hidden-sm hidden-xs container-fluid">
+    <div class="footer-top center-block">
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-md-8">
+                <div class="form-group" style="padding-left: 285px;display: inline-block;width: 100%;">
+                    @*<input style="display: inline-block;" type="email"
+                           class="form-control formInput-border footer-top-form" id="email"
+                           placeholder="Sign up to our emails">
+                    <a style="display: inline-block;" href="#" class="btn footer-top-btn">SIGN UP</a>
+                    <p style="display: inline-block;padding-left: 20px;">Email preferences</p>*@
+                </div>
+            </div>
+            <div class="col-md-4">
+                <a href="#">
+                    <i class="fa fa-facebook social-icons-custom"></i>
+                </a>
+                <a href="#">
+                    <i class="fa fa-twitter social-icons-custom"></i>
+                </a>
+                <a href="#">
+                    <i class="fa fa-pinterest social-icons-custom"></i>
+                </a>
+                <a href="#">
+                    <i class="fa fa-google-plus social-icons-custom"></i>
+                </a>
+                <a href="#">
+                    <i class="fa fa-envelope social-icons-custom"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="hidden-sm hidden-xs doc-footer bgGray">
+    <div class="container">
+        <div class="row">
+            <!--<h5>USEFUL INFORMATION</h5>-->
+            <div class="col-sm-2">
+                <ul class="links">
+                    <li><a href="#" class="footer-heading">GOFASHION.COM</a></li>
+                    <hr class="footer-hr">
+                    <li><a href="/about-us-2">About us</a></li>
+                    <li><a href="/career">Careers</a></li>
+                    <li><a href="/about-affiliates">Affiliates</a></li>
+                    <li><a href="/terms">Terms & Conditions</a></li>
+                    <li><a href="/cookie">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-2 footer-border-i">
+                <ul class="links" style="padding-left: 40px;">
+                    <li><a href="javascript:" class="footer-heading">Help</a></li>
+                    <hr class="footer-hr">
+                    <li><a href="/contact-us">Contact us</a></li>
+                    <li><a href="/faqs-2">FAQ's</a></li>
+                    <li><a href="/delivery">Delivery</a></li>
+                    <li><a href="/returns">Returns</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-2 footer-border-i">
+                <ul class="links" style="padding-left: 40px;">
+                    <li><a href="javascript:" class="footer-heading">Services</a></li>
+                    <hr class="footer-hr">
+                    <li><a href="#">MyStylist</a></li>
+                    <li><a href="#">Private Shopping</a></li>
+                </ul>
+                <ul class="links" style="padding-top: 10px; padding-left: 40px;">
+                    <li><a href="#" class="footer-heading">Gifts</a></li>
+                    <hr class="footer-hr">
+                    <li><a href="#">Gift Cards</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-2 footer-border-i">
+                <ul class="links" style="padding-left: 40px;">
+                    <li><a href="/about-us-2" class="footer-heading">About us</a></li>
+                    <hr class="footer-hr">
+                    <li><a href="/career">Careers</a></li>
+                    <li><a href="/terms">Terms & Conditions</a></li>
+                    <li><a href="/contact-us">Contact us</a></li>
+                    <li><a href="/faqs-2">FAQ's</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <ul class="links" style="padding-left: 40px;">
+                    <li><a href="#" class="footer-heading">Our Apps</a></li>
+                    <hr class="footer-hr">
+                    <li><a href="javascript:">Download our iOS app</a></li>
+                    <li>
+                        <a href="#">
+                            <img src="assets/img/footer/apple.jpg" class="img-responsive"
+                                 style="width: 50%" alt="">
+                        </a>
+                    </li>
+                    <li style="margin-bottom: 5px;"><a href="#"></a></li>
+                    <li><a href="javascript:">Download our Android app</a></li>
+                    <li>
+                        <a href="#">
+                            <img src="assets/img/footer/google.png" class="img-responsive"
+                                 style="width: 50%" alt="">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <hr style="border-color: lightgrey">
+        <br>
+        <div class="row" style="font-size: 11px;">
+            <div class="col-sm-2">
+                <strong>Shipping to</strong>
+                <a href="javascript:">Pakistan</a>
+            </div>
+            <div class="col-sm-4" style="padding-left: 55px;">
+                <strong>Customer Services</strong>
+                <a href="javascript:">+4401 76773 890</a>
+            </div>
+        </div>
+        <br>
+        <hr style="border-color: lightgrey">
+        <p class="text-center"
+           style="padding-top: 10px;color: black; font: 600 10.5px/10px 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif">
+            Â© Copyright Â© 2017 Growonline pvt ltd all rights reserved
+        </p>
+    </div>
+</footer>
+
+<!--======================================== Desktop Footer (ENDS) ========================================-->
+<!--======================================== Mobile Footer(STARTS) ========================================-->
+<div class="hidden-md hidden-lg container-fluid">
+    <div class="row">
+        <h4 class="font-chronicle text-center"> OUR APPS</h4>
+        <hr style="border-color: black; margin:0 0 30px 0;">
+        <div class="col-xs-6">
+            <a href="javascript:"><img src="assets/img/footer/apple.jpg" class="img-responsive center-block" alt=""></a>
+            <p class="text-center" style="font-size: 12px;">Download Our IOS App</p>
+        </div>
+        <div class="col-xs-6">
+            <a href="javascript:"><img src="assets/img/footer/google.png" class="img-responsive center-block" alt=""></a>
+            <p class="text-center" style="font-size: 12px;">Download Our Andriod App</p>
+        </div>
+    </div>
+</div>
+
+<div class="hidden-md hidden-lg container-fluid bg bgGray">
+    <div class="center-block">
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-sm-12">
+                <h4 class="font-chronicle text-center" style="font-weight: 600;">WANT STYLES UPDATES?</h4>
+                <hr style="border-color: black; margin:0 0 30px 0;">
+                <div class="form-group" style="display: inline-block;width: 100%;">
+                    @*<input style="display: inline-block;" type="email"
+                           class="form-control formInput-border footer-top-form-mob" id="email"
+                           placeholder="Sign up to our emails">
+                    <a style="display: inline-block;margin: 0px !important;" href="#"
+                       class="btn footer-top-btn-mob">SIGN UP</a>
+                    <p class="mob-footer-p">Email preferences</p>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+            <div class="panel panel-default" style="border-color: lightgray;">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a class="text-center" style="font-weight: 600; font-size: 12px; padding: 12px;"
+                           role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                           aria-expanded="true" aria-controls="collapseOne">
+                            <i class="more-less fa fa-caret-right"></i>
+                            GOFASHION.COM
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingOne">
+                    <div class="panel-body" style="padding: 15px 15px 0 15px;">
+                        <div class="mob-ft-pnl">
+                            <ul>
+                                <li><a href="/about-us-2">About Us</a></li>
+                                <li><a href="/career">Careers</a></li>
+                                <li><a href="/about-affiliates">Affiliates</a></li>
+                                <li><a href="/terms">Terms and Conditions</a></li>
+                                <li><a href="/cookie">Cookie Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" style="margin-top: 0px; border-top: 0px;border-color: lightgray;">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed text-center"
+                           style="font-weight: 600; font-size: 12px; padding: 12px;" role="button"
+                           data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                           aria-expanded="false" aria-controls="collapseTwo">
+                            <i class="more-less fa fa-caret-right"></i>
+                            HELP
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingTwo">
+                    <div class="panel-body" style="padding: 15px 15px 0 15px;">
+                        <div class="mob-ft-pnl">
+                            <ul>
+                                <li><a href="/contact-us">Contact Us</a></li>
+                                <li><a href="/faqs-2">FAQs</a></li>
+                                <li><a href="/delivery">Delivery</a></li>
+                                <li><a href="/returns">Returns</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" style="margin-top: 0px; border-top: 0px;border-color: lightgray;">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed text-center"
+                           style="font-weight: 600; font-size: 12px; padding: 12px;" role="button"
+                           data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                           aria-expanded="false" aria-controls="collapseTwo">
+                            <i class="more-less fa fa-caret-right"></i>
+                            SERVICES
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingThree">
+                    <div class="panel-body" style="padding: 15px 15px 0 15px;">
+                        <div class="mob-ft-pnl">
+                            <ul>
+                                <li><a href="#">MyStylist</a></li>
+                                <li><a href="#">Private Shopping</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" style="margin-top: 0px; border-top: 0px;border-color: lightgray;">
+                <div class="panel-heading" role="tab" id="headingFour">
+                    <h4 class="panel-title">
+                        <a class="collapsed text-center"
+                           style="font-weight: 600; font-size: 12px; padding: 12px;" role="button"
+                           data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                           aria-expanded="false" aria-controls="collapseThree">
+                            <i class="more-less fa fa-caret-right"></i>
+                            STORES
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingFour">
+                    <div class="panel-body" style="padding: 15px 15px 0 15px;">
+                        <div class="mob-ft-pnl">
+                            <ul>
+                                <li><a href="#">Marylebone</a></li>
+                                <li><a href="#">Notting Hill</a></li>
+                                <li><a href="#">Richmond</a></li>
+                                <li><a href="#">Wimbledon</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" style="margin-top: 0px; border-top: 0px;border-color: lightgray;">
+                <div class="panel-heading" role="tab" id="headingFive">
+                    <h4 class="panel-title">
+                        <a class="collapsed text-center"
+                           style="font-weight: 600; font-size: 12px; padding: 12px;" role="button"
+                           data-toggle="collapse" data-parent="#accordion" href="#" aria-expanded="false"
+                           aria-controls="collapseThree">
+                            GIFT
+                        </a>
+                    </h4>
+                </div>
+            </div>
+
+        </div><!-- panel-group -->
+
+
+    </div><!-- container -->
+    <p class="mob-copy">Â© COPYRIGHT Â© 2017 GOFASHIONHOUSE LTD ALL RIGHTS RESERVED</p>
+</div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.footer-block .title').click(function () {
+                    var e = window, a = 'inner';
+                    if (!('innerWidth' in window)) {
+                        a = 'client';
+                        e = document.documentElement || document.body;
+                    }
+                    var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
+                    if (result.width < 769) {
+                        $(this).siblings('.list').slideToggle('slow');
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.block .title').click(function () {
+                    var e = window, a = 'inner';
+                    if (!('innerWidth' in window)) {
+                        a = 'client';
+                        e = document.documentElement || document.body;
+                    }
+                    var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
+                    if (result.width < 1001) {
+                        $(this).siblings('.listbox').slideToggle('slow');
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>

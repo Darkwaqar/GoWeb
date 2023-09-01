@@ -1,0 +1,179 @@
+.home-page-category-grid .item-box:nth-child(2n){
+    float:left;
+    border:1px solid;
+}
+.home-page-category-grid .item-box{
+    float:right;
+}
+.slider-wrapper{
+    float:left;
+}
+
+#headerMenuParent{
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f393230,endColorstr=#7f393230);
+	zoom: 1;
+}
+#headerMenuParent.stick{
+    filter:inherit;
+    background:#393230;
+}
+.header-menu > ul > li:hover{
+    background:#393230;
+}
+#topcartlink{
+   background:url("../img/shopping-cart.png") no-repeat scroll center center; 
+}
+#topcartlink:hover{
+    background:url("../img/shopping-cart.png") no-repeat scroll center center #393230;
+}
+.wishlist-button {
+    background: url("../img/wishlist-copy.png") no-repeat scroll center center;
+}
+.wishlist-button:hover {
+    background: url("../img/wishlist-copy.png") no-repeat scroll center center #393230;
+}
+.mega-menu .dropdown .box a{
+    background:#393230;
+}
+.mega-menu .dropdown .box a:hover{
+    background:#000;
+}
+.home-page-category-grid .item-box, 
+.sub-category-grid .item-box, 
+.manufacturer-grid .item-box{
+    float:right;
+}
+.product-grid .details .buttons input{
+    line-height:30px;
+}
+.home-page-wrapper .news-items .item{
+    height:270px;
+}
+.news-list-homepage .view-all{
+    background:#352f2e;
+}
+.ui-tabs .ui-tabs-nav li {
+    display: inline-block;
+    margin: 0 -2px 0 -2px;
+}
+
+.news-list-homepage .title {
+    background: url("../img/title-decoration.png");
+    background-position:center bottom;
+    background-repeat:no-repeat;
+    
+}
+.cart-collaterals .shipping-options .inputs:last-child{
+    margin:0 67% 0 0;
+    width:33%;
+}
+.input-validation-error {
+    
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=0, Color='#ff5868')";
+}
+.gallery .picture-wrapper {
+    float: left;
+    width:500px;
+}
+
+#wrap a.cloud-zoom img{
+    max-width:100%;
+    max-height:100%;
+}
+.product-details-page .gallery .picture-thumbs{
+    width:90px !important;
+    float:right !important;
+}
+.home-page-category-grid .item-box .title,
+.sub-category-grid .item-box .title,
+.manufacturer-grid .item-box .title {
+    background:#231c19;
+    filter: alpha(opacity=50);
+}
+.home-page-category-grid .item-box:hover .title, 
+.sub-category-grid .item-box:hover .title, 
+.manufacturer-grid .item-box:hover .title{
+    height:176px;
+    background:url(../img/title-decoration.png) #231c19;
+    background-repeat:no-repeat;
+    background-position:center 97px;
+}
+.ajax-cart-button-wrapper input[type="text"]{
+    line-height:35px;
+}
+
+.miniProductDetailsView .product-essential .picture {
+    float:none !important
+}
+.nop-jcarousel .jcarousel-item:hover .item-holder {
+    margin: 0 !important;
+}
+.feat label select{
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+}
+.custom-select {
+    background-image: url("../img/arrow-down.png");
+    background-repeat:no-repeat;
+    background-position:left center;
+    background-color:#454342;
+    display: block;
+    width: 230px;
+}
+.custom-select{
+    border:none;
+}
+.feat label{
+    display:block;
+    position:relative;
+}
+.tiffany-theme-roller{
+    display:none;
+}
+.quickViewWindow .item-box .details{
+    height:34px !important;
+    overflow:hidden;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+.order-progress li.inactive-step{
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+.news-carousel .nop-jcarousel .carousel-title{
+    background:#fff;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+.tiffany-theme-roller .open-button{
+    background-image: url("../img/plugin-opener.png") !important;
+    background-color: #2b2928;
+}
+.tiffany-theme-roller .open-button:after{
+    display:none;
+}
+
+.tiffany-theme-roller{
+    right:-300px !important;
+}
+.tiffany-theme-roller.opened{
+    right:0 !important; 
+}
+.custom-select-text{
+    padding-top:25px !important;
+}
+.custom-select{
+    display:block !important;
+    width:230px !important;
+    border:none !important;
+}
+.feat label select{
+    z-index:10;
+}
+.home-page-category-grid .item-box, 
+.sub-category-grid .item-box, 
+.manufacturer-grid .item-box{
+    float:right !important;
+}
+.footer-middle .contacts .skype span {
+    background: url("../img/new-icon.png") no-repeat scroll 0 10px !important;
+}

@@ -1,0 +1,292 @@
+﻿@model FooterModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Common;
+
+<div class="yCmsContentSlot mf-footer">
+    <div id="footer" class="clearfix">
+        <div class="ft__container-top">
+            <div class="ft__subscribe show-desktop">
+                @Html.Action("NewsletterBox", "Newsletter")
+
+            </div>
+            <h6 class="ft__headline">Follow Us On</h6>
+
+            <div class="ft__social">
+                @Html.Action("Social", "Common")
+            </div>
+
+            <div class="ft__our_apps-tablet_mobile-only">
+                <div class="apps-title">
+                    <a href="our-apps" class="app_section_title">Our Apps</a>
+                </div>
+                <div class="apps-title_border"></div>
+                <div class="app_buttons">
+                    <div class="app_buttons-inner_container">
+                        <div class="ios_app">
+                            <div class="app_button">
+                                <a href="" target="_blank">
+                                    <img src="~/Themes/Preta/Content/images/apple_app_store_icon-mobile-retina.jpg">
+                                </a>
+                            </div>
+                            <div class="app_text">
+                                <div><a href="" target="_blank">Download our iOS app</a></div>
+                            </div>
+                        </div>						<div class="android_app" style="margin-left: 11%;">
+                            <div class="app_button">
+                                <a href="" target="_blank"><img src="~/Themes/preta/Content/images/google_play_store_icon.png"></a>
+                            </div>
+                            <div class="app_text">
+                                <div><a href="" target="_blank">Download our Android app</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ft__container-bottom">
+            <h6 class="ft__headline show-mobile">WANT STYLE UPDATES?</h6>
+            <form id="emailPreferencesJoinForm" action="/intl/emailpreferences/join" method="post">
+                <div class="ft__subscribe  show-mobile">
+                    <div class="ft__subscribe__input">
+                        <div class="control-group">
+                            <label class="control-label " for="emailPreferencesJoinForm.email">
+                                <span class="mandatory">
+                                </span>
+                            </label>
+
+                            <div class="controls">
+                                <input id="emailPreferencesJoinForm.email" name="email" class="text" placeholder="Sign up to our emails" value="" data-msg-required="The Email field is invalid" data-msg-pattern="The Email field is invalid">
+                            </div>
+
+                        </div>
+                        <input id="targetUrl" name="targetUrl" value="/intl/emailpreferences/thankyou" type="hidden">
+                    </div>
+                    <div class="ft__subscribe__button">
+                        <button name="" class="subscribeEmail button">SIGN UP</button>
+                    </div>
+                    <a href="#" class="ft__subscribe__preferences show-mobile">Email preferences</a>
+                </div>
+                <input type="hidden" name="CSRFToken" value="2d718f5c-8593-4e1a-a7a3-274058d59f0c">
+            </form><div class="ft__settings__wrapper show-mobile">
+
+
+
+                <a href="/intl/login" class="ft__settings__sign-in">Sign In</a>
+            </div>
+
+            <ul data-mf-accordion="speed:200,activeClass:is-active,multipleOpen:false,isDesktop:false" class="ft__links">
+                <li class="ft__links__item-list">
+                    <span class="ft__links__item-list__matchefashion">
+                        PretaPak.com
+                    </span>
+                    <ul class="tap" style="display: block;">
+                        @if (Model.SitemapEnabled)
+                        {
+                            <li class="yCmsComponent">
+                                <a href="@Url.RouteUrl("Sitemap")">
+                                    @T("Sitemap")
+                                </a>
+                            </li>
+                        }
+
+                        @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                        {
+                            <li class="yCmsComponent">
+                                <a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">
+                                    @topic.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+                <li class="ft__links__item-list">
+                    <span class="ft__links__item-list__help">
+                        Help
+                    </span>
+                    <ul class="tap" style="display: block;">
+                        @if (Model.NewsEnabled)
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("NewsArchive")">@T("News")</a></li>
+                        }
+                        @if (Model.BlogEnabled)
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                        }
+                        @if (Model.ForumEnabled)
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                        }
+                        @if (Model.RecentlyViewedProductsEnabled)
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("RecentlyViewedProducts")">@T("Products.RecentlyViewedProducts")</a></li>
+                        }
+                        @if (Model.CompareProductsEnabled)
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("CompareProducts")">@T("Products.Compare.List")</a></li>
+                        }
+                        @if (Model.NewProductsEnabled)
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
+                        }
+                        @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                        }
+                    </ul>
+                </li>
+                <li class="ft__links__item-list">
+                    <span class="ft__links__item-list__services">
+                        Services
+                    </span>
+                    <ul class="tap" style="display: block; margin-bottom: 25px;">
+
+                        <li class="yCmsComponent"><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+                        <li class="yCmsComponent"><a href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</a></li>
+                        <li class="yCmsComponent"><a href="@Url.RouteUrl("CustomerAddresses")">@T("Account.CustomerAddresses")</a></li>
+                        @if (Model.ShoppingCartEnabled)
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("ShoppingCart")">@T("ShoppingCart")</a></li>
+                        }
+                        @if (Model.WishlistEnabled)
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("Wishlist")">@T("Wishlist")</a></li>
+                        }
+                        @if (Model.AllowCustomersToApplyForVendorAccount)
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</a></li>
+                        }
+                        @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn3).ToList())
+                        {
+                            <li class="yCmsComponent"><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                        }
+
+                    </ul>
+                    <span class="footer_menu_item_gifts-span footer_menu_item_gifts-span-notMobileVersion">
+                        <a href="gift-cards" class="ft__links__item-list__gifts">Gifts</a>
+                    </span><ul class="tap" style="display: block;">
+                        <li class="yCmsComponent">
+                            <a href="gift-cards">
+                                Gift Cards
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="ft__links__item-list">
+                    <span class="ft__links__item-list__stores">
+                        Stores
+                    </span>
+                    <ul class="tap" style="display: block;">
+                        <li class="yCmsComponent">
+                            <a href="/marylebone">
+                                Marylebone
+                            </a>
+                        </li>
+                        <li class="yCmsComponent">
+                            <a href="/notting-hill">
+                                Notting Hill
+                            </a>
+                        </li>
+                        <li class="yCmsComponent">
+                            <a href="/wimbledon">
+                                Wimbledon
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="ft__links__item-list footer_menu_item__gifts-items" style="display: none;">
+                    <span class="footer_menu_item_gifts-span">
+                        <a href="gift-cards" class="ft__links__item-list__gifts">Gifts</a>
+                    </span>
+                    <ul class="tap" style="display: block;">
+                        <li class="yCmsComponent">
+                            <a href="gift-cards">
+                                Gift Cards
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="ft__our_apps">
+                <div>
+                    <span> <a href="our-apps" class="app_section_title">Our Apps</a> </span>
+                    <div class="ios_app">
+                        <div class="app_text">
+                            <a onclick="window.mediator.publish('trackingEvent', 'iOSAppDownload');" href="" target="_blank">Download our iOS app</a>
+                        </div>
+                        <div class="app_button">
+                            <a onclick="window.mediator.publish('trackingEvent', 'iOSAppDownload');" href="" target="_blank">
+                                <img src="~/themes/preta/content/images/apple_app_store_icon-mobile-retina.jpg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="android_app">
+                    <div class="app_text">
+                        <a onclick="window.mediator.publish('trackingEvent', 'androidAppDownload');" href="" target="_blank">Download our Android app</a>
+                    </div>
+                    <div class="app_button">
+                        <a onclick="window.mediator.publish('trackingEvent', 'androidAppDownload');" href="" target="_blank">
+                            <img src="~/themes/preta/content/images/google_play_store_icon.jpg">
+                        </a>
+                    </div>
+                </div>
+            </div><div class="ft__info-links">
+                <div class="shipping_info">
+                    <strong>Shipping to</strong>
+                    <a href="">
+                        Pakistan
+                    </a>
+                </div>
+                <div class="customer_services_info">
+                    <strong>Customer Services</strong>
+                    <p id="footertContactUs" class="tel"><span class="tel_info">t:</span><span>@T("Contect.number.pretapak")</span><br><span class="tel_info">t:</span><span>@T("Contect.number.pretapak.two")</span></p>
+                </div>
+            </div>
+            <div class="ft__copyright">
+                <span class="ft__copyright__wrapper">
+                    <p class="ft__copyright__text">@T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)</p>
+                </span>
+            </div>
+            <div class="ft__clearfix"></div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(window).resize(function () {
+        $(".tap").css("display", "block");
+        $(".ft__links__item-list").click(function () {
+            if ($(window).width() <= 680) {
+                if ($(".ft__links__item-list").hasClass("is-active")) {
+                    $(".ft__links__item-list").removeClass("is-active");
+                    $(".tap").css("display", "block");
+                } else {
+                    $(".ft__links__item-list").addClass("is-active");
+                    $(".tap").css("display", "none");
+                }
+
+            }
+        });
+
+
+    });
+
+
+    function slideshow(x) {
+        $(x).children('img:gt(0)').hide();
+        $(x).children('img:first')
+            .fadeOut(1000)
+            .next()
+            .fadeIn(1000)
+            .end()
+            .appendTo(x);
+    }
+
+
+
+
+</script>

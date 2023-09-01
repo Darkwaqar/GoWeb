@@ -1,0 +1,27 @@
+﻿@model List<PrivateMessageModel>
+@using Nop.Admin.Models.PrivateMessages;
+@foreach (var Messages in Model)
+{
+
+    var customer = Messages.AlignLeft ? Messages.CustomerFromName : Messages.CustomerToName;
+    var customerid = Messages.AlignLeft ? Messages.FromCustomerId : Messages.ToCustomerId;
+    <li id="conversations-@(customerid)" class="left">
+        <a onclick="Chat.openChat(@(customerid))">
+            <img class="contacts-list-img" src="https://adminlte.io/themes/AdminLTE/dist/img/user3-128x128.jpg" alt="User Image">
+            <small class="contacts-list-date pull-right">@Messages.CreatedOn.ToShortTimeString()</small>
+            <div class="contacts-list-info">
+                <span class="@(Messages.Online ? "online" : "offline")"></span>
+                <span class="contacts-list-name">@customer</span>
+                <span class="contacts-list-msg">@Messages.Message</span>
+                @if (Messages.TotalUnread > 0)
+                {
+                    <small class="badge unread-total pull-right" id="unread-total-@(customerid)">@(Messages.TotalUnread)</small>
+                }
+
+            </div>
+            <!-- /.contacts-list-info -->
+        </a>
+        <button class="btn btn-box-tool" title="" data-original-title="delete" id="delete-message" onclick="Chat.deleteChat(@(Messages.AlignLeft ? Messages.FromCustomerId :Messages.ToCustomerId))"></button>
+    </li>
+        <!-- End Contact Item -->
+}

@@ -1,0 +1,141 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@using Nop.Web.Framework.Themes
+@using Nop.Core.Domain.Seo;
+@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+   // Html.AddTitleParts("Paranda");
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+
+     var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        var storeName = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.GetLocalized(x => x.Name);
+        Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.NopTitle(true) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.NopMetaDescription() + "\" />"); 
+        Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"http://paranda.saycelebrity.com/Themes/Paranda/Content/images/ParandaLogoMETA.jpg \"/>");
+        Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(storeName) + "\" />");
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        var storeName = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.GetLocalized(x => x.Name);
+        Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(storeName) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.NopTitle(true) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.NopMetaDescription() + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"http://paranda.saycelebrity.com/Themes/Paranda/Content/images/ParandaLogoMETA.jpg \" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+    }
+    bool IsBreadcrumbEnabled = false;
+}
+
+
+@Html.Partial("_HomepageBanners")
+@Html.Widget("home_page_before_categories")
+@Html.Action("HomepageCategories", "Catalog")
+
+<img src="Themes/paranda/Content/images/Patti.png" class="img-responsive" style="width: 100%;" />
+@*
+<div class="padding10">
+    <div class="col-md-4 col-sm-6 col-xs-12 padding10" style=" display:table;">
+        <div class="promo_item promo_1" >
+            <i class="promo-icon promo-icon-img1" style="background-image: url(Themes/paranda/Content/images/paranda-homepage-promo-icon-1.svg); margin: auto;"></i>
+            <h3>
+                MIX &amp; MATCH
+            </h3>
+            <p class="maxW220">
+                3 for $100.  Always absurdly soft.
+            </p>
+            <div class="arrow-container">
+                <i></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 padding10" style=" display:table;">
+        <div class="promo_item promo_2">
+            <i class="promo-icon promo-icon-img2" style="background-image: url(Themes/paranda/Content/images/paranda-homepage-promo-icon-2.svg); margin: auto;"></i>
+            <h3>
+                YOUR FAVORITE SHIRT
+            </h3>
+            <p class="maxW250">
+                The story behind the fabric that started it all.
+            </p>
+            <div class="arrow-container">
+                <i></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 padding10" style=" display:table;">
+        <div class="promo_item promo_3">
+            <i class="promo-icon promo-icon-img3" style="background-image: url(Themes/paranda/Content/images/paranda-homepage-promo-icon-3.svg); margin: auto;"></i>
+            <h3>
+                BEEP BEEP
+            </h3>
+            <p class="maxW220">
+                Where’s our bus now? Check it out.
+            </p>
+            <div class="arrow-container">
+                <i></i>
+            </div>
+        </div>
+    </div>
+</div>
+*@
+
+<script>
+    $(".homepage-tabs a").on("click", function () {
+
+        if ($(this).attr("id") == "fproduct") {
+            $(this).addClass("active");
+            $("#bsproduct").removeClass("active");
+        } else {
+            $("#fproduct").removeClass("active");
+            $(this).addClass("active");
+        }
+    })
+</script>
+
+<script>
+    $("#bsproduct").on("click", function () {
+        $("#fp").addClass("hide");
+        $("#bs").removeAttr('style');
+        $(".homepageproduct").css('height', 'auto');
+    })
+    $("#fproduct").on("click", function () {
+        $("#bs").css({ 'opacity': '1' });
+        $("#fp").removeClass("hide");
+    })
+</script>
+<script type="text/javascript">
+    var google_tag_params = {
+        ecomm_prodid: ['americas-buttler', 'airistrocrat', 'azerbaijan', 'bendico-2', 'bergamo', 'liverpool'],
+        ecomm_pagetype: 'home',
+        ecomm_totalvalue: '46350',
+    };
+</script>
+<script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 866679881;
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = true;
+    /* ]]> */
+</script>
+
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js" style="display:none;height:0px;width:0px;opacity:0"></script>
+
+<noscript>
+    <div style="display:none;">
+        <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/866679881/?guid=ON&amp;script=0" />
+    </div>
+</noscript>
+<script>
+    $(window).load(function () {
+        $('.nivo-prevNav').removeClass('nivo-prevNav').addClass('nivo-prevNavi');
+    });
+</script>

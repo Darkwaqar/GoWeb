@@ -1,0 +1,248 @@
+﻿@model DeviceListModel
+@using Nop.Admin.Models.Fcm;
+@using System.Globalization;
+@using Nop.Core.Domain.Fcm;
+@using Nop.Services;
+
+@{
+    var defaultGridPageSize = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().DefaultGridPageSize;
+    var gridPageSizes = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().GridPageSizes;
+
+    //page title
+    ViewBag.Title = T("Admin.Customers.Device.List").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("Fcm Device");
+
+    List<SelectListItem> AvalibleSearchFcmApplicationType = ((FcmApplicationType)Model.SearchFcmApplicationType).ToSelectList().ToList();
+    AvalibleSearchFcmApplicationType.Insert(0, new SelectListItem { Text = "All", Value = "0" });
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Admin.Customers.Devices")
+        </h1>
+        <div class="pull-right">
+            <a href="@Url.Action("FcmDeviceCreate")" class="btn bg-blue">
+                <i class="fa fa-plus-square"></i>
+                @T("Admin.Common.AddNew")
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="form-horizontal">
+            <div class="panel-group">
+                <div class="panel panel-default panel-search">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group" @(Model.AvailableApplications.SelectionIsNotPossible() ? Html.Raw("style=\"display:none\"") : null)>
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.SearchPackage)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopDropDownList("SearchPackage", Model.AvailableApplications)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.SearchBrand)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopEditorFor(model => model.SearchBrand)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.SearchFcmApplicationType)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopDropDownListFor(model => model.SearchFcmApplicationType, AvalibleSearchFcmApplicationType)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.SearchLatitude)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopEditorFor(model => model.SearchLatitude)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.SearchLongitude)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.SearchLongitude)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.SearchHidden)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.SearchHidden)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7 col-md-offset-5">
+                                <button type="button" id="search-customers" class="btn btn-primary btn-search">
+                                    <i class="fa fa-search"></i>
+                                    @T("Admin.Common.Search")
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="customers-grid"></div>
+
+                        <script>
+                            $(document).ready(function() {
+                                $("#customers-grid").kendoGrid({
+                                    dataSource: {
+                                        type: "json",
+                                        transport: {
+                                            read: {
+                                                url: "@Html.Raw(Url.Action("FcmDeviceList", "Fcm"))",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: additionalData
+                                            }
+                                        },
+                                        schema: {
+                                            data: "Data",
+                                            total: "Total",
+                                            errors: "Errors"
+                                        },
+                                        error: function(e) {
+                                            display_kendoui_grid_error(e);
+                                            // Cancel the changes
+                                            this.cancelChanges();
+                                        },
+                                        pageSize: @(defaultGridPageSize),
+                                        serverPaging: true,
+                                        serverFiltering: true,
+                                        serverSorting: true
+                                    },
+                                    pageable: {
+                                        refresh: true,
+                                        pageSizes: [@(gridPageSizes)],
+                                        @Html.Partial("_GridPagerMessages")
+                                    },
+                                    scrollable: false,
+                                    columns: [
+                                        {
+                                            field: "Id",
+                                            headerTemplate: "<input id='mastercheckbox' type='checkbox'/>",
+                                            headerAttributes: { style: "text-align:center" },
+                                            attributes: { style: "text-align:center" },
+                                            template: "<input type='checkbox' value='#=Id#' class='checkboxGroups'/>",
+                                            width: 50
+                                        },
+                                        {
+                                            field: "Brand",
+                                            title: "@T("Admin.Device.Fields.Brand")",
+                                            width: 50
+                                        }, {
+                                            field: "OSVersion",
+                                            title: "@T("Admin.Device.Fields.OSVersion")",
+                                            width: 50
+                                        }, {
+                                            field: "Carrier",
+                                            title: "@T("Admin.Device.Fields.Carrier")",
+                                            width: 200
+                                        }, {
+                                            field: "DeviceOS",
+                                            title: "@T("Admin.Device.Fields.DeviceOS")",
+                                            width: 100,
+                                            headerAttributes: { style: "text-align:center" },
+                                            attributes: { style: "text-align:center" },
+                                            template: '# if(DeviceOS==1) {# <i class="fa fa-android true-icon"></i> #} else if(DeviceOS==2) {# <i class="fa fa-apple true-icon"></i> #} else {# <i class="fa fa-globe true-icon"></i> #} #'
+                                        },
+                                        {
+                                            field: "Active",
+                                            title: "@T("Admin.Device.Fields.Active")",
+                                            width: 100,
+                                            headerAttributes: { style: "text-align:center" },
+                                            attributes: { style: "text-align:center" },
+                                            template: '# if(Active) {# <i class="fa fa-check true-icon"></i> #} else {# <i class="fa fa-close false-icon"></i> #} #'
+                                        }, {
+                                            field: "CreatedOnUtc",
+                                            title: "@T("Admin.Device.Fields.CreatedOnUtc")",
+                                            width: 100,
+                                            type: "date",
+                                            format: "{0:G}"
+                                        }, {
+                                            field: "UpdatedOnUtc",
+                                            title: "@T("Admin.Device.Fields.UpdatedOnUtc")",
+                                            width: 100,
+                                            type: "date",
+                                            format: "{0:G}"
+                                        }, {
+                                            field: "Id",
+                                            title: "@T("Admin.Common.Edit")",
+                                            width: 50,
+                                            headerAttributes: { style: "text-align:center" },
+                                            attributes: { style: "text-align:center" },
+                                            template: '<a class="btn btn-default" href="FcmDeviceEdit/#=Id#"><i class="fa fa-pencil"></i>@T("Admin.Common.Edit")</a>'
+                                        }, {
+                                            field: "Id",
+                                            title: "@T("Admin.Common.Send")",
+                                            width: 50,
+                                            headerAttributes: { style: "text-align:center" },
+                                            attributes: { style: "text-align:center" },
+                                            template: '<a class="btn btn-default" href="SendFcm/#=Id#"><i class="fa fa-paper-plane"></i>@T("Admin.Common.Send")</a>'
+                                        }
+                                    ]
+                                });
+                            });
+                        </script>
+
+
+
+                        <script type="text/javascript">
+
+                            $(document).ready(function () {
+                            //search button
+                                $('#search-customers').click(function () {
+                                //search
+                                    var grid = $('#customers-grid').data('kendoGrid');
+                                grid.dataSource.page(1); //new search. Set page size to 1
+                                //grid.dataSource.read(); we already loaded the grid above using "page" function
+                                return false;
+                            });
+
+                            $("#@Html.FieldIdFor(model => model.SearchPackage)").keydown(function (event) {
+                                if (event.keyCode == 13) {
+                                    $("#search-customers").click();
+                                    return false;
+                                }
+                            });
+                            });
+
+                            function additionalData() {
+                                var data = {
+                                    SearchPackage: $('#SearchPackage').val(),
+                                    SearchBrand: $('#@Html.FieldIdFor(model => model.SearchBrand)').val(),
+                                    SearchFcmApplicationType: $('#@Html.FieldIdFor(model => model.SearchFcmApplicationType)').val(),
+                                    SearchLatitude: $('#@Html.FieldIdFor(model => model.SearchLatitude)').val(),
+                                    SearchLongitude: $('#@Html.FieldIdFor(model => model.SearchLongitude)').val(),
+                                    SearchHidden: $('#@Html.FieldIdFor(model => model.SearchHidden)').is(':checked')
+                                };
+                                addAntiForgeryToken(data);
+                                return data;
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

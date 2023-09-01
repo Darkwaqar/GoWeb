@@ -1,0 +1,265 @@
+@model ShoppingCartModel
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.ShoppingCart;
+@{
+    var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+}
+<div class="order-summary-content">
+    @Html.Widget("order_summary_content_before")
+    @Html.Partial("_OrderReviewData", Model.OrderReviewData)
+    @if (Model.Items.Count > 0)
+    {
+        if (Model.Warnings.Count > 0)
+        {
+            <div class="message-error">
+                <ul>
+                    @foreach (var warning in Model.Warnings)
+                    {
+                        <li>@warning</li>
+                    }
+                </ul>
+            </div>
+        }
+        using (Html.BeginRouteForm("ShoppingCart", FormMethod.Post, new { enctype = "multipart/form-data", id = "shopping-cart-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="table-wrapper">
+
+                <div class="cart row no-margin" style="width:100%;max-height:640px;overflow-y:scroll;overflow-x:hidden">
+
+                    <div class="row hidden-sm hidden-xs" style=" margin: 0 15px;">
+                        <div class="col-md-2 col-xs-2 shoppingcart-header">
+                            ITEM(S)
+                        </div>
+                        <div class="col-md-4 col-xs-4 shoppingcart-header">
+                            DESCRIPTION
+                        </div>
+                        <div class="col-md-1 col-xs-1 shoppingcart-header">
+                            COLOR
+                        </div>
+                        <div class="col-md-1 col-xs-1 shoppingcart-header">
+                            SIZE
+                        </div>
+                        <div class="col-md-1 col-xs-1 shoppingcart-header">
+                            QTY
+                        </div>
+                        <div class="col-md-2 col-xs-2 shoppingcart-header">
+                            UNIT PRICE
+                        </div>
+                        <div class="col-md-1 col-xs-1 shoppingcart-header">
+                            @T("ShoppingCart.ItemTotal")
+                        </div>
+                    </div>
+                    @foreach (var item in Model.Items)
+                    {
+                        <div class="row" style=" margin: 0 15px; border-bottom:solid 1px;">
+                            @if (Model.ShowSku)
+                            {
+                                <div class="sku col-md-1 col-xs-12 nopadding">
+                                    <div class="shoppingcart-header-inner"> SKU #</div>
+                                    <div class="shoppingcart-header2 "><span class="sku-number">@item.Sku</span></div>
+                                </div>
+                            }
+                            @if (Model.ShowProductImages)
+                            {
+                                <div class="product-picture col-md-2 col-sm-3 col-xs-4 nopadding">
+                                    <div class="col-xs-12 hidden-md hidden-lg shoppingcart-header-inner">
+                                        ITEM(S)
+                                    </div>
+                                    <div class="shoppingcart-header2"><span class="sku-number"><a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })"><img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" /></a></span></div>
+                                </div>
+                            }
+                            <div class="product col-md-4 col-sm-3 col-xs-8 nopadding">
+                                <div class="col-xs-12 hidden-md hidden-lg shoppingcart-header-inner">
+                                    DESCRIPTION
+                                </div>
+                                <div class="shoppingcart-header2">
+                                    <span class="sku-number">
+                                        <span class="cart-proName">@item.ProductName</span> <br />
+                                        @item.ShortDescription <br />
+
+                                        <input type="checkbox" name="removefromcart" id="chkbox@(item.Id)" style="display:none" value="@(item.Id)" />
+                                        <a href="javascript:" onclick="RemoveCartItem('chkbox@(item.Id)')" class="red" style="color:red">Remove</a> |
+                                        @*<a href="javascript:" onclick="updateCart()" class="red" style="color: #051C3B">Update Cart</a>*@
+                                        <input type="submit" name="updatecart" style="padding-left:0px" class="button-2 update-cart-button update-shoppingcart" id="updatecart" value="UPDATE CART" />
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 hidden-sm hidden-md hidden-lg"> </div>
+                            <div class="unit-price col-md-1 col-sm-3 col-xs-4 nopadding">
+                                <div class="col-xs-12 hidden-md hidden-lg shoppingcart-header-inner">
+                                    COLOR
+                                </div>
+                                @{
+                                    string color = null;
+                                    string size = null;
+                                    try
+                                    {
+                                       /* var attr = item.AttributeInfo.Split(new string[] { "<br />" }, StringSplitOptions.None);
+                                        size = attr[0];
+                                        color = attr[1]; */
+
+ 					var attr = item.AttributeInfo.Split(new string[] { "<br />" }, StringSplitOptions.None);
+                                        if (attr.Length > 1)
+                                        {
+                                            size = attr[0];
+                                            color = attr[1];
+                                        }
+                                        else
+                                        {
+                                            attr = item.AttributeInfo.Split(new string[] { ":" }, StringSplitOptions.None);
+
+                                            if (attr[0].ToString().ToLower() == "size")
+                                            {
+                                                size = item.AttributeInfo;
+                                            }
+                                            else if (attr[0].ToString().ToLower() == "color")
+                                            {
+                                                color = item.AttributeInfo;
+                                            }
+                                        }
+
+                                        //size = size.Replace("Size:", "");
+                                        //color = color.Replace("COLOR:", "");
+                                    }
+                                    catch (Exception e)
+                                    { }
+                                }
+
+                                @if (!item.ProductName.Contains("Gift"))
+                                {
+                                    <div class="shoppingcart-header2 "><span class="sku-number">@color</span></div>
+                                }
+                                else
+                                {
+                                    <div class="shoppingcart-header2 "><span class="sku-number">---</span></div>
+                                }
+                            </div>
+                            
+                            <div class="unit-price col-md-1 col-sm-3 col-xs-4 nopadding">
+                                <div class="col-xs-12 hidden-md hidden-lg shoppingcart-header-inner">
+                                    SIZE
+                                </div>
+                                @if (!item.ProductName.Contains("Gift"))
+                                {
+                                    <div class="shoppingcart-header2 "><span class="sku-number">@size</span></div>
+                                }
+                                else
+                                {
+                                    <div class="shoppingcart-header2 "><span class="sku-number">---</span></div>
+                                }
+                            </div>
+                            <div class="col-sm-12 hidden-xs hidden-md hidden-lg"> </div>
+                            <div class="unit-price col-md-1 col-sm-4 col-xs-4 nopadding">
+                                <div class="col-xs-12 hidden-md hidden-lg shoppingcart-header-inner">
+                                    QTY
+                                </div>
+                                <div class="shoppingcart-header2 ">
+                                    <span class="sku-number">
+                                        @if (Model.IsEditable)
+                                        {
+                                            if (item.AllowedQuantities.Count > 0)
+                                            {
+                                                <select name="itemquantity@(item.Id)" class="qty-dropdown">
+                                                    @foreach (var qty in item.AllowedQuantities)
+                                                    {
+                                                        <option selected="@qty.Selected" value="@qty.Value">@qty.Value</option>
+                                                    }
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <input name="itemquantity@(item.Id)" type="number" min="1" max="11" value="@(item.Quantity)" class="qty-input" />
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <span class="product-quantity">@item.Quantity</span>
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="quantity col-md-2 col-sm-4 col-xs-6 nopadding">
+                                <div class="col-xs-12 hidden-md hidden-lg shoppingcart-header-inner">
+                                    UNIT PRICE
+                                </div>
+                                <div class="shoppingcart-header2 ">
+                                    <span class="sku-number">@item.UnitPrice</span>
+                                </div>
+                            </div>
+                            <div class="subtotal col-md-1 col-sm-4 col-xs-6 nopadding">
+                                <div class="col-xs-12 hidden-md hidden-lg shoppingcart-header-inner">
+                                    TOTAL
+                                </div>
+                                <div class="shoppingcart-header2 ">
+                                    <span class="sku-number">@item.SubTotal</span>
+                                </div>
+                            </div>
+                        </div>
+                     }
+                </div>
+            </div>
+
+            <div class="cart-footer">
+                @Html.Widget("order_summary_cart_footer")
+
+                <div class="totals">
+                    @Html.Action("OrderTotals", "ShoppingCart", new { isEditable = Model.IsEditable })
+
+                </div>
+            </div>
+                @*<div class="col-md-6" style="padding-left:27px">@Html.Partial("_GiftCardBox", Model.GiftCardBox)</div>*@
+            <div class="checkout-buttons col-md-6" style="margin-top:46px">
+               @if (String.IsNullOrEmpty(Model.MinOrderSubtotalWarning))
+                {
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#checkout').click(function () {
+                                //terms of service
+                                var termOfServiceOk = true;
+                                if ($('#termsofservice').length > 0) {
+                                    //terms of service element exists
+                                    if (!$('#termsofservice').is(':checked')) {
+                                        $("#terms-of-service-warning-box").dialog();
+                                        termOfServiceOk = false;
+                                    } else {
+                                        termOfServiceOk = true;
+                                    }
+                                }
+                                return termOfServiceOk;
+                            });
+                        });
+                    </script>
+                    <div class="proceed-purchase">
+                        @*<button type="submit" id="checkout" name="checkout" value="checkout" class="btn-big proceed-chekout" style="background-color: #051C3B;">
+                                PROCEED TO CHECKOUT
+                            </button>*@
+                    </div>
+                }
+            </div>
+            if (Model.IsEditable)
+            {
+                @Html.Action("CrossSellProducts", "Product")
+            }
+        }
+    }
+    else
+    {
+        <div class="no-data"> </div>
+    }
+</div>
+
+<script>
+    function RemoveCartItem(checkbox) {
+        $("#" + checkbox).prop('checked', true);
+        $("#updatecart").click();
+    }
+    function updateCart() {
+        $("#updatecart").click();
+    }
+    $(".qty-input").on('keyup mouseup', function () {
+
+    });
+</script>

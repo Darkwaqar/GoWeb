@@ -1,0 +1,23 @@
+﻿@model IList<ProductSpecificationModel>
+@using Nop.Web.Models.Catalog;
+@if (Model.Count > 0)
+{
+for (int i = 0; i < Model.Count; i++)
+{
+var item = Model[i];
+<div class="panel panel-default panel-productdetails ">
+<div class="panel-heading">
+<h4 class="panel-title">
+<a data-toggle="collapse" data-parent="#accordion" href="#collapse_spec_@i">
+@item.SpecificationAttributeName <span class="	glyphicon glyphicon-menu-down pull-right" id="collapse-spann-@i"></span>
+</a>
+</h4>
+</div>
+<div id="collapse_spec_@i" class="panel-collapse collapse">
+<div class="panel-body">
+@Html.Raw(item.ValueRaw)
+</div>
+</div>
+</div>
+}
+}

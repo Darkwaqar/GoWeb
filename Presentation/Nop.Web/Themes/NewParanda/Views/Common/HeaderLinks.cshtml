@@ -1,0 +1,340 @@
+﻿@model HeaderLinksModel
+@using Nop.Web.Models.Common;
+@using Nop.Web.Models.ShoppingCart;
+@using Nop.Core;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Orders;
+@using Nop.Web.Factories;
+
+
+@{
+    var shoppingCartEnabled = EngineContext.Current.Resolve<Nop.Services.Security.IPermissionService>()
+.Authorize(Nop.Services.Security.StandardPermissionProvider.EnableShoppingCart);
+    var customer = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer;
+
+    
+   
+     var shoppingCartItems = customer.ShoppingCartItems
+            .Where(sci => sci.ShoppingCartType == Nop.Core.Domain.Orders.ShoppingCartType.ShoppingCart)
+            .LimitPerStore(EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id)
+            .ToList();
+    
+}
+
+@{
+
+
+    var cart = new ShoppingCartModel();
+
+
+    var c = EngineContext.Current.Resolve<IShoppingCartModelFactory>().PrepareShoppingCartModel(cart, shoppingCartItems);
+
+
+}
+
+
+<div class="mainHeader">
+    <a href="/" class="mainHeader__logo shadow" @*id="cf4a"*@>
+        <img class="img-logo" src="~/Themes/NewParanda/Content/img/logo.png" alt="Paranda" />
+        @*<img class="img-logo" src="~/Themes/NewParanda/Content/img/logo2.png" alt="Paranda" />
+        <img class="img-logo" src="~/Themes/NewParanda/Content/img/logo3.png" alt="Paranda" />
+        <img class="img-logo" src="~/Themes/NewParanda/Content/img/logo4.png" alt="Paranda" />*@
+
+
+
+    </a>
+    <div class="mainHeader__menu header-links">
+
+        <div class="mainHeader__menu__item show-for-large">
+            <p class="freetext">@*Free Shipping on all orders!*@ </p>
+        </div>
+        <div class="mainHeader__menu__item show-for-large">
+            
+
+
+            @if (Model.IsAuthenticated)
+            {
+                <a href="@Url.RouteUrl("CustomerInfo")"><span>@Model.CustomerName</span></a>
+                
+            }
+            else
+            {
+               
+                <a href="@Url.RouteUrl("Login")"><span>My Account</span></a>
+            }
+
+
+
+
+        </div>
+        <div class="mainHeader__menu__item hide-for-large" data-togglesearch="">
+            <a data-turbolinks="false" onclick=" closeNav(); openNav('search1')">
+                <i class="fal fa-search"></i>
+            </a>
+        </div>
+        <div class="mainHeader__menu__item">
+
+
+
+
+
+            @if (Model.ShoppingCartEnabled)
+            {
+                <a class="icon-box-inner cart miniCart  " id="topcartlink" data-turbolinks="false" data-toggleminicart="" onclick="closeNav(); openNav('cart'); open_cart();" id="cartcount" @*href="@Url.RouteUrl("ShoppingCart")"*@>
+                    <span class="show-for-large">Shopping bag</span>
+                    <span class="hide-for-large"><i class="fal fa-shopping-bag"></i></span>
+                    <span class="count show-for-large shoppingCartCount cart-qty">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</span>
+
+                </a>
+            }
+
+
+
+        
+
+
+
+
+        </div>
+        <div class="mainHeader__menu__item show-for-large">
+            @if (Model.WishlistEnabled)
+            {
+
+
+                <a data-togglewishlist="" class="icon-box-inner topbar__options__item wishlist" title="Wishlist" href="@Url.RouteUrl("Wishlist")">
+                    <span class="show-for-large">Wishlist</span>
+                    <span class="hide-for-large">
+                        <i class="fal fa-heart"></i>
+                    </span>
+
+                    <span data-turbolinks-permanent="" id="wishlistcount" class="count wishlist-qty" data-wishlishtcount="">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span>
+                </a>
+
+            }
+        </div>
+        <div class="mainHeader__menu__item mobileMenuToggle hide-for-large" data-togglemenu="">
+            <a href="#" onclick="openNav('menuMain')"><i class="fal fa-bars toggle"></i></a>
+            <i class="fal fa-times close"></i>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="menuMain" class="menu sidenav sidebarBase__container">
+
+
+    <div class=" sidebarBase__title ">
+        <div class="sidebarBase__close" data-assistencetoggle=""> <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fal fa-times"></i></a></div>
+    </div>
+
+
+    <div class="sidebarBase__contents">
+
+
+        <div class="assistance__sections" data-turbolinks="false" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+
+
+
+
+            <div class="assistence__section">
+
+                <div class="content">
+                    <a href="/shop" detailsbar="">Shop</a>
+                    <a href="/collections-2" detailsbar="">Collections</a>
+                    <a href="about-us-paranda" detailsbar="">About</a>
+                    <a href="/wishlist" detailsbar="">WishList</a>
+                    <a href="/media-2">Media</a>
+
+
+                    @if (Model.IsAuthenticated)
+                    {
+                        <a href="@Url.RouteUrl("CustomerInfo")"><span>My Account</span></a>
+                        <a href="@Url.RouteUrl("Logout")"><span>Logout</span></a>
+
+                    }
+                    else
+                    {
+
+                        <a href="@Url.RouteUrl("Login")"><span>My Account</span></a>
+                    }
+
+                    <a href="/contactus">Contact</a>
+                    <a href="#" onclick="closeNav('menuMain'); openNav('assist');" detailsbar="">Help</a>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="assist" class="menu sidenav sidebarBase__container">
+
+
+    <div class=" sidebarBase__title ">
+       Help
+        <div class="sidebarBase__close" data-assistencetoggle=""> <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fal fa-times"></i></a></div>
+    </div>
+
+
+    <div class="sidebarBase__contents">
+
+
+        <div class="assistance__sections" data-turbolinks="false" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+            <div class="assistence__section">
+                <div class="name">Contact</div>
+                <div class="content">
+                    Customer service<br> Phone: +92331-2888192<br> Mail: info@paranda.com<br> Hours: Monday - Friday: 09.30 - 13.30/14.30-18.30<br>
+                    
+                    
+                </div>
+            </div>
+
+            <div class="assistence__section">
+                <div class="name">Information</div>
+                <div class="content">
+                    <a href="/paranda-faqs" detailsbar="">FAQs</a>
+                    <a href="#" detailsbar="">Delivery and Returns</a>
+
+                </div>
+            </div>
+
+
+
+            <div class="assistence__section">
+                <div class="name">Legal</div>
+                <div class="content">
+                    <a href="/paranda-privacy-policy" detailsbar="">Privacy Policy</a>
+                    <a href="/contactus" detailsbar="">Customer Support</a>
+                </div>
+            </div>
+
+            <div class="assistence__section">
+                <div class="name">Terms &amp; Conditions</div>
+                <div class="content">
+                    <a href="#" detailsbar="">Dealer company and site owner</a>
+                    <a href="#" detailsbar="">Orders</a>
+                    <a href="#" detailsbar="">Conclusion of contract</a>
+                    <a href="#" detailsbar="">Object of the contract</a>
+                    <a href="#" detailsbar="">Price of products and other expenses</a>
+                    <a href="#" detailsbar="">Shipping</a>
+                    <a href="#" detailsbar="">Time and means of delivery</a>
+                    <a href="#" detailsbar="">How to deal with the delivery of the products</a>
+                    <a href="#" detailsbar="">Liability and limitation of liability</a>
+                    <a href="#" detailsbar="">Right of&nbsp;withdrawal and implementation procedure</a>
+                    <a href="#" detailsbar="">Customer Support</a>
+                    <a href="#" detailsbar="">Technical Information and Changes</a>
+                    <a href="#" detailsbar="">Applicable Law</a>
+                    <a href="#" detailsbar="">Jurisdiction in the event of dispute</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+<div id="search1" class="search sidenav sidebarBase__container">
+
+
+    <div class=" sidebarBase__title ">
+        Search
+        <div class="sidebarBase__close" data-assistencetoggle="">
+            <a href="javascript:void(0)" style="color:#000;" class="closeSearch" onclick="closeNav()"><i class="fal fa-times"></i></a>
+
+        </div>
+    </div>
+    <div class="sidebarBase__contents">
+       
+            @Html.Action("SearchBox", "Catalog")
+       
+    </div>
+
+</div>
+
+<div id="cart" class="cart sidenav sidebarBase__container">
+
+    <div class="sidebarBase" id="minicart" data-turbolinks-permanent="">
+        <div class="sidebarBase__bg" data-toggleminicart=""></div>
+        <div class="sidebarBase__container" navcontainer="" @*style="transform: translateX(100%) translateZ(0px);"*@>
+
+            <div class=" sidebarBase__title ">
+                Shopping Bag
+                <div class="sidebarBase__close" data-assistencetoggle="">
+                    <a href="javascript:void(0)" style="color:#000;" class="closeCart" onclick=" close_cart(); closeNav();"><i class="fal fa-times"></i></a>
+
+                </div>
+            </div>
+
+
+
+
+
+            @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+
+
+
+        </div>
+    </div>
+
+
+
+   
+
+
+
+
+
+</div>
+
+@*<script>
+
+
+        function showCart() {
+
+            $.ajax({
+                url: '',
+                success: function (data) {
+
+                    $('#cart').html();
+
+
+
+
+                    $('#cart').html(data);
+
+
+
+                }
+
+            });
+        }
+
+
+
+    </script>*@

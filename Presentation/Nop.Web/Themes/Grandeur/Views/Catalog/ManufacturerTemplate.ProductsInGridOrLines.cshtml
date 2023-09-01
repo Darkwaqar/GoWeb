@@ -1,0 +1,210 @@
+﻿@model ManufacturerModel
+@using Nop.Web.Models.Catalog;
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-manufacturer-page");
+}
+@section left{
+    <div style="background-image: url('/Themes/Grandeur/Content/images/tests/conductor.jpg')"></div>
+    <div style="background-image: url('/Themes/Grandeur/Content/images/tests/sniper.jpg')" class="hidden"></div>
+    <div style="background-image: url('/Themes/Grandeur/Content/images/tests/planner.jpg')" class="hidden"></div>
+    <div style="background-image: url('/Themes/Grandeur/Content/images/tests/horse.jpg')" class="hidden"></div>
+    <div style="background-image: url('/Themes/Grandeur/Content/images/tests/surfer.jpg')" class="hidden"></div>
+}
+<section class="vcenter active from-hidden">
+    <div class="question">
+        <strong class="first mobile">Choose one decision:</strong>
+        <strong class="first">To determine your trading type – please choose one decision for the next five situations:</strong>
+
+        <header>1/5</header>
+        <div>
+            <p>
+                Unexpected jump of the exchange rate helped <br />
+                you to break a jackpot and you&#039;ve decided to buy<br />
+                a decent car. So what will you choose?
+            </p>
+        </div>
+        <i class="conductor"></i>
+    </div>
+
+    <div class="answers">
+        <a class="hidden" data-id="surfer">
+            <b>1</b>
+            <span>I like speed, therefore, it will be tuning sports car.</span>
+        </a>
+        <a class="hidden" data-id="conductor">
+            <b>2</b>
+            <span>Status, first of all. Therefore, I will choose the premium class sedan.</span>
+        </a>
+        <a class="hidden" data-id="dark-horse">
+            <b>3</b>
+            <span>Internal combustion is the past century. Electric car is the right one for the man of future.</span>
+        </a>
+        <a class="hidden" data-id="planner">
+            <b>4</b>
+            <span>I prefer comfort and safety. I will buy off-road car for the big city.</span>
+        </a>
+        <a class="hidden" data-id="sniper">
+            <b>5</b>
+            <span>As for me, style is most important. So I will choose a customized car, something elegant and original, or a limited edition car.</span>
+        </a>
+    </div>
+</section>
+<section class="vcenter ">
+    <div class="question">
+        <strong>Choose the answer</strong>
+
+        <header>2/5</header>
+        <div>
+            <p>
+                You have a promising investment option, but all <br />
+                of your capital is in the business now. Are you ready <br />
+                to take the risk and borrow big amount of money?
+            </p>
+        </div>
+        <i class="sniper"></i>
+    </div>
+
+    <div class="answers">
+        <a class="hidden" data-id="conductor">
+            <b>1</b>
+            <span>I will not weigh the pros and cons for a long time. I will listen to my intuition. It has never failed me.</span>
+        </a>
+        <a class="hidden" data-id="surfer">
+            <b>2</b>
+            <span>There&#039;s no time to wait! It is necessary to catch the wave until there is a wind and courage.</span>
+        </a>
+        <a class="hidden" data-id="planner">
+            <b>3</b>
+            <span>I will consider the risks and opportunities. Even if I don’t have enough time, I will not screw things up.</span>
+        </a>
+        <a class="hidden" data-id="sniper">
+            <b>4</b>
+            <span>It is necessary to wait and look around. Maybe there will be an even more advantageous offer in this segment.</span>
+        </a>
+        <a class="hidden" data-id="dark-horse">
+            <b>5</b>
+            <span>I have to try. Sometimes your whole career depends on chances like that.</span>
+        </a>
+    </div>
+</section>
+<section class="vcenter ">
+    <div class="question">
+        <strong>Choose the answer</strong>
+
+        <header>3/5</header>
+        <div>
+            <p>
+                Money has a habit to lose its value. Therefore, one should invest <br />
+                in eternal things - in gold, real estate and art.  You have an opportunity <br />
+                to buy a painting of an unknown artist who is predicted to be successful. <br />
+                What will you do?
+            </p>
+        </div>
+        <i class="planner"></i>
+    </div>
+
+    <div class="answers">
+        <a class="hidden" data-id="planner">
+            <b>1</b>
+            <span>I will spend a bit on the experts to evaluate the artwork and the prospects of the artist</span>
+        </a>
+        <a class="hidden" data-id="sniper">
+            <b>2</b>
+            <span>I don’t work with unpredictable results. It is better to wait and hit confidently and profitably</span>
+        </a>
+        <a class="hidden" data-id="surfer">
+            <b>3</b>
+            <span>Great idea! Such things should be caught at the start while their prices have not soared into space.</span>
+        </a>
+        <a class="hidden" data-id="dark-horse">
+            <b>4</b>
+            <span>There are a lot of problems with the art. It is better to invest in Internet projects</span>
+        </a>
+        <a class="hidden" data-id="conductor">
+            <b>5</b>
+            <span>I have a scent for such things. I need to take a look at the work and at the artist to understand what to do.</span>
+        </a>
+    </div>
+</section>
+<section class="vcenter ">
+    <div class="question">
+        <strong>Choose the answer</strong>
+
+        <header>4/5</header>
+        <div>
+            <p>
+                What options of investment are you <br />
+                interested in, except trading?
+            </p>
+        </div>
+        <i class="horse"></i>
+    </div>
+
+    <div class="answers">
+        <a class="hidden" data-id="planner">
+            <b>1</b>
+            <span>I choose real estate or precious metals. These things are reliable and zero-risk.</span>
+        </a>
+        <a class="hidden" data-id="conductor">
+            <b>2</b>
+            <span>I invest in shares and bonds. Nowadays, they can earn good money there.</span>
+        </a>
+        <a class="hidden" data-id="surfer">
+            <b>3</b>
+            <span>I like the excitement. Perhaps, I will play at races or football. The main thing is to act when you are lucky and retreat in time.</span>
+        </a>
+        <a class="hidden" data-id="sniper">
+            <b>4</b>
+            <span>I buy antiques and art objects, their price will only increase eventually.</span>
+        </a>
+        <a class="hidden" data-id="dark-horse">
+            <b>5</b>
+            <span>I will go for startups. Future is in modern technologies.</span>
+        </a>
+    </div>
+</section>
+<section class="vcenter ">
+    <div class="question">
+        <strong>Choose the answer</strong>
+
+        <header>5/5</header>
+        <div>
+            <p>
+                Money can easily break the closest friendships. <br />
+                Will you lend a large amount of money if your friend asks?
+            </p>
+        </div>
+        <i class="surfer"></i>
+    </div>
+
+    <div class="answers">
+        <a class="hidden" data-id="sniper">
+            <b>1</b>
+            <span>I will advise him to apply to the bank. Everything is clear there. Also he will have good motivation to return the money quickly.</span>
+        </a>
+        <a class="hidden" data-id="planner">
+            <b>2</b>
+            <span>If my friend provides the decent back guarantee, I will consider this option.</span>
+        </a>
+        <a class="hidden" data-id="dark-horse">
+            <b>3</b>
+            <span>Yes, I will always be able to work and to hit many jackpots even if the debt will not be paid back.</span>
+        </a>
+        <a class="hidden" data-id="surfer">
+            <b>4</b>
+            <span>Of course, I will help! Happens to all of us. That is what the true friends do.</span>
+        </a>
+        <a class="hidden" data-id="conductor">
+            <b>5</b>
+            <span>Yes, but I will lend, but only on my own terms. It is necessary to avoid possible risks.</span>
+        </a>
+    </div>
+</section>

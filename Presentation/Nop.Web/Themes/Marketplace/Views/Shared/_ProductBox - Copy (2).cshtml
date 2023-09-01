@@ -1,0 +1,81 @@
+﻿@model ProductOverviewModel
+@using Nop.Core
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Catalog;
+@{
+    int i= 0;
+    int b = 1;
+    //prepare "Add to cart" AJAX link
+    string addtocartlink = "";
+    var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+   
+    var quantity = 1;
+    if (Model.ProductPrice.ForceRedirectionAfterAddingToCart)
+    {
+        addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity, forceredirection = Model.ProductPrice.ForceRedirectionAfterAddingToCart });
+    }
+    else
+    {
+        addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
+    }
+
+    var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
+    var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
+}
+    <li class="product">
+                                <div class="productContainer ">
+								        <a class="default-picture" href="@Url.RouteUrl("Product", new { SeName = Model.SeName })" title="@Model.DefaultPictureModel.Title">
+												<div class="productImageStroke">
+												<img id="img-@Model.Id" alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" class="img-responsive" style="height:419px;width:260px" />
+											</div>
+											@if (Model.AlternatePictureModel != null){
+											 <div class="productAltImageStroke">
+                                            <img id="product-1-alt" src="@Model.AlternatePictureModel.ImageUrl" />
+                                        </div>
+										}
+											</a>
+                                    
+                                    <div class="productDetailsContainer">
+                                        <div class="productSizeColorSelector ">
+                                            <ul class="sizesList sizeSel">
+                                                <!---->
+                                                <li>6</li>
+                                                <li>8</li>
+                                                <li>10</li>
+                                                <li>12</li>
+                                                <li>14</li>
+                                            </ul>
+                                            <ul class="colorsList colorSel" style="display: none;">
+                                                <li>
+                                                    <img alt="" onclick="changeImage(this,'product-1-main','product-1-alt')" src="http://cdn.yoox.biz/37/37973820OB_6_f.jpg"
+                                                         data-bigimage="http://cdn.yoox.biz/37/37973820OB_10_f.jpg"
+                                                         data-second-bigimage="http://cdn.yoox.biz/37/37973820OB_10_r.jpg" />
+                                                </li>
+                                                <li class="selected">
+                                                    <img alt="" onclick="changeImage(this,'product-1-main','product-1-alt')" src="http://cdn.yoox.biz/37/37957903SL_6_f.jpg"
+                                                         data-bigimage="http://cdn.yoox.biz/37/37957903SL_10_f.jpg"
+                                                         data-second-bigimage="http://cdn.yoox.biz/37/37957903SL_10_r.jpg" />
+                                                </li>
+                                            </ul>
+                                            <ul class="colorsSizesSwitch">
+                                                <li class=" viewColors colorSel" onclick="colorSelect(this);"></li>
+                                                <li class="viewSizes sizeSel selected" onclick="sizeSelect(this);"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="productDescriptionContainer">
+                                            <div class="productMicro" data-micro="">
+                                                <a href="#">@Model.Name<!----></a>
+                                            </div>
+                                            <div class="productPrice">
+                                                <!---->
+                                                <div class="newprice">
+                                                    <span class="currency">£</span> <span class="priceValue">@Model.ProductPrice.Price</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>

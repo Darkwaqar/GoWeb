@@ -1,0 +1,300 @@
+﻿@model HeaderLinksModel
+@using Nop.Web.Models.Common;
+@using Nop.Services.Common;
+
+
+
+@using Nop.Core;
+@using Nop.Core.Domain.Customers;
+@using Nop.Core.Infrastructure;
+
+
+@{
+
+var currentCustomer = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer;
+    
+    var username = currentCustomer.GetAttribute<string>(SystemCustomerAttributeNames.FirstName);
+
+}
+<style>
+    .removeDisplay {
+    display:block !important;
+    }
+</style>
+  <ul class="topLinks">
+                    <li class="accountDropdownTriger">
+					@if (Model.IsAuthenticated)
+        {
+            @*<a href="@Url.RouteUrl("CustomerInfo")">@username</a>*@
+                        <span style="">@username</span>
+           
+        }
+        else
+        {
+           
+			 <a href="#">Sign in</a>
+        }
+		
+                       
+                        <div class="accountDropdown style clearfix">
+                            <ul class="tabs">
+							
+                                <li class="active">
+                                    <a href="#tab1">Login</a>
+                                </li>
+                                <li>
+                                    <a href="#tab2">Register</a>
+                                </li>
+                            </ul>
+                            <div class="tab-panel">
+                                <div id="tab1" class="tab-pane active">
+                                    <form id="loginform">
+                                    <h5 id="loginheadmessage" style="font-size:15px"></h5>
+                                        <input id="txtloginid" name="Email" type="text" placeholder="Email address">
+                                        <input id="txtpassword" name="Password" type="password" placeholder="Password">
+                                    <label style="display:none">
+                                        <input id="chkremember" data-val="true" data-val-required="'Remember Me' must not be empty." name="RememberMe" type="checkbox" value="true" style="display:none"><input name="RememberMe" type="hidden" value="false" style="display:none"> REMEMBER IN FUTURE
+                                    </label>
+                                        <a class="btn btn-default " href="javascript:" onclick="waqas();">
+                                            Login
+                                        </a>
+                                            <a class="resetPass" href="#">Forgot your password?</a>
+                                    </form>
+                                    
+                                </div>
+
+                                <div id="tab2" class="tab-pane">
+                                    <form id="regform">
+                                        <h5 id="registerheadmessage" style="font-size:15px;"></h5>
+                                        <div class="uppercase" style="display:none">
+                                            <span class="col-xs-3 control-label nopadding" style="">GENDER:</span>
+                                            <div class="col-xs-9">
+                                                <label class="radio-inline">
+                                                    <input id="gender-male" name="Gender" type="radio" value="M">
+                                                    <label for="gender-male"><span></span></label>
+                                                    MALE
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input id="gender-female" name="Gender" type="radio" value="F">
+                                                    <label for="gender-female"><span></span></label>
+                                                    FEMALE
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <input class="textbox2  uppercase" placeholder="Name" data-val="true" data-val-required="Name is required." id="txtUsername" name="Username" type="hidden" value=".">
+                                        <input type="text" placeholder="First name" id="txtFirstName" name="FirstName">
+                                        <input type="text" placeholder="Last name" id="txtLastName" name="LastName">
+                                        <input type="text" placeholder="Email address" id="txtEmail" name="Email">
+                                        <input type="password" placeholder="Password" id="txtPassword" name="Password">
+                                        <input placeholder="CONFIRM PASSWORD" class="textbox13" data-val="true" data-val-equalto="The password and confirmation password do not match." data-val-equalto-other="*.Password" data-val-required="Password is required." id="txtConfirmPassword" name="ConfirmPassword" type="hidden">
+                                        <a class="btn btn-default btn-reg" href="javascript:" id="btnregister" onclick="UserRegister();">create account</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>|</li>
+                    <li class="languageDropdownTriger">
+					 @if (Model.WishlistEnabled)
+        {
+		<a href="#" onclick="setLocation('/wishlists')" style="">Wishlist</a>
+            
+                 
+                
+        }
+                        
+                    </li>
+                    <li>|</li>
+                    <li class="cartDropdownTriger">
+					@if (Model.ShoppingCartEnabled)
+{
+
+<a class="add_to_cart_button" href="#">
+                            <i style="" class="xv-ecommerce_cart_content">&nbsp;<span class="cart-qty">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</span></i>
+                        </a>
+    <div class="cartDropdown">
+	 @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+	 </div>                          
+}
+                        
+                        
+                    </li>
+                    <li>|</li>
+                    <li>
+					
+                        <div class="removeDisplay"><a href="#" id="" onclick="searchOpen();"><img src="themes/marketplace/content/images/searchBar.png" /></span></a></div>
+                       
+                    </li>
+                </ul>
+<script>
+  
+    function searchOpen() {
+        console.log("abc");
+            if (document.getElementById("AuthPanel5").style.display == "none") {
+
+                closeIfOpened("SearchPanel");
+                $("#AuthPanel5").show("slow");
+                $("#AuthPanel").hide("slow")
+                return;
+            }
+            $("#AuthPanel3").hide("slow");
+       
+        
+            //if (document.getElementById("SearchPanel").style.display == "none") {
+            //    closeIfOpened("AuthPanel5");
+            //    $("#SearchPanel").show("slow");
+            //    return;
+            //}
+            //$("#SearchPanel").hide("slow");
+       
+    }
+    
+</script>
+
+<script>
+    function waqas() {
+       
+         
+            var loginid = $("#txtloginid").val();
+            var password = $("#txtpassword").val();
+            var x = document.getElementById("txtloginid").value;
+            var atpos = x.indexOf("@@");
+            var dotpos = x.lastIndexOf(".");
+
+            if (document.getElementById("chkremember").checked) {
+                var rememberme = true;
+            }
+            else {
+                var rememberme = false;
+            }
+
+            //if ($("#txtloginid").val != "com") {
+
+            //    $("#loginheadmessage").text("Please Enter Valid Email").css("color", "red");
+            //    return;
+            //}
+            if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= x.length) {
+                $("#loginheadmessage").text("Please Enter Valid Email").css("color", "red");
+                return;
+            }
+
+            var jsonObject = {
+                "Email": loginid,
+                "Password": password,
+                "RememberMe": rememberme
+            };
+
+            $.ajax({
+                url: "@(Url.RouteUrl("login"))",
+                type: "POST",
+                data: JSON.stringify(jsonObject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    if (response.success == false) {
+                        $("#loginheadmessage").text(response);
+                    }
+                    //alert(response);
+                },
+                success: function (response) {
+                    if (response.success == true) {
+                        $("#loginheadmessage").text("Successfully Logged In").css("color","green");
+                        location.href="@(Url.RouteUrl("HomePage"))";
+                    }
+                    else {
+                        $("#loginheadmessage").text(response.message).css("color", "red");
+                    }
+                }
+            });
+
+        
+    };
+</script>
+<script>
+    function UserRegister() {
+        
+            var gender = null;
+            var Username = $("#txtFirstName").val();
+            var lastName = $("#txtLastName").val();
+            var firstName = $("#txtFirstName").val();
+            var Email = $("#txtEmail").val();
+            var Password = $("#txtPassword").val();
+            var confirmPassword = $("#txtConfirmPassword").val();
+            if ($("#gender-female").is(":checked"))
+            {
+                gender = "F";
+            }
+            else ($("#gender-male").is(":checked"))
+            {
+                gender = "M";
+            }
+            //else
+            //{
+            //    $("#registerheadmessage").text("PLEASE SELECT GENDER").css("color","red");
+              
+            //    return;
+            //    //Gender = "M";
+            //}
+            
+            if (firstName == "") {
+                
+                $("#registerheadmessage").text("FIRST NAME IS REQUIRED").css("color", "red");
+
+                return;
+
+            }
+
+            if (lastName == "") {
+
+                $("#registerheadmessage").text("LAST NAME IS REQUIRED").css("color", "red");
+
+                return;
+
+            }
+
+            //if (confirmPassword != Password) 
+            //{
+            //    $('#registerheadmessage').text("PASSWORD DOES NOT MATCH").css("color", "red","font-size","15px");;
+            //    return;
+            //}
+          
+            var jsonObject = {
+                __RequestVerificationToken: $("#register-anti-forgery").val(),
+                captchaValid: true,
+                "Gender": gender,
+                "Username": Username,
+                "FirstName": firstName,
+                "LastName": lastName,
+                "Email": Email,
+                "Password": Password,
+                "ConfirmPassword": confirmPassword
+            };
+
+            $.ajax({
+                url: "@(Url.RouteUrl("Register"))",
+                type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                if (response.success == false) {
+                    $("#registerheadmessage").text(response);
+                }
+                alert(response);
+            },
+            success: function (response) {
+                if (response.success == true) {
+                    $("#registerheadmessage").text("SUCCESSFULLY REGISTERED").css("color","green");
+                    location.href="@(Url.RouteUrl("HomePage"))";
+                }
+                else {
+                    $("#registerheadmessage").text(response.message).css("color", "red");
+                }
+            }
+        });
+
+   
+    };
+
+</script>
+				

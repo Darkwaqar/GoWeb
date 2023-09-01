@@ -1,0 +1,18 @@
+﻿@model global::Nop.Web.Models.Catalog.ProductDetailsModel
+@if (!String.IsNullOrEmpty(Model.Name))
+{
+    <h1 class="product-name">
+        @Model.Name
+    </h1>
+}
+
+<div class="product-details-page">
+    @using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+    {
+        var dataDictVariant = new ViewDataDictionary { { "ProductId", Model.Id }, { "IsAddToCartButton", ViewBag.IsAddToCartButton } };
+        // little hack in order to reuse the ProductVariantOverview partial view in which the productVariant.Description property is used.
+        // In the case of just one product variant use the product short description
+        //Model.FullDescription = Model.ShortDescription;
+        @Html.Partial("ProductVariantOverview", Model, dataDictVariant)
+    }
+</div>

@@ -1,0 +1,31 @@
+﻿@model CatalogPagingFilteringModel
+@using Nop.Web.Models.Catalog;
+<div class="row no-margin ">
+    <div class="col-md-12 nopadding">
+        <div class="form-inline text-right" style="text-align:left">
+            <div class="col-md-12 nopadding filter-bar filterbar-responsive">
+                <span style="cursor:pointer"> <span class="fa fa-angle-down hidden-md hidden-lg" id="filterArrowx" style="font-size:16px;padding-right:8px"></span>SORT BY </span>
+                <div class="filter-panel filter-hide">
+                    @foreach (var spec in Model.AvailableSortOptions)
+                    {
+ 			if(spec.Text == "Created on")
+                        {
+                            spec.Text = "Latest";
+                        }
+
+                        <div><a class="fakecheck" onclick="javascript:abc('@(spec.Value)');" href="javascript:" id="@spec.Value"></a><span class="fakechecktext">@spec.Text  </span></div>
+                    }
+
+                    <script>
+                        function abc(a) {
+                        window.location = a;
+                        }
+                    </script>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

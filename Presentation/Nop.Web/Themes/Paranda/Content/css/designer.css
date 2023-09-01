@@ -1,0 +1,121 @@
+﻿
+
+
+.goals > img {
+    float: left;
+    margin-right: 9.1px;
+    padding: 0;
+        width: 21%;
+}
+.goals >  img:last-child{
+    margin-right:0px;
+    margin-right:0px;
+}
+.goals {
+    padding-bottom: 19px;
+        padding-left: 0;
+    padding-right: 0;
+    padding-top:0;
+}
+
+.headingsdes{
+        FONT-WEIGHT: bolder;
+    COLOR: #051c3b;
+        font-size: 28px;
+}
+.bigheading{
+        FONT-SIZE: 76px;
+    font-weight: bolder;
+    color: #8da7a8;
+}
+.isthevery{
+        margin-top: 0;
+    font-size: 22px;
+    color: #051c3b;
+}
+.isthevery2{
+    padding-bottom: 19px;
+     font-size: 20px;
+    color: #051c3b;
+}
+.bottomline{
+        text-align: center;
+    font-size: 35.4px;
+    color: #051c3b;
+}
+.morepics {
+        padding-top: 36px;
+}
+.hiddensection{
+
+}
+
+@media (max-width:1024px) {
+    .bigheading {
+        FONT-SIZE: 60px;
+    }
+}
+@media (max-width:414px){
+        .bigheading {
+        text-align: center;
+    font-size: 46px;
+    }
+        .isthevery {
+    margin-top: -20px;
+    font-size: 16px;
+    color: #051c3b;
+    text-align: center;
+}
+        .isthevery2 {
+    padding-bottom: 21px;
+    font-size: 14px;
+    text-align: center;
+    padding-top: 57px;
+    color: #051c3b;
+}
+        .goals > img {
+    float: left;
+        margin-right: 5.3%;
+    padding: 0;
+    text-align: center;
+    width: 21%;
+}
+        .headingsdes{
+text-align:center;
+    font-size: 20px;
+}
+        .forptags{
+            text-align:center;
+                font-size: 14px;
+        }
+        .morepics {
+    padding-top: 13px;
+    padding-bottom: 16px;
+}
+        .bottomline{
+                font-size: 25px;
+        }
+}
+
+@media (max-width: 320px) {
+    .bigheading {
+        text-align: center;
+        font-size: 36px;
+    }
+    .isthevery2 {
+    padding-bottom: 21px;
+    font-size: 14px;
+    text-align: center;
+    padding-top: 27px;
+    color: #051c3b;
+}
+    .headingsdes {
+    text-align: center;
+    font-size: 19px;
+}
+    .bottomline {
+    font-size: 20px;
+}
+}
+
+

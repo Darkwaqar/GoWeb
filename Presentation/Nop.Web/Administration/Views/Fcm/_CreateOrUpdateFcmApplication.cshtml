@@ -1,0 +1,75 @@
+﻿@model FcmApplicationModel
+@using Nop.Core.Domain.Fcm
+@using Nop.Services
+
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.Id)
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group" @(Model.AvailableVendors.SelectionIsNotPossible() ? Html.Raw("style=\"display:none\"") : null)>
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.VendorId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.VendorId, Model.AvailableVendors)
+                            @Html.ValidationMessageFor(model => model.VendorId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.FcmApplicationType)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.FcmApplicationType, ((FcmApplicationType)Model.FcmApplicationType).ToSelectList())
+                            @Html.ValidationMessageFor(model => model.FcmApplicationType)
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Name )
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Name, required: true)
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Package)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Package, required: true)
+                            @Html.ValidationMessageFor(model => model.Package)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.AppKey)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.AppKey, required: true)
+                            @Html.ValidationMessageFor(model => model.AppKey)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.CreatedOnUtc)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.CreatedOnUtc)
+                            @Html.ValidationMessageFor(model => model.CreatedOnUtc)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

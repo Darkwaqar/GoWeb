@@ -1,0 +1,376 @@
+﻿@** Copyright 2016 Seven Spikes Ltd. All rights reserved. (http://www.nop-templates.com)
+    * http://www.nop-templates.com/t/licensinginfo
+*@
+
+@using SevenSpikes.Nop.Plugins.MegaMenu
+@using SevenSpikes.Nop.Plugins.MegaMenu.Domain.Enums
+@using SevenSpikes.Nop.Plugins.MegaMenu.Models
+
+@model MegaMenuWidgetModel
+
+@{
+    Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.MegaMenu/Themes/" + Model.Theme + "/Content/MegaMenu.css");
+
+    var supportRtl = ShouldUseRtlTheme();
+    if (supportRtl)
+    {
+        Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.MegaMenu/Themes/" + Model.Theme + "/Content/MegaMenu.rtl.css");
+    }
+
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/SevenSpikesExtensions.min.js");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Nop.Plugins.MegaMenu/Scripts/MegaMenu.min.js");
+}
+
+
+
+
+@helper BuildMenuItem(MenuItemModel item)
+{
+    var hasSublist = item.SubItems.Count > 0;
+    var hasSublistClass = hasSublist ? "has-sublist" : string.Empty;
+    var withSubcategoriesClass = hasSublist ? "with-subcategories" : string.Empty;
+    var itemUrl = Constants.PredefinedPageTypes.Contains(item.Type) ? Url.RouteUrl(item.Type.ToString()) : item.Url;
+
+    if (item.CssClass == "Vendor")
+    {
+        @Html.Partial("_VendorMenu", item)
+
+    }
+    else if (item.CssClass == "Category")
+    {
+        @Html.Partial("_CategoryMenu", item)
+
+    }
+    else if (item.CssClass == "Brand")
+    {
+        @Html.Partial("_BrandMenu", item)
+
+    }
+    else if (item.CssClass == "Designer")
+    {
+        @Html.Partial("_DesignerMenu", item)
+    }
+    else if (item.CssClass == "Featured")
+    {
+
+        <li class="@item.CssClass @hasSublistClass main">
+            <a href="/@itemUrl" class="@withSubcategoriesClass" title="@item.Title" @if (item.OpenInNewWindow) { <text> target="_blank" </text> }><span> @item.Title</span></a>
+           
+            <div class="dropdown categories fullWidth boxes-4 ">
+                <div class="row-wrapper">
+                    @if (hasSublist)
+                    {
+                        <div class="plus-button"></div>
+                        <div class="sublist-wrap">
+                            <div class="box">
+                                <ul class="sublist sub-list-featured">
+                                    <li class="back-button">
+                                        <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                                    </li>
+                                    @foreach (var subItem in item.SubItems)
+                                    {
+                                        @BuildMenuItem(subItem)
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="hidden-xs ad">
+                    @Html.Widget("Featured_Banner")
+                </div>
+            </div>
+
+        </li>
+
+    }
+    else if (item.CssClass == "Sale")
+    {
+
+        <li class="@item.CssClass ">
+            <a href="/@itemUrl" class="" title="@item.Title" @if (item.OpenInNewWindow) { <text> target="_blank" </text> }><span> @item.Title</span></a>
+            @*<div class="dropdown categories fullWidth boxes-4">
+                <div class="row-wrapper">
+                    @if (hasSublist)
+                    {
+                        <div class="box">
+                            <ul class="sublist sub-list-featured">
+                                <li class="back-button">
+                                    <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                                </li>
+                                @foreach (var subItem in item.SubItems)
+                                {
+                                    @BuildMenuItem(subItem)
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
+                <div class="hidden-xs ad">
+                    @Html.Widget("Sale_Banner")
+                </div>
+            </div>*@
+
+        </li>
+
+    }
+    else if (item.CssClass == "Sheearns")
+    {
+
+        <li class="@item.CssClass ">
+            <a href="/@itemUrl" class="@withSubcategoriesClass" title="@item.Title" @if (item.OpenInNewWindow) { <text> target="_blank" </text> }><span> @item.Title</span></a>
+            @*<div class="dropdown categories fullWidth boxes-4">
+                <div class="row-wrapper">
+                    @if (hasSublist)
+                    {
+                        <div class="box">
+                            <ul class="sublist sub-list-featured">
+                                <li class="back-button">
+                                    <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                                </li>
+                                @foreach (var subItem in item.SubItems)
+                                {
+                                    @BuildMenuItem(subItem)
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
+                <div class="hidden-xs ad">
+                    @Html.Widget("Sheearns_Banner")
+                </div>
+            </div>*@
+
+        </li>
+
+    }
+    else
+    {
+        <li class="@item.CssClass @hasSublistClass main">
+            <a href="/@itemUrl" class="@withSubcategoriesClass" title="@item.Title" @if (item.OpenInNewWindow) { <text> target="_blank" </text> }><span> @item.Title</span></a>
+            <div class="dropdown categories fullWidth boxes-4">
+                <div class="row-wrapper">
+                    @if (hasSublist)
+                    {
+                        <div class="plus-button"></div>
+                        <div class="sublist-wrap">
+                            <div class="box ">
+                                <div class="box-main">
+                                    <ul class="sublist">
+                                        <li class="back-button">
+                                            <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                                        </li>
+                                        @foreach (var subItem in item.SubItems)
+                                        {
+                                            @BuildMenuItem(subItem)
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                            }
+                        </div>
+                        <div class="hidden-xs ad">
+                            @Html.Widget("Category_Banner")
+                        </div>
+                    </div>
+
+        </li>
+    }
+}
+
+@foreach (var menu in Model.MegaMenus)
+{
+    List<MvcHtmlString> responsiveMenuItems = new List<MvcHtmlString>();
+
+    <ul class="mega-menu @menu.CssClass"
+        data-isRtlEnabled="@supportRtl.ToString().ToLowerInvariant()"
+        data-enableClickForDropDown="@menu.ShowDropdownsOnClick.ToString().ToLowerInvariant()">
+        @foreach (var item in menu.Items)
+        {
+            var shouldUseCatalogTemplate = (item.Type == MenuItemType.Categories && item.CatalogTemplate != CatalogTemplate.Simple);
+            var shouldUseManufacturerTemplate = (item.Type == MenuItemType.Manufacturers && item.MaximumNumberOfEntities > 0 && item.CatalogTemplate != CatalogTemplate.Simple);
+            var shouldUseVendorTemplate = (item.Type == MenuItemType.Vendors && item.MaximumNumberOfEntities > 0 && item.CatalogTemplate != CatalogTemplate.Simple);
+            var shouldUseTopicTemplate = (item.Type == MenuItemType.Topics && item.MaximumNumberOfEntities > 0 && item.EntityId == 0);
+            var shouldUseProductTagsTemplate = (item.Type == MenuItemType.ProductTags && item.MaximumNumberOfEntities > 0 && item.EntityId == 0);
+
+            if (shouldUseCatalogTemplate)
+            {
+                MvcHtmlString menuItemHtml = Html.Action("GetCategoryTemplate", "MegaMenuCatalog", new { menuItem = item });
+
+                @menuItemHtml
+
+                var responsiveMenu = menuItemHtml;
+
+                if (item.CatalogTemplate == CatalogTemplate.WithPictures)
+                {
+                    MenuItemModel responsiveMenuItem = (MenuItemModel)item.Clone();
+
+                    responsiveMenuItem.CatalogTemplate = CatalogTemplate.List;
+
+                    responsiveMenu = Html.Action("GetCategoryTemplate", "MegaMenuCatalog", new { menuItem = responsiveMenuItem, isResponsive = true });
+                }
+
+                responsiveMenuItems.Add(responsiveMenu);
+            }
+            else if (shouldUseManufacturerTemplate)
+            {
+
+                MvcHtmlString menuItemHtml = Html.Action("GetManufacturerTemplate", "MegaMenuCatalog", new { menuItem = item });
+
+                @menuItemHtml
+
+                var responsiveMenu = menuItemHtml;
+
+                if (item.CatalogTemplate == CatalogTemplate.WithPictures)
+                {
+                    MenuItemModel responsiveMenuItem = (MenuItemModel)item.Clone();
+
+                    responsiveMenuItem.CatalogTemplate = CatalogTemplate.List;
+
+                    responsiveMenu = Html.Action("GetManufacturerTemplate", "MegaMenuCatalog", new { menuItem = responsiveMenuItem });
+                }
+
+                responsiveMenuItems.Add(responsiveMenu);
+            }
+            else if (shouldUseVendorTemplate)
+            {
+
+                MvcHtmlString menuItemHtml = Html.Action("GetVendorTemplate", "MegaMenuCatalog", new { menuItem = item });
+
+                @menuItemHtml
+
+                var responsiveMenu = menuItemHtml;
+
+                if (item.CatalogTemplate == CatalogTemplate.WithPictures)
+                {
+                    MenuItemModel responsiveMenuItem = (MenuItemModel)item.Clone();
+
+                    responsiveMenuItem.CatalogTemplate = CatalogTemplate.List;
+
+                    responsiveMenu = Html.Action("GetVendorTemplate", "MegaMenuCatalog", new { menuItem = responsiveMenuItem });
+                }
+
+                responsiveMenuItems.Add(responsiveMenu);
+            }
+            else if (shouldUseTopicTemplate)
+            {
+                MvcHtmlString menuItemHtml = Html.Action("GetTopicTemplate", "MegaMenuCatalog", new { menuItem = item });
+                responsiveMenuItems.Add(menuItemHtml);
+
+                @menuItemHtml
+            }
+            else if (shouldUseProductTagsTemplate)
+            {
+                MvcHtmlString menuItemHtml = Html.Action("GetProductTagsTemplate", "MegaMenuCatalog", new { menuItem = item });
+                responsiveMenuItems.Add(menuItemHtml);
+
+                @menuItemHtml
+            }
+            else
+            {
+                var menuHelperResult = BuildMenuItem(item);
+                MvcHtmlString menuItemHtml = MvcHtmlString.Create(menuHelperResult.ToHtmlString());
+                responsiveMenuItems.Add(menuItemHtml);
+
+                @menuItemHtml
+            }
+        }
+
+        @Html.Widget("header_menu_after")
+    </ul>
+
+    <div class="menu-title"><span>@T("SevenSpikes.MegaMenu.ResponsiveMenuTitle")</span></div>
+    <ul class="mega-menu-responsive @menu.CssClass">
+        @foreach (var responsiveMenuItem in responsiveMenuItems)
+        {
+            @responsiveMenuItem
+        }
+
+        @Html.Widget("header_menu_after")
+    </ul>
+}
+
+
+
+<script>
+
+    (function () {
+
+
+        $('.mega-menu li.main').mouseover(function () {
+
+            $('.mega-menu').css('z-index', '10000000000');
+            $('.flow').show();
+        });
+
+        $('.mega-menu li.main').mouseout(function () {
+
+            $('.flow').hide();
+            $('.mega-menu').css('z-index', '100');
+        });
+
+
+
+
+
+
+
+
+        var mainlinks = $('.box-main li.Category ');
+
+
+
+        $('.box-main').append("<ul class='mainlist hidden-xs'></ul>");
+
+
+        var l = mainlinks.length / 2;
+        for (var i = 0; i < l; i++) {
+
+            var a = $(mainlinks[i])
+
+
+
+            var classAnchor = $(a).find('a').attr('href');
+            classAnchor = classAnchor.replace('/', '');
+            var sublistLi = $(a).find('.sublist-wrap > .sublist');
+
+
+
+            $('.box-main ul.mainlist').append("<li>" + a.html() + "</li>");
+            $('.box-main').append('<div class="sub ' + (i === 0 ? 'active ' : '') + classAnchor + '"><ul class="hidden-xs sub-menu">' + sublistLi.html() + '</ul></div>');
+
+
+
+        }
+
+        $('.sub-menu > li').css('display', 'none');
+        $('.sub-menu > li').has('div.sublist-wrap').css('display', 'block');
+
+
+
+        $('ul.mainlist li > a').mouseover(function () {
+
+            var cname = $(this).attr('href');
+
+            cname = cname.replace('/', '');
+
+            $('ul.mainlist li > a').removeClass('active');
+
+            $(this).addClass('active');
+
+
+
+            $('.box-main div.sub').removeClass('active');
+
+            $('.' + cname).addClass('active');
+        });
+
+
+
+
+    }());
+
+
+
+</script>

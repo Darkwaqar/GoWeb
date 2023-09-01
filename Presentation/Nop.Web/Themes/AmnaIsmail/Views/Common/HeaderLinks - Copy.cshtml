@@ -1,0 +1,165 @@
+﻿@model HeaderLinksModel
+@using growonline.Web.Models.Common;
+
+<ul class="list-inline" >
+   @Html.Widget("header_links_before")
+@Html.Widget("header_links_after")
+@Html.Action("TaxTypeSelector", "Common")
+@*@Html.Action("CurrencySelector", "Common")
+@Html.Action("LanguageSelector", "Common")*@
+@Html.Widget("header_selectors")
+@if (Model.IsAuthenticated)
+{
+    
+     <li>
+        <a href="@Url.RouteUrl("Logout")" class="li-item">
+            <table>
+                <tr>
+                    <td><span class="fa fa-sign-out" style="font-size:22px"></span></td>
+                    <td>
+                        <div style="line-height:14px; margin-left:10px" class="li-item hidden-xs">
+                            
+                            <div>Sign out</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </a>
+</li>
+    <li>
+        <a href="@Url.RouteUrl("CustomerInfo")" class="li-item">
+            <table>
+                <tr>
+                    <td><span class="fa fa-user" style="font-size:22px"></span></td>
+                    <td>
+                        <div style="line-height:14px; margin-left:10px" class="li-item hidden-xs">
+                           
+                            <div>@Model.CustomerEmailUsername.Split('@')[0]</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </a>
+</li>
+}
+else
+{
+    <li>
+        <a href="/login" class="li-item">
+            <table>
+                <tr>
+                    <td><span class="fa fa-user" style="font-size:22px"></span></td>
+                    <td>
+                        <div style="line-height:14px; margin-left:10px" class="li-item">
+                            <div class="hidden-xs">Login</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </a>
+    </li>
+    
+}
+    
+   
+    @if (Model.AllowPrivateMessages)
+    {
+        <li>
+            <a href="@Url.RouteUrl("PrivateMessages", new { tab = "" })" class="li-item">
+                @*<span class="inbox-label">@T("PrivateMessages.Inbox")</span>*@
+                <span class="inbox-unread">@Model.UnreadPrivateMessages</span>
+            </a>
+        </li>
+    }
+    
+    @if (Model.WishlistEnabled)
+{
+        
+     <li>
+         <a href="@Url.RouteUrl("Wishlist")" class="li-item">
+             @*<span class="wishlist-label">@T("Wishlist")</span>*@
+
+             <table>
+                 <tr>
+                     <td><span class="fa fa-shopping-basket" style="font-size:22px"></span></td>
+                     <td>
+                         <div style="line-height: 14px; margin-left: 10px" class="hidden-xs li-item">
+                             @*<div>items <span class="wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span></div>*@
+                             <div>Wish list <span class="wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span></div>
+                         </div>
+                     </td>
+                 </tr>
+             </table>
+
+
+
+         </a>
+            </li>
+}
+    <li>
+        <a href="@Url.RouteUrl("compareproducts")" class="li-item">
+            @*<span class="wishlist-label">@T("Wishlist")</span>*@
+
+            <table>
+                <tr>
+                    <td><span class="fa fa-exchange" style="font-size:22px"></span></td>
+                    <td>
+                        <div style="line-height: 14px; margin-left: 10px" class="hidden-xs ">
+                            @*<div>Compare</div>*@
+                            <div>Compare</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </a>
+    </li>
+
+   
+
+    @if (Model.ShoppingCartEnabled)
+    {
+           <li id="topcartlink" class="dropdown ">
+               <a href="@Url.RouteUrl("ShoppingCart")" class="dropdown-toggle li-item" data-toggle="dropdown">
+                   @*<span class="cart-label">@T("ShoppingCart")</span>*@
+                   <table>
+                       <tr>
+                           <td><span class="fa fa-shopping-bag" style="font-size:22px"></span></td>
+                           <td>
+                               <div style="line-height:14px; margin-left:10px" class="hidden-xs ">
+                                   @*<div>items <span class="cart-qty">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</span> </div>*@
+                                   <div><span class="cart-qty">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</span></div>
+                               </div>
+                           </td>
+                       </tr>
+                   </table>
+
+
+
+
+                </a>
+                <ul class="dropdown-menu" style="display: none;">
+                    <li>
+                        @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+                    </li>
+                </ul>
+            </li>
+        }
+
+       
+    </ul>
+
+    @if (Model.AllowPrivateMessages && !string.IsNullOrEmpty(Model.AlertMessage))
+    {
+        //new private message notification
+        <script type="text/javascript">
+            $(document).ready(function () {
+                displayPopupNotification('@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.AlertMessage))', 'success', false);
+            });
+        </script>
+    }
+</div>
+
+

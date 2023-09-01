@@ -1,0 +1,364 @@
+﻿@model CustomerActionConditionModel
+@using Nop.Core.Domain.Catalog
+@using Nop.Services
+
+@Html.ValidationSummary(false)
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.CustomerActionId)
+
+<script>
+    $(document).ready(function () {
+        bindBootstrapTabSelectEvent('customeractioncondition-edit');
+    });
+</script>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12 clearfix">
+                <div class="pull-left">
+                    @Html.Action("Mode", "Setting", new { modeName = "customer-action-condition-advanced-mode" })
+                </div>
+            </div>
+        </div>
+        <div id="customer-action-condition-edit" class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                @Html.RenderBootstrapTabHeader("tab-info", @T("Admin.Customers.CustomerActionCondition.Info"), true)
+                @Html.RenderBootstrapTabHeader("tab-product", @T("Admin.Customers.CustomerActionCondition.Products"))
+                @Html.RenderBootstrapTabHeader("tab-category", @T("Admin.Customers.CustomerActionCondition.Categories"))
+                @Html.RenderBootstrapTabHeader("tab-manufacturer", @T("Admin.Customers.CustomerActionCondition.Manufacturers"))
+                @Html.RenderBootstrapTabHeader("tab-vendor", @T("Admin.Customers.CustomerActionCondition.Vendors"))
+                @Html.RenderBootstrapTabHeader("tab-productAttribute", @T("Admin.Customers.CustomerActionCondition.ProductAttributes"))
+                @Html.RenderBootstrapTabHeader("tab-productSpecification", @T("Admin.Customers.CustomerActionCondition.ProductSpecifications"))
+                @Html.RenderBootstrapTabHeader("tab-customerRole", @T("Admin.Customers.CustomerActionCondition.CustomerRole"))
+                @Html.RenderBootstrapTabHeader("tab-customerTag", @T("Admin.Customers.CustomerActionCondition.CustomerTag"))
+                @Html.RenderBootstrapTabHeader("tab-customerRegister", @T("Admin.Customers.CustomerActionCondition.CustomerRegister"))
+                @Html.RenderBootstrapTabHeader("tab-customCustomerAttribute", @T("Admin.Customers.CustomerActionCondition.CustomCustomerAttribute"))
+                @Html.RenderBootstrapTabHeader("tab-urlReferrer", @T("Admin.Customers.CustomerActionCondition.UrlReferrer"))
+                @Html.RenderBootstrapTabHeader("tab-urlCurrent", @T("Admin.Customers.CustomerActionCondition.UrlCurrent"))
+                @Html.RenderBootstrapTabHeader("tab-store", @T("Admin.Customers.CustomerActionCondition.Store"))
+
+            </ul>
+            <div class="tab-content">
+                @Html.RenderBootstrapTabContent("tab-info", @TabInfo(), true)
+                @Html.RenderBootstrapTabContent("tab-product", @TabProducts())
+                @Html.RenderBootstrapTabContent("tab-category", @TabCategories())
+                @Html.RenderBootstrapTabContent("tab-manufacturer", @TabManufacturers())
+                @Html.RenderBootstrapTabContent("tab-vendor", @TabVendors())
+                @Html.RenderBootstrapTabContent("tab-productAttribute", @TabProductAttributes())
+                @Html.RenderBootstrapTabContent("tab-productSpecification", @TabProductSpecifications())
+                @Html.RenderBootstrapTabContent("tab-customerRole", @TabCustomerRole())
+                @Html.RenderBootstrapTabContent("tab-customerTag", @TabCustomerTag())
+                @Html.RenderBootstrapTabContent("tab-customerRegister", @TabCustomerRegister())
+                @Html.RenderBootstrapTabContent("tab-customCustomerAttribute", @TabCustomCustomerAttribute())
+                @Html.RenderBootstrapTabContent("tab-urlReferrer", @TabUrlReferrer())
+                @Html.RenderBootstrapTabContent("tab-urlCurrent", @TabUrlCurrent())
+                @Html.RenderBootstrapTabContent("tab-store", @TabStore())
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    //custom tabs
+    var eventMessage = new AdminTabStripCreated(this.Html, "customer-action-condition-edit");
+    EngineContext.Current.Resolve<IEventPublisher>().Publish(eventMessage);
+    foreach (var eventBlock in eventMessage.BlocksToRender)
+    {
+        @eventBlock
+    }
+}
+
+@*save selected tab name*@
+<input type="hidden" id="selected-tab-name" name="selected-tab-name" value="@(Html.GetSelectedTabName())">
+
+<script type="text/javascript">
+            $(document).ready(function () {
+                $("#@Html.FieldIdFor(model => model.CustomerActionConditionTypeId)").change(toggleConditionType);
+                toggleConditionType();
+            });
+        function toggleConditionType() {
+            var selectedConditionTypeId = $("#@Html.FieldIdFor(model => model.CustomerActionConditionTypeId)").val();
+            if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.Product).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().show();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.Manufacturer).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().show();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.Category).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().show();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.Vendor).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().show();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.ProductAttribute).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().show();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.ProductSpecification).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().show();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.CustomerRole).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().show();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.Store).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().show();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.CustomerTag).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().show();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.CustomerRegisterField).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().show();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.CustomCustomerAttribute).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().show();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.UrlReferrer).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().show();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else if (selectedConditionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerActionConditionTypeEnum.UrlCurrent).ToString()))
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").parent().hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().show();
+                $("a[data-tab-name='tab-store']").parent().hide();
+            }
+            else
+            {
+                $("a[data-tab-name='tab-product']").parent().hide();
+                $("a[data-tab-name='tab-manufacturer']").parent().hide();
+                $("a[data-tab-name='tab-category']").parent().hide();
+                $("a[data-tab-name='tab-vendor']").hide();
+                $("a[data-tab-name='tab-productAttribute']").parent().hide();
+                $("a[data-tab-name='tab-productSpecification']").parent().hide();
+                $("a[data-tab-name='tab-customerRole']").parent().hide();
+                $("a[data-tab-name='tab-customerTag']").parent().hide();
+                $("a[data-tab-name='tab-customerRegister']").parent().hide();
+                $("a[data-tab-name='tab-customCustomerAttribute']").parent().hide();
+                $("a[data-tab-name='tab-urlReferrer']").parent().hide();
+                $("a[data-tab-name='tab-urlCurrent']").parent().hide();
+                $("a[data-tab-name='tab-store']").parent().hide();
+             }
+        }
+</script>
+
+@helper TabInfo()
+{
+    @Html.Partial("_ConditionInfo", Model);
+}
+@helper TabProducts()
+{
+    @Html.Partial("_ConditionProduct", Model);
+}
+@helper TabCategories()
+{
+    @Html.Partial("_ConditionCategory", Model);
+}
+@helper TabManufacturers()
+{
+    @Html.Partial("_ConditionManufacturer", Model);
+}
+@helper TabVendors()
+{
+    @Html.Partial("_ConditionVendor", Model);
+}
+@helper TabProductAttributes()
+{
+    @Html.Partial("_ConditionProductAttribute", Model);
+}
+@helper TabProductSpecifications()
+{
+    @Html.Partial("_ConditionProductSpecification", Model);
+}
+@helper TabCustomerRole()
+{
+    @Html.Partial("_ConditionCustomerRole", Model);
+}
+@helper TabCustomerTag()
+{
+
+}
+@helper TabCustomerRegister()
+{
+    @Html.Partial("_ConditionCustomerRegister", Model);
+}
+@helper TabCustomCustomerAttribute()
+{
+    @Html.Partial("_ConditionCustomCustomerAttribute", Model);
+}
+@helper TabUrlReferrer()
+{
+    @Html.Partial("_ConditionUrlReferrer", Model);
+}
+@helper TabUrlCurrent()
+{
+    @Html.Partial("_ConditionUrlCurrent", Model);
+}
+@helper TabStore()
+{
+    @Html.Partial("_ConditionStore", Model);
+}

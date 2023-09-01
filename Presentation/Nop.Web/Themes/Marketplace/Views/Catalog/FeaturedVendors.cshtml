@@ -1,0 +1,405 @@
+﻿@model IList<VendorModel>
+    @{
+        Layout = null;
+    }
+    @{
+        int colIndex = 1;
+        string col = "col-md-12";
+
+    }
+    <style>
+        .imgopa {
+            text-decoration: none;
+        }
+
+            .imgopa:hover {
+                text-decoration: none;
+            }
+        .t1-GalleryHeight {
+            margin-top: 5px;
+            height: 180px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+        .tab-pane {
+            background: transparent;
+            padding: 40px 40px 50px;
+        }
+
+    </style>
+    @using Nop.Web.Models.Catalog;
+    @*<div class="container-fluid">
+
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+
+
+
+                <div class="col-md-6">
+                    <div class="rollover" onclick="setLocation('/@item.SeName')">
+                        <div class="title-container">
+                            <div class="title ">
+
+                                <a href="/@item.SeName" style="color:white">
+                                    <div class="vendor-caption" style="border-bottom:0px;font-size:34px;bottom:0%">
+                                        @item.Name
+
+                                        <br />
+                                        <a href="/@item.SeName" style="color:white;font-size:16px;text-align:center">Shop Now <i style="font-size:12px" class="fa fa-play"></i></a>
+                                        <br />
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="@item.PictureModel.FullSizeImageUrl" alt="@item.PictureModel.AlternateText" title="@item.PictureModel.Title" width="100%" class="img-responsive" />
+                    <a href="/@item.SeName" style="color:white">
+                        <div class="vendor-caption" style="border-bottom:0px;font-size:34px;bottom:0%">
+                            @item.Name
+
+                            <br />
+                            <a href="/@item.SeName" style="color:white;font-size:16px;text-align:center">Shop Now <i style="font-size:12px" class="fa fa-play"></i></a>
+                            <br />
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>*@
+                <div class="hidden-sm hidden-xs">
+                    <!-- Brand Tabs -->
+                    <div id="content" style="width:101%">
+                        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                            <li class="active">
+                                <a href="#red" data-toggle="tab">
+                                    <img src="assets/img/brands/asimjofa.png" alt="">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#orange" data-toggle="tab">
+                                    <img src="assets/img/brands/lala.png" alt="">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#yellow" data-toggle="tab">
+                                    <img src="assets/img/brands/gulahmed.png" alt="">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#green" data-toggle="tab">
+                                    <img src="assets/img/brands/sanasfinaz.png" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                        <div id="my-tab-content" class="tab-content">
+                            <div class="tab-pane active row" id="red">
+                                <div class="col-md-8" style="margin-top: -2%;">
+                                    <h2 class="text-center text-brand-heading" style="color: black;">SPRING 2016 COLLECTION</h2>
+                                    <p class="text-center" style="color: black; margin-top: -4%;">New York Fashion Week</p>
+                                    <img src="assets/img/banner/banner-asim-jofa.jpg" alt="" class="img-responsive">
+
+                                    <div class="t1-GalleryHeight hidden-sm hidden-xs">
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(2).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(3).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(4).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(5).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(6).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(7).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(8).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(9).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(10).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(11).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(12).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(13).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(14).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12 hidden-md hidden-lg" style="height: 20px;"></div>
+                                <div class="col-md-4">
+                                    <img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive" id="placesrc" style="width: 100% !important;">
+                                    <div class="col-md-12" style="background-color: #1a1a1a; color: white;">
+                                        <div class="col-md-6">
+                                            <h5>Look 1</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="pull-right">Look 1</h5>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane row" id="orange">
+                                <div class="col-md-8" style="margin-top: -2%;">
+                                    <h2 class="text-center text-brand-heading" style="color: black;">SPRING 2016 COLLECTION</h2>
+                                    <p class="text-center" style="color: black; margin-top: -4%;">New York Fashion Week</p>
+                                    <img src="assets/img/banner/banner-lala.jpg" alt="" class="img-responsive">
+
+                                    <div class="t1-GalleryHeight hidden-sm hidden-xs">
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(2).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(3).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(4).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(5).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(6).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(7).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(8).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(9).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(10).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(11).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(12).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(13).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(14).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12 hidden-md hidden-lg" style="height: 20px;"></div>
+                                <div class="col-md-4">
+                                    <img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive" id="placesrc" style="width: 100% !important;">
+                                    <div class="col-md-12" style="background-color: #1a1a1a; color: white">
+                                        <div class="col-md-6">
+                                            <h5>Look 1</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="pull-right">Look 1</h5>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane row" id="yellow">
+                                <div class="col-md-8" style="margin-top: -2%;">
+                                    <h2 class="text-center text-brand-heading" style="color: black;">SPRING 2016 COLLECTION</h2>
+                                    <p class="text-center" style="color: black; margin-top: -4%;">New York Fashion Week</p>
+                                    <img src="assets/img/banner/banner-gul-ahmed.jpg" alt="" class="img-responsive">
+
+                                    <div class="t1-GalleryHeight hidden-sm hidden-xs">
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(2).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(3).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(4).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(5).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(6).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(7).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(8).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(9).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(10).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(11).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(12).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(13).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(14).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12 hidden-md hidden-lg" style="height: 20px;"></div>
+                                <div class="col-md-4">
+                                    <img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive" id="placesrc" style="width: 100% !important;">
+                                    <div class="col-md-12" style="background-color: #1a1a1a; color: white">
+                                        <div class="col-md-6">
+                                            <h5>Look 1</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="pull-right">Look 1</h5>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane row" id="green">
+                                <div class="col-md-8" style="margin-top: -2%;">
+                                    <h2 class="text-center text-brand-heading" style="color: black;">SPRING 2016 COLLECTION</h2>
+                                    <p class="text-center" style="color: black; margin-top: -4%;">New York Fashion Week</p>
+                                    <img src="assets/img/banner/banner-sana-safinaz.jpg" alt="" class="img-responsive">
+
+                                    <div class="t1-GalleryHeight hidden-sm hidden-xs">
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(2).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(3).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(4).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(5).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(6).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(7).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(8).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(9).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(10).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(11).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(12).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(13).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="assets/img/newCollectionItems/item%20(14).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12 hidden-md hidden-lg" style="height: 20px;"></div>
+                                <div class="col-md-4">
+                                    <img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive" id="placesrc" style="width: 100% !important;">
+                                    <div class="col-md-12" style="background-color: #1a1a1a; color: white">
+                                        <div class="col-md-6">
+                                            <h5>Look 1</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="pull-right">Look 1</h5>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Brand Tabs End -->
+                </div>
+

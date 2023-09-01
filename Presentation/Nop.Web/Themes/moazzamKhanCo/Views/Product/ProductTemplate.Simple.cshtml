@@ -1,0 +1,323 @@
+﻿@model ProductDetailsModel
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Domain.Catalog;
+
+
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-product-details-page");
+
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+        var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(productUrl);
+    }
+
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+    }
+}
+<!--product breadcrumb-->
+
+<div class="container-fluid">
+  
+    <div class="page product-details-page">
+        <div class="page-body">
+            @using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+            {
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="product-essential">
+                            <div class="col-md-6 proimgzoomer">
+                                @Html.Widget("productdetails_before_pictures", Model.Id)
+                                @{
+                                    var cloudZoom = Html.Widget("sevenspikes_cloud_zoom");
+                                }
+                                @if (!MvcHtmlString.IsNullOrEmpty(cloudZoom))
+                                {
+                                    @cloudZoom
+                                }
+                                else
+                                {
+                                    @Html.Partial("_ProductDetailsPictures", Model)
+                                }
+                                @Html.Widget("productdetails_after_pictures", Model.Id)
+                            </div>
+                            <div class="col-md-6 pro-detail">
+                                <div class="overview">
+                                    @section Breadcrumb {
+                                        @Html.Partial("_ProductBreadcrumb", Model.Breadcrumb)
+                                    }
+                                    @*@Html.Widget("productdetails_after_breadcrumb", Model.Id)*@
+                                    @Html.Partial("_Discontinued", Model)
+                                    <div class="onmobile">
+                                        <div class="product-name">
+                                            <h1 class=" u-case s-fontstyle color-defult" itemprop="name">
+                                                @Model.Name
+                                            </h1>
+
+                                            <div class="procate-name"> @Model.Breadcrumb.CategoryBreadcrumb.Last().Name</div>
+                                        </div>
+                                        @if (!String.IsNullOrEmpty(Model.ShortDescription))
+                                        {
+                                            <div class="short-description">
+                                                @Html.Raw(Model.ShortDescription)
+                                            </div>
+                                        }
+                                        @if (!String.IsNullOrEmpty(Model.FullDescription))
+                                        {<div class="product-description">
+
+                                                <div class="product-des" itemprop="description">
+                                                    @Html.Raw(Model.FullDescription)
+                                                </div>
+                                            </div>
+                                        }
+
+                                        @{
+                                            var dataDictPrice = new ViewDataDictionary();
+                                            dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", Model.Id);
+                                            @Html.Partial("_ProductPrice", Model.ProductPrice, dataDictPrice)
+
+                                            @Html.Partial("_ProductTierPrices", Model.TierPrices)
+                                        }
+
+                                        <!--SKU, MAN, GTIN, vendor-->
+
+                                    </div>
+
+                                    <!-- Price -->
+                                    @*@if (!String.IsNullOrEmpty(Model.ShortDescription))
+                                {
+                                    <div class="short-description">
+                                        @Html.Raw(Model.ShortDescription)
+                                    </div>
+                                }*@
+
+                                    @Html.Widget("productdetails_overview_top", Model.Id)
+                                    <!--product reviews-->
+                                    @*@Html.Partial("_ProductReviewOverview", Model.ProductReviewOverview)*@
+                                    <!--manufacturers-->
+                                    @Html.Partial("_ProductManufacturers", Model.ProductManufacturers)
+                                    <!--availability-->
+                                    @Html.Partial("_Availability", Model)
+
+                                    <!--delivery-->
+                                    <!--sample download-->
+                                    @*@Html.Partial("_DownloadSample", Model)*@
+
+                                    <!--gift card-->
+                                    @{
+                                        var dataDictGiftCard = new ViewDataDictionary();
+                                        dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = string.Format("giftcard_{0}", Model.Id);
+                                        @Html.Partial("_GiftCardInfo", Model.GiftCard, dataDictGiftCard)
+                                    }
+                                    <!--reservation info-->
+                        @if (Model.ProductType == ProductType.ReservationProduct)
+                        {
+                            var dataDictReservation = new ViewDataDictionary();
+                            dataDictReservation.TemplateInfo.HtmlFieldPrefix = string.Format("reservation_{0}", Model.Id);
+                            @Html.Partial("_ReservationInfo", Model, dataDictReservation)
+                        }
+                        <!--rental info-->
+                        @{
+                            var dataDictRental = new ViewDataDictionary();
+                            dataDictRental.TemplateInfo.HtmlFieldPrefix = string.Format("rental_{0}", Model.Id);
+                            @Html.Partial("_RentalInfo", Model, dataDictRental)
+                        }
+                                    <!--add to cart-->
+                                    @{
+
+                                        var dataDictAddToCart = new ViewDataDictionary();
+                                        dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+                                        @Html.Partial("_AddToCart", Model.AddToCart, dataDictAddToCart)
+                                    }
+                                    <!--wishlist, compare, email a friend-->
+
+                                    @Html.Widget("productdetails_inside_overview_buttons_before", Model.Id)
+                                    @{
+                                        var dataDictAddToWishlist = new ViewDataDictionary();
+                                        dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+
+                                    }
+                                    @{
+                                        @Html.Partial("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
+                                    }
+
+                                    <div class="product-price call-for-price">
+                                        <a href="javascript:void(Tawk_API.toggle())" class="clink custom-price">Instant Chat</a>
+                                    </div>
+
+                                    @Html.Partial("_DeliveryInfo", Model)
+
+                                    <!--attributes-->
+                                    @{
+                                        var dataDictAttributes = new ViewDataDictionary();
+                                        dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", Model.Id);
+                                        @Html.Partial("_ProductAttributes", Model.ProductAttributes, dataDictAttributes)
+                                    }
+
+                                    <div class="social-share">
+                                        <div class="sharethis-inline-share-buttons"></div>
+                                        <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5d04e30b4351e90012650ba9&product=' inline-share-buttons' async='async'></script>
+                                    </div>
+
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('#size-guide').on('click', function (e) {
+                                                e.preventDefault();
+                                                displayPopupContentFromUrl('/t-popup/SadafAmirSizeGuide', 'Size Guide');
+                                            });
+                                        });
+                                    </script>
+
+                                    @*@Html.Partial("_CompareProductsButton", Model) @Html.Partial("_ProductEmailAFriendButton", Model)*@
+                                    @Html.Widget("productdetails_inside_overview_buttons_after", Model.Id)
+
+                                    @*@Html.Partial("_ShareButton", Model)*@
+                                    @Html.Widget("productdetails_overview_bottom", Model.Id)
+                                </div>
+                            </div>
+                        </div>
+                        @*@Html.Widget("productdetails_before_collateral", Model.Id)*@
+                    </div>
+                </div>
+               @* <div class="row">
+                    <div class="col-md-12">
+                        <div class="video-main">
+                            <div class="video-holder">
+ 				@ * @foreach (var video in Model.VideoModels)
+                                        {
+                                            <video poster="@video.FullSizeImageUrl" width="100%" muted loop id="proDetailVideo">
+                                                <source src="@video.VideoUrl" type="video/mp4">
+                                                <source src="@video.VideoUrl" type="video/ogg">
+                                            </video>
+                                        } * @
+
+                                <video width="100%" muted loop id="proDetailVideo">
+                                    <source src="~/Themes/moazzamKhanCo/Content/video/MKBKK2NDCUT1.mp4" type="video/mp4">
+                                    <source src="~/Themes/moazzamKhanCo/Content/video/MKBKK2NDCUT1.mp4" type="video/ogg">
+                                </video>
+                                <div class="play-pause-btn" data-click="0"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> *@
+                <div class="row productImgArea">
+                    <div class="col-md-10 col-md-offset-1">
+                         @if (Model.PictureModels.Count > 1)
+                        {
+                            <div class="picture-thumbs customarea-pic">
+                                @foreach (var picture in Model.PictureModels.Skip(1))
+                                {
+                                    <div class="thumb-item col-md-4 col-xs-6">
+                                        <a data-fancybox="gallery" href="@picture.FullSizeImageUrl"> <img src="@picture.FullSizeImageUrl" alt="@picture.AlternateText" title="@picture.Title" data-defaultsize="@picture.ImageUrl" data-fullsize="@picture.FullSizeImageUrl" /></a>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            @*@Html.Widget("productdetails_bottom", Model.Id)*@
+        </div>
+    </div>
+        
+    @*<div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="page product-details-page">
+                    <div class="page-body">
+                        @Html.Widget("productdetails_top", Model.Id)
+                        @using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+                        {
+                            <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
+                                <div class="product-essential"> <div> </div> </div>
+                                @ * @Html.Widget("productdetails_before_collateral", Model.Id)* @
+                            </div>
+                        }
+                        @* @Html.Widget("productdetails_bottom", Model.Id)* @
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <div class="row">
+        @* 
+           <div class="product-collateral feature-product">
+                @Html.Partial("_ProductSpecifications", Model.ProductSpecifications)
+                @Html.Partial("_ProductTags", Model.ProductTags)
+          </div>
+          @Html.Action("ProductsAlsoPurchased", "Product", new { productId = Model.Id })
+       *@
+
+        <div class="col-md-12">
+            @Html.Action("RelatedProducts", "Product", new { productId = Model.Id })
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).on('ready', function () {
+        if ($('.gallery .picture-thumbs-list button')[0]) { } else {
+            $('.picture-thumbs .slick-track').css('width', '100%');
+            $('#picture-thumbs-carousel').css('padding', '0px');
+            $('.picture-thumbs .slick-track').css('margin', '0px');
+        }
+    });
+</script>
+
+ @{
+        var img = new List<String>();
+        
+        foreach (var pic in Model.PictureModels)
+        {
+            img.Add(pic.ThumbImageUrl);
+        }
+        var json = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(img));
+    }
+
+    <script type="application/ld+json">
+        {
+        "@@context": "https://schema.org/",
+        "@@type": "Product",
+        "name": "@Model.Name",
+        "image": @json,
+        "description": "@Html.Raw(Model.ShortDescription)",
+        "sku": "@Model.Sku",
+        "brand": {
+        "@@type": "brand",
+        "name": "moazzam khan couture"
+        }
+        }
+    </script>

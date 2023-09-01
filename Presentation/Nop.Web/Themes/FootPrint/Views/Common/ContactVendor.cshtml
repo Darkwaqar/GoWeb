@@ -1,0 +1,168 @@
+﻿@model ContactVendorModel
+@using Nop.Web.Models.Common;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ContactVendor", Model.VendorName).Text);
+    //page class
+    Html.AppendPageCssClassParts("html-contact-page");
+}
+
+<style>
+    .inputs label {
+        display: block;
+        float: left;
+        width: 100%;
+        vertical-align: middle;
+    }
+
+    .inputs textarea {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        height: 44px;
+        border: 1px solid #f1f1f1;
+        padding: 8px;
+        width: 98%;
+        min-height: 90px;
+    }
+
+    .inputs input {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        height: 44px;
+        border: 1px solid #f1f1f1;
+        padding: 8px;
+        width: 98%;
+    }
+
+    .inputs span {
+        margin: 0 -8px 0 0;
+        font-size: 14px;
+        color: #e56364;
+    }
+
+    .buttons {
+        margin: 0 0 20px;
+        text-align: center;
+    }
+
+        .buttons input {
+            display: inline-block;
+            margin: 0 5px;
+            font-size: 14px;
+            border: none;
+            text-transform: uppercase;
+            padding: 15px 35px;
+            background: #051c3b;
+            color: #fff;
+        }
+
+    .field-validation-error {
+        display: block;
+        font-size: 12px;
+        color: #e56364;
+        clear: both;
+        text-align: center;
+        padding: 5px 0 0;
+    }
+
+    .page-title {
+        padding: 10px;
+        margin: 0 0 30px;
+        border-bottom: 1px solid #f1f1f1;
+        text-align: center;
+    }
+
+    h1 {
+        font-weight: normal;
+        color: #4d4d4d;
+        text-transform: uppercase;
+        font-size: 22px;
+        letter-spacing: 3px;
+    }
+
+    .page-body {
+        max-width: 590px;
+        margin: 0 auto 90px;
+        padding: 30px;
+        background: #f8f8f8;
+        position: relative;
+    }
+
+    .fieldset {
+        position: relative;
+        max-width: 590px;
+        margin: 0 auto 45px;
+    }
+</style>
+
+<div class="page contact-page">
+    <div class="page-title">
+        <h1>@T("PageTitle.ContactVendor", Model.VendorName)</h1>
+    </div>
+    <div class="page-body">
+        @Html.Widget("contactvendor_top")
+        @if (Model.SuccessfullySent)
+        {
+            <div class="result">
+                @Model.Result
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                var validationSummary = Html.ValidationSummary(true);
+                if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                {
+                    <div class="message-error">@validationSummary</div>
+                }
+                <div class="fieldset">
+                    <div class="form-fields">
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.FullName)
+                            @Html.TextBoxFor(model => model.FullName, new { @class = "fullname", placeholder = T("ContactVendor.FullName.Hint") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.FullName)
+                        </div>
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.Email)
+                            @Html.TextBoxFor(model => model.Email, new { @class = "email", placeholder = T("ContactVendor.Email.Hint") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                        @if (Model.SubjectEnabled)
+                        {
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.Subject)
+                                @Html.TextBoxFor(model => model.Subject, new { @class = "subject", placeholder = T("ContactVendor.Subject.Hint") })
+                                @Html.RequiredHint()
+                                @Html.ValidationMessageFor(model => model.Subject)
+                            </div>
+                        }
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.Enquiry)
+                            @Html.TextAreaFor(model => model.Enquiry, new { @class = "enquiry", placeholder = T("ContactVendor.Enquiry.Hint") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Enquiry)
+                        </div>
+                        @if (Model.DisplayCaptcha)
+                        {
+                            <div class="captcha-box">
+                                @Html.Raw(Html.GenerateCaptcha())
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="buttons">
+                    <input type="submit" name="send-email" class="button-1 contact-us-button" value="@T("ContactVendor.Button")" />
+                </div>
+            }
+        }
+        @Html.Widget("contactvendor_bottom")
+    </div>
+</div>

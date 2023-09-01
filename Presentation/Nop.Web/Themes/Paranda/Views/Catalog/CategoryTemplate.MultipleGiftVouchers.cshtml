@@ -1,0 +1,205 @@
+﻿@model CategoryModel
+@{
+    //Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var categoryUrl = Url.RouteUrl("Category", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(categoryUrl);
+    }
+    string theme = "/Themes/BootstrapDC/";
+    var breadcrumbDelimiter = EngineContext.Current.Resolve<CommonSettings>().BreadcrumbDelimiter;
+    var currentCustomer = EngineContext.Current.Resolve<Nop.Core.IWorkContext>().CurrentCustomer;
+    var email = currentCustomer.Email;
+    //var username = SystemCustomerAttributeNames.FirstName;
+    var username = currentCustomer.GetAttribute<string>(SystemCustomerAttributeNames.FirstName);
+
+    bool BannerEnabled = false;
+}
+
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Framework.UI
+
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    //page class
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    var img = string.Format("Themes/{0}/Content/img", themeName);
+    var ima = string.Format("Themes/{0}/Content/js", themeName);
+}
+
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Domain.Customers;
+@using Nop.Services.Common;
+
+
+@using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+{
+    <input type="hidden" class="" id="EnteredQuantity" max="100" min="1" value="1" />
+
+    string fieldPrefix = string.Format("giftcard_{0}.", Model.Id);
+
+    <div class="gift-voucher">
+
+        <div class="row no-margin">
+            <div class="col-md-12 nopadding">
+                <img src="@theme/content/images/gifttop.jpg" class="img-responsive" />
+            </div>
+        </div>
+
+        <div class="row no-margin bg-2">
+            <div class="col-md-6">
+
+
+                <div class="row" style="margin-top:0px;">
+                    <div class="col-md-12 giftimg " style="padding-right:0px; padding-left:0px;">
+                        <img src="@img/GIFT_webpage.jpg" class="img-responsive" width="100%" />
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6" style="    MARGIN-TOP: 9PX;">
+                <div class="col-md-6 col-xs-12 zubi">
+                    <div class="amount">
+                        <select class="ddl" onchange="setGiftVoucher(this)">
+                            <option value="|giftcard_0" hidden>Select Value</option>
+                            @foreach (var product in Model.Products)
+                            {
+                                <option value="@product.SeName|giftcard_@product.Id">
+                                    @product.ProductPrice.Price.Replace(".00", "")
+                                </option>
+                            }
+                        </select>
+                    </div><br /><br /><br />
+                    <p style="margin-top: -8px;font-size: 9px; color: darkgrey;float:left;width:100%">MINIMUM 5000 RS</p>
+                </div>
+                
+                <div class="col-xs-12 col-md-6" style="z-index:1000000;">
+
+                    <div class="info-date-picker select" style="padding-right:0px">
+
+                        @*<div class="nopadding"style="margin:3.1% auto; width:100%">
+                                <select name="DateOfBirthDay" class="valid" style="width:33%;     PADDING-LEFT: 32px;  border: none;     background-color: white; color: #b7b7b7;   height: 36px;"><option value="0">DATE</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select><select name="DateOfBirthMonth"style="color: #bdbcbc; background-color: white;     PADDING-LEFT: 32px; height:36px;  width:33%;   border: none;"><option value="0" hidden>MONTH</option><option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select><select name="DateOfBirthYear" style="height: 36px; background-color: white;     PADDING-LEFT: 32px;  width:33%;    color: #a09f9f;  border: none;"><option value="0">YEAR</option><option value="2016">2016</option><option value="2017">2017</option></select>
+                                <span class="field-validation-valid" data-valmsg-for="DateOfBirthDay" data-valmsg-replace="true"></span>
+                                <span class="field-validation-valid" data-valmsg-for="DateOfBirthMonth" data-valmsg-replace="true"></span>
+                                <span class="field-validation-valid" data-valmsg-for="DateOfBirthYear" data-valmsg-replace="true"></span>
+                            </div>*@
+                        @*<div class="validation" style="margin-left: 0%;  margin-top: -2.8px; font-size:9px; color:#969595;">DELIVERY DATE</div>*@
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row col-md-6">
+                            <div class="col-md-12 nopadding">
+                                <label>To</label><br>
+                                <input type="text" name="@(fieldPrefix)RecipientName" id="recname" class="textbox3" placeholder="Recipient Name" style="padding-top:15px;padding-bottom:15px" />
+                            </div>
+                            @*<div class="col-md-6 hidden-md hidden-sm hidden-lg ">
+                                    <input type="text" name="@(fieldPrefix)RecipientEmail" id="recemail2" class="textbox3" placeholder="Recipient Email" style="padding-top:15px;padding-bottom:15px" />
+                             </div>*@
+
+                            <div class="col-md-12  nopadding">
+                                <input type="text" name="@(fieldPrefix)RecipientEmail" id="recemail" class="textbox3" placeholder="Recipient Email" style="padding-top:15px;padding-bottom:15px" />
+                            </div>
+                        </div>
+
+                        <div class="row col-md-6 forinputfields">
+
+                            <div class="col-md-12 nopadding">
+                                <label>From</label>
+                                <input type="text" value="@username" name="@(fieldPrefix)SenderName" id="senname" class="textbox3" placeholder="Your Name" style="padding-top:15px;padding-bottom:15px;width:100%" />
+                            </div>
+                            <div class="col-md-12 nopadding">
+
+                                <input type="text" value="@email" name="@(fieldPrefix)SenderEmail" id="senemail" class="textbox3" placeholder="Your Email" style="padding-top:15px;padding-bottom:15px;width:100%" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Message (Optional)</label>
+                        <textarea name="@(fieldPrefix)Message" id="msg" class="textbox3" placeholder="MESSAGE"></textarea>
+
+                    </div>
+                </div>
+                <!--Buttons -->
+                <br />
+                <br />
+                <div class="row" style="    margin-top: -27px;">
+                    <div class="col-md-12 text-center">
+                        <a href="/gift-vouchers" class="btn-big" style="background-color:#8DA7A8;line-height:35px">RESET</a>
+                        <button type="button" id="send-button" class="btn-big gift-color" value="Add to cart" style=" background-color: #051c3b;">ADD TO CART</button>
+
+
+                    </div>
+
+                    <div class="clickhere">  <p>TERM AND CONDITION <span><a style="color: #051C3B" href="/faqs#giftpolicy">CLICK HERE</a></span></p> </div>
+                </div>
+                <br />
+                <br />
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row no-margin">
+            <div class="col-md-12 nopadding">
+                <img src="@theme/content/images/gft.jpg" class="img-responsive" width="100%" />
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    @Html.Action("TopicBlock", "Topic", new { systemName = "GiftPageBottomBanner" })
+
+}
+<script>
+
+
+    var voucher_id = 0;
+    function setGiftVoucher(option) {
+        var se_name = $(option).val().split("|")[0];
+        voucher_id = $(option).val().split("|")[1];
+        //$("#product-details-form").attr("action", "/" + seName);
+        //alert(1);
+        $("#recname").attr("name", voucher_id + ".RecipientName");
+        $("#recemail").attr("name", voucher_id + ".RecipientEmail");
+        $("#recemail2").attr("name", voucher_id + ".RecipientEmail");
+        $("#senname").attr("name", voucher_id + ".SenderName");
+        $("#senemail").attr("name", voucher_id + ".SenderEmail");
+        $("#msg").attr("name", voucher_id + ".Message");
+        $("#EnteredQuantity").attr("name", voucher_id + ".EnteredQuantity");
+    }
+
+
+    $("#send-button").on("click", function () {
+
+
+        if (voucher_id == "0") {
+            displayBarNotification("Please select the voucher", 'success', 3500);
+            //displayPopupNotification("Please select the voucher", 'error', true);
+            return;
+        }
+        var getId = voucher_id.split("_")[1];
+        AjaxCart.addproducttocart_details('/addproducttocart/details/' + getId + '/1', '#product-details-form');
+    })
+
+
+</script>

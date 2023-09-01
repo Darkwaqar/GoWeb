@@ -1,0 +1,22 @@
+﻿@using Nop.Plugin.Payments.TelenorEasyPay.Models;
+@model EasyPaisaModel
+<form action="@Model.PostUrl" method="POST" id="easyPayStartForm">
+    <input name="storeId" value="@Model.StoreId" hidden="true" />
+    <input name="amount" value="@Model.Amount" hidden="true" />
+    <input name="postBackURL" value="@Model.PostBackURL" hidden="true" />
+    <input name="orderRefNum" value="@Model.OrderRefNum" hidden="true" />
+    <input type="hidden" name="expiryDate" value="@Model.ExpiryDate">
+    <input type="hidden" name="autoRedirect" value="@Model.AutoRedirect">
+    <input type="hidden" name="paymentMethod" value="@Model.PaymentMethod">
+    <input type="hidden" name="emailAddr" value="@Model.EmailAddr">
+    <input type="hidden" name="mobileNum" value="@Model.MobileNum">
+    <input type="hidden" name="merchantHashedReq" value="@Model.MerchantHashedReq">
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    (function () {
+        document.getElementById("easyPayStartForm").submit();
+    })();
+</script>
+

@@ -1,0 +1,1063 @@
+﻿@{
+Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+<style>
+
+    a:hover{
+        text-decoration:none !important;
+    }
+</style>
+
+    <div class="row hidden-md hidden-lg" style="height: 40px;"></div>
+
+
+<section class="xvDeals style1 family-poppins pb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000"
+                     id="bs-carousel" data-pause="hover">
+                    <!-- Overlay -->
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#bs-carousel" data-slide-to="1"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item slides active">
+                            <div class="slide-1"></div>
+                            <div class="hero">
+                                <!--<hgroup>
+                            <h2>HSY Fashion Week</h2>
+                        </hgroup>-->
+                                <!--<a href="product-detail.html" class="btn btn-hero btn-lg btn-ghost-slider"
+                           role="button">See Collection</a>-->
+                                <!--<a href="#" class="btn btn-hero btn-lg btn-ghost-slider"
+                           role="button">See Collection</a>-->
+                            </div>
+                        </div>
+                        <div class="item slides">
+                            <div class="slide-2"></div>
+                            <div class="hero">
+                                <!--<hgroup>
+                            <h2>HSY Fashion Week</h2>
+                        </hgroup>-->
+                                <!--<a href="product-detail.html" class="btn btn-hero btn-lg btn-ghost-slider"
+                           role="button">See Collection</a>-->
+                                <!--<a href="#" class="btn btn-hero btn-lg btn-ghost-slider"
+                           role="button">See Collection</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 hidden-lg hidden-md" style="height: 20px;"></div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                @*@Html.Action("TopicBlock", "Topic", new { systemName = "HomePageLaunchingSoon" })*@
+                <h6 class="text-center text-ad-1">GFH - Coming Soon</h6>
+                <img src="assets/img/home/collection.png" class="img-responsive center-block">
+                <!--<a href="product-detail.html" class="btn btn-see-collection">See Collection</a>-->
+                <h3 class="text-center text-bridal-banner" style="padding-top: 37px;">Launching Soon</h3>
+@Html.Action("NewsletterBox", "Newsletter")
+            </div>
+        </div>
+    </div>
+</section>
+
+    @*<section id="fixedSection" class="xvDeals style1 family-poppins pb-0" style="margin-bottom: 30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="col-md-12 hidden-sm hidden-xs" style="height: 20px;"></div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-3" style="height: 330px;">
+                            <img src="assets/img/home/img-1.png" alt="" style="width: 100%;">
+                            <h3 class="text-stories-title">
+                                These Celebrities Show us How to Wear The Off-Duty Staple White Tees
+                            </h3>
+                            <p class="text-link-story" style="text-transform: none; margin-top: -10px;">
+                               complete story
+                            </p>
+                        </div>
+                        <div class="col-xs-12 hidden-lg hidden-md" style="height: 110px;">
+
+                        </div>
+                       <div class="col-md-9 res-space">
+                            @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageBanner1_LG" })
+                        </div>
+                        <div class="col-xs-12 hidden-lg hidden-md" style="height: 20px;"></div>
+                    </div>
+                    <div class="row hidden-sm hidden-xs" style="margin-top: 30px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageBanner2_LG" })
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 19px;"></div>
+                   
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6 mobile-padding-right">
+                            <img src="assets/img/home/article-brown.png" style="width:100%;">
+                            <div class="col-md-12 mobile-both-side-padding">
+                                <a href="/hashmi"><h1 class="product-title-2">Back Stage</h1></a>
+                                <p class="product-short-desc-3">
+                                    <a href="/hashmi"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididu</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6 mobile-padding-left">
+                            <img src="assets/img/home/img-3.png" style="width:100%;">
+                            <div class="col-md-12 mobile-both-side-padding">
+                                <a href="/hashmi"><h1 class="product-title-2">Back Stage</h1></a>
+                                <p class="product-short-desc-3">
+                                    <a href="/hashmi"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididu</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col-md-9">
+                            @Html.Action("TopicBlock", "Topic", new { systemName = "Homebanner3-MD" })
+                           
+                        </div>
+                        <div class="col-md-3 hidden-xs hidden-sm">
+                            <img alt="FIND OUT MORE" src="assets/img/khadi/aj-exclusive.jpg" style="display: inline; position: relative; height: 390px;">
+                            <div id="countdown" class="counter"></div>
+                            <div class="exclusive-l">EXCLUSIVE COLLECTION </div>
+                            <div class="coming"> Comming Soon </div> <br>
+                            <div class="adam">&nbsp ADAM LIPPES &nbsp</div>
+                            <div class="find"><a href="#"> FIND OUT MORE </a> <i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 30px;">
+                        @Html.Action("TopicBlock", "Topic", new { systemName = "Homepagebannner-4-4md" })
+
+                        
+                    </div>
+                    <div class="col-md-12 hidden-sm hidden-xs" style="margin-top: 20px;"></div>
+                    <div class="hidden-sm hidden-xs">
+                        <!-- Brand Tabs -->
+						
+                        <div id="content">
+							@Html.Action("HomepageVendors", "Catalog")
+							</div>
+                        <!-- Brand Tabs End -->
+                    </div>
+                </div>
+                <div class="col-md-3 hidden-sm hidden-xs t1-rightcolumn"style="margin-top: 20px;">
+				
+
+                    @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageproduct" })
+
+                   
+					
+                </div>
+            </div>
+        </div>
+    </section>*@
+<section id="fixedSection" class="xvDeals style1 family-poppins pb-0 mobile-section-margin"
+         style="margin-bottom: 30px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="col-md-12 hidden-sm hidden-xs" style="height: 20px;"></div>
+                <div class="row mobile-row-margin">
+                    <div class="col-md-3 col-xs-6 hidden-md hidden-lg mobile-padding-right">
+                        <h3 class="text-center text-bridal-banner" style="font-size: 21px;">Launching Soon</h3>
+                        <h6 class="text-center text-ad-1 mobile-margin-for-text-and-img"
+                            style="font-size: 14px;">
+                            Winter Collection 2017
+                        </h6>
+                        <img src="assets/img/home/collection.png"
+                             class="img-responsive center-block mobile-margin-for-text-and-img">
+                        <!--<a href="product-detail.html" class="btn btn-see-collection">See Collection</a>-->
+                        <div class="col-md-12 mobile-both-side-padding">
+                            <div id="countdownmobile" class="text-center mobile-countdown"
+                                 style="font-weight: bold;"></div>
+                        </div>
+                        <div class="col-md-12 hidden-sm hidden-xs" style="height: 35px;"></div>
+                        <div class="row">
+                            <div class="col-md-9 newsletter-input-div" style="">
+                                <input type="email" class="newsletter-email-box" placeholder="email">
+                            </div>
+                            <div class="col-md-3 newsletter-button-div">
+                                <p class="text-center" style="">
+                                    <a href="#"
+                                       style="color: black; text-decoration: none; font: 700 12px/12px 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;">
+                                        <strong>
+                                            Let's
+                                            Go
+                                        </strong>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 mobile-padding-left" style="height: 330px;">
+                        <img src="assets/img/home/img-1.png" alt="" style="width: 100%;height:256px;">
+                        <h3 class="text-stories-title mobile-article-heading-margin">
+                            These Celebrities Show us How to Wear The Off-Duty Staple White Tees
+                        </h3>
+                        <p class="text-link-story" style="text-transform: none; margin-top: -10px;">
+                            complete story
+                        </p>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="col-xs-12 hidden-md hidden-lg mobile-both-side-padding"
+                             style="background-image: url('assets/img/home/mobile-6.png'); background-size: cover;">
+                            <a href="/denim">
+                                <h1 class="product-title sec-3-head">
+                                    <span style="font-size: 40px">Do the</span><br>
+                                    Denim
+                                </h1>
+                            </a>
+                            <p class="product-short-desc sec-3-sub">
+                                <a href="/denim">
+                                    The Hottest Denim<br>
+                                    Trend of the Spell
+                                </a>
+                            </p>
+                            <p class="product-short-desc-2 sec-3-p">
+                                <a href="/denim">
+                                    From retro funk to classic picks and<br>
+                                    groovy glam, denim fluctuates just<br>
+                                    like seasonal fashion inclinations,<br>
+                                    while trending simultaneously.
+                                </a>
+                            </p>
+                        </div>
+                        <a href="javascript:">
+                            <img src="assets/img/home/6.png" alt="" class="hidden-xs hidden-sm">
+                        </a>
+                        <div class="col-md-12 hidden-xs hidden-sm" style="margin-top: -340px;">
+                            <a href="/denim">
+                                <h1 class="product-title">
+                                    <span style="font-size: 71px">Do the</span>
+                                    <br>
+                                    Denim
+                                </h1>
+                            </a>
+                            <p class="product-short-desc">
+                                <a href="/denim">
+                                    The Hottest Denim<br>
+                                    Trend of the Spell
+                                </a>
+                            </p>
+                            <p class="product-short-desc-2">
+                                <a href="/denim">
+                                    From retro funk to classic picks and<br>
+                                    groovy glam, denim fluctuates just<br>
+                                    like seasonal fashion inclinations,<br>
+                                    while trending simultaneously.
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 hidden-lg hidden-md" style="height: 20px;"></div>
+                </div>
+                <div class="row hidden-sm hidden-xs" style="margin-top: 30px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="/ismail-farid"><img src="assets/img/home/3.png" style="width:100%;" alt=""></a>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;"></div>
+                <div class="row">
+                    <div class="col-md-6 col-xs-6 mobile-padding-right">
+                        <img src="assets/img/home/article-brown.png" style="width:100%;">
+                        <div class="col-md-12 mobile-both-side-padding">
+                            <a href="brown.html">
+                                <h1 class="product-title-2 sec-5-head">
+                                    Color the town
+                                    brown
+                                </h1>
+                            </a>
+                            <p class="product-short-desc-3 sec-5-p">
+                                <a href="brown.html"> The Brown Footwear Every <br>Working Man Must Own</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-6 mobile-padding-left">
+                        <img src="assets/img/home/img-3.png" style="width:100%;">
+                        <div class="col-md-12 mobile-both-side-padding">
+                            <a href="hashmi.html"><h1 class="product-title-2 sec-5-head">Back Stage</h1></a>
+                            <p class="product-short-desc-3 sec-5-p">
+                                <a href="hashmi.html"> Whilst Hashmi Kajal is a product used for centuries as we speak, One must acknowledge the prime basis of what is truly is;</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-md-9">
+                        <a href="khaadi.html">
+                            <img src="assets/img/home/img-2.png" alt="" style="" class="hidden-sm hidden-xs">
+                        </a>
+                        <div class="col-xs-12 hidden-md hidden-lg mobile-both-side-padding"
+                             style="background-image: url('assets/img/home/img-2-mobile.png'); background-size: cover;">
+                            <a href="boxy.html">
+                                <h1 class="product-title text-right sec-6-head">
+                                    <span class="sec-6-head-span" style="font-size: 71px">Boxy</span>
+                                    <br>
+                                    Cleopatra
+                                </h1>
+                            </a>
+                            <p class="product-short-desc text-right sec-6-sub">
+                                <a href="boxy.html">
+                                    The Chicest Box Clutches
+                                    <br>
+                                    You Need This Season
+                                </a>
+                            </p>
+                            <p class="product-short-desc-2 text-right sec-6-p">
+                                <a href="boxy.html">
+                                    Thereâ€™s something about box<br>
+                                    clutches; theyâ€™re small, portable,<br>
+                                    adorable, trendy, adaptable,<br>
+                                    glamorous, and all the adjectives<br>
+                                    one requires to complete a look.
+                                </a>
+                            </p>
+                        </div>
+                        <div class="col-md-12 hidden-xs hidden-sm row5-col1">
+                                <a href=" boxy.html">
+                            <h1 class="product-title text-right">
+                                <span style="font-size: 71px">Boxy</span>
+                                <br>
+                                Cleopatra
+                            </h1></a>
+                            <p class="product-short-desc text-right">
+                                <a href="boxy.html">
+                                    The Chicest Box Clutches
+                                    <br>
+                                    You Need This Season
+                                </a>
+                            </p>
+                            <p class="product-short-desc-2 text-right">
+                                <a href="boxy.html">
+                                    Thereâ€™s something about box<br>
+                                    clutches; theyâ€™re small, portable,<br>
+                                    adorable, trendy, adaptable,<br>
+                                    glamorous, and all the adjectives<br>
+                                    one requires to complete a look.
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 hidden-xs hidden-sm">
+                        <img alt="FIND OUT MORE" src="assets/img/khadi/aj-exclusive.jpg"
+                             style="display: inline; position: relative; height: 390px;">
+                        <div id="countdown" class="counter"></div>
+                        <div class="exclusive-l">EXCLUSIVE COLLECTION</div>
+                        <div class="coming"> Comming Soon</div>
+                        <br>
+                        <div class="adam">&nbsp ADAM LIPPES &nbsp</div>
+                        <div class="find">
+                            <a href="#"> FIND OUT MORE </a> <i class="fa fa-caret-right"
+                                                               aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-xs-6 hidden-lg hidden-md mobile-padding-right">
+                        <!--<img src="assets/img/home/blank-mob.png" alt="" class="img-responsive">-->
+                        <img alt="FIND OUT MORE"
+                             src="assets/img/khadi/aj-exclusive.jpg"
+                             class="img-responsive countdown-img-mob">
+                        <div class="countdown-row-mob">
+                            <div id="countdownMob" class="counter"></div>
+                            <div class="exclusive-l">EXCLUSIVE COLLECTION</div>
+                            <div class="coming"> Comming Soon</div>
+                            <br>
+                            <div class="adam">&nbsp ADAM LIPPES &nbsp</div>
+                            <div class="find">
+                                <a href="#"> FIND OUT MORE </a> <i class="fa fa-caret-right"
+                                                                   aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 mobile-padding-left">
+                        <img src="assets/img/home/img-4.png" class="img-responsive" alt="">
+                        <h1 class="product-title-3 sec-7-head">
+                            Reasons Why
+                        </h1>
+                        <p class="product-short-desc-4 sec-7-sub">
+                            Successful Online Fashion
+                            Brands Using Mobile Apps
+                        </p>
+                        <p class="product-short-desc-5 sec-7-p">
+                            Over the last few years, the face of marketing has changed, or rather
+                        </p>
+                    </div>
+
+                    <div class="hidden-lg hidden-md">
+                        <div class="container">
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <div class="carousel slide media-carousel" id="media">
+                                        <div class="carousel-inner">
+                                            <div class="item  active">
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <a class="thumbnail no-pad" href="#">
+                                                            <img alt=""
+                                                                 src="assets/img/home/img-side-2.png">
+                                                        </a>
+                                                        <div class="row text-block">
+                                                            <h6 class="text-article-right-column slider-head">
+                                                                <a href="/maternity">Maternity Wear</a>
+                                                            </h6>
+                                                            <h6 class="desc-article-right-column slider-p">
+                                                                <a href="/maternity">
+                                                                    Some celebrities know how
+                                                                    to dress their baby bumps just flawlessly when
+                                                                    on the red carpet.
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <a class="thumbnail no-pad" href="#">
+                                                            <img alt=""
+                                                                 src="assets/img/home/img-side-3.png">
+                                                        </a>
+                                                        <div class="row text-block">
+                                                            <h6 class="text-article-right-column slider-head">
+                                                                <a href="/maternity">Maternity Wear</a>
+                                                            </h6>
+                                                            <h6 class="desc-article-right-column slider-p">
+                                                                <a href="/maternity">
+                                                                    Some celebrities know how
+                                                                    to dress their baby bumps just flawlessly when
+                                                                    on the red carpet.
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <a class="thumbnail no-pad" href="#">
+                                                            <img alt=""
+                                                                 src="assets/img/home/img-side-2.png">
+                                                        </a>
+                                                        <div class="row text-block">
+                                                            <h6 class="text-article-right-column slider-head">
+                                                                <a href="/maternity">Maternity Wear</a>
+                                                            </h6>
+                                                            <h6 class="desc-article-right-column slider-p">
+                                                                <a href="/maternity">
+                                                                    Some celebrities know how
+                                                                    to dress their baby bumps just flawlessly when
+                                                                    on the red carpet.
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <a class="thumbnail no-pad" href="#">
+                                                            <img alt=""
+                                                                 src="assets/img/home/img-side-3.png">
+                                                        </a>
+                                                        <div class="row text-block">
+                                                            <h6 class="text-article-right-column slider-head">
+                                                                <a href="/maternity">Maternity Wear</a>
+                                                            </h6>
+                                                            <h6 class="desc-article-right-column slider-p">
+                                                                <a href="/maternity">
+                                                                    Some celebrities know how
+                                                                    to dress their baby bumps just flawlessly when
+                                                                    on the red carpet.
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <a class="thumbnail no-pad" href="#">
+                                                            <img alt=""
+                                                                 src="assets/img/home/img-side-2.png">
+                                                        </a>
+                                                        <div class="row text-block">
+                                                            <h6 class="text-article-right-column slider-head">
+                                                                <a href="/maternity">Maternity Wear</a>
+                                                            </h6>
+                                                            <h6 class="desc-article-right-column slider-p">
+                                                                <a href="/maternity">
+                                                                    Some celebrities know how
+                                                                    to dress their baby bumps just flawlessly when
+                                                                    on the red carpet.
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <a class="thumbnail no-pad" href="#">
+                                                            <img alt=""
+                                                                 src="assets/img/home/img-side-3.png">
+                                                        </a>
+                                                        <div class="row text-block">
+                                                            <h6 class="text-article-right-column slider-head">
+                                                                <a href="/maternity">Maternity Wear</a>
+                                                            </h6>
+                                                            <h6 class="desc-article-right-column slider-p">
+                                                                <a href="/maternity">
+                                                                    Some celebrities know how
+                                                                    to dress their baby bumps just flawlessly when
+                                                                    on the red carpet.
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a data-slide="prev" href="#media"
+                                           class="left carousel-control my-carousel-control">â€¹</a>
+                                        <a data-slide="next" href="#media"
+                                           class="right carousel-control my-carousel-control">â€º</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 hidden-lg hidden-md" style="height: 20px;"></div>
+                    @*<div class="col-md-4 col-xs-6 mobile-padding-right">
+                        <img src="assets/img/home/9.png" class="img-responsive center-block" alt="">
+                        <div class="col-md-12 email-box" style="">
+                            <input type="email" class="subscribe-email text-center" placeholder="email">
+                            <div class="col-md-12">
+                                <center>
+                                    <button href="#" class="lets-subscribe-btn">Lets go</button>
+                                </center>
+                            </div>
+                        </div>
+                    </div>*@
+                  
+                    <div class="col-md-4 col-xs-6 mobile-padding-left">
+                        <img src="assets/img/home/10.jpg" class="img-responsive center-block" alt="">
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12" style="margin-bottom: 15px;"></div>
+                    </div>
+                </div>
+
+                <br>
+                <!--last slider starts-->
+                @*<div class="col-md-12 hidden-md hidden-lg" style="padding: 0px;">
+                    <div class="panel with-nav-tabs panel-default">
+                        <!--tab header starts-->
+                        <div>
+                            <ul class="nav nav-tabs" style="border: 0 !important;">
+                                <li class="active last-carousel-mobHead font-chronicle">
+                                    <a href="#tab1default" data-toggle="tab" style="border: 0 !important;">
+                                        Logo
+                                        1
+                                    </a>
+                                </li>
+                                <li class="font-chronicle last-carousel-mobHead">
+                                    <a href="#tab2default" data-toggle="tab" style="border: 0 !important;">
+                                        Logo
+                                        2
+                                    </a>
+                                </li>
+                                <li class="font-chronicle last-carousel-mobHead">
+                                    <a href="#tab3default" data-toggle="tab" style="border: 0 !important;">
+                                        Logo
+                                        3
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--tab header ends-->
+                        <!--tab details starts-->
+                        <div class="panel-body" style="padding: 0px 15px;">
+                            <div class="tab-content">
+                                <!--tab1-->
+                                <div class="tab-pane fade in active" id="tab1default">
+                                    <div class="container">
+                                        <div id="main_area1">
+                                            <!-- Slider -->
+                                            <div style="padding: 16px !important;" class="row">
+                                                <div class="col-xs-12" id="slider">
+                                                    <!-- Top part of the slider -->
+                                                    <div class="row">
+                                                        <div class="col-sm-12" id="carousel-bounding-box"
+                                                             style="padding: 2px !important;">
+                                                            <div class="carousel slide" id="myCarousel">
+                                                                <!-- Carousel items -->
+                                                                <div class="carousel-inner">
+                                                                    <div class="active item" data-slide-number="0">
+                                                                        <img src="http://placehold.it/470x480&text=zero">
+                                                                    </div>
+
+                                                                    <div class="item" data-slide-number="1">
+                                                                        <img src="http://placehold.it/470x480&text=1">
+                                                                    </div>
+
+                                                                    <div class="item" data-slide-number="2">
+                                                                        <img src="http://placehold.it/470x480&text=2">
+                                                                    </div>
+
+                                                                    <div class="item" data-slide-number="3">
+                                                                        <img src="http://placehold.it/470x480&text=3">
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Carousel nav -->
+                                                                <a class="left carousel-control last-carousel-aLeft"
+                                                                   href="#myCarousel" role="button"
+                                                                   data-slide="prev">
+                                                                    <span class="fa fa-angle-left"></span>
+                                                                </a>
+                                                                <a class="right carousel-control last-carousel-aRight"
+                                                                   href="#myCarousel" role="button"
+                                                                   data-slide="next">
+                                                                    <span class="fa fa-angle-right"></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/Slider-->
+                                            </div>
+                                            <div class="row">
+                                                <div style="margin-top: -16px !important;" class="col-sm-12"
+                                                     id="slider-thumbs">
+                                                    <ul class="hide-bullets">
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector-0">
+                                                                <img src="http://placehold.it/150x150&text=zero">
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector-1">
+                                                                <img src="http://placehold.it/150x150&text=1">
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector-2">
+                                                                <img src="http://placehold.it/150x150&text=2">
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector-3">
+                                                                <img src="http://placehold.it/150x150&text=3">
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--tab2-->
+                                <div class="tab-pane fade" id="tab2default">
+                                    <div class="container">
+                                        <div id="main_area2">
+                                            <!-- Slider -->
+                                            <div style="padding: 16px !important;" class="row">
+                                                <div class="col-xs-12" id="slider2">
+                                                    <!-- Top part of the slider -->
+                                                    <div class="row">
+                                                        <div class="col-sm-12" id="carousel-bounding-box2"
+                                                             style="padding: 2px !important;">
+                                                            <div class="carousel slide" data-carousel="2"
+                                                                 id="myCarousel2">
+                                                                <!-- Carousel items -->
+                                                                <div class="carousel-inner">
+                                                                    <div class="active item" data-slide-number="0">
+                                                                        <img src="http://placehold.it/470x480&text=zero">
+                                                                    </div>
+
+                                                                    <div class="item" data-slide-number="1">
+                                                                        <img src="http://placehold.it/470x480&text=1">
+                                                                    </div>
+
+                                                                    <div class="item" data-slide-number="2">
+                                                                        <img src="http://placehold.it/470x480&text=2">
+                                                                    </div>
+
+                                                                    <div class="item" data-slide-number="3">
+                                                                        <img src="http://placehold.it/470x480&text=3">
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Carousel nav -->
+                                                                <a class="left carousel-control last-carousel-aLeft"
+                                                                   href="#myCarousel2" role="button"
+                                                                   data-slide="prev">
+                                                                    <span class="fa fa-angle-left"></span>
+                                                                </a>
+                                                                <a class="right carousel-control last-carousel-aRight"
+                                                                   href="#myCarousel2" role="button"
+                                                                   data-slide="next">
+                                                                    <span class="fa fa-angle-right"></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/Slider-->
+                                            </div>
+                                            <div class="row">
+                                                <div style="margin-top: -16px !important;" class="col-sm-12"
+                                                     id="slider-thumbs2">
+                                                    <ul class="hide-bullets" data-carousel="2">
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector2-0">
+                                                                <img src="http://placehold.it/150x150&text=zero">
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector2-1">
+                                                                <img src="http://placehold.it/150x150&text=1">
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector2-2">
+                                                                <img src="http://placehold.it/150x150&text=2">
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector2-3">
+                                                                <img src="http://placehold.it/150x150&text=3">
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--tab3-->
+                                <div class="tab-pane fade" id="tab3default">
+                                    <div class="container">
+                                        <div id="main_area3">
+                                            <!-- Slider -->
+                                            <div style="padding: 16px !important;" class="row">
+                                                <div class="col-xs-12" id="slider3">
+                                                    <!-- Top part of the slider -->
+                                                    <div class="row">
+                                                        <div class="col-sm-12" id="carousel-bounding-box3"
+                                                             style="padding: 2px !important;">
+                                                            <div class="carousel slide" data-carousel="3"
+                                                                 id="myCarousel3">
+                                                                <!-- Carousel items -->
+                                                                <div class="carousel-inner">
+                                                                    <div class="active item" data-slide-number="0">
+                                                                        <img src="http://placehold.it/470x480&text=zero">
+                                                                    </div>
+
+                                                                    <div class="item" data-slide-number="1">
+                                                                        <img src="http://placehold.it/470x480&text=1">
+                                                                    </div>
+
+                                                                    <div class="item" data-slide-number="2">
+                                                                        <img src="http://placehold.it/470x480&text=2">
+                                                                    </div>
+
+                                                                    <div class="item" data-slide-number="3">
+                                                                        <img src="http://placehold.it/470x480&text=3">
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Carousel nav -->
+                                                                <a class="left carousel-control last-carousel-aLeft"
+                                                                   href="#myCarousel3" role="button"
+                                                                   data-slide="prev">
+                                                                    <span class="fa fa-angle-left"></span>
+                                                                </a>
+                                                                <a class="right carousel-control last-carousel-aRight"
+                                                                   href="#myCarousel3" role="button"
+                                                                   data-slide="next">
+                                                                    <span class="fa fa-angle-right"></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/Slider-->
+                                            </div>
+                                            <div class="row">
+                                                <div style="margin-top: -16px !important;" class="col-sm-12"
+                                                     id="slider-thumbs3">
+                                                    <ul class="hide-bullets" data-carousel="3">
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector3-0">
+                                                                <img src="http://placehold.it/150x150&text=zero">
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector3-1">
+                                                                <img src="http://placehold.it/150x150&text=1">
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector3-2">
+                                                                <img src="http://placehold.it/150x150&text=2">
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="col-xs-3 thumb-padd">
+                                                            <a class="thumbnail" id="carousel-selector3-3">
+                                                                <img src="http://placehold.it/150x150&text=3">
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--tab details ends-->
+                    </div>
+                </div>*@
+                <!--last slider ends-->
+
+                @*<div class="col-md-12 hidden-sm hidden-xs" style="margin-top: 20px;"></div>
+                <div class="hidden-sm hidden-xs">
+                     Brand Tabs 
+                    <div id="content">
+                        
+                        @Html.Action("HomepageVendors", "Catalog")
+                    </div>
+                   
+                </div>*@
+            
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs t1-rightcolumn" style="margin-top: 20px;">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <img src="assets/img/home/img-side-1.png" alt="">
+                        <div class="row text-block">
+                            <h6 class="text-article-right-column">
+                                Men Wear Overcoats<br>
+                                Potatoes Wear Jackets
+                            </h6>
+                            <h6 class="desc-article-right-column">
+                                Jacket potato, tomato shamato â€“ youâ€™d see boys being irrational with what they
+                                choose to wear.
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-12">
+                        <img src="assets/img/home/img-side-2.png" alt="">
+                        <div class="row text-block">
+                            <h6 class="text-article-right-column">
+                                <a href="/maternity">Maternity Wear</a>
+                            </h6>
+                            <h6 class="desc-article-right-column">
+                                <a href="/maternity">
+                                    Some celebrities know how to dress their baby bumps just
+                                    flawlessly when on the red carpet.
+                                </a>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-12">
+                        <img src="assets/img/home/img-side-3.png" alt="">
+                        <div class="row text-block">
+                            <h6 class="text-article-right-column">
+                                <a href="/sonam">
+                                    Sonam Kapoor Gave<br>
+                                    Us Saree Inspiration
+                                </a>
+                            </h6>
+                            <h6 class="desc-article-right-column">
+                                <a href="/sonam">
+                                    Sonam Kapoor is best known for her style, and NOT for her
+                                    acting skills, if you know what we mean.
+                                </a>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-12">
+                        <img src="assets/img/home/img-side-4.png" alt="">
+                        <div class="row text-block">
+                            <h6 class="text-article-right-column">
+                                <a href="/brown">
+                                    Color The<br>
+                                    Town Brown
+                                </a>
+                            </h6>
+                            <h6 class="desc-article-right-column">
+                                <a href="/brown"> The Brown Footwear Every Working Man Must Own.</a>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;display: none;">
+                    <div class="col-md-12">
+                        <img src="assets/img/home/img-side-1.png" alt="">
+                        <div class="row text-block">
+                            <h6 class="text-article-right-column">
+                                Men Wear Overcoats<br>
+                                Potatoes Wear Jackets
+                            </h6>
+                            <h6 class="desc-article-right-column">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt.
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+</div>
+<!--====================
+    Scripts
+====================-->
+
+<script src="assets/js/jquery.stellar.min.js"></script>
+<script src="assets/js/my-instagram-gallery.js"></script>
+<script src="assets/js/slick.min.js"></script>
+<script src="assets/js/jquery.inview.js"></script>
+<script src="assets/js/odometer.min.js"></script>
+<script src="assets/js/tweetie.min.js"></script>
+<script src="assets/js/jquery.timeago.js"></script>
+<script src="assets/js/jquery.knob.min.js"></script>
+<script src="assets/js/css3-animate-it.js"></script>
+<script src="assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="assets/js/jquery.prettyPhoto.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+    $(".thumb").click(function(){
+        var thumbsrc = $(this).attr('src');
+        var image = $("#placesrc");
+        image.fadeOut('fast', function () {
+            image.attr('src', thumbsrc);
+            image.fadeIn('fast');
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#countdown').countdown('2017/04/28', function(event) {
+            $(this).html(event.strftime('%d : %H : %M : %S '));
+        });
+
+        function calculateVisibilityForDiv() {
+            var div$ = $("footer");
+            var windowHeight = $(window).height(),
+                docScroll = $(document).scrollTop(),
+                divPosition = div$.offset().top,
+                divHeight = div$.height(),
+                hiddenBefore = docScroll - divPosition,
+                hiddenAfter = (divPosition + divHeight) - (docScroll + windowHeight);
+
+            if ((docScroll > divPosition + divHeight) || (divPosition > docScroll + windowHeight)) {
+                return 0;
+            } else {
+                var result = 100;
+
+                if (hiddenBefore > 0) {
+                    result -= (hiddenBefore * 100) / divHeight;
+                }
+
+                if (hiddenAfter > 0) {
+                    result -= (hiddenAfter * 100) / divHeight;
+                }
+
+                return result;
+            }
+        }
+
+        function fixDiv() {
+            divWidth = $("#fixedSection .container").width() / 4;
+            var $cache = $('.t1-rightcolumn');
+            var divTop = $("#fixedSection .container:first .row:first").position().top;
+            var divBottom = 294;
+            if ($(window).scrollTop() > divTop && !(($(document).height() - $(window).scrollTop() - divBottom ) <= $(window).height() ) && calculateVisibilityForDiv() <= 0)
+            {
+                $cache.css({
+                    'position': 'fixed',
+                    'top': '0px',
+                    'width': divWidth + "px",
+                    'height': $(window).height(),
+                    'margin-top': '0',
+                    'right': (($("#fixedSection").width() - $("#fixedSection .container").width()) / 2) - 8
+                });
+            }
+            else if (calculateVisibilityForDiv() > 0)
+            {
+                var topPos = $('.t1-rightcolumn').prev().height() - ($('.t1-rightcolumn').height());
+                $cache.css({
+                    'position': 'relative',
+                    'top': topPos,
+                    'width': divWidth + "px",
+                    'margin-top': '0',
+                    'height': $(window).height(),
+                    'right': 'auto'
+                });
+            }
+            else
+            {
+                $cache.css({
+                    'position': 'relative',
+                    'top': 'auto',
+                    'width': divWidth + "px",
+                    'margin-top': '20px',
+                    'height': $(window).height(),
+                    'right': 'auto'
+                });
+            }
+        }
+        $(window).scroll(fixDiv);
+        fixDiv();
+    });   // end of jQuery
+
+    !function(a){"function"==typeof define&&define.amd?define(["jquery"],a):a(jQuery)}(function(a){"use strict";function b(a){if(a instanceof Date)return a;if(String(a).match(g))return String(a).match(/^[0-9]*$/)&&(a=Number(a)),new Date(a);throw new Error("Couldn't cast `"+a+"` to a date object.")}function c(a){return function(b){var c=b.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);if(c)for(var e=0,f=c.length;f>e;++e){var g=c[e].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/),i=new RegExp(g[0]),j=g[1]||"",k=g[3]||"",l=null;g=g[2],h.hasOwnProperty(g)&&(l=h[g],l=Number(a[l])),null!==l&&("!"===j&&(l=d(k,l)),""===j&&10>l&&(l="0"+l.toString()),b=b.replace(i,l.toString()))}return b=b.replace(/%%/,"%")}}function d(a,b){var c="s",d="";return a&&(a=a.replace(/(:|;|\s)/gi,"").split(/\,/),1===a.length?c=a[0]:(d=a[0],c=a[1])),1===Math.abs(b)?d:c}var e=100,f=[],g=[];g.push(/^[0-9]*$/.source),g.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source),g.push(/[0-9]{4}(\/[0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source),g=new RegExp(g.join("|"));var h={Y:"years",m:"months",w:"weeks",d:"days",D:"totalDays",H:"hours",M:"minutes",S:"seconds"},i=function(b,c,d){this.el=b,this.$el=a(b),this.interval=null,this.offset={},this.setFinalDate(c),this.instanceNumber=f.length,f.push(this),this.$el.data("countdown-instance",this.instanceNumber),d&&(this.$el.on("update.countdown",d),this.$el.on("stoped.countdown",d),this.$el.on("finish.countdown",d)),this.start()};a.extend(i.prototype,{start:function(){if(null!==this.interval)throw new Error("Countdown is already running!");var a=this;this.update(),this.interval=setInterval(function(){a.update.call(a)},e)},stop:function(){clearInterval(this.interval),this.interval=null,this.dispatchEvent("stoped")},pause:function(){this.stop.call(this)},resume:function(){this.start.call(this)},remove:function(){this.stop(),delete f[this.instanceNumber]},setFinalDate:function(a){this.finalDate=b(a)},update:function(){return 0===this.$el.closest("html").length?(this.remove(),void 0):(this.totalSecsLeft=this.finalDate.valueOf()-(new Date).valueOf(),this.totalSecsLeft=Math.ceil(this.totalSecsLeft/1e3),this.totalSecsLeft=this.totalSecsLeft<0?0:this.totalSecsLeft,this.offset={seconds:this.totalSecsLeft%60,minutes:Math.floor(this.totalSecsLeft/60)%60,hours:Math.floor(this.totalSecsLeft/60/60)%24,days:Math.floor(this.totalSecsLeft/60/60/24)%7,totalDays:Math.floor(this.totalSecsLeft/60/60/24),weeks:Math.floor(this.totalSecsLeft/60/60/24/7),months:Math.floor(this.totalSecsLeft/60/60/24/30),years:Math.floor(this.totalSecsLeft/60/60/24/365)},0===this.totalSecsLeft?(this.stop(),this.dispatchEvent("finish")):this.dispatchEvent("update"),void 0)},dispatchEvent:function(b){var d=a.Event(b+".countdown");d.finalDate=this.finalDate,d.offset=a.extend({},this.offset),d.strftime=c(this.offset),this.$el.trigger(d)}}),a.fn.countdown=function(){var b=Array.prototype.slice.call(arguments,0);return this.each(function(){var c=a(this).data("countdown-instance");if(void 0!==c){var d=f[c],e=b[0];i.prototype.hasOwnProperty(e)?d[e].apply(d,b.slice(1)):null===String(e).match(/^[$A-Z_][0-9A-Z_$]*$/i)?d.setFinalDate.call(d,e):a.error("Method %s does not exist on jQuery.countdown".replace(/\%s/gi,e))}else new i(this,b[0],b[1])})}});
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#countdowntop').countdown('2017/05/22', function(event) {
+            $(this).html(event.strftime('%d : %H : %M : %S '));
+        });
+
+        $(document).on('click', '#hideHeader', function(){
+            $("header .container:first").slideToggle();
+        });
+
+    });   // end of jQuery
+
+    !function(a){"function"==typeof define&&define.amd?define(["jquery"],a):a(jQuery)}(function(a){"use strict";function b(a){if(a instanceof Date)return a;if(String(a).match(g))return String(a).match(/^[0-9]*$/)&&(a=Number(a)),new Date(a);throw new Error("Couldn't cast `"+a+"` to a date object.")}function c(a){return function(b){var c=b.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);if(c)for(var e=0,f=c.length;f>e;++e){var g=c[e].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/),i=new RegExp(g[0]),j=g[1]||"",k=g[3]||"",l=null;g=g[2],h.hasOwnProperty(g)&&(l=h[g],l=Number(a[l])),null!==l&&("!"===j&&(l=d(k,l)),""===j&&10>l&&(l="0"+l.toString()),b=b.replace(i,l.toString()))}return b=b.replace(/%%/,"%")}}function d(a,b){var c="s",d="";return a&&(a=a.replace(/(:|;|\s)/gi,"").split(/\,/),1===a.length?c=a[0]:(d=a[0],c=a[1])),1===Math.abs(b)?d:c}var e=100,f=[],g=[];g.push(/^[0-9]*$/.source),g.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source),g.push(/[0-9]{4}(\/[0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source),g=new RegExp(g.join("|"));var h={Y:"years",m:"months",w:"weeks",d:"days",D:"totalDays",H:"hours",M:"minutes",S:"seconds"},i=function(b,c,d){this.el=b,this.$el=a(b),this.interval=null,this.offset={},this.setFinalDate(c),this.instanceNumber=f.length,f.push(this),this.$el.data("countdown-instance",this.instanceNumber),d&&(this.$el.on("update.countdown",d),this.$el.on("stoped.countdown",d),this.$el.on("finish.countdown",d)),this.start()};a.extend(i.prototype,{start:function(){if(null!==this.interval)throw new Error("Countdown is already running!");var a=this;this.update(),this.interval=setInterval(function(){a.update.call(a)},e)},stop:function(){clearInterval(this.interval),this.interval=null,this.dispatchEvent("stoped")},pause:function(){this.stop.call(this)},resume:function(){this.start.call(this)},remove:function(){this.stop(),delete f[this.instanceNumber]},setFinalDate:function(a){this.finalDate=b(a)},update:function(){return 0===this.$el.closest("html").length?(this.remove(),void 0):(this.totalSecsLeft=this.finalDate.valueOf()-(new Date).valueOf(),this.totalSecsLeft=Math.ceil(this.totalSecsLeft/1e3),this.totalSecsLeft=this.totalSecsLeft<0?0:this.totalSecsLeft,this.offset={seconds:this.totalSecsLeft%60,minutes:Math.floor(this.totalSecsLeft/60)%60,hours:Math.floor(this.totalSecsLeft/60/60)%24,days:Math.floor(this.totalSecsLeft/60/60/24)%7,totalDays:Math.floor(this.totalSecsLeft/60/60/24),weeks:Math.floor(this.totalSecsLeft/60/60/24/7),months:Math.floor(this.totalSecsLeft/60/60/24/30),years:Math.floor(this.totalSecsLeft/60/60/24/365)},0===this.totalSecsLeft?(this.stop(),this.dispatchEvent("finish")):this.dispatchEvent("update"),void 0)},dispatchEvent:function(b){var d=a.Event(b+".countdown");d.finalDate=this.finalDate,d.offset=a.extend({},this.offset),d.strftime=c(this.offset),this.$el.trigger(d)}}),a.fn.countdown=function(){var b=Array.prototype.slice.call(arguments,0);return this.each(function(){var c=a(this).data("countdown-instance");if(void 0!==c){var d=f[c],e=b[0];i.prototype.hasOwnProperty(e)?d[e].apply(d,b.slice(1)):null===String(e).match(/^[$A-Z_][0-9A-Z_$]*$/i)?d.setFinalDate.call(d,e):a.error("Method %s does not exist on jQuery.countdown".replace(/\%s/gi,e))}else new i(this,b[0],b[1])})}});
+</script>
+
+<script>
+$(".btn-login").on("click",function(){
+var fdata= $("#loginform").serialize();
+
+alert(fdata);
+$.post("/login",fdata,function(r){
+	alert(JSON.stringify(r));
+});
+});
+</script>

@@ -1,0 +1,465 @@
+@model ShoppingCartModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.ShoppingCart;
+@{
+    var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+}
+<div class="order-summary-content" id="ordersummarypagecart">
+    @Html.Widget("order_summary_content_before")
+    @Html.Partial("_OrderReviewData", Model.OrderReviewData)
+    @if (Model.Items.Count > 0)
+    {
+        if (Model.Warnings.Count > 0)
+        {
+            <div class="message-error">
+                <ul>
+                    @foreach (var warning in Model.Warnings)
+                    {
+                        <li>@warning</li>
+                    }
+                </ul>
+            </div>
+        }
+        @*we add enctype = "multipart/form-data" because "File upload" attribute control type requires it*@
+    using (Html.BeginRouteForm("ShoppingCart", FormMethod.Post, new { enctype = "multipart/form-data", id = "shopping-cart-form" }))
+    {
+        var first = true;
+        @Html.AntiForgeryToken()
+        <div class="product-list cart">
+
+            @foreach (var item in Model.Items)
+            {
+                <div class="slide-product @(first?"active":"")">
+                    <div class="card" data-productid="@item.Id">
+                        <div class="card__img" style="background-image: url(@(@item.Picture.ImageUrl));" id="@item.Id">
+                        </div>
+                        <div class="card__content">
+                          
+                            <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })" class="product-name card__content-header">@item.ProductName</a>
+                            @if (!String.IsNullOrEmpty(item.AttributeInfo))
+                            {
+                                <p class="card__content-theme">@Html.Raw(item.AttributeInfo)</p>
+                            }
+                            @if (!String.IsNullOrEmpty(item.RecurringInfo))
+                            {
+                                <div class="recurring-info">
+                                    @Html.Raw(item.RecurringInfo)
+                                </div>
+                            }
+                            @if (!String.IsNullOrEmpty(item.RentalInfo))
+                            {
+                                <div class="rental-info">
+                                    @Html.Raw(item.RentalInfo)
+                                </div>
+                            }
+                            @if (Model.IsEditable && item.AllowItemEditing)
+                             {
+                            var editCartItemUrl = Url.RouteUrl("Product", new { SeName = item.ProductSeName });
+                            editCartItemUrl = webHelper.ModifyQueryString(editCartItemUrl, "updatecartitemid=" + item.Id, null);
+                                <div class="edit-item">
+                                    <a href="@editCartItemUrl">@T("Common.Edit")</a>
+                                </div>
+                            }
+                            @if (item.Warnings.Count > 0)
+                            {
+                                <div class="message-error">
+                                    <ul>
+                                        @foreach (var warning in item.Warnings)
+                                        {
+                                            <li>@warning</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            <div class="unit-price">
+                                <label class="td-title">@T("ShoppingCart.UnitPrice"):</label>
+                                <span class="product-unit-price">@item.UnitPrice</span>
+                            </div>
+                            @if (Model.IsEditable)
+                        {
+                            if (item.AllowedQuantities.Count > 0)
+                            {
+                                    <td class="quantity">
+                                        <select id="itemquantity@(item.Id)" name="itemquantity@(item.Id)" class="custom-select form-control qty-dropdown" onchange="ChangeShoppingCart()">
+                                            @foreach (var qty in item.AllowedQuantities)
+                                            {
+                                                <option id="itemqty@(item.Id)" selected="@qty.Selected" value="@qty.Value">@qty.Value</option>
+                                            }
+                                        </select>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <div class="quantity">
+                                        <div style="display:inline-flex">
+                                            <div class="minus" onclick="$(this).parent().find('.qty-input').attr('value', function (i, oldval) {if(oldval>1){ return --oldval; } else { return oldval}}).trigger('change')"></div>
+                                            <input id="itemquantity@(item.Id)" name="itemquantity@(item.Id)" type="text" value="@(item.Quantity)" onchange="ChangeShoppingCart()" class="qty-input form-control text-center" />
+                                            <div class="plus" onclick="$(this).parent().find('.qty-input').attr('value',function (i, oldval) {return ++oldval;}).trigger('change')"></div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+                                <div class="quantity">
+                                    <input id="itemquantity@(item.Id)" name="itemquantity@(item.Id)" type="text" value="@(item.Quantity)" class="qty-input-ro form-control text-center" readonly />
+                                </div>
+                            }
+                            @if (Model.IsEditable)
+                        {
+                                <div class="remove-from-cart">
+                                    @if (item.DisableRemoval)
+                                    {
+                                        <text>&nbsp;</text>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="remove-product deleteshoppingcartitem" data-href="@Url.RouteUrl("DeleteCartItem", new { id = item.Id, shoppingcartpage = true })">
+                                            <img src="~/Themes/DefaultClean/Content/images/remove.png" alt="Delete Product" class="remove" />
+                                        </button>
+                                    }
+                                </div>
+                            }
+
+
+
+
+                            <div class="subtotal">
+                                <label class="td-title">@T("ShoppingCart.ItemTotal"):</label>
+                                <span class="product-subtotal">@item.SubTotal</span>
+                                @if (!String.IsNullOrEmpty(item.Discount))
+                                {
+                                    <div class="discount">
+                                        @T("ShoppingCart.ItemYouSave", item.Discount)
+                                    </div>
+                                    if (item.MaximumDiscountedQty.HasValue)
+                                    {
+                                        <div class="discount-additional-info">
+                                            @T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value)
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                first = false;
+            }
+
+            <div class="prevnext">
+                <button type="button" class="prevnext-button" id="prev-product"></button>
+                <button type="button" class="prevnext-button" id="next-product"></button>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var $activeSlide = $(".active"),
+                        $homeSlide = $(".slide-product"),
+                        $slideNavPrev = $("#prev-product"),
+                        $slideNavNext = $("#next-product");
+
+                    function init() {
+                        TweenMax.set($homeSlide.not($activeSlide), { autoAlpha: 0 });
+                        TweenMax.set($slideNavPrev, { autoAlpha: 0.2 });
+                    }
+                    init();
+
+                    $('.product-list').on('mousewheel', function (e) {
+                        if (e.originalEvent.wheelDelta > 0) {
+                            $slideNavPrev.click();
+                        }
+                        else {
+                            $slideNavNext.click();
+                        }
+                    });
+
+                    function goToNextSlide(slideOut, slideIn, slideInAll) {
+                        var tl = new TimelineLite({ onStart: disablePrev, onComplete: enablePrev }),
+                            slideOutContent = slideOut.find('.card__content'),
+                            slideInContent = slideIn.find('.card__content'),
+                            slideOutImg = slideOut.find('.card__img'),
+                            slideInImg = slideIn.find('.card__img'),
+                            index = slideIn.index(),
+                            size = $homeSlide.length;
+
+                        if (slideIn.length !== 0) {
+
+                            tl
+                                .set(slideIn, { autoAlpha: 1, className: '+=active' })
+                                .set(slideOut, { className: '-=active' })
+                                .to(slideOutContent, 0.65, { y: '+=40px', ease: Power3.easeInOut }, 0)
+                                .to(slideOutImg, 0.65, { backgroundPosition: 'bottom', ease: Power3.easeInOut }, 0)
+                                .to(slideInAll, 1, { y: '-=100%', ease: Power3.easeInOut }, 0)
+                                .fromTo(slideInContent, 0.65, { y: '-=40px' }, { y: 0, ease: Power3.easeInOut }, "-=0.7")
+                                .fromTo(slideInImg, 0.65, { backgroundPosition: 'top' }, { backgroundPosition: 'bottom', ease: Power3.easeInOut }, "-=0.7")
+                        }
+
+                        TweenMax.set($slideNavPrev, { autoAlpha: 1 });
+
+                        if (index === size - 1) {
+                            TweenMax.to($slideNavNext, 0.3, { autoAlpha: 0.2, ease: Linear.easeNone });
+                        }
+                    };
+
+                    function goToPreviousSlide(slideOut, slideIn, slideInAll) {
+                        var tl = new TimelineLite({ onStart: disablePrev, onComplete: enablePrev }),
+                            slideOutContent = slideOut.find('.card__content'),
+                            slideInContent = slideIn.find('.card__content'),
+                            slideOutImg = slideOut.find('.card__img'),
+                            slideInImg = slideIn.find('.card__img'),
+                            index = slideIn.index(),
+                            size = $homeSlide.length;
+
+                        if (slideIn.length !== 0) {
+
+                            tl
+                                .set(slideIn, { autoAlpha: 1, className: '+=active' })
+                                .set(slideOut, { className: '-=active' })
+                                .to(slideOutContent, 0.65, { y: '-=40px', ease: Power3.easeInOut }, 0)
+                                .to(slideOutImg, 0.65, { backgroundPosition: 'top', ease: Power3.easeInOut }, 0)
+                                .to(slideInAll, 1, { y: '+=100%', ease: Power3.easeInOut }, 0)
+                                .fromTo(slideInContent, 0.65, { y: '+=40px' }, { y: 0, ease: Power3.easeInOut }, "-=0.7")
+                                .fromTo(slideInImg, 0.65, { backgroundPosition: 'bottom' }, { backgroundPosition: 'top', ease: Power3.easeInOut }, "-=0.7")
+                        }
+
+                        TweenMax.set($slideNavNext, { autoAlpha: 1 });
+
+                        if (index === 0) {
+                            TweenMax.to($slideNavPrev, 0.3, { autoAlpha: 0.2, ease: Linear.easeNone });
+                        }
+                    };
+                    function disablePrev() {
+                        $slideNavPrev.unbind("click");
+                        $slideNavNext.unbind("click");
+                    }
+
+                    function enablePrev() {
+                        $slideNavPrev.bind("click", Previous);
+                        $slideNavNext.bind("click", Next);
+                    }
+
+                    $slideNavNext.click(function (e) {
+                        Next();
+                    });
+
+                    $slideNavPrev.click(function (e) {
+                        Previous();
+                    });
+
+                    function Previous() {
+                        var slideOut = $('.slide-product.active'),
+                            slideIn = $('.slide-product.active').prev('.slide-product'),
+                            slideInAll = $('.slide-product');
+
+                        goToPreviousSlide(slideOut, slideIn, slideInAll);
+                    };
+                    function Next() {
+                        var slideOut = $('.slide-product.active'),
+                            slideIn = $('.slide-product.active').next('.slide-product'),
+                            slideInAll = $('.slide-product');
+
+                        goToNextSlide(slideOut, slideIn, slideInAll);
+                    };
+                });
+            </script>
+        </div>
+        if (Model.IsEditable && Model.Items.Count > 0 && Model.DisplayTaxShippingInfo)
+        {
+            var inclTax = EngineContext.Current.Resolve<IWorkContext>
+                ().TaxDisplayType == TaxDisplayType.IncludingTax;
+            //tax info is already included in the price (incl/excl tax). that's why we display only shipping info here
+            //of course, you can modify appropriate locales to include VAT info there
+            <div class="tax-shipping-info">
+                @T(inclTax ? "ShoppingCart.TaxShipping.InclTax" : "ShoppingCart.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+            </div>
+        }
+        <div class="cart-options">
+            @if (Model.IsEditable)
+                    {
+                <div class="common-buttons">
+                    <input type="button" name="clearcart" onclick="setLocation('@(Url.RouteUrl("ClearCart"))')" value="@T("ShoppingCart.ClearCart")" class="button-2 clear-cart-button" />
+                </div>
+                <div class="common-buttons">
+                    <input type="button" name="continueshopping" onclick="setLocation('@(Url.RouteUrl("ContinueShopping"))')" value="@T("ShoppingCart.ContinueShopping")" class="button-2 continue-shopping-button" />
+                </div>
+            }
+            @if (Model.IsEditable)
+                    {
+                @Html.Partial("_CheckoutAttributes", Model.CheckoutAttributes, new ViewDataDictionary())
+            }
+            @if (!String.IsNullOrEmpty(Model.CheckoutAttributeInfo))
+                    {
+                <div class="selected-checkout-attributes">
+                    @Html.Raw(Model.CheckoutAttributeInfo)
+                </div>
+            }
+        </div>
+        <div class="cart-footer">
+            @Html.Widget("order_summary_cart_footer")
+            @if (Model.IsEditable)
+                    {
+                <div class="cart-collaterals">
+                    <div class="deals">
+                        @Html.Partial("_DiscountBox", Model.DiscountBox)
+                        @Html.Partial("_GiftCardBox", Model.GiftCardBox)
+                        @Html.Widget("order_summary_content_deals")
+                    </div>
+                    @Html.Partial("EstimateShipping", Model.EstimateShipping)
+                </div>
+            }
+            <div class="totals">
+                @Html.Action("OrderTotals", "ShoppingCart", new { isEditable = Model.IsEditable })
+                @if (Model.IsEditable)
+                {
+                    if (!String.IsNullOrEmpty(Model.MinOrderSubtotalWarning))
+                    {
+                        <div class="min-amount-warning">
+                            @Model.MinOrderSubtotalWarning
+                        </div>
+                    }
+                }
+                @if (Model.IsEditable)
+                {
+                    if (Model.TermsOfServiceOnShoppingCartPage)
+                    {
+                        <div id="terms-of-service-warning-box" title="@T("Checkout.TermsOfService")" style="display: none;">
+                            <p>@T("Checkout.TermsOfService.PleaseAccept")</p>
+                        </div>
+                        <div class="terms-of-service">
+                            <input id="termsofservice" type="checkbox" name="termsofservice" />
+                            <label for="termsofservice">@T("Checkout.TermsOfService.IAccept")</label>
+                            <a class="read" id="read-terms">@T("Checkout.TermsOfService.Read")</a>
+                            <script>
+                               $(document).ready(function() {
+                                   $('#read-terms').on('click', function(e) {
+                                       e.preventDefault();
+                                       displayPopupContentFromUrl('@Url.RouteUrl("TopicPopup", new {SystemName = "conditionsofuse"})', '@T("Checkout.TermsOfService")');
+                                   });
+                               });
+                            </script>
+                        </div>
+                    }
+                    <div class="checkout-buttons">
+                        @if (String.IsNullOrEmpty(Model.MinOrderSubtotalWarning) && !Model.HideCheckoutButton)
+                        {
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    function checkTermOfService() {
+                                        var termOfServiceOk = true;
+                                        if ($('#termsofservice').length > 0) {
+                                            //terms of service element exists
+                                            if (!$('#termsofservice').is(':checked')) {
+                                                $("#terms-of-service-warning-box").dialog();
+                                                termOfServiceOk = false;
+                                            } else {
+                                                termOfServiceOk = true;
+                                            }
+                                        }
+                                        return termOfServiceOk;
+                                    }
+                                    $('#checkoutasguest').click(function () {
+                                        //terms of service
+                                        if (checkTermOfService()) {
+                                            location.href='@Url.RouteUrl("Checkout")'
+                                        }
+                                    });
+                                    $('#checkout').click(function (e) {
+                                        //terms of service
+                                        if (checkTermOfService()) {
+                                            $('#shopping-cart-form').attr('action', '@Url.RouteUrl("StartCheckout")');
+                                            $("#shopping-cart-form").submit();
+                                            e.preventDefault();
+                                        }
+                                    });
+                                });
+
+                            </script>
+                            <button type="button" id="checkout" name="checkout" value="checkout" class="button-2 checkout-button">
+                                @T("Checkout.Button")
+                            </button>
+                        }
+                    </div>
+                    <div class="addon-buttons">
+                        @*Payment method buttons (e.g. GoogleCheckoutButton, Paypal Express)*@
+                        @Html.Partial("_ButtonPaymentMethod", Model)
+                    </div>
+                }
+            </div>
+        </div>
+        }
+    }
+    else
+    {
+        <header class="sniper" style="top: 0px;">
+            <span></span>
+            <h1>@T("ShoppingCart.CartIsEmpty")</h1>
+        </header>
+    }
+    @Html.Widget("order_summary_content_after")
+    <script>
+
+             function ChangeShoppingCart() {
+                displayAjaxLoading(true);
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    data: $('#shopping-cart-form').serialize(),
+                    url: '@Url.RouteUrl("UpdateCart")',
+                    success: function (data) {
+                        $(AjaxCart.flyoutcartselector).replaceWith(data.flyoutshoppingcart);
+                        $(AjaxCart.topcartselector).html(data.totalproducts);
+                        $('#ordersummarypagecart').replaceWith(data.cart);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve Shopping Cart Page.');
+                    },
+                    complete: function () {
+                        displayAjaxLoading(false);
+                    }
+                });
+            }
+
+        $(document).ready(function () {
+            $(".deleteshoppingcartitem").click(function () {
+                var href = $(this).closest('[data-href]').data('href');
+                displayAjaxLoading(true);
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: href,
+                    success: function (data) {
+                        $(AjaxCart.flyoutcartselector).replaceWith(data.flyoutshoppingcart);
+                        $(AjaxCart.topcartselector).html(data.totalproducts);
+                        $('#ordersummarypagecart').replaceWith(data.cart);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve Shopping Cart Page.');
+                    },
+                    complete: function () {
+                        displayAjaxLoading(false);
+                    }
+                });
+            });
+            $(".changeshoppingcartitem").click(function () {
+                var href = $(this).closest('[data-href]').data('href');
+                displayAjaxLoading(true);
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: href,
+                    success: function (data) {
+                        $('#ordersummarypagecart').replaceWith(data.cart);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve Shopping Cart Page.');
+                    },
+                    complete: function () {
+                        displayAjaxLoading(false);
+                    }
+                });
+            });
+        });
+    </script>
+</div>

@@ -1,0 +1,49 @@
+﻿@using Nop.Services.Seo
+@using Nop.Services.Vendors
+@using Nop.Core.Infrastructure
+@using Nop.Services.Media
+
+@{
+    var vendor = EngineContext.Current.Resolve<IVendorService>().GetAllVendors(showHidden: false).Where(x => x.Designer);
+}
+
+
+@foreach (var item in vendor.Where(x => x.Id == 9 || x.Id == 12).Take(2))
+{
+    <div class="col-md-6 col-sm-6 designer-box">
+        <div class="designer">
+            <a href="@item.GetSeName()">
+
+                <div class="designer-img" style="background-image:url(@(EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(item.CoverPictureId)));"> </div>
+            </a>
+            <div class="designer-content">
+                <h3 class="title"> @item.Name </h3>
+                @*<h4 class="description">@Html.Raw(@item.Description.Substring(0,100)+(" ..."))</h4>*@
+                <h4 class="description"></h4>
+                <a class="button btn-outline" href="@item.GetSeName()">COLLECTION</a>
+
+            </div>
+
+        </div>
+    </div>
+
+}
+
+
+
+    <script>
+     
+   
+
+        $(document).ready(function () {
+           
+            $('h4.description').first().append('Multiple Lux Style Award winner for Best Menswear, Ismail Farid.');
+            $('h4.description').last().append('Sadaf Amir, crafted to empower the desires of today’s South-Asian women.')
+
+        });
+
+
+
+     
+
+    </script>

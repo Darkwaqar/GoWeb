@@ -1,0 +1,216 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    box-shadow: inset 4000px 0 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.csp-wrapper {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: white;
+    padding: 5% 0 0 0;
+    //login button and form
+    .csp-button {
+        cursor: pointer;
+        border: 2px solid;
+        padding: 5px;
+        background: none;
+        text-transform: uppercase;
+        font: 12px 'Raleway', sans-serif;
+        color: white;
+    }
+
+    .csp-heading {
+        .csp-show {
+            display: block;
+        }
+
+        .csp-hide {
+            display: none;
+        }
+
+
+
+        .csp-login-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 1;
+        }
+
+        .csp-login-form {
+            position: absolute;
+            top: 0;
+            padding: 50px 15px 0px 15px;
+            height: 100vh;
+            width: 100vw;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            box-shadow: inset 4000px 0 0 0 rgba(0, 0, 0, 0.7);
+
+            .csp-message-error {
+                margin-top: 15px;
+                text-align: center;
+            }
+
+            .csp-form-fields {
+                .csp-login-input {
+                    margin-top: 15px;
+                    text-align: center;
+                }
+
+                .csp-captcha-box {
+                    margin: -15px;
+
+                    > div {
+                        display: inline-block;
+                        max-width: 100%;
+                        transform: scale(0.62, 0.62);
+                        -webkit-transform: scale(0.62, 0.62);
+                        transform-origin: center center;
+                        -webkit-transform-origin: center center;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .csp-section {
+        padding: 1.5em 0 0 0;
+    }
+
+    .csp-title, .csp-subtitle, .csp-countdown {
+        font-size: 3.5em;
+    }
+
+    .csp-subtitle {
+        font-size: 2.5em;
+    }
+
+    .csp-newsletter {
+        display: inline-block;
+        font-size: 1.3em;
+    }
+
+    .csp-footer {
+        bottom: 15px;
+        left: 15px;
+        right: 15px;
+        position: fixed;
+
+        
+    }
+}
+
+
+@media screen and (max-width: 720px) {
+    .csp-footer {
+        .powered-by-nopcommerce {
+            float: none;
+        }
+    }
+}
+
+@media screen and (min-width: 721px) {
+    .csp-footer {
+        .powered-by-nopcommerce {
+            float: left;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .csp-wrapper {
+        .csp-content {
+            font-size: 0.6rem;
+        }
+    }
+}
+
+@media screen and (min-width: 401px) and (max-width: 720px) {
+    .csp-wrapper {
+        .csp-content {
+            font-size: 0.7rem;
+        }
+    }
+}
+
+@media screen and (min-width: 721px) and (max-width: 1280px) {
+    .csp-wrapper {
+        .csp-content {
+            font-size: 0.9rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    .csp-wrapper {
+        .csp-content {
+            font-size: 1.1rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1441px) and (max-width: 1920px) {
+    .csp-wrapper {
+        .csp-content {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1921px) {
+    .csp-wrapper {
+        .csp-content {
+            font-size: 1.6rem;
+        }
+    }
+}
+
+//login button and form
+/*@media screen and (min-width: 721px) {
+    .csp-wrapper {
+        .csp-heading {
+            .csp-login-form {
+                top: 15px;
+                right: 60px;
+                padding: 0px 15px 0px 15px;
+                height: initial;
+                width: initial;
+                background-image: none;
+
+                .csp-message-error {
+                    text-align: left;
+                    margin-left: 8px;
+                }
+
+                .csp-form-fields {
+                    .csp-login-input {
+                        margin-top: 0px;
+                        margin-left: 8px;
+                        float: left;
+                        text-align: left;
+
+                        input {
+                            margin-top: 0px;
+                            height: 28px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}*/

@@ -1,0 +1,311 @@
+﻿/*
+* Copyright 2014 Seven Spikes Ltd. All rights reserved. (http://www.nop-templates.com)
+* http://www.nop-templates.com/t/licensinginfo
+*/
+
+/*=====================================================
+    
+BIG SCREENS
+
+=====================================================*/
+
+@media all and (min-width: 1281px) {
+
+    /* GLOBAL STYLES */
+
+    .html-recently-added-products-page .master-wrapper-content,
+    .home-page-body .page-body > div,
+    .master-wrapper-content,
+    .category-page-body .master-wrapper-content {
+        width: 96%;
+    }
+    .home-page{
+        width:90%;
+        margin:auto;
+    } 
+    .center-2 {
+        width: 80%;
+    }
+    .side-2 {
+        width: 18%;
+    }
+    .flyout-cart .items {
+        max-height: 400px;
+        max-height: -webkit-calc(100vh - 360px);
+        max-height: calc(100vh - 360px);
+    }
+
+
+    /* GLOBAL FORMS */
+    /* NOTIFICATIONS & POPUPS */
+    /* HEADER */
+
+
+    .header-wrapper {
+        padding: 0;
+        width: 100%;
+        position: relative;
+    }
+    .header .search-box {
+        width: 680px;
+    }
+
+
+    /* HEADER-MENU */
+
+
+    .header-menu > ul {
+        width: 1200px;
+    }
+
+
+    /* FOOTER */
+
+    
+    .footer-middle {
+        padding: 40px 0 0;
+        width: 1200px;
+    }
+    .footer-logos {
+        width: 1200px;
+    }
+    .footer-lower-wrapper {
+        padding: 30px 0;
+        width: 1200px;
+    }
+
+
+    /* LEFT/RIGHT COLUMN */
+    /* CATEGORY PAGE & GRIDS */
+
+
+    .home-page-product-grid .item-box,
+    .four-per-row .product-grid .item-box,
+    .category-grid .item-box {
+        width: 23.5%; /*four per row*/
+    }
+    .home-page-category-grid .item-box {
+        width: 32%;
+    }
+    .product-grid div.item-box:first-child {
+        margin-left: 0;
+    }
+    .home-page-product-grid .item-box:nth-child(3n+1),
+    .four-per-row .product-grid .item-box:nth-child(3n+1),
+    .category-grid .item-box:nth-child(3n+1),
+    .home-page-category-grid .item-grid .item-box:nth-child(4n+1) {
+        clear: none; /*revert the third item*/
+        margin-left: 2%; /*revert the third item*/
+    }
+    .home-page-product-grid .item-box:nth-child(4n+1),
+    .four-per-row .product-grid .item-box:nth-child(4n+1),
+    .category-grid .item-box:nth-child(4n+1),
+    .home-page-category-grid .item-grid .item-box:nth-child(3n+1) {
+        clear: both;
+        margin-left: 0;
+    }
+    .product-list .item-box .picture {
+        width: 23.5%;
+    }
+    .vendor-grid .item-box,
+    .manufacturer-grid .item-box {
+        width: 23.5%;
+    }
+    .vendor-grid .item-box:nth-child(3n+1),
+    .manufacturer-grid .item-box:nth-child(3n+1) {
+        clear: none;
+        margin-left: 2%;
+    }
+    .vendor-grid .item-box:nth-child(4n+1),
+    .manufacturer-grid .item-box:nth-child(4n+1) {
+        clear: both;
+        margin-left: 0;
+    }
+    .product-list .item-box .picture + .details,
+    .product-list .item-box .ribbon-wrapper + .details {
+        margin: 0 0 0 25%;
+    }
+    .product-grid.bestsellers .item-box {
+        width: 32%;
+    }
+
+    .product-grid.bestsellers .item-box:nth-child(2n),
+    .product-grid.bestsellers .item-box:nth-child(2n+1) {
+        clear: none;
+        margin-left: 2%;
+    }
+    .product-grid.bestsellers .item-box:nth-child(3n+1) {
+        margin-left: 0;
+    }
+    .product-list .item-box .buttons-wrapper .buttons button {
+        min-width: 45px;
+    }
+    .cross-sells .item-box,
+    .also-purchased-products-grid .item-box,
+    .related-products-grid .item-box {
+        width: 15%;
+    }
+    .cross-sells .item-box:nth-child(4n+1),
+    .also-purchased-products-grid .item-box:nth-child(4n+1),
+    .related-products-grid .item-box:nth-child(4n+1) {
+        margin-left: 2%;
+        clear: none;
+    }
+    .cross-sells .item-box:nth-child(6n+1),
+    .also-purchased-products-grid .item-box:nth-child(6n+1),
+    .related-products-grid .item-box:nth-child(6n+1) {
+        margin-left: 0;
+    }
+    .cross-sells .item-box:nth-child(4n),
+    .also-purchased-products-grid .item-box:nth-child(4n),
+    .related-products-grid .item-box:nth-child(4n) {
+        margin-left: 2%;
+    }
+
+
+    /* PRODUCT PAGE */
+
+
+    .product-content-wrappper {
+        padding-right: 20px;
+        width: 80%;
+        margin: 0 5%;
+    }
+    .ui-tabs .inputs label {
+        width: 290px;
+    }
+    .variant-overview .attributes dt {
+        padding: 10px 15px;
+    }
+    .variant-overview .attributes dd {
+        display: inline-block;
+        padding: 15px 0;
+        width: 50%;
+    }
+    .variant-overview .value {
+        display: inline-block;
+        margin: 0;
+    }
+
+
+    /* REVIEW PAGE */
+    /* WISHLIST & COMPARE LIST */
+
+
+    .compare-products-page .table-wrapper {
+        padding: 20px;
+    }
+
+
+    /* TOPICS */
+    /* CONTACT PAGE & EMAILaFRIEND */
+    /* REGISTRATION, LOGIN, MY ACCOUNT */
+
+
+    .html-my-product-reviews-list-page .center-2,
+    .customer-pages-body .center-2 {
+        width: 78%;
+    }
+    .html-my-product-reviews-list-page .side-2,
+    .customer-pages-body .side-2 {
+        width: 22%;
+    }
+
+
+    /* SHOPPING CART & CHECKOUT */
+
+
+    .cart-collaterals .current-code {
+        margin: 5px 20px 0;
+    }
+    .cart-collaterals .message-failure {
+        margin: 0 20px;
+    }
+    .cart-collaterals .coupon-code {
+        padding: 5px 20px 10px;
+    }
+    .cart-collaterals .shipping-options {
+        padding: 20px 20px 10px 20px;
+    }
+    .cart-collaterals .hint {
+        margin: 10px 20px 5px;
+    }
+    .cart-collaterals .shipping .inputs {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    .cart-collaterals .shipping label {
+        display: inline-block;
+        width: 33%;
+        margin: 0;
+        text-align: left;
+    }
+    .cart-collaterals .shipping label + * {
+        width: 67%;
+    }
+    .checkout-page .opc .edit-address label {
+        width: 430px;
+    }
+
+    /* SEARCH & SITEMAP */
+    /* BLOG & NEWS */
+    /* FORUM & PROFILE */
+
+    .home-page-container-headline {
+        font-size: 26px;
+    }
+    .promo-headline {
+        font-size: 34px;
+    }
+    .home-page-container-description-dis {
+        font-size: 20px;
+    }
+
+    .gallery {
+        width: 46%;
+    }
+
+    .mega-xv .container {
+        width: 1170px;
+    }
+    .offer-headline {
+        font-size: 20px;
+    }
+
+    .vendor-description h1 {
+        font-size: 50px;
+    }
+
+    .contact-page{
+        width:80%;
+        margin:auto;
+    }
+
+
+
+}
+
+@media all and (min-width:1441px){
+    .mainNav > li:hover > ul, .mainNav > li:hover > .mega-xv {
+        top: 170px;
+    }
+}
+
+@media all and (max-width: 1600px) {
+    .promo-bottom p {
+        padding-bottom: 8px !important;
+    }
+    .promo-bottom h3 {
+        padding-bottom: 4px !important;
+    }
+    
+}
+
+@media all and (min-width:1600px) {
+    .offer-headline {
+        font-size: 26px;
+        display: block;
+        margin: 0;
+    }
+}
+

@@ -1,0 +1,42 @@
+﻿@model DashboardModel
+
+@using Nop.Services.Security
+
+@{
+    Html.AppendCssFileParts("~/Administration/Content/ionicons/css/ionicons-2.0.1.min.css");
+
+    //page title
+    ViewBag.Title = T("Admin.Customers.Device.List").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("Fcm Dashboard");
+
+    var permissionService = EngineContext.Current.Resolve<IPermissionService>();
+    var canManageOrders = permissionService.Authorize(StandardPermissionProvider.ManageOrders);
+    var canManageCustomers = permissionService.Authorize(StandardPermissionProvider.ManageCustomers);
+    var canManageProducts = permissionService.Authorize(StandardPermissionProvider.ManageProducts);
+    var canManageReturnRequests = permissionService.Authorize(StandardPermissionProvider.ManageReturnRequests);
+}
+
+@Html.AntiForgeryToken()
+<div class="content-header">
+    <h1>
+        @T("Admin.Dashboard")
+    </h1>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Action("FcmStatistics", "Fcm")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Action("FcmUserStatistics", "Fcm")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

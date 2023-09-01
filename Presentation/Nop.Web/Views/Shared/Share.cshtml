@@ -1,0 +1,86 @@
+﻿@model Nop.Web.Models.Catalog.ProductShareModel
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+    Html.AppendCssFileParts("~/Themes/DefaultClean/Content/css/share.css");
+    //title
+    Html.AddTitleParts(Model.Title);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled && !Model.Type.Equals("store", StringComparison.CurrentCultureIgnoreCase))
+    {
+        var canoniacalUrl = Url.RouteUrl(Model.Type, new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(canoniacalUrl);
+    }
+
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Title) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+
+        if (!String.IsNullOrEmpty(Model.FacebookAppId))
+        {
+            Html.AddHeadCustomParts("<meta property=\"fb:app_id\" content=\"" + Html.Encode(Model.FacebookAppId) + "\" />");
+        }
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Title) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+    }
+
+}
+<script>
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (/android/i.test(userAgent)) {
+        setTimeout(function () { window.location = "@Model.AndroidMobileUrl"; }, 25);
+                setTimeout(function () { window.location = $('#android').attr('href'); }, 25);
+    }
+     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            setTimeout(function () { "@Model.IosMobileUrl"; }, 25);
+            setTimeout(function () { window.location = $('#ios').attr('href'); }, 25);
+    }
+    $(document).ready(function () {
+        $(".share-container")
+            .removeClass("pop-in");
+     });
+
+</script>
+
+<div class="master-wrapper-page">
+    <div class="@(Model.Type.ToLower())-header-share"></div>
+    <div class="header-share-seprator">@Model.Title</div>
+    <div class="share-container pop-in">
+        <img class="@(Model.Type.ToLower())-share-logo" src="@Model.ImageUrl" alt="Alternate Text" />
+        <div class="share-heading">Download App</div>
+        <div class="share-ios">
+            <a id="ios" href="@Model.IosWebUrl"><img src="~/Themes/DefaultClean/Content/images/apple-en.png" class="share-image" /></a>
+        </div>
+        <div class="share-android">
+            <a id="android" href="@Model.AndroidWebUrl"><img src="~/Themes/DefaultClean/Content/images/google-en.png" class="share-image" /></a>
+        </div>
+
+        @if (!@Model.Type.Equals("store", StringComparison.CurrentCultureIgnoreCase))
+        {
+            <div class="share-web">
+                <a target="_blank" href="@(Url.RouteUrl(Model.Type, new { SeName = Model.SeName }, this.Request.Url.Scheme))">Go to Webpage</a>
+            </div>
+        }
+
+    </div>
+</div>

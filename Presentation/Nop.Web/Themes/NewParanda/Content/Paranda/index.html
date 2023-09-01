@@ -1,0 +1,575 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="cookies svg history target willchange multiplebgs opacity csspositionsticky supports no-touchevents displaytable display-table no-nthchild cssvmaxunit cssvminunit mediaqueries fullscreen boxsizing csstransforms csstransforms3d preserve3d csstransitions chrome sr READY">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>multiscroll.js - split multi-scrolling pages plugin</title>
+  <meta name="author" content="Alvaro Trigo Lopez" />
+  <meta name="description" content="multiscroll plugin by Alvaro Trigo. Create divided multi-scrolling pages with two splited vertical layouts or panels." />
+  <meta name="keywords" content="multiscroll,jquery,alvaro,trigo,plugin,divided,splitscreen,screen,panels,layouts,vertical,split,splited" />
+  <meta name="Resource-type" content="Document" />
+  <link rel="stylesheet" type="text/css" href="multiscroll.js-master/jquery.multiscroll.css" />
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript" src="multiscroll.js-master/vendors/jquery.easings.min.js"></script>
+  <script type="text/javascript" src="multiscroll.js-master/jquery.multiscroll.js"></script>
+  <script type="text/javascript" src="js/slideout.js"></script>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link href="/css/fontawesome.css" rel="stylesheet">
+
+
+
+
+  <script type="text/javascript">
+
+	document.addEventListener('gesturestart', function (e) {
+	    e.preventDefault();
+	});
+
+    function responsiveCheck() {
+
+
+      if ($(window).width() > 1022) {
+
+
+        $('#myContainer').multiscroll({
+          sectionsColor: ['#', '#', '#'],
+          anchors: ['first', 'second', 'third'],
+
+          navigation: false,
+          navigationTooltips: ['One', 'Two', 'Three'],
+          loopBottom: true,
+          loopTop: false,
+          afterResize: function() {
+            //responsiveCheck($(window).width());
+
+
+          },
+          afterLoad: function(anchorLink, index) {
+            //using index
+            // 	if(index == '1'){
+            // 	$('.homeBox__imageBox').css('opacity', 1);
+            // 	$('.homeBox__titleBox .homeBox__titleBox__wrapper').css('opacity', 1);
+            // }
+            //
+            // if( index == '2' ){
+            // 	$('.homeBox__imageBox').css('opacity', 0);
+            // 	$('.homeBox__titleBox .homeBox__titleBox__wrapper').css('opacity', 0);
+            //
+            //
+            // }
+            // if( index == '3' ){
+            // 	$('.homeBox__imageBox').css('opacity',1);
+            // 	$('.homeBox__titleBox .homeBox__titleBox__wrapper').css('opacity', 1);
+            //
+            //
+            // }
+
+
+
+          }
+        });
+
+
+
+      } else if ($(window).width() < 1023) {
+
+
+
+
+
+        // $('html').css('overflow','visible');
+        // $('html').css('height', 'auto');
+        // $('body').css('overflow', 'visible');
+        // $('body').css('height', 'auto');
+      }
+
+    }
+
+
+
+    function startScroll(set) {
+      set = "the_title_attribute( $args = '' )"
+
+
+
+    }
+
+
+
+    $(document).ready(function() {
+
+
+      responsiveCheck();
+
+
+
+
+
+
+
+
+      $(window).resize(function() {
+        location.reload();
+        responsiveCheck();
+      });
+
+
+
+
+
+
+
+
+    });
+  </script>
+</head>
+
+<body class="home page-template page-template-template-home template-home page page-id-9 woocommerce-js app-data index-data singular-data page-data page-9-data page-home-data template-home-data front-page-data pace-done pace-done">
+
+  <!--
+<ul id="menu">
+	<li data-menuanchor="first"><a href="#first">First slide</a></li>
+	<li data-menuanchor="second"><a href="#second">Second slide</a></li>
+	<li data-menuanchor="third"><a href="#third">Third slide</a></li>
+</ul>-->
+
+  <div id="menuMain" class="menu sidenav sidebarBase__container">
+
+
+    <div class=" sidebarBase__title ">
+      <div class="sidebarBase__close" data-assistencetoggle=""> <a href="javascript:void(0)" class="closebtn" onclick="closeNav('menuMain')"><i class="fal fa-times"></i></a></div>
+    </div>
+
+
+    <div class="sidebarBase__contents">
+
+
+      <div class="assistance__sections" data-turbolinks="false" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+
+
+
+
+        <div class="assistence__section">
+
+          <div class="content">
+            <a href="shop.html" detailsbar="">Shop</a>
+            <a href="collection.html" detailsbar="">Collections</a>
+            <a href="about.html" detailsbar="">About</a>
+            <a href="#" onclick="closeNav('menuMain'); openNav('assist');" detailsbar="">Assistance</a>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="assist" class="menu sidenav sidebarBase__container">
+
+
+    <div class=" sidebarBase__title ">Assistance
+      <div class="sidebarBase__close" data-assistencetoggle=""> <a href="javascript:void(0)" class="closebtn" onclick="closeNav('assist')"><i class="fal fa-times"></i></a></div>
+    </div>
+
+
+    <div class="sidebarBase__contents">
+
+
+      <div class="assistance__sections" data-turbolinks="false" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+        <div class="assistence__section">
+          <div class="name">Contact</div>
+          <div class="content">
+            Customer service<br> Phone: + 39 02 841 901 34<br> Mail: contact@paranda.com<br> Hours: Monday - Friday: 09.30 - 13.30/14.30-18.30<br>
+            <br> Store
+            <br> Address: Tariq Road, Main<br> Phone: + 39 02 841 901 34<br> Mail: contact@paranda.com<br> Hours: Monday - Friday: 09.30 - 13.30/14.30-18.30
+          </div>
+        </div>
+
+        <div class="assistence__section">
+          <div class="name">Information</div>
+          <div class="content">
+            <a href="#" detailsbar="">Clothing Care</a>
+            <a href="#" detailsbar="">Delivery and Returns</a>
+
+          </div>
+        </div>
+
+
+
+        <div class="assistence__section">
+          <div class="name">Legal</div>
+          <div class="content">
+            <a href="#" detailsbar="">Privacy Policy</a>
+            <a href="#" detailsbar="">Cookies Policy</a>
+          </div>
+        </div>
+
+        <div class="assistence__section">
+          <div class="name">Terms &amp; Conditions</div>
+          <div class="content">
+            <a href="#" detailsbar="">Dealer company and site owner</a>
+            <a href="#" detailsbar="">Orders</a>
+            <a href="#" detailsbar="">Conclusion of contract</a>
+            <a href="#" detailsbar="">Object of the contract</a>
+            <a href="#" detailsbar="">Price of products and other expenses</a>
+            <a href="#" detailsbar="">Shipping</a>
+            <a href="#" detailsbar="">Time and means of delivery</a>
+            <a href="#" detailsbar="">How to deal with the delivery of the products</a>
+            <a href="#" detailsbar="">Liability and limitation of liability</a>
+            <a href="#" detailsbar="">Right of&nbsp;withdrawal and implementation procedure</a>
+            <a href="#" detailsbar="">Customer Support</a>
+            <a href="#" detailsbar="">Technical Information and Changes</a>
+            <a href="#" detailsbar="">Applicable Law</a>
+            <a href="#" detailsbar="">Jurisdiction in the event of dispute</a>
+
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+  <div id="search1" class="search sidenav sidebarBase__container">
+
+
+    <div class=" sidebarBase__title ">Search
+      <div class="sidebarBase__close" data-assistencetoggle=""> <a href="javascript:void(0)" style="color:#000;" class="closeSearch" onclick="closeNav('search1')"><i class="fal fa-times"></i></a>
+
+      </div>
+    </div>
+    <div class="sidebarBase__contents">
+      <div class="searchBar__contents" data-singleproduct="product" data-multiproduct="products" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+        <div class="searchBar__query">
+          <input type="text" name="search" placeholder="Search Products...">
+        </div>
+        <div class="searchBar__count grid-x grid-padding-x">
+          <div class="cell small-16 medium-auto">Your search</div>
+          <div class="cell auto"><span><i data-searchcount="">0</i> <span class="countlabel">products</span></span>
+          </div>
+        </div>
+        <div class="searchBar__items" data-turbolinks="true"></div>
+        <div class="searchBar__empty" style="display: none;">Sorry, No products found</div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <main id="panel1" class="panel main ">
+    <div class="mainHeader">
+      <a href="#" class="mainHeader__logo">
+        <img class="img-logo" src="img/logo.png" alt="Paranda" />
+    </a>
+      <div class="mainHeader__menu">
+
+        <div class="mainHeader__menu__item show-for-large">
+          <p class="freetext">Free Shipping on all orders! </p>
+        </div>
+        <div class="mainHeader__menu__item show-for-large">
+          <a data-turbolinks="false" href="#">
+                <span>
+                                            My Account                                    </span>
+            </a>
+        </div>
+        <div class="mainHeader__menu__item hide-for-large" data-togglesearch="">
+          <a data-turbolinks="false" onclick="openNav('search1')">
+                    <i class="fal fa-search"></i>
+                </a>
+        </div>
+        <div class="mainHeader__menu__item">
+          <a class="" data-turbolinks="false" data-toggleminicart="" id="cartcount" href="#">
+                <span class="show-for-large">Shopping bag</span>
+                <span class="hide-for-large"><i class="fal fa-shopping-bag"></i></span>
+                <span class="count show-for-large">0</span>
+            </a>
+        </div>
+        <div class="mainHeader__menu__item show-for-large">
+          <a data-togglewishlist="" class="" title="Wishlist" href="#">
+                <span class="show-for-large">Wishlist</span>
+                <span class="hide-for-large">
+                    <i class="fal fa-heart"></i>
+                </span>
+                <span data-turbolinks-permanent="" id="wishlistcount" class="count" data-wishlishtcount="">0</span>
+            </a>
+        </div>
+        <div class="mainHeader__menu__item mobileMenuToggle hide-for-large" data-togglemenu="">
+          <a href="#" onclick="openNav('menuMain')"><i class="fal fa-bars toggle"></i></a>
+          <i class="fal fa-times close"></i>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="floatingMenu right">
+      <div class="floatingMenu__content">
+        <div class="floatingMenu__contentWrap">
+          <ul>
+            <li>
+              <a href="#" onclick="openNav('search1')" class="js-slideout-toggle-search">Search</a>
+            </li>
+            <li>
+              <a href="#" onclick="openNav('assist')" class="js-slideout-toggle">Assistance</a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="floatingMenu left" id="leftfloating">
+      <div class="floatingMenu__content">
+        <div class="floatingMenu__contentWrap">
+          <ul>
+            <li>
+              <a href="shop.html" class="">Shop</a>
+            </li>
+
+            <li>
+              <a href="collection.html">Collections</a>
+            </li>
+
+          </ul>
+          <ul id="floatingNavLeft" class="floatingNav">
+            <li id="menu-item-43" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-43"><a href="about.html">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div id="wrapperMain">
+
+      <div class="ms-left">
+        <div class="ms-section" id="left1">
+
+
+
+          <div href="#" class="homeBox homeBox--large">
+            <a href="#" class="homeBox__image">
+              <div class="homeBox__imageBox">
+                <div class="homeBox__titleBox tr serif">
+                  <div class="homeBox__titleBox__wrapper">
+                    <span class="label">Discover &amp; Shop</span>
+                    <span class="title ">Multicolor Paranda with beads!</span>
+                  </div>
+                </div>
+                <img width="700" height="938" src="img/0001396_arsh-bridal_1200.jpeg" class="attachment-full size-full" alt="" sizes="(max-width: 700px) 100vw, 700px">
+                <div class="homeBox__brief bl">
+                  <p>Meet the newest jewel in our Panzè collection.</p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+
+        </div>
+
+        <div class="ms-section" id="left2">
+          <a href="#" class="collections__collection rail-el-inview rail-el-entered" check-in-view="" data-turbolinks="false">
+            <div class="collections__collection__image bg-setter" style="background-image: url(&quot;img/traditional-lehnga-style-by-asim-jofa.jpg&quot;);">
+              <img width="1000" height="1300" src="img/traditional-lehnga-style-by-asim-jofa.jpg" class="attachment-full size-full" alt="" sizes="(max-width: 1000px) 100vw, 1000px">
+            </div>
+            <div class="collections__collection__title bl">
+              <span class="label">discover the collection</span>
+              <span class="title" data-text="Ramo">Ramo</span>
+            </div>
+            <div class="loader"><img src="#" alt=""></div>
+          </a>
+        </div>
+
+        <div class="ms-section" id="left3">
+
+          <div href="about.html" class="homeBox homeBox--large">
+            <a href="about.html" class="homeBox__image">
+              <div class="homeBox__imageBox">
+                <div class="homeBox__titleBox br serif">
+                  <div class="homeBox__titleBox__wrapper">
+                    <span class="label">discover more</span>
+                    <span class="title">About</span>
+                  </div>
+                </div>
+                <img width="600" height="800" src="img/main1.jpg" class="attachment-full size-full" alt="" sizes="(max-width: 600px) 100vw, 600px">
+                <div class="homeBox__brief tl">
+                  <p>Haute joaillerie craftsmanship for bronze and silver. Raw artisanal feeling in sophisticated and enduring pieces </p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="ms-right">
+        <div class="ms-section" id="right1">
+          <div class="homeBox homeBox--small">
+            <a href="collection.html" class="homeBox__image ">
+              <div class="homeBox__imageBox">
+                <div class="homeBox__titleBox bl sans">
+                  <div class="homeBox__titleBox__wrapper">
+                    <span class="title">Ramo Cuff</span>
+                    <span class="label">discover &amp; shop</span>
+                  </div>
+                </div>
+                <img width="600" height="800" src="img/0003770_coral-lehnga_800.jpeg" class="attachment-full size-full" alt="" sizes="(max-width: 600px) 100vw, 600px">
+                <div class="homeBox__brief tr">
+                  <p>Ramo, the latest collection produced by our artisans in Milan.</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="ms-section" id="right2">
+          <a href="#" class="collections__collection rail-el-entered " check-in-view="" data-turbolinks="false">
+            <div class="collections__collection__image bg-setter" style="background-image: url(&quot;img/nomi-ansari-marjan-collection.jpeg&quot;);">
+              <img width="1000" height="1300" src="img/nomi-ansari-marjan-collection.jpeg" class="attachment-full size-full" sizes="(max-width: 1000px) 100vw, 1000px">
+            </div>
+            <div class="collections__collection__title br">
+              <span class="label">discover the collection</span>
+              <span class="title" data-text="Panzè">Panzè</span>
+            </div>
+            <div class="loader"><img src="#" alt=""></div>
+          </a>
+        </div>
+
+        <div class="ms-section" id="right3">
+          <div class="scrollRails__railNLBox" data-component="ScrollRailNLBox">
+            <div class="scrollRails__railNLBox__wrap">
+              <div class="title">Stay connected</div>
+              <div class="newsletterBar__contents">
+                <form method="post" novalidate="">
+                  <div class="newsletterBar__intro">
+                    Sign up to the Madina Visconti newsletter to stay in touch with the brands latest products, promotions and much more.
+                    <br> All new friends get a 10% off promo code!
+
+                  </div>
+                  <input type="text" name="fname" placeholder="First Name" required="">
+                  <input type="text" name="lname" placeholder="Last Name" required="">
+                  <input type="email" name="email" placeholder="E-mail address" required="">
+                  <label class="control control-checkbox" for="privacycheckbox-5cc98b89e552b">
+        Having read the privacy statement, I declare that I understand its content and that I give my consent to the handling of my personal information for the purposes indicated in item 3.i and according to the procedures indicated in paragraph 5
+        <input type="checkbox" required="" name="privacy" id="privacycheckbox-5cc98b89e552b" data-parsley-multiple="privacy">
+        <div class="control_indicator"></div>
+    </label>
+
+                  <label class="control control-checkbox" for="gdprcheckbox-5cc98b89e552b">
+        I also consent to my personal data being processed for the purposes of customer profiling
+        <input type="checkbox" required="" name="gdpr" id="gdprcheckbox-5cc98b89e552b" data-parsley-multiple="gdpr">
+        <div class="control_indicator"></div>
+    </label>
+                  <button type="submit" class="button light hollow">Sign Up</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+  <script>
+    function openNav(id) {
+      document.getElementById(id).style.width = "300px";
+
+    }
+
+    function closeNav(id) {
+      document.getElementById(id).style.width = "0";
+    }
+
+
+
+    window.onload = function() {
+      // 	var slideout = new Slideout({
+      // 		'panel': document.getElementById('panel1'),
+      // 		'menu': document.getElementById('menu1'),
+      // 		'side': 'right',
+      // 		'padding': 356,
+      // 'tolerance': 70,
+      // 'easing': 'cubic-bezier(.32,2,.55,.27)'
+      // 	});
+      //
+      //
+      // 	var slideoutSearch = new Slideout({
+      // 		'panel': document.getElementById('panel1'),
+      // 		'menu': document.getElementById('search1'),
+      // 		'side': 'right',
+      // 		'padding': 356,
+      // 'tolerance': 70,
+      // 'easing': 'cubic-bezier(.32,2,.55,.27)'
+      // 	});
+      //
+      //
+      // 	document.querySelector('.js-slideout-toggle').addEventListener('click', function() {
+      // 	 $('#search1').hide();
+      // 	 $('#menu1').show();
+      // 		slideout.toggle();
+      // 	});
+      //
+      // 	document.querySelector('.js-slideout-toggle-search').addEventListener('click', function() {
+      // 		$('#menu1').hide();
+      // 		$('#search1').show();
+      // 		slideoutSearch.toggle();
+      // 	});
+      //
+      // 	document.querySelector('.menu').addEventListener('click', function(eve) {
+      // 		if (eve.target.nodeName === 'A') { slideout.close(); }
+      // 	});
+      //
+      // 	document.querySelector('.search').addEventListener('click', function(eve) {
+      // 		if (eve.target.nodeName === 'A') { slideoutSearch.close(); }
+      // 	});
+      //
+      // 	document.querySelector('.sidebarBase__close').addEventListener('click', function(eve){
+      //
+      // 		slideout.close();
+      //
+      // 	});
+      //
+      // 	document.querySelector('.search__close').addEventListener('click', function(eve){
+      //
+      // 		slideoutSearch.close();
+      //
+      // 	});
+
+
+
+
+
+    };
+  </script>
+
+
+</body>
+
+</html>

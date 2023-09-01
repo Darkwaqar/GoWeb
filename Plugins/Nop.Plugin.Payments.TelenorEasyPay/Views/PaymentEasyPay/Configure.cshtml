@@ -1,0 +1,121 @@
+﻿@model ConfigurationModel
+@using Nop.Plugin.Payments.TelenorEasyPay.Models;
+@using Nop.Web.Framework;
+
+
+<div class="pull-right">
+    <button type="button" onclick="javascript:location.href='@Html.Raw(Url.Action("EasyPayPaymentStatusList", "PaymentEasyPay"))'" class="btn bg-purple">
+        <i class="fa fa-eye"></i>
+        @T("Plugins.Payments.TelenorEasyPay.ViewAllTransfers")
+    </button>
+</div>
+
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            $("#@Html.FieldIdFor(model => model.IsMerchantTokenExpiry)").click(toggleTokenExpiry);
+            toggleTokenExpiry();
+        });
+
+    function toggleTokenExpiry() {
+        if ($('#@Html.FieldIdFor(model => model.IsMerchantTokenExpiry)').is(':checked')) {
+                $('#Token').show();
+            } else {
+                $('#Token').hide();
+            }
+        }
+</script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.StoreId_OverrideForStore, model => model.StoreId, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(model => model.StoreId)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(model => model.StoreId)
+                    @Html.ValidationMessageFor(model => model.StoreId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.IsMerchantTokenExpiry_OverrideForStore, model => model.IsMerchantTokenExpiry, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(model => model.IsMerchantTokenExpiry)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(model => model.IsMerchantTokenExpiry)
+                    @Html.ValidationMessageFor(model => model.IsMerchantTokenExpiry)
+                </div>
+            </div>
+
+            <div class="form-group" id="Token">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.ExpiryDate_OverrideForStore, model => model.ExpiryDate, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(model => model.ExpiryDate)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(model => model.ExpiryDate)
+                    @Html.ValidationMessageFor(model => model.ExpiryDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.IsSandbox_OverrideForStore, model => model.IsSandbox, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(model => model.IsSandbox)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(model => model.IsSandbox)
+                    @Html.ValidationMessageFor(model => model.IsSandbox)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.AutoRedirect_OverrideForStore, model => model.AutoRedirect, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(model => model.AutoRedirect)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(model => model.AutoRedirect)
+                    @Html.ValidationMessageFor(model => model.AutoRedirect)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.SelectedPaymentMethod_OverrideForStore, model => model.SelectedPaymentMethod, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(model => model.SelectedPaymentMethod)
+                </div>
+                <div class="col-md-9">
+                    @Html.DropDownListFor(model => model.SelectedPaymentMethod, Model.AvaliblePaymentMethod, new { @class = "form-control text-box single-line" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.MerchantHashed_OverrideForStore, model => model.MerchantHashed, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(model => model.MerchantHashed)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(model => model.MerchantHashed)
+                    @Html.ValidationMessageFor(model => model.MerchantHashed)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    &nbsp;
+                </div>
+                <div class="col-md-9">
+                    <input type="submit" name="save" class="btn bg-blue" value="@T("Admin.Common.Save")" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

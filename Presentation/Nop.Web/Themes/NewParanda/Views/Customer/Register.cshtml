@@ -1,0 +1,196 @@
+﻿@model RegisterModel
+@using Nop.Web.Models.Customer;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Register").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-registration-page");
+}
+@if (Model.CountryEnabled && Model.StateProvinceEnabled)
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.CountryId)").change(function () {
+                var selectedItem = $(this).val();
+                var ddlStates = $("#@Html.FieldIdFor(model => model.StateProvinceId)");
+                var statesProgress = $("#states-loading-progress");
+                statesProgress.show();
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "@(Url.RouteUrl("GetStatesByCountryId"))",
+                    data: { "countryId": selectedItem, "addSelectStateItem": "true" },
+                    success: function (data) {
+                        ddlStates.html('');
+                        $.each(data, function (id, option) {
+                            ddlStates.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                        statesProgress.hide();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve states.');
+                        statesProgress.hide();
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
+
+
+<div id="bgfir" data-turbolinks-permanent="" class="bg-half first" style=""></div>
+<div id="bgsec" data-turbolinks-permanent="" class="bg-half second" style=""></div>
+<div class="woocommerce">
+    <div class="paddedContainer grid-x align-center">
+        <div class="paddedContainer__wrapper small-28 large-23">
+            <div class="grid-x align-center grid-padding-x">
+                <div class="cell small-28">
+                    <h1 class="pageStatic__title">Sign In or register</h1>
+                </div>
+                <div class="woocommerce-notices-wrapper"></div>      <div class="cell small-28 large-13 paddedContainer__col">
+                                                                         <div class="paddedContainer__col__wrapper">
+                                                                             <h4 class="tc-purple">Login to your account</h4>
+
+
+                                                                             <div class="register">
+
+
+
+
+
+                                                                                 <div class="woocommerce-FormRow form-row">
+
+                                                                                     <button type="button" class="button hollow expanded" name="register" onclick="location.href='/login'" value="Login">Login</button>
+
+                                                                                 </div>
+                                                                             </div>
+
+
+
+
+
+
+
+                                                                         </div>
+                </div>
+
+                <div class="cell small-28 large-13 large-offset-2 paddedContainer__col">
+                    <div class="paddedContainer__col__wrapper">
+                        <h4 class="tc-purple">Are you a new customer?</h4>
+
+
+
+
+
+
+
+
+                        @using (Html.BeginForm((new { @class = "register" })))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            var validationSummary = Html.ValidationSummary(true);
+
+                            if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                            {
+                                <div class="message-error">@validationSummary</div>
+                            }
+                            @Html.Partial("_ExternalAuthentication.AssociateMessage")
+
+
+                            <div class="cell small-28">
+                                @Html.LabelFor(model => model.FirstName, new { }, ":")
+                                @Html.EditorFor(model => model.FirstName)
+                            
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                            </div>
+                            <div class="cell small-28">
+                                @Html.LabelFor(model => model.LastName, new { }, ":")
+                                @Html.EditorFor(model => model.LastName)
+                             
+                                @Html.ValidationMessageFor(model => model.LastName)
+                            </div>
+
+                            <div class="cell small-28">
+                                @Html.LabelFor(model => model.Email, new { }, ":")
+                                @Html.EditorFor(model => model.Email)
+                           
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+
+
+                            if (Model.EnteringEmailTwice)
+                            {
+                                <div class="cell small-28">
+                                    @Html.LabelFor(model => model.ConfirmEmail, new { }, ":")
+                                    @Html.EditorFor(model => model.ConfirmEmail)
+                                  
+                                    @Html.ValidationMessageFor(model => model.ConfirmEmail)
+                                </div>
+                            }
+
+
+
+                            if (Model.PhoneEnabled || Model.FaxEnabled)
+                            {
+
+                                if (Model.PhoneEnabled)
+                                {
+                                    <div class="cell small-28">
+                                        @Html.LabelFor(model => model.Phone, new { }, ":")
+                                        @Html.EditorFor(model => model.Phone)
+                                      
+                                        @Html.ValidationMessageFor(model => model.Phone)
+                                    </div>
+                                }
+
+
+                            }
+
+
+
+                            <div class="cell small-28">
+                                @Html.LabelFor(model => model.Password, new { }, ":")
+                                @Html.EditorFor(model => model.Password)
+                            
+                                @Html.ValidationMessageFor(model => model.Password)
+                            </div>
+                            <div class="cell small-28">
+                                @Html.LabelFor(model => model.ConfirmPassword, new { }, ":")
+                                @Html.EditorFor(model => model.ConfirmPassword)
+                             
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                            </div>
+
+
+                            <div class="woocommerce-FormRow form-row">
+
+                                <button type="submit" id="register-button" class="button hollow expanded" name="register" value="Login">REGISTER</button>
+
+                            </div>
+                            @*<div class="buttons">
+                                <input type="submit"  class="button-1 register-next-step-button" value="@T("Account.Register.Button")" name="register-button" />
+                            </div>*@
+
+
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

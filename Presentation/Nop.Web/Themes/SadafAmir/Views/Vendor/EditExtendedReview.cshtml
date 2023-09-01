@@ -1,0 +1,67 @@
+﻿@model PublicReviewEditModel
+@using Nop.Web.Models.Vendors;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    Html.Partial("_Includes");
+}
+<div class="page product-reviews-page">
+    <div class="page-title">
+        <h1>@T("Reviews.ProductReviewsFor") <a href="@Url.RouteUrl("Product", new { SeName = Model.ProductSeName })">@Model.ProductName</a></h1>
+    </div>
+    <div class="page-body">
+        @if (Model.AddProductReviewModel.SuccessfullyAdded)
+        {
+            <div class="result">
+                @Model.AddProductReviewModel.Result
+            </div>
+        }
+        @using (Html.BeginForm())
+        {
+            var validationSummary = Html.ValidationSummary(true);
+            if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+            {
+                <div class="message-error">@validationSummary</div>
+            }
+
+            <div class="review-page-product-overview">
+                <img src="@Model.ProductImageUrl"/>
+                @* <div class="overview-details">
+                    <a href="@Url.RouteUrl("Product", new {SeName = Model.ProductSeName})" class="overview-title">@Model.ProductName</a>
+                    <div class="hidden">
+                        @Html.Action("TopicBlock", "Topic", new { systemName = "ProductReviewGuidelines" })
+                    </div>
+                </div> *@
+            </div>
+            <div class="fieldset">
+                <div class="form-fields">
+                    <div class="title">Product Review</div>
+                    <div class="inputs">
+                        @Html.Label("Review Headline")
+                        @Html.TextBoxFor(model => model.AddProductReviewModel.Title)
+                        @Html.ValidationMessageFor(model => model.AddProductReviewModel.Title)
+                    </div>
+                    <div class="inputs">
+                        @Html.Label("Comments")
+                        @Html.TextAreaFor(model => model.AddProductReviewModel.ReviewText)
+                        @Html.ValidationMessageFor(model => model.AddProductReviewModel.ReviewText)
+                    </div>
+                    <div class="review-rating inputs">
+                        @Html.Label("Your Rating")
+                        <div class="process-raty" data-score="@Model.AddProductReviewModel.Rating" data-target="#product-rating-hint" data-scorename="@Html.FieldNameFor(model => model.AddProductReviewModel.Rating)"></div>
+                        <div id="product-rating-hint" class="process-raty-hint"></div>
+                        @Html.ValidationMessageFor(model => model.VendorReviewListModel.Rating)
+                    </div>
+                    @if (Model.AddProductReviewModel.DisplayCaptcha)
+                    {
+                        <div class="captcha-box">
+                            @Html.Raw(Html.GenerateCaptcha())
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+</div>

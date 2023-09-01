@@ -1,0 +1,120 @@
+﻿@model List<CollectionModel>
+@using Nop.Web.Models.Catalog
+@{  bool firstli = true;
+    bool firstdiv = true;}
+
+<div id="content">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        @foreach (var item in Model)
+            {
+            <li class="@(firstli ? "active" : "")">
+                @{ firstli = false;}
+                <a class="font-chronicle last-panel-head" href="#@item.Id" data-toggle="tab">
+                    <img src=" @item.CollectionLogo.FullSizeImageUrl" alt=" @item.CollectionLogo.AlternateText" />
+                </a>
+            </li>
+                    }
+
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        @foreach (var item in Model)
+        {
+            <div class="tab-pane @(firstdiv ? "active": "")" id="@item.Id">
+                @{ firstdiv = false;}
+                <div class="row">
+                    
+                    <div class="col-sm-7 col-md-7 padding-top margin-top-small">
+                        <div class="col-md-12">
+                            <h2 class="text-center margin-top text-brand-heading" style="color: black;">
+                                @item.CollectionName
+                            </h2>
+                            <div class="text-center padding-bottom">
+                                @Html.Raw(item.CollectionDiscription)
+
+                            </div>
+                        </div>
+                        <img src="@item.CollectionPicture.FullSizeImageUrl" alt="" class="img-responsive">
+                    </div>
+                    <div class="col-sm-5 col-md-5 div-on-right margin-top-small margin-top collection-product no-padding">
+                        <img src="~/Themes/Preta/Content/assets/img/newCollectionItems/item%20(1).jpg" alt=""
+                             class="img-responsive margin-auto placesrcr1 ">
+                        <div class="col-md-12 no-padding" style="background-color: #1a1a1a; color: white; height: 34px;">
+                            <div class="col-xs-8 col-md-8 no-padding">
+                                <h6 class="collection-product-name"></h6>
+                            </div>
+                            <div class="col-xs-4 col-md-4 no-padding">
+                                <a data-producturl="" data-productid="" onclick=loadiframe(this) class="producturl pull-right"><h6>Shop the Look</h6></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-md-7 clearboth-small-screen">
+                        <div class="t1-GalleryHeight">
+                            <div class="row">
+                                @{
+                                    var firstproduct = true;
+                                }
+                                @foreach (var product in item.Products)
+                                {
+                                    <div class="col-md-3 col-xs-6 collection-spacing">
+                                        <img id="@(firstproduct ? "firstproduct" : "")" src="@product.DefaultPictureModel.ImageUrl" alt="@product.Name" data-productid="@product.Id" data-producturl="@product.SeName"
+                                             class="img-responsive thumb margin-auto">
+                                        @{firstproduct = false;}
+                                    </div>
+                                            }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                                            }
+
+    </div>
+</div>
+<div class="padding-top">
+    <div class="loading" style="display: none;"></div>
+    <div id="detail">
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#firstproduct").trigger('click');
+    });
+
+    function loadiframe(a) {
+        
+        $(".loading").first().css("display", "block");
+        var id = a.getAttribute("data-productid");
+        var url = "/Product/ProductDetailsPopUp?productId=" + id;
+        $('#detail').load(url, function (response, status, xhr) {
+            $(".loading").first().css("display", "none");
+            if (status == "success") {
+                    $('html, body').animate({
+                        scrollTop: $("#detail").offset().top
+                    }, 2000);
+            }
+            if (status == "error") {
+                // oh noes!
+            }
+        });
+        
+    };
+
+    $(".thumb").click(function () {
+        var thumbsrc = $(this).attr('src');
+        var name = $(this).attr('alt');
+        var url = $(this).attr('data-producturl');
+        var id = $(this).attr('data-productid');
+        var image = $(".placesrcr1");
+        image.fadeOut('fast', function () {
+            image.attr('src', thumbsrc);
+            image.fadeIn('fast');
+        });
+        $(".collection-product-name").text(name);
+        //$(".producturl").attr('href', url);
+        $(".producturl").attr('data-productid', id);
+    });
+</script>
+<!-- Brand Tabs End -->
+

@@ -1,0 +1,365 @@
+﻿@model VendorModel
+
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-vendor-page");
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var vendorUrl = Url.RouteUrl("Vendor", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(vendorUrl);
+    }
+
+}
+
+@{
+    
+    //current category ID
+    int currentCategoryId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("category", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentCategoryId = Convert.ToInt32(Url.RequestContext.RouteData.Values["categoryId"].ToString());
+    }
+
+
+    //current manufacturer ID
+    int currentManufacturerId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("manufacturer", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentManufacturerId = Convert.ToInt32(Url.RequestContext.RouteData.Values["manufacturerId"].ToString());
+    }
+
+
+    //current product ID
+    int currentProductId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("product", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("productdetails", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentProductId = Convert.ToInt32(Url.RequestContext.RouteData.Values["productId"].ToString());
+    }
+    
+}
+
+<style>
+    .paging > ul > li {
+        float: left;
+    }
+
+    .paging .current-page {
+        background-color: #000;
+        color: #fff;
+        border: solid 1px #000;
+    }
+
+    .paging .individual-page, .paging .current-page {
+        padding: 2px 8px;
+        border: solid 1px #999;
+        margin: 2px;
+        font-size: 12px;
+    }
+
+    .paging .first-page, .paging .previous-page, .paging .next-page, .paging .last-page {
+        display: none;
+    }
+</style>
+
+<!--=================================
+Style Sheets
+=================================-->
+<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/custom-icons.css">
+<link rel="stylesheet" type="text/css" href="assets/css/my-instagram-gallery.css">
+<link rel="stylesheet" type="text/css" href="assets/css/odometer-theme-default.css">
+<link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/carousel-my.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="assets/grow/css/colorbox.css" media="screen">
+<link rel="stylesheet" type="text/css" href="assets/grow/css/standard.css" media="screen">
+
+<link rel="stylesheet" type="text/css" href="assets/grow/css/division.css" media="screen">
+<link rel="stylesheet" type="text/css" href="assets/grow/css/colorbox(1).css" media="screen">
+<link rel="stylesheet" type="text/css" href="assets/grow/css/standard(1).css" media="screen">
+
+<div class="row hidden-md hidden-lg" style="height: 40px;"></div>
+
+<section class="xvDeals style1 family-poppins pb-0">
+    <div class="container-fluid">
+        @*<div class="col-md-12" style="border-bottom: 1px solid black; margin-bottom: 10px;">
+            <p style="font-size: 10px; margin: 10px;" class="text-center">Womens / Shop / Clothing / Shorts</p>
+            <h2 class="title-apparel text-center">@Model.Name</h2>
+        </div>*@
+        <div class="col-md-2 hidden-sm hidden-xs">
+            @*<div class="row">
+
+                <div class="col-md-12" style="border: 1px solid black;">
+                  
+                    <div class="row">
+                        <div class="col-md-12" style="border: 1px solid black;">
+                         
+                            @Html.Action("CategoryNavigation", "Catalog", new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
+                        </div>
+                    </div>
+
+                </div>
+            </div>*@
+            @*<div class="row">
+                <p style="padding-top: 10px;">Filter by</p>
+            </div>*@
+            <div class="row">
+                <div class="col-md-12" style="border: 1px solid black;">
+
+                    @Html.Action("VendorNavigation", "Catalog")
+                </div>
+                <div class="col-md-12" style="padding:0px;font-size:19px"><p style="padding-top: 10px;">Filter by</p></div>
+                <div class="col-md-12" style="padding:0px">
+                    @*@Html.Partial("_FilterPriceBox", Model.PagingFilteringContext.PriceRangeFilter, new System.Web.Mvc.ViewDataDictionary())*@
+                    @Html.Partial("_FilterSpecsBox", Model.PagingFilteringContext.SpecificationFilter, new ViewDataDictionary())
+                </div>
+                @*<div class="col-md-12" style="border: 1px solid black; border-top-color: transparent">
+
+
+                    <div class="row" style="border-bottom: 1px solid black;">
+                        <div class="col-md-12" style="border-top:1px solid #000">
+                            <h4>COLORS <span class="fa fa-caret-down pull-right"></span></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="list-unstyled filter-custom" style="padding-top: 10px;">
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">Black</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">Blue</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">Green</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">Grey</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">Navy</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">Nuetral</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" style="border: 1px solid black; border-top-color: transparent">
+                    <div class="row" style="border-bottom: 1px solid black;">
+                        <div class="col-md-12">
+                            <h4>SIZES<span class="fa fa-caret-down pull-right"></span></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="list-unstyled filter-custom" style="padding-top: 10px;">
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">XXS</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">XS</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">S</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">M</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">L</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">XL</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row hidden-md hidden-lg" style="height: 10px;"></div>
+            <div class="col-md-12" style="overflow:hidden; max-height:300px;border-bottom:1px solid #000">
+                <img src="@Model.PictureModel.FullSizeImageUrl" class="img-responsive" width="100%" />
+
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12" style="margin-top:20px">
+@if (Model.Products.Count > 0)
+{
+    @Html.Partial("_CatalogSelectors", Model.PagingFilteringContext, new ViewDataDictionary())
+}
+                    @*<select name="" style="width: 30%; font-size: 12px;">
+                        <option value="">Product view</option>
+                        <option value="">2</option>
+                    </select>
+                    <select name="" style="width: 35%; font-size: 12px;">
+                        <option value="">Sort results by</option>
+                        <option value="">2</option>
+                    </select>
+                    <select name="" style="width: 30%; font-size: 12px;">
+                        <option value="">60 Per Page</option>
+                        <option value="">2</option>
+                    </select>*@
+                </div>
+                <div class="col-md-4 col-xs-12 col-md-offset-4" style="margin-top:20px">
+                    @*<div class="row hidden-md hidden-lg" style="height: 20px;"></div>
+                    <ul class="list-inline list-unstyled">
+                        <li class="3row"><a href="#"><img src="assets/img/icons/icon-3.png" alt=""></a></li>
+                        <li class="2row"><a href="#"><img src="assets/img/icons/icon-2.png" alt=""></a></li>
+                        <li class="pagination-inam"><a href="#">1</a></li>
+                        <li class="pagination-inam"><a href="#">2</a></li>
+                        <li class="pagination-inam"><a href="#">3</a></li>
+                    </ul>*@
+                    @{
+                        var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+                    }
+                    <div class="paging">
+                        @if (!pager.IsEmpty())
+                        {
+                            @pager
+
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div id="container-fluid" class="recPlan">
+
+                        <div id="wrapper">
+
+                            <div id="pageContent">
+                                <div class="pageWidth">
+                                    <div class="pageWidthInner">
+                                        <ul id="productList" class="clearfix">
+                                            @foreach (var product in Model.Products)
+                                            {
+                                                @Html.Partial("_ProductBox", product)
+                                            }
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+</div>
+<!--====================
+    Scripts
+====================-->
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/packery.pkgd.min.js"></script>
+<script src="assets/js/masonry.pkgd.min.js"></script>
+<script src="assets/js/isotope.pkgd.min.js"></script>
+<script src="assets/js/jquery.stellar.min.js"></script>
+<script src="assets/js/my-instagram-gallery.js"></script>
+<script src="assets/js/slick.min.js"></script>
+<script src="assets/js/jquery.inview.js"></script>
+<script src="assets/js/odometer.min.js"></script>
+<script src="assets/js/tweetie.min.js"></script>
+<script src="assets/js/jquery.timeago.js"></script>
+<script src="assets/js/jquery.knob.min.js"></script>
+<script src="assets/js/css3-animate-it.js"></script>
+<script src="assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="assets/js/jquery.prettyPhoto.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".2row").click(function () {
+            $("#myframe").contents().find(".product").css('width', '50%');
+        });
+        $(".3row").click(function () {
+            $("#myframe").contents().find(".product").css('width', '33.3333%');
+        });
+    });
+</script>
+<script type="text/javascript">
+    function colorSelect(th) {
+        $(th).parent().find(".viewSizes").removeClass("selected");
+        $(th).parent().find(".viewColors").addClass("selected");
+
+        $(th).parent().parent().find(".sizesList").hide();
+        $(th).parent().parent().find(".colorsList").show();
+
+    }
+    function sizeSelect(th) {
+        $(th).parent().find(".viewColors").removeClass("selected");
+        $(th).parent().find(".viewSizes").addClass("selected");
+
+        $(th).parent().parent().find(".sizesList").show();
+        $(th).parent().parent().find(".colorsList").hide();
+    }
+    function changeImage(th, param1, param2) {
+        var bigimage = $(th).attr("data-bigimage");
+        var secondBigimage = $(th).attr("data-second-bigimage");
+        $("#" + param1).attr("src", bigimage);
+        $("#" + param2).attr("src", secondBigimage);
+    }
+</script>

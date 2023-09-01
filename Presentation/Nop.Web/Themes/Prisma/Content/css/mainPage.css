@@ -1,0 +1,27 @@
+﻿.grid .grid-item {
+    overflow: hidden;
+    border:1px solid;
+}
+.grid .grid-item img {
+    width: 100%;
+}
+.t1-rightcolumn {
+    height: 787px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background: white;
+}
+.product-item .picture .picture-img {
+    background-repeat: no-repeat;
+    padding-top: 150%;
+    background-position: top;
+    background-size: contain;
+}
+.product-item .picture {
+    display: block;
+    position: relative;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    overflow: hidden;
+}
+

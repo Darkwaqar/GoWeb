@@ -1,0 +1,214 @@
+﻿@model TopMenuModel
+@using growonline.Web.Models.Catalog;
+
+
+
+
+
+<div class="col-md-12 col-lg-12 col-sm-12 nopadding">
+
+    @helper RenderCategoryLine(CategorySimpleModel category, int level)
+{
+    if (category.SubCategories.Count > 0)
+    {
+        @RenderSubCategoryLine(category, level)
+    }
+   
+        else
+        {
+             <li>
+                <a href="@Url.RouteUrl("Category", new { SeName = category.SeName })">
+                    @category.Name
+                </a>
+            </li>
+           
+        }
+    }
+
+
+@helper RenderSubCategoryLine(CategorySimpleModel category, int level)
+{
+    <li class="@(level>0?"dropdown-submenu":"dropdown")">
+        <a href="@Url.RouteUrl("Category", new { SeName = category.SeName })" data-toggle="dropdown" onclick="window.location.href = '/@category.SeName'">
+            <span> @category.Name </span>
+            
+
+        </a>
+        <ul class="dropdown-menu ">
+            @foreach (var subCategory in category.SubCategories)
+            {
+                @RenderCategoryLine(subCategory, level + 1)
+            }
+        </ul>
+
+    </li>
+   
+  
+}
+
+   
+
+
+
+    <nav class="navbar navbar-default topmenu container-fluid" role="navigation" style="min-height:77px;box-shadow:1px 1px 1px rgba(134,119,119,0.6)">
+        <a class="navbar-brand col-md-3 hidden-sm hidden-xs" href="/" style="padding-left:58px"><img title="" src="\Themes\BootstrapDC\Content\images\logo.png" style="height:53px;width:146px"></a>
+        <a class="navbar-brand hidden-md hidden-lg" href="/"><img title="" src="\Themes\BootstrapDC\Content\images\logo.png" style="height:35px"></a>
+        <div class="navbar-header">
+        
+        <a href="javascript:" style="margin-right:22px" class="navbar-toggle angle-down" data-toggle="collapse" data-target="#top-menu">
+            <span class="fa fa-angle-down" style="padding:0px 6px"></span>
+
+        </a>
+				<a href="/cart" style="margin-right:12px" class="navbar-toggle angle-down"  >
+            <span class="fa fa-shopping-bag" style="padding:0px 6px"><span class="res-cartqty"></span></span>
+
+        </a>	
+            @*<a class="navbar-brand hidden-md hidden-lg" href="#">Categories</a>*@
+        </div>
+
+        <div class="collapse navbar-collapse" id="top-menu" role="navigation" aria-label="Main menu">
+         
+
+            <ul class="nav navbar-nav hidden-xs hidden-sm hidden-md" style="margin-top:21px;float:right;margin-bottom:-20px">
+
+
+                @Html.Widget("header_menu_before")
+                @{
+                    var rootCategories = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
+                }
+                @foreach (var category in rootCategories)
+                {
+                    @RenderCategoryLine(category, 0)
+                }
+                @foreach (var topic in Model.Topics)
+                {
+                    <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                }
+                @if (rootCategories.Count == 0 && Model.Topics.Count == 0)
+                {
+                    //no categories or topis to display? in this case let's diplay some default menu items (should we?)
+                    <li><a href="@Url.RouteUrl("HomePage")">@T("HomePage")</a></li>
+                    if (Model.RecentlyAddedProductsEnabled)
+                    {
+                        <li>
+                            <a href="@Url.RouteUrl("RecentlyAddedProducts")">@T("Products.NewProducts")</a>
+                        </li>
+                    }
+                    <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+                    <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+                    if (Model.BlogEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                    }
+                    if (Model.ForumEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                    }
+                    <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+                }
+                @Html.Action("HeaderLinks", "Common")
+                @Html.Widget("header_menu_after")
+            </ul>
+            <ul class="nav navbar-nav hidden-xs hidden-sm hidden-lg" style="margin-top:21px;float:right;width:730px">
+
+
+                @Html.Widget("header_menu_before")
+                @{
+                    var rootCategories3 = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
+                }
+                @foreach (var category in rootCategories)
+                {
+                    @RenderCategoryLine(category, 0)
+                }
+                @foreach (var topic in Model.Topics)
+                {
+                    <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                }
+                @if (rootCategories3.Count == 0 && Model.Topics.Count == 0)
+                {
+                    //no categories or topis to display? in this case let's diplay some default menu items (should we?)
+                    <li><a href="@Url.RouteUrl("HomePage")">@T("HomePage")</a></li>
+                    if (Model.RecentlyAddedProductsEnabled)
+                    {
+                        <li>
+                            <a href="@Url.RouteUrl("RecentlyAddedProducts")">@T("Products.NewProducts")</a>
+                        </li>
+                    }
+                    <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+                    <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+                    if (Model.BlogEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                    }
+                    if (Model.ForumEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                    }
+                    <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+                }
+                @Html.Action("HeaderLinks", "Common")
+                @Html.Widget("header_menu_after")
+            </ul>
+            <ul class="nav navbar-nav hidden-md hidden-lg" style="margin-top:21px;width:546px">
+
+
+                @Html.Widget("header_menu_before")
+                @{
+                    var rootCategories2 = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
+                }
+                @foreach (var category in rootCategories2)
+                {
+                    @RenderCategoryLine(category, 0)
+                }
+                @foreach (var topic in Model.Topics)
+                {
+                    <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                }
+                @if (rootCategories2.Count == 0 && Model.Topics.Count == 0)
+                {
+                    //no categories or topis to display? in this case let's diplay some default menu items (should we?)
+                    <li><a href="@Url.RouteUrl("HomePage")">@T("HomePage")</a></li>
+                    if (Model.RecentlyAddedProductsEnabled)
+                    {
+                        <li>
+                            <a href="@Url.RouteUrl("RecentlyAddedProducts")">@T("Products.NewProducts")</a>
+                        </li>
+                    }
+                    <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+                    <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+                    if (Model.BlogEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                    }
+                    if (Model.ForumEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                    }
+                    <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+                }
+                @Html.Widget("header_menu_after")
+            </ul>
+          
+        </div>
+
+    </nav>
+</div>
+
+<script>
+$(".res-cartqty").text($(".cart-qty")[0].innerText.replace("(","").replace(")",""));
+    $('.navbar .dropdown').hover(function () {
+        $(this).find('.dropdown-menu').first().stop(true, true).delay(250).slideDown();
+    }, function () {
+        $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp()
+    });
+</script>
+
+
+
+
+
+
+
+
+
+

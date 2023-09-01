@@ -1,0 +1,73 @@
+﻿@{
+    Html.AppendCssFileParts("~/Themes/DefaultClean/Content/css/customcheckout.css");
+}
+<div id="slideshopingcart" class="slideshopingcart">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeslideshopingcart()">&times;</a>
+    @Html.Action("OrderSummary", "ShoppingCart", new { isEditable = true })
+</div>
+
+<style>
+    /* The side navigation menu */
+    .slideshopingcart {
+        height:100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        right: 0;
+        background-color: #fff; /* Black*/
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 60px; /* Place content 60px from the top */
+        transition: 0.5s; /* 0.5 second transition effect to slide in the slideshopingcart */
+        max-width:450px;
+    }
+
+/* The navigation menu links */
+.slideshopingcart a {
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.slideshopingcart a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.slideshopingcart .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the slideshopingcart (less padding and a smaller font size) */
+@@media screen and (max-height: 450px) {
+  .slideshopingcart {padding-top: 15px;}
+  .slideshopingcart a {font-size: 18px;}
+}
+</style>
+<script>
+    var cart = document.getElementsByClassName("ico-cart");
+    if (cart.length) {
+        cart[0].removeAttribute("href");
+        cart[0].setAttribute('onclick', 'openslideshopingcart()')
+    }
+    
+
+    /* Set the width of the side navigation to 250px */
+    function openslideshopingcart() {
+        document.getElementById("slideshopingcart").style.width = "40vw";
+    }
+
+    /* Set the width of the side navigation to 0 */
+    function closeslideshopingcart() {
+        document.getElementById("slideshopingcart").style.width = "0";
+    }
+</script>

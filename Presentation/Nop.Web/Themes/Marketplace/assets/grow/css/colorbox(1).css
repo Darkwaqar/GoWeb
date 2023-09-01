@@ -1,0 +1,12 @@
+#cboxLoadedContent {
+	font-family: arial, sans-serif;
+}
+
+#colorbox.popupHomePages {
+    background: #484848;
+}
+#colorbox.popupHomePages #cboxLoadedContent{
+    padding: 20px;
+}
+
+

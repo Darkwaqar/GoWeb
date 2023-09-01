@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+@using Nop.Core.Infrastructure;
+@using Nop.Core;
+
+@{
+    var shareUrl = EngineContext.Current.Resolve<IWebHelper>().GetStoreLocation();
+}
+<html lang="en-us" class="no-js">
+
+<!-- Mirrored from themehelite.com/themeforest/moet/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 11 Nov 2016 11:40:46 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>GoFashionHouse | Coming Soon</title>
+    <meta name="description" content="Go Fashion House Coming Soon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="avancera">
+    <link rel="stylesheet" href="~/Themes/GoFashionHouse/Content/css/style.css" type="text/css">
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="img/favicon.png">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="~/Themes/GoFashionHouse/Content/img/favicon-retina-ipad.png">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Themes/GoFashionHouse/Content/img/favicon-retina-iphone.png">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Themes/GoFashionHouse/Content/img/favicon-standard-ipad.png">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="~/Themes/GoFashionHouse/Content/img/favicon-standard-iphone.png">
+    <!-- ============== Resources style ============== -->
+    @*<link rel="stylesheet" href="~/Themes/GoFashionHouse/Content/css/style-4.css" />*@
+    <!-- Modernizr runs quickly on page load to detect features -->
+    <script src="~/Themes/GoFashionHouse/Content/js/modernizr.js"></script>
+    <!-- ============== Font Links ============== -->
+    <!--PTsans-->
+    <link href="~/Themes/GoFashionHouse/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link href="~/Themes/GoFashionHouse/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Themes/GoFashionHouse/Content/css/ionicons.min.css" rel="stylesheet" />
+    <!--Bodoni SvtyTwo ITC TI-->
+    <link href="~/Themes/GoFashionHouse/Content/css/onlinewebfonts.css" rel="stylesheet" type="text/css" />
+    <script src="~/Themes/GoFashionHouse/Content/js/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="img-left">
+                <div id="tooltips" class="pdp-tooltips-wrap fade-in-content scrolled" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                    <div class="pdp-tooltips">
+                        <div class="the_container initial plus tooltip tooltip_1">
+                            <div class="the_copy">Your brand to promote here.</div>
+                            <div class="the_circle closed">
+                                <div class="horizontal"> </div>
+                                <div class="vertical"> </div>
+                            </div>
+                        </div>
+                        <div class="the_container initial plus tooltip tooltip_4">
+                            <div class="the_copy">Simple Sued Brogue Boot by <img src="https://footprint.pk/content/images/thumbs/0019581.png" width="50%" /> <a href="https://www.footprint.com">Vist Store</a></div>
+                            <div class="the_circle closed">
+                                <div class="horizontal"> </div>
+                                <div class="vertical"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+    // <![CDATA[
+                    (function () {
+
+                        $('.the_circle').on('click', function () {
+
+                            if ($(this).parent().find('.the_copy').css('opacity') == 0) {
+
+                                $(this).parent().find('.the_copy').css('opacity', 1);
+                            } else {
+
+                                $(this).parent().find('.the_copy').css('opacity', 0);
+                            }
+                            $(this).toggleClass('opened');
+                        });
+
+
+
+
+
+
+                    }());
+                    // ]]></script>
+
+            </div>
+         </div>
+
+        <div class="col-md-6 rel">
+            <img class="back" src="~/Themes/GoFashionHouse/Content/img/gif1.gif" alt="background" width="100%" />
+            <div class="row set">
+                
+                <div class="col-md-12 text-day">
+                    <div class="PTsans" style="color: #000000 !important;font-size: medium">
+                        Pakistan's 1st magazine style luxury shopping experience 
+                        for high fashion brands & designer labels
+                    </div>
+                    <br /><br /><br />
+                    <img src="~/Themes/GoFashionHouse/Content/img/go-logo.png" width="80%" alt="" />
+                    <br /><br /><br />
+
+                    <div class="PTsans" style="color: #000000 !important; font-size: medium">
+                        Join our GFH Community & let us thank you with fun surprises 
+                        of their favourite brand 
+                    </div>
+                   
+                    <div id="subscribe" class="">
+                        <div class="form-group">
+                            <div class="controls">
+                                <input type="text" id="newsletter-email" name="email" placeholder="Signup for Surprises" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Signup for Surprises'" class="srequiredField inputSurprises" />
+                            </div>
+                        </div>
+
+                        <br />
+                        <input  type="button" value="@T(" Newsletter.Options.Subscribe")" id="newsletter-subscribe-button" class="size1 flex-c-m s2-txt2 size4 bg1 bor1 hov1 trans-04">
+                    </div>
+                    <!-- CLOSE - Signup part -->
+                    <div class="newsletter-result" id="newsletter-result-block"></div>
+
+                    <div class="w-full newsletter-validation">
+                        <span id="subscribe-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span>
+                        <span class="field-validation-valid" data-valmsg-for="NewsletterEmail" data-valmsg-replace="true"></span>
+                    </div>
+                    <br /><br /><br />
+                    <div id="socialIcon" class="text-center ptsans">
+                        <p class="ptsans" style="color: #000000;font-size: medium;">Tell the World</p>
+                        <br />
+                        <a href="javascript:openShareWindow('http://www.facebook.com/share.php?u=@shareUrl')"><i class="fa fa-facebook"></i></a>&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:openShareWindow('https://twitter.com/share?url=@shareUrl')"> <i class="fa fa-twitter"></i></a>&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:openShareWindow('https://instagram.com/share?url=@shareUrl')"><i class="fa fa-instagram"></i></a>&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:openShareWindow('https://linkedIn.com/share?url=@shareUrl')"><i class="fa fa-linkedin"></i></a>&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"> <i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div> <!-- CLOSE - Text under -->
+            </div> <!-- CLOSE - Countdown row -->
+
+        </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+    <script src="~/Themes/GoFashionHouse/Content/js/bootstrap.min.js"></script>
+    <!-- MultiScroll plugin -->
+    @*<script src="~/Themes/GoFashionHouse/Content/js/jquery.multiscroll.js"></script>*@
+    <!-- Main JS File -->
+    @*<script src="~/Themes/GoFashionHouse/Content/js/main.js"></script>*@
+    <script type="text/javascript">
+            function newsletter_subscribe(subscribe) {
+                var subscribeProgress = $("#subscribe-loading-progress");
+                subscribeProgress.show();
+                var postData = {
+                    subscribe: subscribe,
+                    email: $("#newsletter-email").val()
+                };
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "@(@Url.Action("SubscribeNewsletter", "Newsletter"))",
+                    data: postData,
+                    success: function (data) {
+                        subscribeProgress.hide();
+                        $("#newsletter-result-block").html(data.Result);
+                        if (data.Success) {
+                            $('#newsletter-subscribe-block').hide();
+                            $('#newsletter-result-block').show();
+                        } else {
+                            $('#newsletter-result-block').fadeIn("slow").delay(2000).fadeOut("slow");
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to subscribe.');
+                        subscribeProgress.hide();
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                $('#newsletter-subscribe-button').click(function () {
+                    newsletter_subscribe('true');
+                });
+                $("#newsletter-email").keydown(function (event) {
+                    if (event.keyCode == 13) {
+                        $("#newsletter-subscribe-button").click();
+                        return false;
+                    }
+                });
+            });
+    </script>
+    <script>
+            function openShareWindow(url) {
+                var winWidth = 520;
+                var winHeight = 400;
+                var winTop = (screen.height / 2) - (winHeight / 2);
+                var winLeft = (screen.width / 2) - (winWidth / 2);
+
+                window.open(url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+            }
+    </script>
+
+    <!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
+</body>
+
+<!-- Mirrored from themehelite.com/themeforest/moet/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 11 Nov 2016 11:41:21 GMT -->
+</html>
+

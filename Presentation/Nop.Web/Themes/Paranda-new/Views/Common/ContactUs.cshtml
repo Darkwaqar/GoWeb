@@ -1,0 +1,152 @@
+﻿@model ContactUsModel
+@using Nop.Web.Models.Common;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ContactUs").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-contact-page");
+}
+@*<div class="page contact-page">
+        <div class="page-title">
+            <h1>@T("PageTitle.ContactUs")</h1>
+        </div>
+        <div class="page-body">
+
+        </div>
+    </div>*@
+
+<div class="pageAbout">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="scrollRails activated register-main" data-component="ScrollRails">
+                        <div class="scrollRails__rail row" id="right">
+                            <div class="scrollRails__railContent col-md-6">
+                                @*<div class="pageAbout__gallery" data-component="Slider" medium-down-slider="">
+                        <img width="1055" height="1426" src="/Content/Images/uploaded/one.jpg" class="responsiveImage rail-el-inview rail-el-entered" alt="" check-in-view="" sizes="(max-width: 1055px) 100vw, 1055px">
+                    </div>*@
+                         <div class="homeBox homeBox--large">
+                                    <div class="homeBox__image">
+                                        <div class="homeBox__imageBox">
+                                            <div class="homeBox__titleBox br serif">
+                                                <div class="homeBox__titleBox__wrapper">
+
+                                                    <span class="title">
+                                                        Contact us for any
+                                                        further questions,
+                                                        possible projects
+                                                        and business
+                                                        partnerships
+                                                    </span>
+                                                </div>
+                                        
+
+                                        </div>
+                                        <div class="block-contact">
+                                            <ul>
+                                                <li><h3>Write Us</h3><span><a href="mailto:info@paranda.pk">info@paranda.pk</a></span></li>
+                                                <li><h3>Call Us</h3><span>+92314 1234567</span></li>
+                                                <li><h3>Visit Us</h3><span>P.E.C.H.S Block 02, Karachi</span></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scrollRails__rail col-md-6" id="left">
+                            <div class="scrollRails__railContent">
+                                <div class="pageAbout__about">
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="cell small-28 medium-20 xlarge-18 medium-offset-4 large-offset-4">
+                                            <h1> Get in touch</h1>
+                                            @*<p class="intro">
+                                    Paranda is a venture by a young mother who was obsessed with the local craft since her childhood, during many of her visits to rural areas, she used to be awed by the array of locally crafted products by such talented artisans.
+                                </p>*@
+                                            <div class="pageAbout__body contact-holder">
+                                                @Html.Action("TopicBlock", "Topic", new { systemName = "ContactUs" })
+                                                @Html.Widget("contactus_top")
+                                                @if (Model.SuccessfullySent)
+                                                {
+                                                    <div class="result">
+                                                        @Model.Result
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    using (Html.BeginForm())
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        var validationSummary = Html.ValidationSummary(true);
+                                                        if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                                                        {
+                                                            <div class="message-error">@validationSummary</div>
+                                                        }
+
+                                                        <div class="fieldset">
+                                                                <div class="form-fields">
+                                                        @* , placeholder = T("ContactUs.FullName.Hint") *@
+                                                                    <div class="inputs">
+                                                                        @Html.LabelFor(model => model.FullName)
+                                                                        @Html.TextBoxFor(model => model.FullName, new { @class = "fullname" })
+                                                                        @Html.RequiredHint()
+                                                                        @Html.ValidationMessageFor(model => model.FullName)
+                                                                    </div>
+                                                                    <div class="inputs">
+                                                            @* , placeholder = T("ContactUs.Email.Hint") *@
+                                                                        @Html.LabelFor(model => model.Email)
+                                                                        @Html.TextBoxFor(model => model.Email, new { @class = "email" })
+                                                                        @Html.RequiredHint()
+                                                                        @Html.ValidationMessageFor(model => model.Email)
+                                                                    </div>
+                                                                    @if (Model.SubjectEnabled)
+                                                                    {
+                                                                        <div class="inputs">
+                                                            @* , placeholder = T("ContactUs.Subject.Hint") *@
+                                                                            @Html.LabelFor(model => model.Subject)
+                                                                            @Html.TextBoxFor(model => model.Subject, new { @class = "subject" })
+                                                                            @Html.RequiredHint()
+                                                                            @Html.ValidationMessageFor(model => model.Subject)
+                                                                        </div>
+                                                                    }
+                                                                    @Html.Partial("_ContactAttributes", Model.ContactAttributes)
+                                                                    <div class="inputs">
+                                                            @* , placeholder = T("ContactUs.Enquiry.Hint") *@
+                                                                        @Html.LabelFor(model => model.Enquiry)
+                                                                        @Html.TextAreaFor(model => model.Enquiry, new { @class = "enquiry" })
+                                                                        @Html.ValidationMessageFor(model => model.Enquiry)
+                                                                    </div>
+                                                                    @if (Model.DisplayCaptcha)
+                                                                    {
+                                                                        <div class="captcha-box">
+                                                                            @Html.Raw(Html.GenerateCaptcha())
+                                                                        </div>
+                                                                    }
+                                                                    
+                                                                </div>
+                                                            </div>
+
+                                                        
+
+                                                        <div class="buttons">
+                                                            <button type="submit" name="send-email" class="hollow button">SEND</button>
+                                                        </div>
+                                                    }
+                                                }
+                                                @Html.Widget("contactus_bottom")
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

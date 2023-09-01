@@ -1,0 +1,41 @@
+﻿@model Nop.Web.Models.Vendors.VendorRatingModel
+<div class="vendor-raiting">
+
+    <div class="procetiss-raty" data-readonly="true" data-score="@Model.AverageRating"></div>
+
+    @{
+
+        var rate = Model.AverageRating * 100 / 5;
+
+    }
+
+
+    <div class="star-ratings-css hidden-xs">
+        <div class="star-ratings-css-top star-css"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+    </div>
+    <div>Average rating @Model.AverageRating for a total of <a href="@Url.RouteUrl("VendorDetails", new { SeName = Model.VendorSeName })">@Model.TotalRatings review(s)</a></div>
+
+
+</div>
+<script>
+
+                                            $(document).ready(function () {
+                                                
+
+
+
+                                             
+                                               
+                                                $(".star-css").width(@rate + "%");
+
+                                                
+
+
+
+                                            });
+
+
+
+
+</script>

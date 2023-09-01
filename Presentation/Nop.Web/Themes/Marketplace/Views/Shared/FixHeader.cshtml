@@ -1,0 +1,19 @@
+﻿@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+@{
+    int i = 0;
+}
+
+
+
+    @foreach (var picture in Model.PictureModels)
+    {
+        if (i == 0) { 
+       
+    <img src="@picture.ImageUrl" class="img-responsive" style="width: 60px; padding: 10px 0">
+        }
+        i++;
+    }
+
+
+

@@ -1,0 +1,616 @@
+﻿@model CategoryModel
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-category-page");
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var categoryUrl = Url.RouteUrl("Category", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(categoryUrl);
+    }
+
+    var breadcrumbDelimiter = EngineContext.Current.Resolve<CommonSettings>().BreadcrumbDelimiter;
+}
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@using Nop.Services.Catalog;
+@using Nop.Services.Media;
+
+@*category breadcrumb*@
+@*@section Breadcrumb
+    {
+        @if (Model.DisplayCategoryBreadcrumb)
+        {
+            <div class="breadcrumb">
+                <ul>
+                    <li>
+                        <a href="@Url.RouteUrl("HomePage")" title="@T("Categories.Breadcrumb.Top")">@T("Categories.Breadcrumb.Top")</a>
+                        <span class="delimiter">@breadcrumbDelimiter</span>
+                    </li>
+                    @foreach (var cat in Model.CategoryBreadcrumb)
+                    {
+                        var isLastCategory = cat.Id == Model.Id;
+                        <li>
+                            @if (isLastCategory)
+                            {
+                                <strong class="current-item">@cat.Name</strong>
+                            }
+                            else
+                            {
+                                <a href="@Url.RouteUrl("Category", new { SeName = cat.SeName })" title="@cat.Name">@cat.Name</a>
+                                <span class="delimiter">@breadcrumbDelimiter</span>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+            @Html.Widget("categorydetails_after_breadcrumb", Model.Id)
+        }
+    }*@
+@*<div class="page category-page">*@
+@*<div class="page-title">
+        <h1>@Model.Name</h1>
+    </div>*@
+@*<div class="page-body">*@
+@Html.Widget("categorydetails_top", Model.Id)
+@*description*@
+@*@if (!String.IsNullOrWhiteSpace(Model.Description))
+    {
+        <div class="category-description">
+            @Html.Raw(Model.Description)
+        </div>
+    }*@
+@Html.Widget("categorydetails_before_subcategories", Model.Id)
+
+@if (Model.SubCategories.Count > 0)
+{
+
+
+    <div class="ms-left">
+
+
+
+        @{
+            var i = 0;
+
+            foreach (var item in Model.SubCategories)
+            {
+
+
+                if (i % 2 == 0)
+                {
+
+
+                    <div class="ms-section" id="left@(i)">
+                        <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" class="collections__collection rail-el-inview rail-el-entered" check-in-view="" data-turbolinks="false">
+                            <div class="collections__collection__image bg-setter" style="background-image: url(&quot;@item.PictureModel.ImageUrl&quot;);">
+                                <img width="1000" height="1300" src="@item.PictureModel.ImageUrl" class="attachment-full size-full" alt="@item.PictureModel.AlternateText" sizes="(max-width: 1000px) 100vw, 1000px">
+                            </div>
+                            <div class="collections__collection__title bl">
+                                <span class="label">discover the collection</span>
+                                <span class="title" data-text="@item.Name">@item.Name</span>
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+
+
+                }
+
+                i = i + 1;
+
+            }
+
+        }
+
+
+    </div>
+
+
+
+
+    <div class="ms-right">
+
+
+
+        @{
+            var c = 0;
+
+            foreach (var item in Model.SubCategories)
+            {
+
+
+                if (Math.Abs(c % 2) == 1)
+                {
+
+                    <div class="ms-section" id="right@(i)">
+                        <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" class="collections__collection rail-el-inview rail-el-entered" check-in-view="" data-turbolinks="false">
+                            <div class="collections__collection__image bg-setter" style="background-image: url(&quot;@item.PictureModel.ImageUrl&quot;);">
+                                <img width="1000" height="1300" src="@item.PictureModel.ImageUrl" class="attachment-full size-full" alt="@item.PictureModel.AlternateText" sizes="(max-width: 1000px) 100vw, 1000px">
+                            </div>
+                            <div class="collections__collection__title br">
+                                <span class="label">discover the collection</span>
+                                <span class="title" data-text="@item.Name">@item.Name</span>
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+
+                }
+
+                c = c + 1;
+
+            }
+
+        }
+
+
+    </div>
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+@if (Model.Name == "Shop")
+{
+
+
+
+
+
+
+    <div class="paddedContainer">
+        <div class="productsArchive productsListingWrapper" data-component="ProductsCatalog" data-currentpage="1" data-maxpages="8">
+            <div class="catalogMenu" data-component="CategoriesMenu">
+                <nav class="catalogMenu__nav">
+                    <div class="catalogMenu__link catalogMenu__link--toggle hide-for-medium">View : <span></span></div>
+                    <ul id="catalogMenu__nav" class="catalogMenu__ul">
+                        <li id="menu-item-4145" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1670 current_page_item menu-item-4145"><a href="/shop">View All</a></li>
+                 
+                    </ul>
+
+
+                    @if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
+                    {
+                        @Html.Partial("_FilterSpecsBox", Model.PagingFilteringContext.SpecificationFilter, new ViewDataDictionary())
+                    }
+                </nav>
+
+
+
+              
+            </div>
+            
+            <div class="productsGrid grid-x mac set">
+                @{var count = 1;
+
+                }
+
+                @foreach (var product in Model.Products)
+                {
+
+
+                    if (product.MarkAsNew)
+                    {
+                        if (count == 1)
+                        {
+
+
+                            @Html.Partial("_productBig", product)
+
+                        }
+                        else
+                        {
+
+                            for (var i = count; count < 4; count++)
+                            {
+                                <div class="productsGrid__product copy tt cell small-14 medium-7 medium-offset-1 post-3593 product type-product status-publish has-post-thumbnail product_cat-brooches pa_material-oxidized-925-sterling-silver-with-cherry-enamel product_collection-ali first instock purchasable product-type-simple inViewDone">
+
+                                </div>
+                            }
+
+                            count = 1;
+
+                            @Html.Partial("_productBig", product)
+
+
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+                    }
+                    else
+                    {
+
+
+
+                        if (count < 4)
+                        {
+                            <div class="productsGrid__product copy cell small-14 medium-7 medium-offset-1 post-3593 product type-product status-publish has-post-thumbnail product_cat-brooches pa_material-oxidized-925-sterling-silver-with-cherry-enamel product_collection-ali first instock purchasable product-type-simple inViewDone">
+                                @Html.Partial("_ProductBox", product)
+                            </div>
+
+
+                        }
+                        
+                        count = count + 1;
+                        if (count > 3)
+                        {
+
+                            count = 1;
+                        }
+
+
+                    }
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+                @{
+                    var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+                }
+                @if (!pager.IsEmpty())
+                {
+                    <div class="pager">
+                        @Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber")
+                    </div>
+                }
+                @Html.Widget("categorydetails_bottom", Model.Id)
+
+                <script>
+                    $('.productsListingWrapper').jscroll({
+                        loadingHtml: '<small>Loading...</small>',
+                        padding: 10,
+                        debug: true,
+                        autoTrigger: true,
+                        autoTriggerUntil: 5,
+                        nextSelector: 'li.next-page a',
+                        contentSelector: '.productsGrid',
+                        callback: function () {
+                            $('.pager').hide();
+
+
+
+
+                    }
+                });
+                </script>
+
+
+
+            </div>
+
+
+          
+        </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+else
+{
+
+
+
+    if (Model.SubCategories.Count == 0)
+    {
+
+
+
+        var cat = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(Model.Id);
+                var image = EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(cat.PictureId);
+
+
+
+
+
+
+
+        <div class="pageCollectionDetail" data-component="CollectionDetail">
+            <div class="scrollRails collections activated " data-component="ScrollRails">
+
+
+
+                <div class="scrollRails__rail no-scroll left-scroll" noscroll="">
+                    <div class="scrollRails__railContent pageCollectionDetail__details">
+                        <div class="pageCollectionDetail__cover">
+                            <div class="pageCollectionDetail__bg bg-setter" style="background-image: url(&quot;@image&quot;);">
+                                <img width="1000" height="1300" src="@image" class="attachment-full size-full" alt="" sizes="(max-width: 1000px) 100vw, 1000px">
+                            </div>
+                            <div class="pageCollectionDetail__content">
+                                <h2>@Model.Name</h2>
+                                @Html.Raw(Model.Description)
+
+                                <a class="back" href="javascript:void(0);" id="backLink">back to home</a>
+
+                                <script type="text/javascript">
+                                    $(document).on('click', '#backLink', function () {
+                    history.go(-1);
+                });
+                                </script>
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="scrollRails__rail right-scroll">
+                    <div class="scrollRails__railContent">
+                        <div class="pageCollectionDetail__products" data-currentpage="1" data-maxpages="2">
+
+                            <div class="productsGrid grid-x">
+
+
+
+
+
+
+
+
+
+
+                                @foreach (var product in Model.Products)
+                                {
+                                    <div class="productsGrid__product productsGrid__product--collection cell small-14 medium-14 large-16 large-offset-6 post-3766 product type-product status-publish has-post-thumbnail product_cat-collars pa_material-oxidized-silver-plated-brass product_collection-ramo first instock purchasable product-type-simple rail-el-entered">
+                                        @Html.Partial("_ProductBox", product)
+                                    </div>
+                                }
+
+
+
+                            </div>
+
+                           @*@{ var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+        }
+        @if (!pager.IsEmpty())
+        {
+            <div class="pager">
+                @Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber")
+            </div>
+        }
+        @Html.Widget("categorydetails_bottom", Model.Id)*@
+
+        @*<script>
+            $('.productsGrid').jscroll({
+                loadingHtml: '<small>Loading...</small>',
+                padding: 10,
+                debug: true,
+                autoTrigger: true,
+                autoTriggerUntil: 5,
+                nextSelector: 'li.next-page a',
+                contentSelector: '.productsGrid__product',
+                callback: function () {
+                    //$('.pager').hide();
+
+
+
+
+                }
+            });
+        </script>*@
+
+                            @*<script type="text/javascript" charset="utf-8">
+                                $(function () {
+                                    $.srSmoothscroll({
+                                        target: $('.right-scroll'),
+                                        container: $('.collections')
+                                    })
+                                   
+                                })
+                            </script>*@
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    }
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+@*@Html.Widget("categorydetails_before_featured_products", Model.Id)*@
+@*featured products*@
+@*@if (Model.FeaturedProducts.Count > 0)
+    {
+        <div class="product-grid featured-product-grid">
+            <div class="title">
+                <strong>@T("Products.FeaturedProducts")</strong>
+            </div>
+            <div class="item-grid">
+                @foreach (var item in Model.FeaturedProducts)
+                {
+                    <div class="item-box">
+                        @Html.Partial("_ProductBox", item)
+                    </div>
+                }
+            </div>
+        </div>
+    }*@
+@*@Html.Widget("categorydetails_after_featured_products", Model.Id)
+    @if (Model.Products.Count > 0)
+    {
+        @Html.Partial("_CatalogSelectors", Model.PagingFilteringContext, new ViewDataDictionary())
+    }*@
+@*    @Html.Widget("categorydetails_before_filters", Model.Id)*@
+@*<div class="product-filters">*@
+@*filtering*@
+@*@if (Model.PagingFilteringContext.PriceRangeFilter.Enabled)
+    {
+        @Html.Partial("_FilterPriceBox", Model.PagingFilteringContext.PriceRangeFilter, new ViewDataDictionary())
+    }*@
+@*filtering*@
+@*@if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
+    {
+        @Html.Partial("_FilterSpecsBox", Model.PagingFilteringContext.SpecificationFilter, new ViewDataDictionary())
+    }*@
+@*</div>
+    @Html.Widget("categorydetails_before_product_list", Model.Id)*@
+
+@*@if (Model.Products.Count > 0)
+        {
+            <div class="@(Model.PagingFilteringContext.ViewMode == "list" ? "product-list" : "product-grid")">
+                <div class="item-grid">
+                    @foreach (var product in Model.Products)
+                    {
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", product)
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @{
+            var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+        }
+        @if (!pager.IsEmpty())
+        {
+            <div class="pager">
+                @pager
+            </div>
+        }
+        @Html.Widget("categorydetails_bottom", Model.Id)
+    </div>*@
+@*</div>*@
+
+<script>
+
+
+
+    $(document).on('ready', function () {
+
+        $('.catalogMenu__link--toggle').on('click', function () {
+            
+            $('.catalogMenu__nav').toggleClass('new');
+
+
+
+        })
+
+
+    });
+
+
+
+
+
+</script>

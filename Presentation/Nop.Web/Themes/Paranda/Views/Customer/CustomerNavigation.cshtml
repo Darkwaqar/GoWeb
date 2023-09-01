@@ -1,0 +1,22 @@
+﻿@model CustomerNavigationModel           
+@using Nop.Web.Models.Customer;
+<div class="block block-account-navigation">
+    <div class="panel-heading title">
+        <h3 class="panel-title uppercase" style="font-size:25px">@T("Account.Navigation")</h3>
+</div>
+    <div class="listbox panel-body">
+        <ul class="list-unstyled uppercase list">
+            @Html.Widget("account_navigation_before")
+            @foreach (var item in Model.CustomerNavigationItems)
+            {
+
+                <li class="@item.ItemClass" style=" padding-bottom: 17px; ">
+                    <a href="@Url.RouteUrl(item.RouteName)" style=" color: #555;" class="@(Model.SelectedTab == item.Tab ? "active" : "inactive")">@(item.Title)</a>
+                </li>
+
+            }
+            <li><a href="/logout" style="color:#555">Sign Out</a></li>
+            @Html.Widget("account_navigation_after")
+        </ul>
+    </div>
+</div>

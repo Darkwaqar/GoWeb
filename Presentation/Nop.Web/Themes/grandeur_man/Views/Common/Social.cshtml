@@ -1,0 +1,50 @@
+﻿@model Nop.Web.Models.Common.SocialModel
+
+<ul class="networks">
+	@if (!string.IsNullOrEmpty(Model.FacebookLink))
+	{
+		<li class="facebook">
+            <a href="@Model.FacebookLink" target="_blank">
+                <svg id="Icon_Facebook" data-name="Icon/Facebook" xmlns="http://www.w3.org/2000/svg" width="8" height="14.998" viewBox="0 0 8 14.998">
+                    <path id="Path_108_face" data-name="Path 108 face" d="M8.057-2.939l.415-2.714H5.878V-7.414A1.354,1.354,0,0,1,7.4-8.881H8.581v-2.311a14.325,14.325,0,0,0-2.093-.183A3.307,3.307,0,0,0,2.956-7.722v2.069H.581v2.714H2.956V3.623H5.878V-2.939Z" transform="translate(-0.581 11.375)" fill="currentColor"></path>
+                </svg>
+             </a>
+        </li>
+	}
+	@if (!string.IsNullOrEmpty(Model.TwitterLink))
+	{
+		<li class="twitter">
+            <a href="@Model.TwitterLink" target="_blank">
+                <svg id="Icon_Twitter" data-name="Icon/Twitter" xmlns="http://www.w3.org/2000/svg" width="16" height="13" viewBox="0 0 16 13">
+                  <path id="Path_90_tweet" data-name="Path 90 tweet" d="M14.355-13.163A7.05,7.05,0,0,0,16-14.859a6.572,6.572,0,0,1-1.888.508,3.271,3.271,0,0,0,1.442-1.808,6.454,6.454,0,0,1-2.081.792,3.271,3.271,0,0,0-2.4-1.036A3.278,3.278,0,0,0,7.8-13.122a3.7,3.7,0,0,0,.081.752A9.32,9.32,0,0,1,1.117-15.8,3.257,3.257,0,0,0,.67-14.148a3.278,3.278,0,0,0,1.462,2.732A3.3,3.3,0,0,1,.65-11.833v.041a3.281,3.281,0,0,0,2.629,3.22,3.466,3.466,0,0,1-.863.112A4.131,4.131,0,0,1,1.8-8.511,3.285,3.285,0,0,0,4.863-6.236a6.566,6.566,0,0,1-4.071,1.4A6.784,6.784,0,0,1,0-4.875,9.264,9.264,0,0,0,5.036-3.4a9.268,9.268,0,0,0,9.33-9.334C14.366-12.879,14.366-13.021,14.355-13.163Z" transform="translate(0 16.403)" fill="currentColor"></path>
+                </svg>
+             </a>
+        </li>
+	}
+	@if (Model.NewsEnabled)
+	{
+		<li class="rss"><a href="@Url.RouteUrl("NewsRSS", new {languageId = Model.WorkingLanguageId})">@T("Footer.FollowUs.RSS")</a></li>
+	}
+	@if (!string.IsNullOrEmpty(Model.YoutubeLink))
+	{
+		<li class="youtube"><a href="@Model.YoutubeLink" target="_blank">@T("Footer.FollowUs.Youtube")</a></li>
+	}
+	@if (!string.IsNullOrEmpty(Model.GooglePlusLink))
+	{
+		<li class="google-plus"><a href="@Model.GooglePlusLink" target="_blank">@T("Footer.FollowUs.GooglePlus")</a></li>
+	}
+    @if (!string.IsNullOrEmpty(Model.InstagramLink))
+    {
+        <li class="instagram">
+            <a href="@Model.InstagramLink" target="_blank">
+                <svg id="Icon_Instagram" data-name="Icon/Instagram" xmlns="http://www.w3.org/2000/svg" width="12.995" height="12.995" viewBox="0 0 12.995 12.995">
+                    <path id="Path_93_ins" data-name="Path 93 ins" d="M6.5-13.9a3.326,3.326,0,0,0-3.331,3.332A3.326,3.326,0,0,0,6.5-7.24a3.326,3.326,0,0,0,3.331-3.332A3.326,3.326,0,0,0,6.5-13.9Zm0,5.5A2.17,2.17,0,0,1,4.33-10.572,2.168,2.168,0,0,1,6.5-12.738a2.168,2.168,0,0,1,2.166,2.166A2.17,2.17,0,0,1,6.5-8.406ZM10.74-14.04a.777.777,0,0,0-.777-.777.777.777,0,0,0-.777.777.775.775,0,0,0,.777.777A.775.775,0,0,0,10.74-14.04Zm2.206.789A3.846,3.846,0,0,0,11.9-15.974a3.87,3.87,0,0,0-2.722-1.05c-1.073-.061-4.288-.061-5.36,0a3.864,3.864,0,0,0-2.722,1.047A3.859,3.859,0,0,0,.043-13.254c-.061,1.073-.061,4.289,0,5.362A3.846,3.846,0,0,0,1.092-5.17,3.875,3.875,0,0,0,3.814-4.12c1.073.061,4.288.061,5.36,0A3.845,3.845,0,0,0,11.9-5.17a3.872,3.872,0,0,0,1.049-2.723C13.007-8.966,13.007-12.178,12.947-13.251Zm-1.386,6.51a2.193,2.193,0,0,1-1.235,1.235,14.315,14.315,0,0,1-3.83.261,14.426,14.426,0,0,1-3.83-.261A2.193,2.193,0,0,1,1.431-6.741a14.325,14.325,0,0,1-.261-3.831A14.436,14.436,0,0,1,1.431-14.4a2.193,2.193,0,0,1,1.235-1.235A14.315,14.315,0,0,1,6.5-15.9a14.427,14.427,0,0,1,3.83.261A2.193,2.193,0,0,1,11.561-14.4a14.325,14.325,0,0,1,.261,3.831A14.316,14.316,0,0,1,11.561-6.741Z" transform="translate(0.003 17.07)" fill="currentColor"></path>
+                </svg>
+            </a>
+        </li>
+    }
+    @if (!string.IsNullOrEmpty(Model.LinkedInLink))
+    {
+        <li class="linkedin"><a href="@Model.LinkedInLink" target="_blank">@T("Footer.FollowUs.LinkedIn")</a></li>
+    }
+</ul>

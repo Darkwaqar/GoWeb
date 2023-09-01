@@ -1,0 +1,123 @@
+﻿@using SevenSpikes.Nop.Plugins.MegaMenu.Models
+
+@using Nop.Core.Infrastructure
+@using Nop.Services.Catalog
+@using Nop.Services.Media
+@using Nop.Services.Seo
+
+@model MenuItemCategoryModel
+@{
+    var areCategoriesInASingleItem = Model.Item.EntityId == 0;
+    var hasSubCategories = Model.Categories.Count > 0;
+    var hasSublistClass = hasSubCategories ? "has-sublist" : string.Empty;
+    var withSubcategoriesClass = hasSubCategories ? "with-subcategories" : string.Empty;
+}
+
+<li class="@hasSublistClass @Model.Item.CssClass">
+
+    @if (areCategoriesInASingleItem)
+    {
+        <span class="@withSubcategoriesClass single-item-categories labelfornextplusbutton">@Model.Item.Title</span>
+    }
+    else
+    {
+        
+        <a href="@Model.Item.Url" class="@withSubcategoriesClass"><span>@Model.Item.Title</span></a>
+    }
+
+    @if (hasSubCategories)
+    {
+        <div class="plus-button"></div>
+        <div class="sublist-wrap">
+
+            <div class="container">
+                <div class="col-md-2 col-sm-3" style=" padding: 0;">
+                    <p class="sub_heading hidden-xs hidden-sm">@Model.Item.Title</p>
+                    <ul class="sublist">
+                        <li class="back-button">
+                            <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                        </li>
+                        @CreateSubLists(Model.Categories)
+                    </ul>
+                </div>
+                <div class="col-md-10 col-sm-9 hidden-xs" style=" height: 250px; padding:0px;">
+                @foreach (var catagory in Model.Categories)
+                {
+                    List<int> CategoriesId = new List<int>();
+                    CategoriesId.Add(catagory.CategoryModel.Id);
+
+                    var Products = EngineContext.Current.Resolve<IProductService>().SearchProducts(categoryIds: CategoriesId);
+                    if (Products != null )
+                    {
+                    <div class="col-md-12 item-menu" id="@catagory.CategoryModel.Id">
+                        @foreach (var product in Products.Take(4))
+                        {
+                            <div class="col-md-3 col-sm-3">
+                                 @if (!string.IsNullOrEmpty(product.GetSeName()))
+                                {
+				if (product.ProductPictures.Any())
+                                {
+                                    if (product.ProductPictures.FirstOrDefault().Picture.Id.ToString() != "")
+                                    {
+                                    <a href="/@product.GetSeName()">
+
+                                        <img class="img-responsive img_center" src="@(EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(product.ProductPictures.FirstOrDefault().Picture.Id, 200))" />     
+                                        <div class="col-md-12">
+                                            <p class="product_name">@product.Name</p>
+                                        </div>
+                                    </a>
+                                    }
+                                }
+                                }
+                            </div>
+                        }
+                    </div>
+                    }
+                }
+                </div> 
+
+            </div>
+        </div>
+    }
+</li>
+
+@helper CreateSubLists(IList<MegaMenuCategoryModel> category)
+{
+    foreach (var subCategory in category)
+    {
+        if (subCategory.SubCategories.Count > 0)
+        {
+            <li class="has-sublist">
+                <a href="@Url.RouteUrl("Category", new { SeName = subCategory.CategoryModel.SeName })" title="@subCategory.CategoryModel.Name" class="with-subcategories"><span>@subCategory.CategoryModel.Name</span></a>
+                <div class="plus-button"></div>
+                <div class="sublist-wrap">
+                    <ul class="sublist">
+                        <li class="back-button">
+                            <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                        </li>
+                        @CreateSubLists(subCategory.SubCategories)
+
+                        @if (subCategory.ShouldShowViewAllLink)
+                        {
+                            <li onmouseover="openproducts(@subCategory.CategoryModel.Id)">
+                                <a  class="view-all" href="@Url.RouteUrl("Category", new {subCategory.CategoryModel.SeName})" title="@T("SevenSpikes.MegaMenu.ViewAllCategories")">
+                                    <span>@T("SevenSpikes.MegaMenu.ViewAllCategories")</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </li>
+        }
+        else
+        {
+            <li onmouseover="openproducts(@subCategory.CategoryModel.Id)">
+                <a class="lastLevelCategory" href="@Url.RouteUrl("Category", new {SeName = subCategory.CategoryModel.SeName})" title="@subCategory.CategoryModel.Name"><span>@subCategory.CategoryModel.Name</span></a>
+            </li>
+        }
+    }
+}
+
+
+
+

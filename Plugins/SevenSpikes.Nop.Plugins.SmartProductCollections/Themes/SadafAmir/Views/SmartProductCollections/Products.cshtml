@@ -1,0 +1,101 @@
+﻿@using SevenSpikes.Nop.Plugins.SmartProductCollections.Models.Public
+
+@model ProductCollectionsModel
+
+@{
+    Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.SmartProductCollections/Themes/" + Model.Theme + "/Content/SmartProductCollections.css");
+
+    var supportRtlClass = string.Empty;
+
+    var supportRtl = ShouldUseRtlTheme();
+    if (supportRtl)
+    {
+        Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.SmartProductCollections/Themes/" + Model.Theme + "/Content/SmartProductCollections.rtl.css");
+
+        supportRtlClass = "support-rtl";
+    }
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Nop.Plugins.SmartProductCollections/Scripts/Products.min.js");
+}
+
+@foreach (var group in Model.ProductGroups)
+{
+    <div class="spc spc-products @supportRtlClass"
+         notloaded
+         data-getitemproductsurl="@Url.Action("GetProductsForItem", "SmartProductCollections")">
+        <div class="spc-header">
+            <h2 class="title"><span>@group.Title</span></h2>
+            <ul class="navigation">
+                @foreach (var item in group.Items)
+                {
+                    <li class="tab" data-tabid="@item.Id">
+                        <span>@item.Title</span>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="spc-body">
+            @foreach (var item in group.Items)
+            {
+                <div class="product-grid" data-tabid="@item.Id">
+                    <div class="item-grid owl-carousel owl-carousel-@item.Id owl-theme"></div>
+                </div>
+            }
+
+
+            <div class="loading-overlay">
+                <span>@T("SevenSpikes.SmartProductCollections.Public.Loading")</span>
+            </div>
+
+        </div>
+    </div>
+}
+            <div>
+                <script>
+                    $(document).ready(function () {
+                        $(".loaded").click();
+
+                        $("li[data-tabid='68']").click(function () {
+                            // setTimeout
+                            setTimeout(function () {
+                                $('.owl-carousel.owl-carousel-68').owlCarousel({
+                                    loop: true,
+                                    margin: 10,
+                                    nav: true,
+                                    responsive: {
+                                        0: {
+                                            items: 1
+                                        },
+                                        600: {
+                                            items: 3
+                                        },
+                                        1000: {
+                                            items: 4
+                                        }
+                                    }
+                                });
+                            }, 1000); // setInterval
+                        }); // click function
+                    });
+                                        
+                    $(window).load(function () {
+                        $('.owl-carousel .item').ready(function () {
+                            $('.owl-carousel.owl-carousel-67').owlCarousel({
+                                loop: true,
+                                margin: 10,
+                                nav: true,
+                                responsive: {
+                                    0: {
+                                        items: 1
+                                    },
+                                    600: {
+                                        items: 3
+                                    },
+                                    1000: {
+                                        items: 4
+                                    }
+                                }
+                            });
+                        });
+                    });
+                </script>
+            </div>

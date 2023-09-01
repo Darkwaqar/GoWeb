@@ -1,0 +1,101 @@
+﻿.loading::after {
+    content: '.';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -20px 0 0 -30px;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 40px solid #57b568;
+    -webkit-animation: triangle-skew-spin 3s 0s cubic-bezier(.09,.57,.49,.9) infinite;
+    animation: triangle-skew-spin 3s 0s cubic-bezier(.09,.57,.49,.9) infinite;
+    font-size: 0;
+    text-indent: -9999px;
+}
+div#detail {
+    border: 1px solid;
+}
+/*.tab-content::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin: auto;
+    border-width: 0 15px 15px;
+    border-style: dashed dashed solid;
+    border-color: transparent transparent #000;
+}*/
+.collection-product::before {
+    content: "";
+    display: block;
+    padding-top: 150%;
+}
+.collection-product img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 100%;
+    max-width: 100%;
+}
+.blog-posts .read-more, .news-items .read-more, .news-list-homepage .view-all {
+display:none !important;
+}
+.rich-blog-homepage .post-date {
+    display: none !important;
+}
+.collection-spacing img{
+    margin:-7px;
+    padding:7px;
+
+}
+
+.collection-spacing::before {
+    content: "";
+    display: block;
+    padding-top: 200%;
+}
+.collection-spacing img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 100%;
+    max-width: 100%;
+}
+
+.rich-blog-homepage .blog-post {
+    border: 1px solid;
+    margin-bottom: 15px;
+}
+
+@font-face {
+    font-family: 'didot italic';
+    src: url('../font/BodoniSvtyTwoOSITCTT-BookIt.ttf');
+}
+.rich-blog-homepage .post-title {
+font-family:"didot italic"
+}
+.rich-blog-homepage .post-description {
+    font-family: "didot italic";
+    font-weight:400;
+}
+.t1-GalleryHeight {
+height:200px !important;
+}
+
+.rich-blog-homepage .post-description {
+color:black !important;
+}
+.text-brand-heading {
+white-space:nowrap;
+text-overflow:ellipsis;
+overflow:hidden;
+}

@@ -1,0 +1,434 @@
+﻿@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Services.Configuration
+@using Nop.Web.Models.Common
+
+@model FooterModel
+
+@{
+    var storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+    var settingService = EngineContext.Current.Resolve<ISettingService>();
+
+    var removeCopyright = settingService.GetSettingByKey("prismathemesettings.removecopyright", false, storeId, true);
+    var removeDesignedBy = settingService.GetSettingByKey("prismathemesettings.removedesignedby", false, storeId, true);
+
+    var newsletterBackgroundPattern = settingService.GetSettingByKey("prismathemesettings.newsletterbackground", "electronics-pattern", storeId, true);
+}
+
+<div class="footer">
+    <div class="footer-upper @newsletterBackgroundPattern">
+
+        <ul class="list share-fix hidden-xs">
+            <li>@Html.Action("Social", "Common")</li>
+        </ul>
+    </div>
+    <div class="text-center close-logos">
+        <a class="back-to-top main-color-2-bg" onclick="toggle_logo()" title="Go to top"><i class="fa fa-angle-up"></i></a>
+    </div>
+    <div class="footer-middle">
+        <div class="footer-block">
+            <div class="title">
+                <strong>@T("Footer.Information")</strong>
+            </div>
+            <ul class="list">
+                @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                {
+                    <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                }
+                @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
+                {
+                    <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                }
+            </ul>
+        </div>
+        <div class="footer-block">
+            <div class="title">
+                <strong>@T("Footer.MyAccount")</strong>
+            </div>
+            <ul class="list">
+                <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.CustomerInfo")</a></li>
+                @*<li><a href="@Url.RouteUrl("CustomerAddresses")">@T("Account.CustomerAddresses")</a></li>*@
+                <li><a href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</a></li>
+
+                @if (Model.ShoppingCartEnabled)
+                {
+                    <li><a href="@Url.RouteUrl("ShoppingCart")">@T("ShoppingCart")</a></li>
+                }
+                @if (Model.WishlistEnabled)
+                {
+                    <li><a href="@Url.RouteUrl("Wishlist")">@T("Wishlist")</a></li>
+                }
+                @*@if (Model.CompareProductsEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("CompareProducts")">@T("Products.Compare.List")</a></li>
+                    }
+                    @if (Model.AllowCustomersToApplyForVendorAccount)
+                    {
+                        <li><a href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</a></li>
+                    }
+                    @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn3).ToList())
+                    {
+                        <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                    }*@
+            </ul>
+        </div>
+        <div class="footer-block">
+            <div class="title">
+                <strong>@T("Footer.CustomerService")</strong>
+            </div>
+            <ul class="list">
+                @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn3).ToList())
+                {
+                    <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                }
+
+                <li><a href="https://info.gomobishop.com/builder/index.php" target="_blank">Sell with us</a></li>
+            </ul>
+
+        </div>
+
+        <div class="footer-block">
+            <div class="title">
+                <strong>Newsletter </strong>
+            </div>
+
+
+            @Html.Action("NewsletterBox", "Newsletter")
+
+            <div class="footer-block">
+                @*<div class="title">
+                        <strong>@T("SevenSpikes.Themes.Prisma.Footer.Follow")</strong>
+                    </div>*@
+
+                @Html.Action("Social", "Common")
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-logos">
+        <div class="logo-block">
+            @*<ul class="list">
+                    @*<li><img class="img-responsive" src="~/themes/Prisma/Content/img/riwayat.png"></li>
+                <li><img class="img-responsive" src="~/themes/Prisma/Content/img/growonline.png"></li>
+                    <li class="address"><span>@T("SevenSpikes.Themes.Prisma.Footer.Address")</span></li>
+                    <li class="phone"><span>@T("SevenSpikes.Themes.Prisma.Footer.Phone")</span></li>
+                </ul>*@
+            @*<p>Our Partner</p>
+                <div style="margin:0px auto; text-align:center;  display:block; ">
+                    <img style="width:200px" src="~/Themes/Prisma/Content/img/Appna.png" />
+                </div>*@
+
+
+
+        </div>
+        <div class="logo-block">
+
+            <p>Payment options</p>
+            <ul class="payment" style="display: flex;
+    justify-content: center;">
+                <li><span class="master-card" href="#"></span></li>
+                <li><span class="visa" href="#"></span></li>
+                <li><span class="paypal" href="#"></span></li>
+                <li><span class="cod" href="#"></span></li>
+                <li><span class="easy-paisa" href="#"></span></li>
+            </ul>
+
+        </div>
+        <div class="logo-block">
+
+            <p>Download Our Free App</p>
+            <ul class="list" style="display: flex;
+    justify-content: center;">
+                @*<li><img class="img-responsive" src="~/themes/Prisma/Content/img/daily-times.png"></li>
+                    <li><img class="img-responsive" src="~/themes/Prisma/Content/img/sunday.png"></li>*@
+
+                <li><a href="@T("SevenSpikes.Themes.Prisma.Footer.PlayStore.Link")"><img class="img-responsive playstore" src="~/themes/Prisma/Content/img/google-play-badge.png"></a></li>
+                <li><a href="https://itunes.apple.com/us/app/gomobishop/id1441632028?mt=8"><img class="img-responsive appstore" src="~/themes/Prisma/Content/img/app-store-badge.svg"></a></li>
+            </ul>
+
+
+
+
+        </div>
+
+
+        <div class="logo-block">
+
+            <p>Security Standards</p>
+            <div style="margin:0px auto; text-align:center;  display:block; ">
+                <img style="width:60px;padding:5px;" src="~/Themes/Prisma/Content/img/sp.png" />
+                <img style="width:50px;padding:5px;" src="~/Themes/Prisma/Content/img/ssl.png" />
+                <img style="width:100px;padding:5px;" src="~/Themes/Prisma/Content/img/pci.png" />
+            </div>
+
+
+
+        </div>
+
+    </div>
+    <div class="footer-lower">
+        <div class="footer-lower-wrapper">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="footer-graduate">
+                        <ul class="gra-footer">
+                            <li><a style="color:#fff; text-decoration:none;" href="http://thenestio.com/incubatee-teams-7/go-mobishop/"> A Graduate of <span> <img class="grow" src="~/Themes/Prisma/Content/img/nest.png" width="100" /></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="footer-disclaimer">
+                        @T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="footer-powered-by">
+
+                        <ul class="logo-footer">
+
+                            <li><a style="color:#fff; text-decoration:none;" href="https://info.gomobishop.com/" target="_blank">A PRODUCT OF <span><img class="grow" src="~/themes/Prisma/Content/img/GrowOnline-logo.png" /></span>GROW ONLINE</a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+            @*@if (Model.DisplayTaxShippingInfoFooter)
+                {
+                    var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+                    <div class="footer-tax-shipping">
+                        @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+                    </div>
+                }*@
+
+
+            @Html.Action("StoreThemeSelector", "Common")
+        </div>
+    </div>
+    @Html.Widget("footer")
+</div>
+
+<script>
+    //function toggle_logo() {
+    //    var add;
+    //    if ($('.footer-middle').css('display') == 'block' && $('.footer-logos').css('display') == 'block') {
+    //        $(".footer-logos").slideUp(1000);
+    //        add = 90;
+    //    }
+    //    else if ($('.footer-middle').css('display') == 'block' && $('.footer-logos').css('display') == 'none') {
+    //        $(".footer-middle").slideUp(1000);
+    //        add = 90;
+    //    }
+    //    else if ($('.footer-middle').css('display') == 'none' && $('.footer-logos').css('display') == 'none') {
+    //        $(".footer-middle").slideDown(1000, function () {
+    //            // Animation complete.
+    //            $('html, body').animate({
+    //                scrollTop: document.body.scrollHeight
+    //            }, 1000);
+    //        });
+    //        $(".footer-logos").slideDown(1000, function () {
+    //            // Animation complete.
+    //            $('html, body').animate({
+    //                scrollTop: document.body.scrollHeight
+    //            }, 1000);
+    //        });
+    //        add = 180;
+    //    }
+
+    //    var button=$(".back-to-top").find(".fa");
+    //    var degrees = getRotationDegrees(button) + add;
+    //    $(".back-to-top").find(".fa").css({
+    //        '-webkit-transform': 'rotate(' + degrees + 'deg)',
+    //        '-moz-transform': 'rotate(' + degrees + 'deg)',
+    //        '-ms-transform': 'rotate(' + degrees + 'deg)',
+    //        'transform': 'rotate(' + degrees + 'deg)'
+    //    });
+
+    //}
+    //function getRotationDegrees(obj) {
+    //    var matrix = obj.css("-webkit-transform") ||
+    //        obj.css("-moz-transform") ||
+    //        obj.css("-ms-transform") ||
+    //        obj.css("-o-transform") ||
+    //        obj.css("transform");
+    //    if (matrix !== 'none') {
+    //        var values = matrix.split('(')[1].split(')')[0].split(',');
+    //        var a = values[0];
+    //        var b = values[1];
+    //        var angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+    //    } else { var angle = 0; }
+    //    return (angle < 0) ? angle + 360 : angle;
+    //}
+
+
+
+
+</script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-99335098-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-99335098-1');
+</script>
+
+<!-- Facebook Pixel Code -->
+<script>
+
+    !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () {
+            n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+        n.queue = []; t = b.createElement(e); t.async = !0;
+        t.src = v; s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1857709977890402');
+    fbq('track', 'PageView');
+</script>
+<noscript>
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=1857709977890402&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Facebook Pixel Code -->
+<!-- BEGIN PRIVY WIDGET CODE
+<script type='text/javascript'>var _d_site = _d_site || '958772DD7E29DC25099A41F7';</script>
+<script src='https://widget.privy.com/assets/widget.js'></script>
+END PRIVY WIDGET CODE -->
+<script>
+
+
+
+
+
+    $(window).resize(function () {
+        checkPosition();
+
+    });
+
+
+
+
+
+
+
+
+    function checkPosition() {
+
+
+
+        var $theWindowSize = $(this).width();
+        if ($theWindowSize > 766) {
+
+
+            $('.footer-block .list').show();
+         
+
+
+
+        } else {
+            $('.footer-block .list').hide();
+
+        }
+
+
+
+
+
+
+    }
+
+    //$('.footer-block .title').on('click', function () {
+
+
+    //    $(this).toggle(function () {
+
+    //        $(this).next().css('display', 'block');
+
+    //      console.log($(this).next());
+    //        //$('.footer-block .list').css('display', 'block');
+
+    //    }, function () {
+
+    //        $(this).next().css('display', 'none');
+    //        //$('.footer-block .list').css('display', 'none');
+
+    //    });
+
+
+
+    //});
+
+
+
+
+    $(document).ready(function () {
+        $('.nopAjaxCartPanelAjaxBusy').append('<div class="loader"><svg viewBox = "-2000 -1000 4000 2000" > <path id="inf" d="M354-354A500 500 0 1 1 354 354L-354-354A500 500 0 1 0-354 354z"></path> <use xlink: href="#inf" stroke-dasharray="1570 5143" stroke-dashoffset="6713px"></use></svg ></div >');
+
+
+
+
+
+    });
+
+
+    //(function () {
+
+
+    //    $('.ioscome').on('click', function () {
+
+
+    //        $.confirm({
+    //            title: 'Comming Soon',
+    //            content: 'Our iOS Mobile app is launching soon.',
+    //            buttons: {
+    //                //confirm: function () {
+    //                //    $('.buttons button[name="updatecart"]').trigger('click');
+    //                //},
+    //                //cancel: function () {
+
+    //                //}
+    //                somethingElse: {
+    //                    text: 'OK',
+
+    //                }
+    //            }
+    //        });
+
+
+
+
+
+
+    //    })
+
+
+
+
+
+
+    //}())
+
+
+</script>
+
+

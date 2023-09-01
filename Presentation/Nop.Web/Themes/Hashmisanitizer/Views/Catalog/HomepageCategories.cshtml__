@@ -1,0 +1,123 @@
+﻿@model IList<CategoryModel>
+
+@using Nop.Web.Models.Catalog;
+
+    @{var links = new List<String>() { "Themes/SadafAmir/Content/images/0017590_0.jpeg", "Themes/SadafAmir/Content/images/0017591_0.jpeg", "Themes/SadafAmir/Content/images/0017592_0.jpeg" }; }
+
+    @if (Model.Count > 0)
+        {
+
+        <div class="row top-buffer ">
+            <div class="container marg">
+                <div class="col-md-7">
+                    <a href="#">
+                        <div class="shadow">
+                            @Html.Widget("home_page_main_slider2")
+                        </div>
+                        @*<img src="images/img-1.jpg" alt="Pret Pic" class="img-responsive custom-img">*@
+                    </a>
+                </div>
+                <!-- // Col // -->
+                <div class="col-md-5  tps-link">
+                    <ul>
+                       @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <li>
+                                <a href="@Url.RouteUrl("Category", new { SeName = @Model[i].SeName })" title="@Model[i].PictureModel.Title">
+                                    <img alt="@Model[i].PictureModel.AlternateText" src="@links[i]" title="@Model[i].PictureModel.Title">
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <!-- // Col // -->
+        </div>
+        <!-- // Row // -->
+
+    }
+
+
+
+    @*@Html.Widget("home_page_main_slider3")*@
+
+    <div class=" row top-buffer">
+
+        <div class="col-lg-12">
+            <div class="home-intro-video-wrap">
+                <div class="home-motion-wrap" id="home-motion-wrap">
+                    <div id="video-motion" style="background:url(https://wearespry.com/wp-content/uploads/2018/07/HomeBGPlaceholder.jpg) no-repeat center center; background-size:cover;">
+                        <video loop muted autoplay playsinline id="mainmotion" class="themotion videoformat" style="display: inline;">
+                            <source src="~/Themes/SadafAmir/Content/video/test.mp4" type="video/mp4">
+                            <source src="~/Themes/SadafAmir/Content/video/test.mp4" type="video/oga">
+                        </video>
+
+                    </div>
+
+                </div>
+                <div class="video_text">
+                    <h3 class="title-3 f-weight-700 font-40">Fashion Pakistan Week</h3>
+                    <p class="font-24">Did you miss the fashion show? Watch out for our exclusive brands promotions.</p>
+                    <a href="#"><button class="btn1 fifth font-24">Discover More</button></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- // fashion-show // -->
+
+    <div class="row top-buffer min-box">
+        <div class="container marg">
+            <div class="col-md-5 text-center">
+                <h3 class="title-3 f-weight-700 font-40">Swarovski</h3>
+                <p class="font-24">The bridal collection created to amaze and to flatter the female figure.</p>
+                @*<img src="images/img-3.jpg" alt="Swarovski">*@
+                @Html.Widget("home_page_main_slider4")
+                <p class="color-white">Come dress your self in love let the journey begin.</p>
+                <a href="#"><button class="btn1 fifth font-24">Discover More</button></a>
+            </div>
+            <!-- // Col //-->
+            <div class="col-md-1"></div>
+            <div class="col-md-6 text-center simple-style">
+                @*@Html.Widget("home_page_main_slider5")
+                @*<img src="images/img-4.jpg" alt="Bridal">
+                <div class="upper-img">
+
+                   <img src="images/img-5.jpg" alt="Bridal Sadaf Amir">
+                </div>*@
+
+
+
+                <div class="shadow">
+
+                    @Html.Widget("home_page_main_slider5")
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <!-- // Col // -->
+        <!-- // Row // -->
+    </div>
+    <!-- // swarovski-section // -->
+
+
+
+    <div class="row top-buffer">
+
+        <div class="col-md-12">
+            <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+            <div class="elfsight-app-18e44c33-2578-4de3-9203-eeaa755fef47"></div>
+
+        </div>
+
+
+
+
+    </div>
+

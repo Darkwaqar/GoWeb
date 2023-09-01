@@ -1,0 +1,28 @@
+﻿@model ContactFormModel
+
+@{
+    //page title
+    ViewBag.Title = T("Admin.System.ContactForm.Details").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("Contact Us form");
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Admin.System.ContactForm.Details")
+            <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink(T("Admin.System.ContactForm.BackToList").Text, "List")</small>
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="requeue" class="btn bg-green">
+                <i class="fa fa-envelope-o"></i>
+                @T("Admin.Common.Send")
+            </button>
+        </div>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model)
+
+}
+@Html.DeleteConfirmation("log-delete")

@@ -1,0 +1,66 @@
+[
+       {
+         "Image": "https://www.gomobishop.com/Content/Images/uploaded/Banners/Footprint.jpg",
+        "Name": "DISCOVER TGE BEW SEASON:",
+        "Discription": "Footprint",
+        "ButtonText": "Shop Now",
+        "ProductId":0,
+        "CategoryId":0,
+        "VendorId":10,
+        "Intent":"1",
+        "LogoUrl":"https://www.gomobishop.com/content/images/thumbs/0011368_footprint-bespoke.jpeg",
+        "VendorName":"Footprint"
+        
+      },
+      {
+         "Image": "https://www.gomobishop.com/Content/Images/uploaded/Banners/Hashmi.jpg",
+        "Name": "MADE FOR WALKING:",
+        "Discription": "Hashmi",
+        "ButtonText": "Shop Now",
+        "ProductId":0,
+        "CategoryId":0,
+        "VendorId":77,
+        "Intent":"3",
+        "LogoUrl":"https://www.gomobishop.com/content/images/thumbs/0010428_hashmi-kajal.jpeg",
+        "VendorName":"Hashmi"
+      },{
+        "Image": "https://www.gomobishop.com/Content/Images/uploaded/Banners/Ismail_Farid.jpg",
+        "Name": "THE STYLE UPDATES",
+        "Discription": "Ismail Farid",
+        "ButtonText": "Shop Now",
+        "ProductId":0,
+        "CategoryId":0,
+        "VendorId":12,
+        "Intent":"2",
+        "LogoUrl":"https://www.gomobishop.com/content/images/thumbs/0002401_ismail-farid.jpeg",
+        "VendorName":"Ismail Farid"
+      }
+     ,
+      {
+         "Image": "https://www.gomobishop.com/Content/Images/uploaded/Banners/Paranda.jpg",
+        "Name": "DISCOVER TGE BEW SEASON:",
+        "Discription": "Paranda",
+        "ButtonText": "Shop Now",
+        "ProductId":0,
+        "CategoryId":0,
+        "VendorId":16,
+        "Intent":"1",
+        "LogoUrl":"https://www.gomobishop.com/content/images/thumbs/0009506_paranda.jpeg",
+        "VendorName":"Paranda"
+        
+      }
+    ,
+      {
+         "Image": "https://www.gomobishop.com/Content/Images/uploaded/Banners/Sadaf_Amir.jpg",
+        "Name": "DISCOVER TGE BEW SEASON:",
+        "Discription": "Sadaf Amir",
+        "ButtonText": "Shop Now",
+        "ProductId":0,
+        "CategoryId":0,
+        "VendorId":9,
+        "Intent":"1",
+        "LogoUrl":"https://www.gomobishop.com/content/images/thumbs/0011395_sadaf-amir.jpeg",
+        "VendorName":"Sadaf Amir"
+        
+      }
+]

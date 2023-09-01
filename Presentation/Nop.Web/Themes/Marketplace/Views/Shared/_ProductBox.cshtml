@@ -1,0 +1,163 @@
+﻿@model ProductOverviewModel
+@using Nop.Core
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Catalog;
+@{
+    int i= 0;
+    int b = 1;
+    //prepare "Add to cart" AJAX link
+    string addtocartlink = "";
+    var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+   
+    var quantity = 1;
+    if (Model.ProductPrice.ForceRedirectionAfterAddingToCart)
+    {
+        addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity, forceredirection = Model.ProductPrice.ForceRedirectionAfterAddingToCart });
+    }
+    else
+    {
+        addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
+    }
+
+    var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
+    var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
+}
+
+
+
+
+    <li class="product">
+                                <div class="productContainer ">
+								        <a class="default-picture" href="@Url.RouteUrl("Product", new { SeName = Model.SeName })" title="@Model.DefaultPictureModel.Title">
+												<div class="productImageStroke">
+												<img id="img-@Model.Id" alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" class="img-responsive" style="height:419px;width:260px" />
+											</div>
+											@if (Model.AlternatePictureModel != null){
+											 <div class="productAltImageStroke">
+                                            <img id="product-1-alt" src="@Model.AlternatePictureModel.ImageUrl" />
+                                        </div>
+										}
+											</a>
+                                    
+                                    <div class="productDetailsContainer">
+                                        <div class="productSizeColorSelector ">
+                                            <ul class="sizesList sizeSel" style="left:96%;list-style:none;text-align:center;width:100%">
+                                                <!---->
+                                                @*<li>6</li>
+                                                <li>8</li>
+                                                <li>10</li>
+                                                <li>12</li>
+                                                <li>14</li>*@
+                                                @if (Model.productAttributeMapping != null)
+                                                {
+
+                                                    foreach (var attr in Model.productAttributeMapping)
+                                                    {
+
+                                                        if (attr.ProductAttribute.Name.ToUpper() == "SIZE")
+                                                        {
+                                                            foreach (var attrVal in attr.ProductAttributeValues)
+                                                            {
+                                                                <li style="width:44px;font-size:10px">
+                                                                    @attrVal.Name
+
+                                                                </li>
+                                                            }
+
+                                                        }
+                                                        i++;
+                                                        b++;
+
+                                                    }
+                                                }
+                                            </ul>
+                                            <ul class="colorsList colorSel" style="display: none;list-style:none;text-align:center;left:96%">
+                                                
+                                                @{ var isColorAvailable = false; }
+                                                    @if (Model.productAttributeMapping != null)
+                                                    {
+                                                        foreach (var attr in Model.ProductAttributes)
+                                                        {
+                                                            if (attr.AttributeControlType.ToString() == "ImageSquares")
+                                                            //if (attr.AttributeControlType == Nop.Core.Domain.Catalog.AttributeControlType.ImageSquares)
+                                                            {
+                                                                foreach (var attributeValue in attr.Values)
+                                                                {
+                                                                    isColorAvailable = true;
+                                                                    <li class="color" onclick="changeImage(this,'img-@Model.Id','img-hover-@Model.Id')" style="background:url('@(attributeValue.ImageSquaresPictureModel.ImageUrl)') 50% 50% no-repeat;height:40px;margin:0px;width:44px" data-bigimage="@attributeValue.ImageSquaresPictureModel.FullSizeImageUrl">&nbsp;</li>
+
+                                                                }
+                                                            }
+                                                        }
+
+
+                                                    }
+                                                
+                                            </ul>
+                                            @{
+                                                //var Value = Model.ProductAttributes.Values.ImageSquaresPictureModel;
+                                            }
+                                            <ul class="colorsSizesSwitch" style="right:6%">
+                                                @if (isColorAvailable)
+                                                { 
+                                                    <li class=" viewColors colorSel" onclick="colorSelect(this);"></li>
+                                                }
+                                                <li class="viewSizes sizeSel selected" onclick="sizeSelect(this);"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="productDescriptionContainer">
+                                            <div class="productMicro" data-micro="">
+                                                <a href="#" style="font-size:11px">@Model.Name<!----></a>
+                                            </div>
+                                            <div class="productPrice">
+                                                <!---->
+                                                <div class="newprice">
+                                                    <span class="priceValue" style="font-size:14px">@Model.ProductPrice.Price</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+<script>
+    function ShowColor() {
+        $(".sizeAttr").addClass("hide")
+        $("#colorAttr").removeClass("hide")
+    }
+
+    function ShowSize() {
+        $("#colorAttr").addClass("hide")
+        $(".sizeAttr").removeClass("hide")
+    }
+
+</script>
+<script>
+    function colorSelect(th) {
+        $(th).parent().find(".viewSizes").removeClass("selected");
+        $(th).parent().find(".viewColors").addClass("selected");
+
+        $(th).parent().parent().find(".sizesList").hide();
+        $(th).parent().parent().find(".colorsList").show();
+
+    }
+    function sizeSelect(th) {
+        $(th).parent().find(".viewColors").removeClass("selected");
+        $(th).parent().find(".viewSizes").addClass("selected");
+
+        $(th).parent().parent().find(".sizesList").show();
+        $(th).parent().parent().find(".colorsList").hide();
+    }
+</script>
+<script type="text/javascript">
+
+    function changeImage(th, param1, param2) {
+        var bigimage = $(th).attr("data-bigimage");
+        //  var secondBigimage = $(th).attr("data-second-bigimage");
+        $("#" + param1).attr("src", bigimage);
+        //   $("#" + param2).attr("src", secondBigimage);
+    }
+</script>

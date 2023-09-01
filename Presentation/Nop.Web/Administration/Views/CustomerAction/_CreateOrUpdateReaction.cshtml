@@ -1,0 +1,75 @@
+﻿@model CustomerActionModel
+@using Nop.Services
+
+<div class="form-horizontal">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel panel-body">
+                <div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.ReactionTypeId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.ReactionTypeId, ((Nop.Core.Domain.Customers.CustomerReactionTypeEnum)Model.ReactionTypeId).ToSelectList())
+                            @Html.ValidationMessageFor(model => model.ReactionTypeId)
+                            <div class="note note-info margin-top-10">
+                                <p>@T("admin.customers.actiontype.helpText.Banner")</p>
+                                <p>@T("admin.customers.actiontype.helpText.InteractiveForm")</p>
+                                <p>@T("admin.customers.actiontype.helpText.Email")</p>
+                                <p>@T("admin.customers.actiontype.helpText.Customerrole")</p>
+                                <p>@T("admin.customers.actiontype.helpText.Customertag")</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="plnBanner">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.BannerId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(x => x.BannerId, Model.Banners)
+                            @Html.ValidationMessageFor(model => model.BannerId)
+                        </div>
+                    </div>
+                    <div class="form-group" id="plnInteractiveForm">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.InteractiveFormId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(x => x.InteractiveFormId, Model.InteractiveForms)
+                            @Html.ValidationMessageFor(model => model.InteractiveFormId)
+                        </div>
+                    </div>
+                    <div class="form-group" id="plnMessage">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MessageTemplateId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(x => x.MessageTemplateId, Model.MessageTemplates)
+                            @Html.ValidationMessageFor(model => model.MessageTemplateId)
+                        </div>
+                    </div>
+                    <div class="form-group" id="plnRole">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.CustomerRoleId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(x => x.CustomerRoleId, Model.CustomerRoles)
+                            @Html.ValidationMessageFor(model => model.CustomerRoleId)
+                        </div>
+                    </div>
+                    <div class="form-group" id="plnTag">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.CustomerTagId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(x => x.CustomerTagId, Model.CustomerTags)
+                            @Html.ValidationMessageFor(model => model.CustomerTagId)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

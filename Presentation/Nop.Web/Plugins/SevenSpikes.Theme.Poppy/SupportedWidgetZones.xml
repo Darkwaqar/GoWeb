@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SupportedWidgetZones>
+  <WidgetZone>poppy_theme_logo</WidgetZone>
+  <WidgetZone>head_html_tag_after_css_files_poppy</WidgetZone>
+  <WidgetZone>poppy_theme_categories_products_count</WidgetZone>
+</SupportedWidgetZones>

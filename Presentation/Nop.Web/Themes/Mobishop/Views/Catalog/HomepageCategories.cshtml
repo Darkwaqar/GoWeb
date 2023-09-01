@@ -1,0 +1,34 @@
+﻿@model IList<CategoryModel>
+
+@using Nop.Web.Models.Catalog;
+@if (Model.Count > 0)
+{   
+   
+    <div class="col-md-12 categories">
+      
+            @foreach (var item in Model.Take(4))
+            {
+                //item-box
+                <div class="col-md-3 col-sm-4 col-xs-6 category-item">
+                   
+                        <div class="image">
+                            <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                <div class="cat-img" style="background-image:url(@item.PictureModel.ImageUrl);"> </div>
+                            </a>
+                        </div>
+                        <div class="content-box">
+                            
+                                <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+
+                                    <span class="category-title">@item.Name</span>
+                                    <span class="category-description hidden-xs">@Html.Raw(@item.Description)</span>
+                                </a>
+                          
+                            @Html.Widget("prisma_itembox_subcategories", item.Id)
+                        </div>
+                 </div>
+               
+            }
+    </div>
+ 
+}

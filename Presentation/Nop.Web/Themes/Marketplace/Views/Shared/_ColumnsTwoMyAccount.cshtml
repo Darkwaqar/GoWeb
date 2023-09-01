@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.cshtml";
+    string logopath = "/themes/bootstrapdc/content/images/logo-left.png";
+}
+@{
+    //current category ID
+    int currentCategoryId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("category", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentCategoryId = Convert.ToInt32(Url.RequestContext.RouteData.Values["categoryId"].ToString());
+    }
+
+
+    //current manufacturer ID
+    int currentManufacturerId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("manufacturer", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentManufacturerId = Convert.ToInt32(Url.RequestContext.RouteData.Values["manufacturerId"].ToString());
+    }
+
+
+    //current product ID
+    int currentProductId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("product", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("productdetails", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentProductId = Convert.ToInt32(Url.RequestContext.RouteData.Values["productId"].ToString());
+    }
+
+
+    bool ManufacturerNavigationEnabled = false;
+    bool RecentlyViewedProductsEnabled = false;
+}
+
+
+@if (IsSectionDefined("Breadcrumb"))
+{
+
+
+    @section Breadcrumb {
+        @RenderSection("Breadcrumb")
+    }
+
+}
+
+<div class="container-full" id="fullheight">
+    <div class="row no-margin">
+        <div class="col-md-10 col-md-push-2  custompadding">
+            @Html.Widget("main_column_before")
+            @RenderBody()
+            @Html.Widget("main_column_after")
+        </div>
+        <div class="col-md-2 col-md-pull-10 custompadding" style="background-color: #F2EEEE;min-height:700px">
+            @if (IsSectionDefined("left"))
+            {
+                <div class="hidden-xs" id="leftpanelheight2">      @RenderSection("left")</div>
+            }
+            else
+            {
+                <div class="hidden-xs"><img src="@logopath" style="width:100%" /></div>
+                @Html.Widget("left_side_column_before")
+                <div class="hidden-xs" id="leftpanelheight">
+                    @Html.Action("CategoryNavigation", "Catalog", new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
+                    @Html.Action("PopularProductTags", "Catalog")
+                </div>
+                @Html.Widget("left_side_column_after_category_navigation")
+                if (ManufacturerNavigationEnabled)
+                {
+                    @Html.Action("ManufacturerNavigation", "Catalog", new { currentManufacturerId = currentManufacturerId })
+                }
+                @Html.Action("VendorNavigation", "Catalog")
+                if (RecentlyViewedProductsEnabled)
+                {
+                    @Html.Action("RecentlyViewedProductsBlock", "Product", new { productThumbPictureSize = 64 })
+                }
+
+                @Html.Action("PollBlock", "Poll", new { systemKeyword = "LeftColumnPoll" })
+                @Html.Widget("left_side_column_after")
+            }
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(window).load(function () {
+        if ($(window).width() > 600) {
+            $('#leftpanelheight').height($('#fullheight').height());
+        } else {
+
+            $('leftpanelheight').height('0px');
+        }
+
+    });
+
+    $(window).load(function () {
+        if ($(window).width() > 600) {
+            $('#leftpanelheight2').height($('#fullheight').height());
+        }
+
+    });
+
+</script>

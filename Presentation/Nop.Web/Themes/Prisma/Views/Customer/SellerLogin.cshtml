@@ -1,0 +1,273 @@
+﻿@model LoginModel
+@using Nop.Web.Models.Customer;
+@using Nop.Core;
+@using Nop.Core.Infrastructure;
+@{
+    Layout = "~/Views/Shared/_BlankColumn.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Login").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-login-page");
+
+    //register URL with return URL (if specified)
+    var registerUrl = Url.RouteUrl("SellerRegister");
+    if (!String.IsNullOrEmpty(this.Context.Request.QueryString["returnUrl"]))
+    {
+        var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+        registerUrl = webHelper.ModifyQueryString(registerUrl, "returnurl=" + HttpUtility.UrlEncode(this.Context.Request.QueryString["returnUrl"]), null);
+    }
+}
+
+
+
+
+
+
+<div class="html-apply-vendor-page">
+
+
+    <div class="row">
+
+        <div class="col-md-12 img-bg">
+            <div class="header-inner ">
+
+                <div class="logo-placeholder">
+                    <a class="home-main" href="/">
+                        <span class="logo"></span>
+                        <span class="moto"></span>
+                    </a>
+
+
+                </div>
+            </div>
+
+            <div class="row padding-20">
+                <div class="col-md-8">
+
+                    <div class="_heading_large">
+                        <h1>Do More with Your GoMobishop Shop</h1>
+                        <img src="~/Themes/Prisma/Content/img/seller-banner.png" alt="">
+                    </div>
+
+
+                </div>
+                <div class="col-md-4">
+
+                    <div class="register-form opc">
+
+
+                        <div class="titlec">
+                            <h1>Welcome back, Sign in</h1>
+
+                        </div>
+
+
+                        @Html.Partial("_ExternalAuthentication.AssociateMessage")
+                        @Html.Partial("_ExternalAuthentication.Errors")
+
+                        <div class="returning-wrapper fieldset">
+                            @using (Html.BeginForm())
+                            {
+                                var validationSummary = Html.ValidationSummary(true, T("Account.Login.Unsuccessful").Text);
+
+                                if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                                {
+                                    <div class="message-error">@validationSummary</div>
+                                }
+                                <div class="form-fields">
+                                    @if (Model.UsernamesEnabled)
+                                    {
+                                        <div class="input-field">
+                                            @Html.LabelFor(m => m.Username, new { }, ":")
+                                            @Html.TextBoxFor(m => m.Username, new { @class = "username", autofocus = "autofocus" })
+                                            @Html.ValidationMessageFor(m => m.Username)
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="input-field">
+                                            @Html.LabelFor(m => m.Email, new { }, ":")
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "email", autofocus = "autofocus" })
+                                            @Html.ValidationMessageFor(m => m.Email)
+                                        </div>
+                                    }
+                                    <div class="input-field">
+                                        @Html.LabelFor(m => m.Password, new { }, ":")
+                                        @Html.PasswordFor(m => m.Password, new { @class = "password" })
+                                        @Html.ValidationMessageFor(m => m.Password)
+                                    </div>
+                                    <div class="input-check reversed">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                        <span class="forgot-password" style="font-size:12px;">
+                                            @Html.RouteLink(T("Account.Login.ForgotPassword").Text, "PasswordRecovery")
+                                        </span>
+                                    </div>
+                                    @if (Model.DisplayCaptcha)
+                                    {
+                                        <div class="captcha-box">
+                                            @Html.Raw(Html.GenerateCaptcha())
+                                        </div>
+                                    }
+
+
+                                    <div class="buttons" style="width:100%">
+                                        <input class="button-1 login-button" type="submit" value="Sign In" />
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+
+                        <div class="external-authentication">
+                            @Html.Action("ExternalMethods", "ExternalAuthentication")
+                        </div>
+                        @*@Html.Action("TopicBlock", "Topic", new { systemName = "LoginRegistrationInfo" })*@
+
+                        <div class="login">
+                            Don't have an account?  @Html.ActionLink("Register as Seller", "SellerRegister")
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+    <div class="row">
+        <section class="sale_wrap text-center">
+            <div class="container">
+                <h2>Why Sell on GoMobishop?</h2>
+                <span>Grow your online business with Pakistan’s leading seller enablement platform. Pakistan’s online platform to help you build your own brand with easy online listing, easy marketing on Facebook and Google and automated fulfillment.</span>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-3 text-center sale_types_wrap">
+                        <figure class="sale_types_hm">
+                            <img src="https://sellon.kraftly.com/web/tr:f-auto,q-100,pr-true/push/images/1523506416_user.png">
+                        </figure>
+                        <strong>Millions of customers</strong>
+                        <p>Get access to millions of customers who visit and love the GoMobishop Marketplace</p>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 text-center sale_types_wrap">
+                        <figure class="sale_types_hm">
+                            <img src="https://sellon.kraftly.com/web/tr:f-auto,q-100,pr-true/push/images/1523506647_free-website.png">
+                        </figure>
+                        <strong>Free online webstore </strong>
+                        <p>
+                            Get your own free Kanvas webstore and build your brand
+                        </p>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 text-center sale_types_wrap">
+                        <figure class="sale_types_hm">
+                            <img src="https://sellon.kraftly.com/web/tr:f-auto,q-100,pr-true/push/images/1523506742_zero.png">
+                        </figure>
+                        <strong>Sell at 0% commission</strong>
+                        <p>Be part of Pakistan's only marketplace that enables you to start selling at 0% commission</p>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 text-center sale_types_wrap">
+                        <figure class="sale_types_hm">
+                            <img src="https://sellon.kraftly.com/web/tr:f-auto,q-100,pr-true/push/images/1523506809_FB-listing.png">
+                        </figure>
+                        <strong>
+                            Free Facebook Listings
+                        </strong>
+                        <p>Create a Facebook Shop via GoMobishop and enjoy automatic inventory sync</p>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 text-center sale_types_wrap">
+                        <figure class="sale_types_hm">
+                            <img src="https://sellon.kraftly.com/web/tr:f-auto,q-100,pr-true/push/images/1523506886_CC.png">
+                        </figure>
+                        <strong>
+                            Best-in-class Support
+                        </strong>
+                        <p>
+                            Get help about your shop from friendly support specialists. We’re here to help!
+                        </p>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 text-center sale_types_wrap">
+                        <figure class="sale_types_hm">
+                            <img src="https://sellon.kraftly.com/web/tr:f-auto,q-100,pr-true/push/images/1523506972_listing.png">
+                        </figure>
+                        <strong>Instant Product Listing</strong>
+                        <p>
+                            List your products instantly or upload them in bulk. Quick and hassle-free!
+                        </p>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 text-center sale_types_wrap">
+                        <figure class="sale_types_hm">
+                            <img src="https://sellon.kraftly.com/web/tr:f-auto,q-100,pr-true/push/images/1523507042_chat(2).png">
+                        </figure>
+                        <strong>Chat with Buyers</strong>
+                        <p>
+                            Start a chat directly with your buyers and close a sale when they leave products in cart
+                        </p>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 text-center sale_types_wrap">
+                        <figure class="sale_types_hm">
+                            <img src="https://sellon.kraftly.com/web/tr:f-auto,q-100,pr-true/push/images/1523507137_ad.png">
+                        </figure>
+                        <strong>Automated Marketing</strong>
+                        <p>
+                            Run automated ads on Facebook, Google Shopping and GoMobishop website.
+                        </p>
+                    </div>
+
+                    @*<div class="col-xs-12 sop">
+                        <a href="#" class="button" id="shop_button">Create a Shop</a>
+                    </div>*@
+
+                </div>
+
+
+            </div>
+
+        </section>
+    </div>
+
+    <div class=" row-full">
+
+
+
+        <div class="col-lg-12">
+
+
+
+
+            <figure class="static-banner">
+                <picture data-alt="Download our Apps today!" data-picture="">
+                    <source media="(min-width: 768px)" srcset="/Themes/Prisma/Content/img/banner-apps.png">
+                    <source media="(max-width:767px)" srcset="/Themes/Prisma/Content/img/mobile-banner.png">
+                    <img alt="" srcset="/Themes/Prisma/Content/img/banner-apps.png" usemap="#babycats">
+                </picture>
+                <div class="iOS">
+                    <a href="https://itunes.apple.com/us/app/gomobishop/id1441632028?mt=8" target="_blank"></a>
+                </div>
+                <div class="android">
+                    <a href="https://play.google.com/store/apps/details?id=com.growonline.gomobishop" target="_blank"></a>
+                </div>
+
+            </figure>
+
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 " style="padding:20px 0px; text-align:center; font-size:12px;">
+            <div>Copyright © 2018 GoMobiShop. All rights reserved.</div>
+        </div>
+
+    </div>
+
+</div>

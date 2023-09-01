@@ -1,0 +1,214 @@
+﻿@model Nop.Web.Models.Magazine.MagazineModel
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@using Nop.Web.Framework.Themes
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    string dir = "/Themes/BootstrapDC/content/brand";
+}
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/custom-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/my-instagram-gallery.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/odometer-theme-default.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/prettyPhoto.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/carousel-my.css">
+    <link rel="stylesheet" href="assets/css/article-carousel.css">
+
+
+    <script src="assets/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+
+        
+
+        
+
+        <div class="row hidden-md hidden-lg" style="height: 40px;"></div>
+
+        <section class="xvDeals style1 family-poppins pb-0" style="margin-bottom: 20px;">
+            <div class="container">
+                <div id="themeSlider" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="assets/img/article/article-1.png" alt="First slide" usemap="#article1">
+                            <map name="article1">
+                                <area shape="rect" coords="365,0,940,750" href="product-detail.html" class="" alt="" data-toggle="tooltip" data-placement="top" title="Atico">
+                                <area shape="rect" coords="1000,140,1080,300" href="product-detail.html" alt="" data-toggle="tooltip" data-placement="top" title="Atico">
+                                <area shape="rect" coords="1000,300,1080,480" href="#" alt="" data-toggle="tooltip" data-placement="top" title="Reformation">
+                                <area shape="rect" coords="1000,500,1080,680" href="#" alt="" data-toggle="tooltip" data-placement="top" title="Dion Lee">
+                            </map>
+                        </div>
+                        <div class="item">
+                            <img src="assets/img/article/article-2.png" alt="Second slide">
+                        </div>
+                    </div>
+
+                    <a class="left carousel-control" href="#themeSlider" data-slide="prev">
+                        <span class="fa fa-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#themeSlider" data-slide="next">
+                        <span class="fa fa-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="xvDeals style1 family-poppins pb-0 hidden-sm hidden-xs">
+            <div class="container similar-product-div">
+                <div class="col-md-12" style="border-bottom: 2px solid black;">
+                    <h5>SIMILAR PRODUCTS</h5>
+                </div>
+                <div class="col-md-12" style="padding-top: 10px;">
+                    <div class="col-md-2 col-md-offset-1">
+                        <img src="assets/img/model/model-1.jpg" alt="" class="img-responsive">
+                        <h6 class="text-center">PRIVACY PLEASE</h6>
+                        <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="https://is4.revolveassets.com/images/p4/n/c/RACH-WD1318_V1.jpg" alt="" class="img-responsive">
+                        <h6 class="text-center">PRIVACY PLEASE</h6>
+                        <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="https://is4.revolveassets.com/images/p4/n/c/YUMI-WD176_V1.jpg" alt="" class="img-responsive">
+                        <h6 class="text-center">PRIVACY PLEASE</h6>
+                        <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="https://is4.revolveassets.com/images/p4/n/c/TULA-WD289_V1.jpg" alt="" class="img-responsive">
+                        <h6 class="text-center">PRIVACY PLEASE</h6>
+                        <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="https://is4.revolveassets.com/images/p4/n/c/LEAX-WD129_V1.jpg" alt="" class="img-responsive">
+                        <h6 class="text-center">PRIVACY PLEASE</h6>
+                        <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                    </div>
+                </div>
+                <div class="col-md-12" style="padding-top: 10px;">
+                    <div class="col-md-2 col-md-offset-1">
+                        <img src="https://is4.revolveassets.com/images/p4/n/c/1STR-WD45_V1.jpg" alt="" class="img-responsive">
+                        <h6 class="text-center">PRIVACY PLEASE</h6>
+                        <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="https://is4.revolveassets.com/images/p4/n/c/1STR-WD45_V1.jpg" alt="" class="img-responsive">
+                        <h6 class="text-center">PRIVACY PLEASE</h6>
+                        <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="https://is4.revolveassets.com/images/p4/n/c/ALEA-WD2_V1.jpg" alt="" class="img-responsive">
+                        <h6 class="text-center">PRIVACY PLEASE</h6>
+                        <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="https://is4.revolveassets.com/images/p4/n/c/FORL-WD446_V1.jpg" alt="" class="img-responsive">
+                        <h6 class="text-center">PRIVACY PLEASE</h6>
+                        <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="https://is4.revolveassets.com/images/p4/n/c/TULA-WD290_V1.jpg" alt="" class="img-responsive">
+                        <h6 class="text-center">PRIVACY PLEASE</h6>
+                        <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="xvDeals style1 family-poppins pb-0 hidden-sm hidden-xs" style="margin-bottom: 20px; margin-top: -50px;">
+            <div class="container">
+                <div class="col-md-12">
+                    <button class="btn btn-primary view-more-btn center-block view-more view-close" id="view" style="width: 100%;">View More</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="xvDeals style1 family-poppins pb-0" style="margin-bottom: 20px; margin-top: -20px;">
+            <div class="container">
+                <div class="col-md-12">
+                    <img src="assets/img/banner/jimmychoo2.png" alt="" class="img-responsive">
+                </div>
+            </div>
+        </section>
+
+
+        
+
+   
+    <!--====================
+        Scripts
+    ====================-->
+    <script src="assets/js/jquery-1.11.3.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/packery.pkgd.min.js"></script>
+    <script src="assets/js/masonry.pkgd.min.js"></script>
+    <script src="assets/js/isotope.pkgd.min.js"></script>
+    <script src="assets/js/jquery.stellar.min.js"></script>
+    <script src="assets/js/my-instagram-gallery.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    <script src="assets/js/jquery.inview.js"></script>
+    <script src="assets/js/odometer.min.js"></script>
+    <script src="assets/js/tweetie.min.js"></script>
+    <script src="assets/js/jquery.timeago.js"></script>
+    <script src="assets/js/jquery.knob.min.js"></script>
+    <script src="assets/js/css3-animate-it.js"></script>
+    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="assets/js/jquery.prettyPhoto.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        $(".thumb").click(function () {
+            var thumbsrc = $(this).attr('src');
+            var image = $("#placesrc");
+            image.fadeOut('fast', function () {
+                image.attr('src', thumbsrc);
+                image.fadeIn('fast');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".view-more").click(function () {
+                if ($(".view-more").hasClass("view-close")) {
+                    $(".similar-product-div").animate({ height: "750px" });
+                    document.getElementById("view").innerHTML = "View Less";
+                    $(".view-more").addClass("view-open");
+                    $(".view-more").removeClass("view-close");
+                }
+                else if ($(".view-more").hasClass("view-open")) {
+                    $(".similar-product-div").animate({ height: "410px" });
+                    document.getElementById("view").innerHTML = "View More";
+                    $(".view-more").addClass("view-close");
+                    $(".view-more").removeClass("view-open");
+                }
+            });
+
+            $("#img00").click(function () {
+
+            });
+
+
+
+        });
+    </script>
+

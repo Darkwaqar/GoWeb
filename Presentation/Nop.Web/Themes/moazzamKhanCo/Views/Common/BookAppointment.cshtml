@@ -1,0 +1,103 @@
+﻿@model AppointmentModel
+@using Nop.Web.Models.Appointment;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.BookAppointment").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-contact-page");
+}
+<div class="page contact-page BookAppointment">
+
+    <script>
+          $(document).ready(function () {
+            $(".phone input").attr("placeholder", "Phone")
+            $(".phone input").siblings("Label").css("display", "none");
+
+            $(".phone input").attr("onkeypress", "isNumber(event)");
+        });
+
+
+	function isNumber(evt) {
+	    var keycode = event.which;
+	    if (!(event.shiftKey == false && (keycode == 43 || (keycode >= 48 && keycode <= 57)))) {
+		event.preventDefault();
+	    }
+	}
+
+    </script>
+    <div class="page-title">
+        <h1>@T("PageTitle.BookAppointment")</h1>
+    </div>
+    <div class="page-body">
+        @Html.Action("TopicBlock", "Topic", new { systemName = "BookAppointment" })
+        @Html.Widget("contactus_top")
+        @if (Model.SuccessfullySent)
+        {
+            <div class="result">
+                @Model.Result
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                var validationSummary = Html.ValidationSummary(true);
+                if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                {
+                    <div class="message-error">@validationSummary</div> 
+                }
+                <div class="fieldset">
+                    <div class="form-fields">
+                        <div class="inputs">
+				@* , placeholder = T("ContactUs.FullName.Hint") *@
+                            @* @Html.LabelFor(model => model.FullName)*@
+                            @Html.TextBoxFor(model => model.FullName, new { @class = "fullname" , placeholder ="Name"})
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.FullName)
+                        </div>
+                        <div class="inputs">
+				@* , placeholder = T("ContactUs.Email.Hint") *@
+                            @*@Html.LabelFor(model => model.Email)*@
+                            @Html.TextBoxFor(model => model.Email, new { @class = "email" , placeholder ="Email" })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                        @if (Model.SubjectEnabled)
+                        {
+                            <div class="inputs">
+				@* , placeholder = T("ContactUs.Subject.Hint") *@
+                                @Html.LabelFor(model => model.Subject)
+                                @Html.TextBoxFor(model => model.Subject, new { @class = "subject" })
+                                @Html.RequiredHint()
+                                @Html.ValidationMessageFor(model => model.Subject)
+                            </div>
+                        }
+			<div class="phone">
+                        	@Html.Partial("_AppointmentAttributes", Model.AppointmentAttributes)
+                        </div>
+                        <div class="inputs">
+				@*, placeholder = T("ContactUs.Enquiry.Hint") *@
+                            @*@Html.LabelFor(model => model.Enquiry)*@
+                            @Html.TextAreaFor(model => model.Enquiry, new { @class = "enquiry" , placeholder ="Enquiry"})
+                            @Html.ValidationMessageFor(model => model.Enquiry)
+                        </div>
+
+                        @if (Model.DisplayCaptcha)
+                        {
+                            <div class="captcha-box">
+                                @Html.Raw(Html.GenerateCaptcha())
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="buttons">
+                    <input type="submit" name="send-email" class="button-1 contact-us-button" value="@T("ContactUs.Button")" />
+                </div>
+            }
+        }
+        @Html.Widget("contactus_bottom")
+    </div>
+</div>

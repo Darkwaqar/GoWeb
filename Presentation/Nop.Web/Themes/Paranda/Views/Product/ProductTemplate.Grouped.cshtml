@@ -1,0 +1,356 @@
+﻿@model ProductDetailsModel
+@using Nop.Core.Domain.Orders;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title, meta
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(productUrl);
+    }
+    string theme = "/themes/BootstrapDC/";
+
+    bool IsBreadcrumbEnabled = false; 
+}
+<!--product breadcrumb-->
+@if(IsBreadcrumbEnabled){
+@Html.Partial("_ProductBreadcrumb", Model.Breadcrumb)
+
+}
+
+<div class="features_items container-fluid3">
+    <!--features_items-->
+
+
+    <div class="product-details">
+        @using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+        {
+            <div class="col-md-6" style="max-height:583px;overflow-y:scroll;overflow-x:hidden" id="buy-look">
+   <div class="header"> <img src="@theme/content/images/cross.png" style="height:20px" class="pull-right" id="buy-look-close" /></div>
+     @foreach (var variant in Model.AssociatedProducts)
+{
+
+    <div class="row" data-productid="@variant.Id">
+        <div class="col-md-12">
+            <div class="col-md-5">
+                @if (!String.IsNullOrWhiteSpace(variant.DefaultPictureModel.ImageUrl))
+                {
+                        <img alt="@variant.DefaultPictureModel.AlternateText" src="@variant.DefaultPictureModel.ImageUrl"
+                             title="@variant.DefaultPictureModel.Title" id="main-product-img-@variant.Id" class="img-responsive" />
+                }
+            </div>
+            <div class="col-md-7">
+                @if (!String.IsNullOrWhiteSpace(variant.Name))
+                {
+                    <h4 ><b>
+                        @variant.Name</b>
+                    </h4>
+                }
+                @if (!String.IsNullOrWhiteSpace(variant.ShortDescription))
+                {
+                    <div class="variant-description">
+                        @variant.ShortDescription
+                    </div>
+                }
+                <div>
+                    <h4><b>@variant.ProductPrice.Price</b></h4>
+                </div>
+                <div class="col-md-12 col-xs-12 nopadding" style="margin-top:20px"> <a href="/sizechart" style="color:#222;font-size:10px;text-decoration:underline">SIZE GUIDE</a></div>
+                @Html.Partial("_DownloadSample", variant)
+
+                @{
+                var dataDictAttributes = new ViewDataDictionary();
+                dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", variant.Id);
+                @Html.Partial("_ProductAttributesCustomized", variant.ProductAttributes, dataDictAttributes)
+                }
+                <!--product SKU, manufacturer part number, stock info-->
+               @* @Html.Partial("_SKU_Man_Stock", variant)*@
+                <!--Back in stock subscription-->
+               @* @Html.Partial("_BackInStockSubscription", variant)*@
+                @{
+                var dataDictGiftCard = new ViewDataDictionary();
+                dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = string.Format("giftcard_{0}", variant.Id);
+                @Html.Partial("_GiftCardInfo", variant.GiftCard, dataDictGiftCard)
+                }
+                @*@{
+                var dataDictPrice = new ViewDataDictionary();
+                dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", variant.Id);
+                @Html.Partial("_ProductPrice", variant.ProductPrice, dataDictPrice)
+                }*@
+                
+                @{
+                var dataDictAddToCart = new ViewDataDictionary();
+                dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", variant.Id);
+                
+                }
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.TextBox(string.Format("addtocart_{0}.EnteredQuantity", variant.Id), 1, new { @class = "qty-input", size = 1, maxlength = 3, onkeypress = "return isNumberKey(event)" })
+</div>
+                    <div class="col-md-12">
+                        <br />
+                    @Html.Partial("_AddToCart", variant.AddToCart, dataDictAddToCart)
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+         <hr />
+    }
+</div>
+            
+            <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
+                <div>
+
+                    <!--product pictures-->
+                    <div class="row no-margin">
+
+
+                        <div class="col-md-6">
+                            @Html.Widget("productdetails_before_pictures")
+                            @Html.Partial("_ProductDetailsPictures", Model)
+                            @Html.Widget("productdetails_after_pictures")
+                        </div>
+                        <div class="col-md-6 ">
+                            
+                            
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h4>
+                                            @Model.Name
+
+                                        </h4>
+                                        @*@Html.Partial("_ProductManufacturers", Model.ProductManufacturers)*@
+
+                                        <p>
+                                            @Model.ShortDescription
+                                        </p>
+                                        <div>
+                                            <h4>@Model.ProductPrice.Price</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 hidden-xs hidden-sm">
+                                        <p>@Html.Action("ProductLine", "Product", new { productId = Model.Id })</p>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                            <div class="row btn-center">
+                            <div class="col-md-12 btn-responsive">
+
+                                @if (!Model.DisplayBackInStockSubscription)
+                                {
+
+                                    var dataDictPrice = new ViewDataDictionary();
+                                    dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", Model.Id);
+                                    @*@Html.Partial("_ProductPrice", Model.ProductPrice, dataDictPrice)
+
+                @Html.Partial("_ProductTierPrices", Model.TierPrices)*@
+
+                                    var dataDictAddToCart = new ViewDataDictionary();
+                                    dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+
+                                    @Html.Partial("_AddToCart", Model.AddToCart, dataDictAddToCart)
+
+
+
+                                }
+                                <div class="col-md-12 nopadding" style="padding-bottom:12px">
+                                    <a href="javascript:" class="btn-big btn-block margin-responsive" style="text-align:center;padding-top:8px" id="btn-buy-look">BUY A LOOK</a>
+                                    @*@if (!Model.AddToCart.DisableWishlistButton && Model.AddToCart.UpdatedShoppingCartItemId == 0)
+                {*@
+                                    @*<div class="col-md-4 nopadding width-rack">  <button style="margin-top:0px;background-color:#DDDDDD;color:#bbb" id="add-to-wishlistbutton-@Model.AddToCart.ProductId" class="btn-big btn-block" data-productid="@Model.AddToCart.ProductId">ADD TO SHOE RACK</button></div>*@
+                                    @*}*@
+                                </div>
+
+                            </div>
+                            </div>
+                            @if (Model.IsFreeShipping)
+                            {
+                                <div class="delinfo">
+                                    @Html.Partial("_DeliveryInfo", Model)
+                                </div>
+                                <hr />
+                            }
+                            <br />
+                            <br />
+                            <br />
+                            <div class="panel-group" id="accordion">
+                                @if (!String.IsNullOrEmpty(Model.FullDescription))
+                                {
+
+
+
+
+                                    <div class="panel panel-default panel-productdetails">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                                    Details <span class="glyphicon glyphicon-menu-down pull-right" id="collapse1-span" style="font-size:18px"></span>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse1" class="panel-collapse collapse in">
+                                            <div class="panel-body">@Html.Raw(Model.FullDescription)</div>
+                                        </div>
+                                    </div>
+                                }
+                                @Html.Partial("_ProductSpecifications", Model.ProductSpecifications)
+                               
+                                @Html.Partial("_DeliveryInfo", Model)
+
+                                <!--product reviews-->
+                                <div>
+                                    @*@Html.Partial("_ProductReviewOverview", Model.ProductReviewOverview)*@
+                                    @Html.Partial("_SKU_Man_GTIN_Ven", Model)
+                                </div>
+                                @*@Html.Partial("_ShareButton", Model)*@
+       
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
+                @Html.Widget("productdetails_before_collateral")
+
+                <div class="product-collateral">
+                    <!--associated products-->
+                    <div class="product-variant-list">
+                      
+
+
+                        @if (Model.AssociatedProducts.Count == 0)
+                        {
+                            <div class="no-associated-products">
+                                @T("Products.NoAssociatedProducts")
+                            </div>
+                        }
+                    </div>
+
+                  
+
+
+
+
+
+                </div>
+
+            </div>
+        }
+        @Html.Partial("_ProductReviewOverview", Model.ProductReviewOverview)
+        <div style="margin-top:20px"> @Html.Partial("_ShareButton", Model)</div>
+
+<div class="container-fluid" style="padding-top:148px">
+    <ul class="nav nav-pills productdetails">
+        <li class="active"><a data-toggle="tab" href="#home">Related Products</a></li>
+       
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+
+            <p>@Html.Action("RelatedProducts", "Product", new { productId = Model.Id })</p>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <p>@Html.Action("RecentlyViewedProductsBlock", "Product", new { productId = Model.Id })</p>
+        </div>
+       
+    </div>
+</div>
+
+
+
+    
+@Html.Widget("productdetails_bottom", Model.Id)
+
+        
+    </div>
+</div>
+
+
+@*<div class="product-collateral">
+
+    @Html.Action("ProductsAlsoPurchased", "Product", new { productId = Model.Id })
+    @Html.Action("RelatedProducts", "Product", new { productId = Model.Id })
+</div>*@
+
+<script>
+    $("#btn-buy-look").click(function () {
+       // $("#buy-look").show("slide", { direction: "right" }, 200);
+        $("#buy-look").effect('slide', { direction: 'right', mode: 'show' }, 200);
+
+
+
+    });
+    $("#buy-look-close").click(function () {
+        
+        //$("#buy-look").hide("slide", { direction: "right" }, 200);
+        $("#buy-look").effect('slide', { direction: 'right', mode: 'hide' }, 200);
+    });
+
+    $('#collapse1').on('hidden.bs.collapse', function ()
+    {
+        //!-- when box is closed
+        $('#collapse1-span').addClass("glyphicon-menu-down");
+        $('#collapse1-span').removeClass("glyphicon-menu-up");
+    });
+
+    $('#collapse1').on('shown.bs.collapse', function ()
+    {
+        //!-- when box is opened
+        $('#collapse1-span').removeClass("glyphicon-menu-down");
+        $('#collapse1-span').addClass("glyphicon-menu-up");
+
+    });
+
+    $('#collapse_spec_0').on('hidden.bs.collapse', function () {
+        //!-- when box is closed
+        $('#collapse-spann-0').addClass("glyphicon-menu-down");
+        $('#collapse-spann-0').removeClass("glyphicon-menu-up");
+    });
+
+    $('#collapse_spec_0').on('shown.bs.collapse', function () {
+        //!-- when box is opened
+        $('#collapse-spann-0').removeClass("glyphicon-menu-down");
+        $('#collapse-spann-0').addClass("glyphicon-menu-up");
+
+    });
+
+
+    $('#collapse_spec_1').on('hidden.bs.collapse', function () {
+        //!-- when box is closed
+        $('#collapse-spann-1').addClass("glyphicon-menu-down");
+        $('#collapse-spann-1').removeClass("glyphicon-menu-up");
+    });
+
+    $('#collapse_spec_1').on('shown.bs.collapse', function () {
+        //!-- when box is opened
+        $('#collapse-spann-1').removeClass("glyphicon-menu-down");
+        $('#collapse-spann-1').addClass("glyphicon-menu-up");
+
+    });
+
+
+</script>

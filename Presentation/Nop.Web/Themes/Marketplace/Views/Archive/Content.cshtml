@@ -1,0 +1,79 @@
+﻿@model Nop.Web.Models.ArchiveModel
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@using Nop.Web.Framework.Themes
+@{
+     
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+ Layout = "~Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+    body.getting-ready {
+        padding-top: 0;
+        overflow: scroll;
+    }
+</style>
+
+@*<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">*@
+<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/custom-icons.css">
+<link rel="stylesheet" type="text/css" href="assets/css/my-instagram-gallery.css">
+<link rel="stylesheet" type="text/css" href="assets/css/odometer-theme-default.css">
+<link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+<link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="assets/css/prettyPhoto.css">
+<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/carousel-my.css">
+<link rel="stylesheet" href="assets/css/article-carousel.css">
+
+<div class="container" style="margin-bottom:20px;width:971px">
+    <div class="text-center" style="margin-top:20px;margin-bottom:20px"><img src="/content/images/edit.jpg" /></div>
+    @foreach (var Child in Model.Magzines)
+{
+    <div class="col-md-3">
+        <a href="/Archive/ContenMagzines/@Child.DirectoryName">
+            <img src="@Child.ThumbUrl" />
+            <span>@Child.Title</span>
+        </a>
+    </div>
+}
+</div>
+<div class="container slider-bottom-nav">
+    <div class="col-xs-1 slider-icon"><img style="margin-left: -20px;" src="/assets/img/icons/icon_grid.png" alt="" /></div>
+    <div class="col-xs-1 slider-icon"><a href="/archive/content"><img style="margin-left: -45px;" src="/assets/img/icons/archive.png" alt="" /></a></div>
+    <div class="col-xs-2">&nbsp;</div>
+    @*<div class="col-xs-1"><a class="left" href="#themeSlider" data-slide="prev"> <!-- <i class="fa fa-chevron-left pull-right" style="margin-top: 8px;"></i>--> <img class="pull-right" style="margin-top: 8px;" src="/assets/img/arrows/aroowleft.png" alt="" /> </a></div>*@
+    <div class="col-xs-2 slider-icon">
+        <p class="text-center slide_num">Archive</p>
+    </div>
+    @*<div class="col-xs-1"><a class="right" href="#themeSlider" data-slide="next"> <img class="pull-left" style="margin-top: 8px;" src="/assets/img/arrows/arrowright.png" alt="" /> </a></div>*@
+    <div class="col-xs-2 ">&nbsp;</div>
+    <div class="col-xs-1 slider-icon"><img style="float:right; margin-right: -45px;" src="/assets/img/icons/message.png" alt="" /></div>
+    <div class="col-xs-1 slider-icon"><a href="/magazine-v1"><img style="float: right; margin-right: -20px;" src="/assets/img/icons/cart-2.png" alt="" /></a></div>
+</div>
+
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+@*<script src="assets/js/bootstrap.min.js"></script>*@
+<script src="assets/js/packery.pkgd.min.js"></script>
+<script src="assets/js/masonry.pkgd.min.js"></script>
+<script src="assets/js/isotope.pkgd.min.js"></script>
+<script src="assets/js/jquery.stellar.min.js"></script>
+<script src="assets/js/my-instagram-gallery.js"></script>
+<script src="assets/js/slick.min.js"></script>
+<script src="assets/js/jquery.inview.js"></script>
+<script src="assets/js/odometer.min.js"></script>
+<script src="assets/js/tweetie.min.js"></script>
+<script src="assets/js/jquery.timeago.js"></script>
+<script src="assets/js/jquery.knob.min.js"></script>
+<script src="assets/js/css3-animate-it.js"></script>
+<script src="assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="assets/js/jquery.prettyPhoto.js"></script>
+<script src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/slick/slick.min.js"></script>
+<script src="assets/js/jquery.elevatezoom.js"></script>
+<script>$('.pre-loading').fadeIn('fast').delay(1000).fadeOut('fast');</script>
+

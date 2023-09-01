@@ -1,0 +1,18 @@
+﻿@model IList<ProductOverviewModel>
+
+@using growonline.Web.Models.Catalog;
+@if (Model.Count > 0)
+{
+    <div class="page-header">
+        @*<h3 class="text-center">@T("Bestsellers")</h3>*@
+      <center> <h3 class="text-center">FEATURED PRODUCTS</h3></center>
+    </div>
+    <div class="row text-center container-fluid">
+            @foreach (var item in Model)
+            {
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    @Html.Partial("_ProductBox", item)
+                </div>
+            }
+    </div>
+}

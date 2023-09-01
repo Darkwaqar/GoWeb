@@ -1,0 +1,16 @@
+﻿using Nop.Web.Framework;
+using Nop.Web.Framework.Mvc;
+
+namespace Nop.Web.Models.Customer
+{
+    public partial class CheckGiftCardBalanceModel : BaseNopModel
+    {
+        public string Result { get; set; }
+
+        public string Message { get; set; }
+
+        [NopResourceDisplayName("ShoppingCart.GiftCardCouponCode.Tooltip")]
+        public string GiftCardCode { get; set; }
+        public bool DisplayCaptcha { get; set; }
+    }
+}

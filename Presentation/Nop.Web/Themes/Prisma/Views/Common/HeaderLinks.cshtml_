@@ -1,0 +1,284 @@
+﻿@model HeaderLinksModel
+@using Nop.Web.Models.Common;
+
+
+    @*<div class="header-wrapper header-wrapper--pre">*@
+        @*<div class="headerContent secondRow">
+            <div class="siteSearch">
+                <div class="mf-expand">
+                    @Html.Action("SearchBox", "Catalog")
+                </div>
+            </div>
+        </div>*@
+
+        
+            <div class="topbar">
+                <div class="topbar__options">
+                    <!-- User related Topbar Links -->
+                    <div class="topbar__options--user">
+                        <div class="sell_with_us" style="float: left;">
+                            <a>Sell with us</a>
+                        </div>
+                        <ul class="options-user">
+                            @Html.Widget("header_links_before")
+                            <li class="topbar__options__item topbar__options__item__currency currency_box">
+                                <p class="Currency_span">
+                                    <span> Ship to </span>
+                                    <img class="img-responsive" style="display: inline-block; width: 10%; box-shadow: 0px 0px 1px 0px #888888;" src="~/Themes/Prisma/Content/img/flag.jpg" />
+                                    /<span id="CurrencySpan" style="padding-left: 3px;"></span>
+                                    <i class="fa fa-angle-down fa-2x" style="vertical-align: middle;"></i>
+                                </p>
+
+                                <div class="col-md-4 Currency_div">
+                                    <h4 class="currency_heading borderBottom">Select Currecny Setting</h4>
+                                    <h5 class="currency_heading">Currecny</h5>
+                                    @Html.Action("CurrencySelector", "Common")
+                                </div>
+                            </li>
+                            @if (Model.IsAuthenticated)
+                            {
+                                <!-- User Logged In -->
+                                <li class="topbar__options__item my-account"><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+                                <li class="topbar__options__item authenticated-user"><a href="@Url.RouteUrl("Logout")">@T("Account.Logout")</a></li>
+                            }
+                            else
+                            {
+                                <!-- User anonymous -->
+                                <li class="topbar__options__item anonymous-user"><a href="@Url.RouteUrl("Register")">@T("Account.Register")</a></li>
+                                <li class="topbar__options__item anonymous-user"><a href="@Url.RouteUrl("Login")">@T("Account.Login")</a></li>
+                            }
+                            @*  @if (Model.AllowPrivateMessages)
+                        {
+                            <li class="topbar__options__item authenticated-user">
+                                <a href="@Url.RouteUrl("PrivateMessages", new { tab = "" })" class="ico-inbox">
+                                    <span class="inbox-label">@T("PrivateMessages.Inbox")</span>
+                                    <span class="inbox-unread">@Model.UnreadPrivateMessages</span>
+                                </a>
+                            </li>
+                        }*@
+
+                            @*@if (Model.WishlistEnabled)
+                        {
+                            <li class="topbar__options__item wishlist authenticated-user">
+                                <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                                    <span class="wishlist-label">@T("Wishlist")</span>
+                                    <span class="wishlist-qty">@Model.WishlistItems</span>
+                                </a>
+                            </li>
+                        }
+
+                        @if (Model.ShoppingCartEnabled)
+                        {
+                            <li class="yCmsComponent topbar__options__item miniCart" id="topcartlink">
+                                <a href="@Url.RouteUrl("ShoppingCart")" class="ico-cart miniCart--hover">
+                                    <span class="cart"></span>
+                                    <span class="shoppingCartCount cart-qty">@Model.ShoppingCartItems</span>
+                                </a>
+                            </li>
+                        }*@
+                        </ul>
+                    </div>
+                    <!-- Locale related Topbar Links -->
+                    <div class="topbar__options--locale">
+                        <ul>
+                            <!-- Shipping to -->
+                            @*<li class="topbar__options__item">
+                            @Html.Action("LanguageSelector", "Common")
+                        @Html.Widget("header_selectors")
+                        </li>*@
+                            @*<li class="topbar__options__item topbar__options__item__currency">
+                            @Html.Action("CurrencySelector", "Common")
+                        </li>*@
+                            <li class="topbar__options__item ">
+                                @Html.Action("TaxTypeSelector", "Common")
+                            </li>
+                        </ul>
+                        @Html.Widget("header_links_after")
+                    </div>
+
+                </div>
+            </div>
+            @*@Html.Action("FlyoutShoppingCart", "ShoppingCart")*@
+            @*<div id="editableMiniCartLayer" class="carousel-mini-cart-wrapper" data-refreshminicarturl="/intl/cart/miniCart/TOTAL/?" data-rolloverpopupurl="/intl/cart/rollover/EditableMiniCartComponent">*@
+
+
+            @* </div> *@
+
+            <div class="header-inner">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="menu-logo  en">
+                            @*<div class="menu__icon__offcanvas">
+                    <div class="responsive-nav-wrapper-parent">
+                        <div class="responsive-nav-wrapper">
+                            <div class="menu-title close">
+                                <span>Menu</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a id="left-menu" onclick="displaynav()"></a>
+                </div>*@
+
+
+                            <div class="header-logo-animation__mobile-only__container">
+                                <div class="header-logo-animation header-logo-animation__mobile-only">
+                                    <h1 class="logo mobile-logo-animation">
+                                        <a href="/">
+                                            <span>GoMobishop.com</span>
+                                        </a>
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="header-logo-animation1 header-logo-animation__from-tablet1">
+                                <a href="/">
+                                    <h1 class="logo from-tablet-logo">
+                                        <span>
+                                            Great stores. Great Choices.
+                                        </span>
+                                    </h1>
+                                </a>
+                            </div>
+
+
+
+
+                            <div class="menu__icon__cart">
+                                <div class="menu__icon__cart__total shoppingCartCount"> @Model.ShoppingCartItems</div>
+                                <a href="@Url.RouteUrl("ShoppingCart")" id="editableMiniCartLink"></a>
+                            </div>
+
+                            @*<div class="tagline-hashtag">
+                    <div class="tag--line tagline-hashtag-animation tagline-modern-luxury-shopping"></div>
+                </div>*@
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="search_box">
+                            @Html.Action("SearchBox", "Catalog")
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="icon_box">
+                            <ul>
+                                @if (Model.WishlistEnabled)
+                                {
+                                    <li class="topbar__options__item wishlist authenticated-user bar">
+                                        <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                                            <span class="fav"></span>
+                                            <span class="wishlist-label">@T("Wishlist") </span>
+                                            <span class="wishlist-qty">@Model.WishlistItems</span>
+                                        </a>
+                                    </li>
+                                }
+
+                                @if (Model.ShoppingCartEnabled)
+                                {
+                                    <li class="yCmsComponent topbar__options__item miniCart bar" id="topcartlink">
+                                        <a href="@Url.RouteUrl("ShoppingCart")" class="ico-cart miniCart--hover">
+                                            <span class="cart-icon"></span>
+                                            <span class="cart-label">@T("Your Cart")</span>
+                                            <span class="shoppingCartCount cart-qty">@Model.ShoppingCartItems</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                
+                
+            </div>            
+
+
+
+
+            @*<div class="my-account-New">
+            <ul>
+                @if (Model.IsAuthenticated)
+                {
+                             <!-- User Logged In -->
+                    <li class="topbar__options__item my-account"><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+                            <li class="topbar__options__item authenticated-user"><a href="@Url.RouteUrl("Logout")"><p>@T("Account.Logout")</p></a></li>
+                }
+                else
+                {
+                            <!-- User anonymous -->
+                    <li class="topbar__options__item anonymous-user"><a href="@Url.RouteUrl("Register")">@T("Account.Register")</a></li>
+                            <li class="topbar__options__item anonymous-user"><a href="@Url.RouteUrl("Login")">@T("Account.Login")</a></li>
+                }
+            </ul>
+        </div>*@
+
+
+        @*</div>*@
+
+    
+
+
+
+@if (Model.AllowPrivateMessages && !string.IsNullOrEmpty(Model.AlertMessage))
+{
+    //new private message notification
+    <script type="text/javascript">
+            $(document).ready(function () {
+                displayPopupNotification('@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.AlertMessage))', 'success', false);
+            });
+    </script>
+}
+@if (Model.ShoppingCartEnabled)
+{
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('.header').on('mouseenter', '#topcartlink', function () {
+                    $('#flyout-cart').addClass('active opened');
+                });
+                $('.header').on('mouseleave', '#topcartlink', function () {
+                    $('#flyout-cart').removeClass('active opened');
+                });
+               
+                $('.header').on('mouseenter', '#flyout-cart', function () {
+                    $('#flyout-cart').addClass('active opened');
+                });
+                $('.header').on('mouseleave', '#flyout-cart', function () {
+                    $('#flyout-cart').removeClass('active opened');
+                });
+
+                var value = $('select#customerCurrency option:selected').text();
+                $("#CurrencySpan").text(value);
+            });
+    </script>
+
+
+}
+
+<script>
+            function SeachToggle() {
+                if ($("#SeachDiv").is(":hidden")) {
+                    $("#SeachDiv").slideToggle('slow');
+                    $("#small-searchterms").focus();
+                }
+                else {
+                    $("#SeachDiv").slideToggle('slow');
+                    $("#small-searchterms").focusout();
+                }
+            }
+
+            $(".master-header-wrapper").change(function () {
+                $(".persistent-banner__wrapper").css("display", "none");
+            });
+
+
+            function displaynav() {
+                if ($(".mainNav").is(":hidden")) {
+                    $(".mainNav").slideToggle('slow');
+                }
+                else {
+                    $(".mainNav").slideToggle('slow');
+                }
+
+            }
+</script>

@@ -1,0 +1,247 @@
+﻿@model WifeApplyModel
+@using Nop.Web.Models.Vendors;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.WifeApply").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-wife-page");
+}
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.CountryId)").change(function () {
+                var selectedItem = $(this).val();
+                var ddlStates = $("#@Html.FieldIdFor(model => model.StateProvinceId)");
+             var statesProgress = $("#states-loading-progress");
+             statesProgress.show();
+             $.ajax({
+                 cache: false,
+                 type: "GET",
+                 url: "@(Url.RouteUrl("GetStatesByCountryId"))",
+                 data: { "countryId": selectedItem, "addSelectStateItem": "true" },
+                    success: function (data) {
+                        ddlStates.html('');
+                        $.each(data, function (id, option) {
+                            ddlStates.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                        statesProgress.hide();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve states.');
+                        statesProgress.hide();
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.SellOnline)").click(toggleSellOnline);
+            $("#@Html.FieldIdFor(model => model.Physically)").click(togglePhysically);
+            toggleSellOnline();
+            togglePhysically();
+        });
+         function toggleSellOnline() {
+            if ($('#@Html.FieldIdFor(model => model.SellOnline)').is(':checked')) {
+                $('#pnlWebsite').show();
+                $('#pnlFacebookLink').show();
+            } else {
+                $('#pnlWebsite').hide();
+                $('#pnlFacebookLink').hide();
+            }
+        }
+         function togglePhysically() {
+            if ($('#@Html.FieldIdFor(model => model.Physically)').is(':checked')) {
+                $('#pnlShopAddress').show();
+            } else {
+                $('#pnlShopAddress').hide();
+                
+            }
+        }
+    </script>
+<div class="page apply-wife-page">
+   
+    <div class="page-body">
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 opc state">
+
+
+
+
+                @Html.Widget("contactvendor_top")
+                @if (Model.SuccessfullySent)
+                {
+                    <div class="result">
+                        @Model.Result
+                    </div>
+                }
+                else
+                {
+
+
+
+
+                    
+
+
+                    using (Html.BeginForm(null, null, FormMethod.Post, new RouteValueDictionary { { "enctype", "multipart/form-data" } }))
+                    {
+                        @Html.AntiForgeryToken()
+                        var validationSummary = Html.ValidationSummary(true);
+                        if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                        {
+                            <div class="message-error">@validationSummary</div>
+                        }
+                            <div class="fieldset">
+                              
+
+
+
+                                <div class="form-fields">
+
+                                    <div class="title">
+                                        <h1>Application Form - Stars of Pakistan</h1>
+                                    </div>
+
+
+                                    <div class="input-field">
+                                        <label for="name">Full Name</label>
+                                        @Html.TextBoxFor(model => model.Name, new { @class = "name" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.Name)
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="businessname">Business Name</label>
+                                        @Html.TextBoxFor(model => model.BusinessName, new { @class = "businessname" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.BusinessName)
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="ContactNumber">Phone Number</label>
+                                        @Html.TextBoxFor(model => model.ContactNumber, new { @class = "ContactNumber" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.ContactNumber)
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="Email">Email</label>
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "Email" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </div>
+                                    <div class="input-field">
+
+                                        <label for="CountryId">Country</label>
+                                        <div class="select-style">
+
+                                            @Html.DropDownListFor(model => model.CountryId, Model.AvailableCountries, new { @class = "CountryId" })
+                                            @*@Html.RequiredHint()*@
+
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.CountryId)
+                                    </div>
+                                    <div class="input-field">
+
+                                        <label for="StateProvinceId">State / Province</label>
+                                        <div class="select-style">
+                                            @Html.DropDownListFor(model => model.StateProvinceId, Model.AvailableStates, new { @class = "StateProvinceId" })
+                                        </div> @*@Html.RequiredHint()*@
+
+                                        @Html.ValidationMessageFor(model => model.StateProvinceId)
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="city">City</label>
+                                        @Html.TextBoxFor(model => model.City, new { @class = "City" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.City)
+                                    </div>
+                                    <div class="input-check">
+                                        <label for="SellOnline">Do you sell online?</label>
+                                        @Html.CheckBoxFor(model => model.SellOnline, new { @class = "SellOnline" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.SellOnline)
+                                    </div>
+                                    <div id="pnlWebsite" class="input-field">
+                                        <label for="Website">Your website address</label>
+                                        @Html.TextBoxFor(model => model.Website, new { @class = "Website" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.Website)
+                                    </div>
+                                    <div id="pnlFacebookLink" class="input-field">
+                                        <label for="FacebookLink">Facebook Address</label>
+                                        @Html.TextBoxFor(model => model.FacebookLink, new { @class = "FacebookLink" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.FacebookLink)
+                                    </div>
+                                    <div class="input-check">
+                                        <label for="Physically">Do you sell via store?</label>
+                                        @Html.CheckBoxFor(model => model.Physically, new { @class = "Physically" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.Physically)
+                                    </div>
+                                    <div id="pnlShopAddress" class="input-field">
+                                        <label for="ShopAddress">Store Address</label>
+                                        @Html.TextBoxFor(model => model.ShopAddress, new { @class = "ShopAddress" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.ShopAddress)
+                                    </div>
+                                    <div id="pnlTypeOfProducts" class="input-field">
+                                        <label for="businessname">Type of Product</label>
+                                        @Html.TextBoxFor(model => model.TypeOfProducts, new { @class = "TypeOfProducts" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.TypeOfProducts)
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="uploadedFile">Product Image</label>
+                                        <input name="uploadedFile" type="file" />
+                                    </div>
+                                    <div class="input-field-text">
+                                        <label for="enquiry">Enquiry</label>
+                                        @Html.TextAreaFor(model => model.Enquiry, new { @class = "enquiry" })
+                                        @*@Html.RequiredHint()*@
+                                        @Html.ValidationMessageFor(model => model.Enquiry)
+                                    </div>
+                                    @if (Model.DisplayCaptcha)
+                                    {
+                                        <div class="captcha-box">
+                                            @Html.Raw(Html.GenerateCaptcha())
+                                        </div>
+                                    }
+
+
+                                    <div class="buttons">
+                                        <input type="submit" name="send-email" class="button-1 contact-us-button" value="Submit" />
+                                    </div>
+
+
+                                </div>
+
+                                
+                            </div>
+                        
+                    }
+                }
+                @Html.Widget("contactvendor_bottom")
+
+
+
+
+
+
+
+            </div>
+            <div class="col-md-3"></div>
+
+
+
+        </div>
+
+
+
+
+      
+    </div>
+</div>

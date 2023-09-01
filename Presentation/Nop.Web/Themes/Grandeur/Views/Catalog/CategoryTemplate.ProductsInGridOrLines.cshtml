@@ -1,0 +1,460 @@
+﻿@model CategoryModel
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-category-page");
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var categoryUrl = Url.RouteUrl("Category", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(categoryUrl);
+    }
+
+    var breadcrumbDelimiter = EngineContext.Current.Resolve<CommonSettings>().BreadcrumbDelimiter;
+}
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@*category breadcrumb*@
+@section Breadcrumb
+{
+    @if (Model.DisplayCategoryBreadcrumb)
+    {
+        <div class="breadcrumb">
+            <ul>
+                <li>
+                    <a href="@Url.RouteUrl("HomePage")" title="@T("Categories.Breadcrumb.Top")">@T("Categories.Breadcrumb.Top")</a>
+                    <span class="delimiter">@breadcrumbDelimiter</span>
+                </li>
+                @foreach (var cat in Model.CategoryBreadcrumb)
+                {
+                    var isLastCategory = cat.Id == Model.Id;
+                    <li>
+                        @if (isLastCategory)
+                        {
+                            <strong class="current-item">@cat.Name</strong>
+                        }
+                        else
+                        {
+                            <a href="@Url.RouteUrl("Category", new { SeName = cat.SeName })" title="@cat.Name">@cat.Name</a>
+                            <span class="delimiter">@breadcrumbDelimiter</span>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+        @Html.Widget("categorydetails_after_breadcrumb", Model.Id)
+    }
+}
+
+@section left{
+
+
+<div class="slider-content">
+    <div class="header-wrapper">
+        <div class="header">
+            <div class="logo-wrapper">
+                <div class="logo"><span>Mr.</span> Bara</div>
+            </div>
+            <div class="shop-wrapper"></div>
+        </div>
+    </div>
+
+    <div class="number-wrapper">
+        <div class="number-count">
+            <div class="number">01</div>
+        </div>
+    </div>
+
+    <div class="nav-wrapper">
+        <div class="nav-arrows">
+            <div class="nav-up">
+                <svg id="arrow-up">
+                    <use xlink:href="#icon-arrow"></use>
+                </svg>
+            </div>
+            <div class="nav-line"></div>
+            <div class="nav-down">
+                <svg id="arrow-down">
+                    <use xlink:href="#icon-arrow"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="slider-wrapper">
+        <div class="slider-container">
+            <div class="slide active" data-order="1">
+                <div class="slide-content txt">
+                    <div class="txt-wrapper">
+                        <span class="copy">Intro about me</span>
+                        <h2><span>Hello!</span> I’m Mr.Bara</h2>
+                        <span class="subtitle">Fashion designer</span>
+                        <p class="excerpt">I combine the best of our skills and ideas to present you products really worth your attention that will change the way you think about design, structure, color and website itself. </p>
+                    </div>
+                </div>
+                <div class="slide-content img">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slider1.jpg" alt="" />
+                </div>
+            </div>
+            <div class="slide" data-order="2">
+                <div class="slide-content txt">
+                    <div class="txt-wrapper">
+                        <span class="copy">Show with me</span>
+                        <h2><span>Love Simple</span> Fashion</h2>
+                        <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+                        <button>Shop now</button>
+                    </div>
+                </div>
+                <div class="slide-content img">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide2.jpg" alt="" />
+                </div>
+            </div>
+            <div class="slide " data-order="3">
+                <div class="slide-content txt">
+                    <div class="txt-wrapper">
+                        <span class="copy">Fashion around me</span>
+                        <ul>
+                            <li>
+                                <div class="date-wrapper">
+                                    <div class="date">25</div>
+                                    <div class="month">April</div>
+                                </div>
+                                <div class="post-wrapper">
+                                    <div class="post-title"><a href="">Top colour pantone for fashion 2016</a></div>
+                                    <div class="post-info">
+                                        <ul>
+                                            <li>Admin /</li>
+                                            <li>Discovery /</li>
+                                            <li>15 comments</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="date-wrapper">
+                                    <div class="date">18</div>
+                                    <div class="month">April</div>
+                                </div>
+                                <div class="post-wrapper">
+                                    <div class="post-title"><a href="">Inspiration for fashion for Logan's designer</a></div>
+                                    <div class="post-info">
+                                        <ul>
+                                            <li>Admin /</li>
+                                            <li>Inspirations /</li>
+                                            <li>08 comments</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="date-wrapper">
+                                    <div class="date">06</div>
+                                    <div class="month">April</div>
+                                </div>
+                                <div class="post-wrapper">
+                                    <div class="post-title"><a href="">Hipster -Fashion trand this summer</a></div>
+                                    <div class="post-info">
+                                        <ul>
+                                            <li>Admin /</li>
+                                            <li>Discovery /</li>
+                                            <li>22 comments</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="view-all">View all articles</span>
+
+                    </div>
+                </div>
+                <div class="slide-content img">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide3.jpg" alt="" />
+                </div>
+            </div>
+            <div class="slide " data-order="4">
+                <div class="slide-content txt">
+                    <div class="txt-wrapper">
+                        <span class="copy">What clients say</span>
+                        <h2><span>Mr.Bara</span> Best Choice </h2>
+                        <p class="excerpt">I combine the best of our skills and ideas to present you products really worth your attention that will change the way you think about design, structure, color and website itself. </p>
+                    </div>
+                </div>
+                <div class="slide-content img">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide4.jpg" alt="" />
+                </div>
+            </div>
+            <div class="slide " data-order="5">
+                <div class="slide-content txt">
+                    <div class="txt-wrapper">
+                        <span class="copy">Keep in touch</span>
+                        <h3>Melbourne, <span>Australia</span></h3>
+                        <p class="excerpt">269 King Str, 05th Floor, Utral House Building. Melbourne. VIC 3000. Australia</p>
+                        <p><strong>Email:</strong> <a href="mailto:mariosm18@gmail.com">mariosm18@gmail.com</a></p>
+                        <p>Call directly: <span class="phone">+99 (0) 344 956 4050</span></p>
+                    </div>
+                </div>
+                <div class="slide-content img">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide5.jpg" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const up = $('.nav-up');
+        const down = $('.nav-down');
+        let counter = 1;
+        let number = $('.number');
+
+        function moveDown(currentSlide) {
+
+            var nextSlide = currentSlide.next();
+            var currentSlideUp = currentSlide.find('.txt');
+            var currentSlideDown = currentSlide.find('.img');
+            var nextSlideUp = nextSlide.find('.img');
+            var nextSlideDown = nextSlide.find('.txt');
+            let currentCopy = currentSlide.find('.copy');
+            let nextCopy = nextSlide.find('.copy');
+
+            if (nextSlide.length !== 0) {
+
+                counter = counter + 1;
+
+                if (counter % 2 === 0) {
+
+                    TweenMax.to(number, 0.3, { x: '-100%' })
+                    TweenMax.to(currentSlideUp, 0.4, { y: '-100%', delay: 0.15 });
+                    TweenMax.to(currentSlideDown, 0.4, { y: '100%', delay: 0.15 });
+                    setTimeout(function () { number.html('') }, 300);
+
+                } else {
+
+                    number.html('0' + counter);
+                    TweenMax.to(number, 0.3, { x: '0%', delay: 1 })
+                    TweenMax.to(currentSlideUp, 0.4, { y: '100%', delay: 0.15 });
+                    TweenMax.to(currentSlideDown, 0.4, { y: '-100%', delay: 0.15 });
+                }
+
+                TweenMax.to(currentCopy, 0.3, { autoAlpha: 0, delay: 0.15 });
+                TweenMax.to(nextCopy, 0.3, { autoAlpha: 1, delay: 1 });
+                TweenMax.to(nextSlideUp, 0.4, { y: '0%', delay: 0.15 });
+                TweenMax.to(nextSlideDown, 0.4, { y: '0%', delay: 0.15 });
+
+                $(currentSlide).removeClass('active');
+                $(nextSlide).addClass('active');
+
+            }
+        }
+
+        function moveUp(currentSlide) {
+
+            var prevSlide = currentSlide.prev();
+            var currentSlideUp = currentSlide.find('.img');
+            var currentSlideDown = currentSlide.find('.txt');
+            var prevSlideUp = prevSlide.find('.txt');
+            var prevSlideDown = prevSlide.find('.img');
+            let currentCopy = currentSlide.find('.copy');
+            let prevCopy = prevSlide.find('.copy');
+
+            if (prevSlide.length !== 0) {
+
+                counter = counter - 1;
+
+                if (counter % 2 === 0) {
+
+
+                    TweenMax.to(number, 0.3, { x: '-100%' });
+                    TweenMax.to(currentSlideUp, 0.4, { y: '-100%', delay: 0.15 });
+                    TweenMax.to(currentSlideDown, 0.4, { y: '100%', delay: 0.15 });
+                    setTimeout(function () { number.html('') }, 300);
+
+
+                } else {
+
+                    number.html('0' + counter);
+                    TweenMax.to(number, 0.3, { x: '0%', delay: 1 })
+                    TweenMax.to(currentSlideUp, 0.4, { y: '100%', delay: 0.15 });
+                    TweenMax.to(currentSlideDown, 0.4, { y: '-100%', delay: 0.15 });
+                }
+
+                TweenMax.to(currentCopy, 0.3, { autoAlpha: 0, delay: 0.15 });
+                TweenMax.to(prevCopy, 0.3, { autoAlpha: 1, delay: 1 });
+                TweenMax.to(prevSlideUp, 0.4, { y: '0%', delay: 0.15 });
+                TweenMax.to(prevSlideDown, 0.4, { y: '0%', delay: 0.15 });
+
+                $(currentSlide).removeClass('active');
+                $(prevSlide).addClass('active');
+
+            }
+
+        }
+
+        function hideNav() {
+
+            if (counter == $('.slide').length) {
+                TweenMax.to($('.nav-down'), 0.5, { autoAlpha: 0, delay: 0.5 });
+            } else {
+                TweenMax.to($('.nav-down'), 0.5, { autoAlpha: 1, delay: 0.5 });
+            }
+            if (counter === 1) {
+                TweenMax.to($('.nav-up'), 0.5, { autoAlpha: 0, delay: 0.5 });
+            } else {
+                TweenMax.to($('.nav-up'), 0.5, { autoAlpha: 1, delay: 0.5 });
+            }
+
+        }
+
+
+        down.on('click', function () {
+
+            var currentSlide = $('.active');
+            moveDown(currentSlide);
+            hideNav();
+
+        });
+
+        up.on('click', function () {
+
+            var currentSlide = $('.active');
+            moveUp(currentSlide);
+            hideNav();
+
+        });
+    </script>
+</div>
+    @*subcategories*@
+    @if (Model.SubCategories.Count > 0)
+    {
+        @*<div class="category-grid sub-category-grid">
+            <div class="item-grid">
+                @foreach (var item in Model.SubCategories)
+                {
+                    <div class="item-box">
+                        <div class="sub-category-item">
+                            <h2 class="title">
+                                <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                    @item.Name
+                                </a>
+                            </h2>
+                            <div class="picture">
+                                <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                    <img alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>*@
+    }
+}
+<div class="page category-page">
+    <div class="page-title" style="background-image:url(@(Model.AlternativePictureModel.FullSizeImageUrl))">
+        <h1>@Model.Name</h1>
+    </div>
+    <div class="page-body">
+        @Html.Widget("categorydetails_top", Model.Id)
+        @*description*@
+        @if (!String.IsNullOrWhiteSpace(Model.Description))
+        {
+            <div class="category-description">
+                @Html.Raw(Model.Description)
+            </div>
+        }
+        @Html.Widget("categorydetails_before_subcategories", Model.Id)
+        @*subcategories*@
+        @if (Model.SubCategories.Count > 0)
+        {
+            <div class="category-grid sub-category-grid">
+                <div class="item-grid">
+                    @foreach (var item in Model.SubCategories)
+                    {
+                        <div class="item-box">
+                            <div class="sub-category-item">
+                                <h2 class="title">
+                                    <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                        @item.Name
+                                    </a>
+                                </h2>
+                                <div class="picture">
+                                    <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                        <img alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @Html.Widget("categorydetails_before_featured_products", Model.Id)
+        @*featured products*@
+        @if (Model.FeaturedProducts.Count > 0)
+        {
+            <div class="product-grid featured-product-grid">
+                <div class="title">
+                    <strong>@T("Products.FeaturedProducts")</strong>
+                </div>
+                <div class="item-grid">
+                    @foreach (var item in Model.FeaturedProducts)
+                    {
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", item)
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @Html.Widget("categorydetails_after_featured_products", Model.Id)
+        @if (Model.Products.Count > 0)
+        {
+            @Html.Partial("_CatalogSelectors", Model.PagingFilteringContext, new ViewDataDictionary())
+        }
+        @Html.Widget("categorydetails_before_filters", Model.Id)
+        <div class="product-filters">
+            @*filtering*@
+            @if (Model.PagingFilteringContext.PriceRangeFilter.Enabled)
+            {
+                @Html.Partial("_FilterPriceBox", Model.PagingFilteringContext.PriceRangeFilter, new ViewDataDictionary())
+            }
+            @*filtering*@
+            @if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
+            {
+                @Html.Partial("_FilterSpecsBox", Model.PagingFilteringContext.SpecificationFilter, new ViewDataDictionary())
+            }
+        </div>
+        @Html.Widget("categorydetails_before_product_list", Model.Id)
+
+        @if (Model.Products.Count > 0)
+        {
+            <div class="@(Model.PagingFilteringContext.ViewMode == "list" ? "product-list" : "product-grid")">
+                <div class="item-grid">
+                    @foreach (var product in Model.Products)
+                    {
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", product)
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @{
+            var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+        }
+        @if (!pager.IsEmpty())
+        {
+            <div class="pager">
+                @pager
+            </div>
+        }
+        @Html.Widget("categorydetails_bottom", Model.Id)
+    </div>
+</div>

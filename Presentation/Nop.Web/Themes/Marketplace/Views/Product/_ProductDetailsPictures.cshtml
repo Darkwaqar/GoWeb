@@ -1,0 +1,62 @@
+﻿@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+@{
+    int i = 0;
+}
+
+
+
+<div class="col-md-5" style="margin-top: 50px;padding: 0 35px" id="scrollImages">
+    <div class="smallThumbs">
+        <div class="row">
+            <div class="variable-width">
+                @foreach (var picture in Model.PictureModels)
+                {
+                    if (i == 0)
+                    {
+                        <div>
+                            <img data-zoom-image="@picture.FullSizeImageUrl" src="@picture.FullSizeImageUrl" class="img-responsive customMadeImage zoom_01" style="width: 360px;">
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <img data-zoom-image="@picture.FullSizeImageUrl" src="@picture.FullSizeImageUrl" class="img-responsive customMadeImage" style="width: 360px;">
+                        </div>
+                    }
+                    i++;
+                }
+            </div>
+        </div>
+        <div class="row" style=" margin-top: 25px;">
+            <div class="hidden-xs hidden-sm">
+                @foreach (var picture in Model.PictureModels)
+                {
+                    <img src="@picture.ImageUrl" alt="" class="img-responsive slicksl customImage thumbs-inline" id="slick-slide01">
+                }
+                <a href="javascript:" id="hideSmallThumb">
+                    <p style="color: #666666; font-size: x-small; margin-top: 5px;">
+                        VIEW LARGE THUMBNAILS
+                        <span>
+                            <i style="margin-left: 2px;" class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                        </span>
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="hidden largeThumbs">
+        @foreach (var picture in Model.PictureModels)
+        {
+            <img src="@picture.FullSizeImageUrl" alt="" class="img-responsive">
+        }
+        <a href="javascript:" id="hideLargeThumb">
+            <p style="color: #666666; font-size: x-small; margin-top: 5px;">
+                VIEW SMALL THUMBNAILS
+                <span>
+                    <i style="margin-left: 2px;" class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                </span>
+            </p>
+        </a>
+    </div>
+</div>

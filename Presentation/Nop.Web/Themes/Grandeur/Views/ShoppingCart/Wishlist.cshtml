@@ -1,0 +1,53 @@
+@model WishlistModel
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.ShoppingCart
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Wishlist").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-wishlist-page");
+
+    var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+}
+@section left
+{
+    <div class="logo"></div>
+    <h1>
+        @if (Model.IsEditable)
+    {
+        @T("Wishlist")
+    }
+    else
+    {
+        @String.Format(T("Wishlist.WishlistOf").Text, Model.CustomerFullname)
+    }
+</h1>
+<p>
+    @if (Model.IsEditable && Model.Items.Count > 0)
+    {
+        <div class="share-info">
+            <span class="share-label">@T("Wishlist.YourWishlistURL"):</span>
+            <a href="@Url.RouteUrl("Wishlist", new { customerGuid = Model.CustomerGuid })" class="share-link">@Url.RouteUrl("Wishlist", new { customerGuid = Model.CustomerGuid }, "http")</a>
+        </div>
+    }
+</p>
+<div >
+    @if (Model.IsEditable && Model.EmailWishlistEnabled)
+    {
+        <a class="hire btn btn-cross" onclick="setLocation('@Url.RouteUrl("EmailWishlist")')">
+            <span>@T("Wishlist.EmailAFriend")</span>
+        </a>
+    }
+</div>
+<span class="down"></span>
+}
+
+
+<div class="page wishlist-page" id="ordersummarypagewishlist">
+    <div class="page-body">
+        @Html.Partial("WishlistSummary", Model)
+    </div>
+</div>

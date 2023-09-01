@@ -1,0 +1,8 @@
+﻿Group: 7Spikes
+FriendlyName: Nop Urban Theme
+SystemName: SevenSpikes.Theme.Urban
+Version: 3.90
+SupportedVersions: 3.90
+Author: Seven Spikes
+DisplayOrder: 2
+FileName: SevenSpikes.Theme.Urban.dll

@@ -1,0 +1,20 @@
+﻿@model ProductModel
+
+@{
+    //page title
+    ViewBag.Title = T("Admin.Catalog.Products.Pictures").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("Shop the look");
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "product-form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Admin.Catalog.Products.Pictures") - @Model.Name
+            <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink(T("Admin.Catalog.Products.BackToList").Text, "List")</small>
+        </h1>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model)
+}

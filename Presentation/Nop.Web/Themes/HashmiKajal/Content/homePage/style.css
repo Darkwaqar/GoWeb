@@ -1,0 +1,570 @@
+.border{
+	border-bottom: 3px solid red;
+	display: block;
+	margin-bottom: 4px;
+}
+
+.headerbg {
+	background-color: rgba(0,0,0,0.8);
+    /*display:none;*/
+}
+
+.headerbtn{
+
+	position: relative;
+    height: 71px;
+    border:	solid 2px white;
+    align-items: center;
+    vertical-align: middle;
+    display: flex;
+    text-align: center;
+}
+
+.menuheader {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+.menuheader li{
+	display: inline-block;
+}
+
+.menuheader li a{
+	text-decoration: none;
+    font-size: 14px;
+    color: grey;
+    font-family: 'Raleway', sans-serif;
+    padding: 20px 10px;
+    align-items: center;
+}
+
+.menuheader li a:hover {
+	text-decoration: none;
+	color: red;
+}
+
+.sociallinks{
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.sociallinks li{
+	display: inline-block;
+	margin-right: 17px; 
+
+}
+
+.sociallinks li i{
+	font-size: 16px;
+	color: #cccccc;
+	display: flex;
+  	align-items: center;
+}
+
+.sociallinks li a i:hover {
+	text-decoration: none;
+	color: red;
+}
+
+
+.ecommerce{
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	text-align: right;
+	position: relative;
+	margin-right: 10px;
+}
+
+.ecommerce li{
+	display: inline-block;
+	margin:0 15px;
+	padding: 30px 0;
+}
+
+.ecommerce li i{
+	font-size: 16px;
+	font-size: 18px;
+	/*margin-left: 25px;*/
+	color: #cccccc;
+	display: flex;
+  	align-items: center;
+}
+
+.ecommerce li a i:hover {
+	text-decoration: none;
+	color: brown;
+    color: #d0be7c;
+}
+
+.rowfull {
+	width: 100%;
+}
+
+
+.ppage-image {
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-image: url(images/secbanner.jpg);
+	display: flex;
+  	justify-content: center;
+  	text-align: center;
+  	height: 94vh;
+    background-size: cover;
+}
+
+.ppage-image:hover {
+	background-image: url(images/secbanner.jpg);
+}
+
+
+.header-image {
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-image: url(images/banner1.jpg);
+	display: flex;
+  	justify-content: center;
+  	text-align: center;
+  	height: 94vh;
+    background-size: cover;
+}
+
+.header-image:hover {
+	background-image: url(images/banner2.jpg);
+}
+
+
+.section-image {
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-image: url(images/secbanner.jpg);
+	display: flex;
+  	justify-content: center;
+  	height: 100vh;
+    background-size: cover;
+}
+
+.productpanel {
+	display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+}
+
+.silver {
+	float: right;
+}
+/*
+.silverheading {
+	font-size: 25px;
+	color: #d0be7c;
+	font-family: 'Raleway', sans-serif;
+
+}
+
+.silverdesc {
+	font-size: 15px;
+	color: white;
+	font-family: 'Raleway', sans-serif;
+}
+*/
+.silverprice {
+	font-size: 25px;
+	color: white;
+	font-family: 'Raleway', sans-serif;
+}
+
+.boxing {
+    background-color: #272424;
+}
+
+.majestic {
+    position: absolute;
+    left: 30px;
+    width: 44%;
+    bottom: 0;
+}
+.majestic img{
+    width: 100%;
+}
+
+
+.image1 {
+    background-image: url(images/esq1.jpg);
+    background-size: cover;
+    background-position: center center;
+    padding-top: 50%;
+    max-height: 350px;
+}
+
+.imagecom {
+	background-size:cover;
+	background-position: center center;
+	padding: 0px;
+}
+
+.text {
+    text-align: center !important;
+    padding: 11.4% 3%;
+}
+
+
+.mainlogo {
+	padding-top: 1%;
+	align-items: center;
+
+}
+
+.mainlogo:hover {
+	color: white;
+}
+
+.button {
+	display: block;
+    padding: 23px;
+    margin-top: 40px;
+    border: solid 2px white;
+    width: 139px;
+    font-size: 18px;
+    color: white;
+	font-family: 'Raleway', sans-serif;
+	background-color: transparent;
+}
+
+.button:hover {
+	display: block;
+    padding: 23px;
+    margin-top: 40px;
+    border: solid 2px #d0be7c;
+    color: #d0be7c;
+    width: 139px;
+}
+
+.productpage a {
+	display: block;
+    padding: 23px;
+    text-decoration: none;	
+    margin-top: 40px;
+    color: grey;
+   	font-family: 'Raleway', sans-serif;
+   	font-size: 18px;
+   	text-decoration: underline;
+}
+
+.productpage a:hover {
+	display: block;
+    padding: 23px;
+    text-decoration: none;	
+    margin-top: 40px;
+    color: #d0be7c;
+   	font-family: 'Raleway', sans-serif;
+   	font-size: 18px;
+   	text-decoration: underline;
+}
+
+
+.footerbg {
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+}
+
+.footerbg a {
+    float: left;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.footerbtn{
+
+	position: relative;
+    height: 71px;
+    border:	solid 2px white;
+    align-items: center;
+    vertical-align: middle;
+    display: flex;
+    text-align: center;
+}
+
+
+.menufooter {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+.menufooter li{
+	display: inline-block;
+}
+
+.menufooter li a{
+	text-decoration: none;
+	font-size: 14px;
+	color: white;
+	font-family: 'Raleway', sans-serif;
+	margin-left: 40px;
+	display: flex;
+  	align-items: center;
+  	justify-content: right;
+}
+
+.menufooter li a:hover {
+	text-decoration: none;
+	color: red;
+}
+
+
+/* // slider css //*/
+
+/* external css: flickity.css */
+
+* { box-sizing: border-box; }
+
+body { font-family: sans-serif; }
+
+.carousel {
+  background-image: url(images/secbanner.jpg);
+}
+
+.carousel-cell {
+  display: flex;
+  align-items: center;
+  width: 66%;
+  height: 1080px;
+  margin-right: 10px;
+  background: transparent;
+  border-radius: 5px;
+}
+
+
+.flickity-page-dots {
+  bottom: 10px;
+}
+/* // slider css //*/
+
+
+/*// video //*/
+
+.videocont {
+    align-items: center;
+    vertical-align: middle;
+    display: flex;
+    text-align: center;
+    width: 100%;
+}
+
+.myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+}
+
+.video {
+    width: 100%;
+    max-width: 100%;
+}
+/*
+.content {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+  height: 100%;
+}
+*/
+.videofont {
+	text-decoration: none;
+	font-size: 14px;
+	color: grey;
+	font-family: 'Raleway', sans-serif;
+	margin-left: 40px;
+	height: 100px;
+	display: flex;
+  	align-items: center;
+  	justify-content: right;
+
+}
+
+/*// video //*/
+
+/*//sticky nav bar //*/
+
+/* Style the navbar */
+#navbar {
+    /*overflow: hidden;*/
+    background-color: rgba(0,0,0,0.8) !important;
+    color: transparent;
+    z-index: 10000;
+    /*display: flex;
+    align-items: center;*/
+    justify-content: center;
+    position: relative;
+}
+
+/* Navbar links */
+#navbar a {
+  /*float: left;*/
+  display: block;
+  /*text-align: center;*/
+  text-decoration: none;
+  
+}
+
+/* Page content */
+.content {
+  padding: 16px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index:5;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+}
+
+/*// sticky nav bar //*/
+
+
+
+
+
+/*// search overlay //*/
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+}
+
+.overlay-content {
+  position: relative;
+  top: 46%;
+  width: 80%;
+  text-align: center;
+  margin-top: 30px;
+  margin: auto;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  cursor: pointer;
+  color: white;
+}
+
+.overlay .closebtn:hover {
+  color: #ccc;
+}
+
+.search-box-text {    
+    width: 80% !important;
+}
+
+
+.overlay input[type=text] {
+    padding: 25px 15px;
+    font-family: 'Raleway', sans-serif;
+    color: grey;
+    font-size: 17px;
+    border: none;
+   /* width: 100% !important;*/
+    background: white;
+    vertical-align: bottom;
+}
+.k-header .search-box-text{
+   width: 100% !important;
+}
+.overlay input[type=text]:hover {
+  background: #f1f1f1;
+}
+
+.overlay .search-box-button {
+    font-size: 21px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    /*float: left;*/
+    width: 20%;
+    padding: 15px;
+    background: #d0be7c;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.overlay button:hover {
+  background: red;
+}
+
+/*// search overlay //*/
+
+
+
+
+
+/*// subscribe //*/
+
+.subscribe {
+	display: block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: white;
+    height: 55px;
+
+}
+
+.subsbtn {
+	display: block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: white;
+    background-color: #d0be7c;
+    height: 55px;
+}
+
+.formpaddingtop {
+	padding-top: 1%;
+}
+
+
+@media (min-width: 750px) and (max-width: 992px) {
+    .newsletter-email {
+        width: 700px !important;
+    }
+}
+
+#headerMenuParent
+{
+    background-color: transparent !important;
+}
+
+/*// subscribe //*/
+
+
+/*// product page //*/

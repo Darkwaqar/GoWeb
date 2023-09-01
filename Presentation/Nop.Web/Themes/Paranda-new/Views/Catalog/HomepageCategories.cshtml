@@ -1,0 +1,144 @@
+﻿@model IList<CategoryModel>
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Catalog;
+@using Nop.Services.Seo;
+@using Nop.Services.Media;
+
+@if (Model.Count > 0)
+{
+
+    var id = 2;
+    var left = "left";
+    var right = "right";
+
+                <div class="ms-left text-center">
+                    <div class="ms-section first-title" id="left1">
+                        <div class="ftitle-area">
+                            <h1><span>Discover & Shop</span><br>Embracing a <br>new kind of luxury!</h1>
+                        </div>
+                    </div>
+                        @foreach (var item in Model)
+                        {
+                            var subcategories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(item.Id);
+                            <div class="ms-section" id="@left@id">
+                                <div class="left-category">
+                                    @*<a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">@item.Name
+                        </a>*@
+                                    <img alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" />
+                                    <div class="text-holder">
+                                        <h2>The Heritage</h2>
+                                        <h3>Culture</h3>
+					@*<h3>@item.Name</h3> *@
+                                        <p>
+                                            @Html.Raw(item.Description)
+                                        </p>
+                                        @*<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </p>*@
+                                    </div>
+                                    <div class="category-menu">
+                                        <ul>
+                                            @foreach (var item1 in subcategories)
+                                            {
+                                                <li class="abc"><a href="@item1.GetSeName()">@item1.Name</a></li>
+                                            }
+                                            @*<li><a href="#">BAGS</a></li>
+                                <li><a href="#">WALLETS</a></li>
+                                <li><a href="#">FOOTWEAR</a></li>
+                                <li><a href="#">JEWELLERY</a></li>*@
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div><!-- // .ms-section #left1 // -->
+                            id++;
+                        }
+
+                        @*<div class="ms-section first-title" id="left1">
+                <div class="ftitle-area">
+                    <h1><span>Discover & Shop</span><br>Embracing a <br>new kind of luxury!</h1>
+                </div>
+            </div><!-- // .ms-section #left1 // -->
+
+            <div class="ms-section" id="left2">
+                <div class="left-category">
+                    <img src="assets/images/section-1.jpg">
+                    <div class="text-holder">
+                        <h2>The Heritage</h2>
+                        <h3>Culture</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </p>
+                    </div>
+                    <div class="category-menu">
+                        <ul>
+                            <li><a href="#">BAGS</a></li>
+                            <li><a href="#">WALLETS</a></li>
+                            <li><a href="#">FOOTWEAR</a></li>
+                            <li><a href="#">JEWELLERY</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!-- // .ms-section #left2 // -->
+
+            <div class="ms-section" id="left3">
+                <div class="left-category">
+                    <img src="assets/images/section-2.jpg">
+                    <div class="text-holder">
+                        <h2>The Heritage</h2>
+                        <h3>Culture</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </p>
+                    </div>
+                    <div class="category-menu">
+                        <ul>
+                            <li><a href="#">BAGS</a></li>
+                            <li><a href="#">WALLETS</a></li>
+                            <li><a href="#">FOOTWEAR</a></li>
+                            <li><a href="#">JEWELLERY</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!-- // .ms-section #left3 // -->
+
+            <div class="ms-section" id="left4">
+                <div class="left-category">
+                    <img src="assets/images/section-3.jpg">
+                    <div class="text-holder">
+                        <h2>The Heritage</h2>
+                        <h3>Culture</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </p>
+                    </div>
+                    <div class="category-menu">
+                        <ul>
+                            <li><a href="#">BAGS</a></li>
+                            <li><a href="#">WALLETS</a></li>
+                            <li><a href="#">FOOTWEAR</a></li>
+                            <li><a href="#">JEWELLERY</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!-- // .ms-section #left4 // -->*@
+
+                    </div><!-- // Ms-Left Section // -->
+                <div class="ms-right">
+                    <div class="ms-section" id="right1"></div>
+                    @foreach (var item in Model)
+                    {
+                        var subcategories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(item.Id);
+                        String imageURl = "";
+                        if (subcategories.Any())
+                        {
+                            imageURl = EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(subcategories.FirstOrDefault().PictureId);
+                        }
+
+                        <div class="ms-section" id="@right@id"><img src="@imageURl" /></div>
+                    }
+                </div><!-- // Ms-Right Section // -->
+                    }
+
+
+                    @*<div class="ms-right">
+            <div class="ms-section" id="right1"></div>
+            <div class="ms-section" id="right2"><img src="~/Themes/Paranda-new/Content/images/product-1.jpg" /></div>
+            <div class="ms-section" id="right3"><img src="~/Themes/Paranda-new/Content/images/product-1.jpg" /></div>
+            <div class="ms-section" id="right4"><img src="~/Themes/Paranda-new/Content/images/product-1.jpg" /></div>
+            <div class="ms-section" id="right5"><img src="~/Themes/Paranda-new/Content/images/product-1.jpg" /></div>
+        </div><!-- // Ms-Right Section // -->*@
+                    

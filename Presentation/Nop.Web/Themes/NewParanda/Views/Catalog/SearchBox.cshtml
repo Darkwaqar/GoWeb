@@ -1,0 +1,96 @@
+﻿@model SearchBoxModel
+@using Nop.Web.Models.Catalog;
+@using (Html.BeginRouteForm("ProductSearch", FormMethod.Get, new { id = "small-search-box-form" }))
+{
+
+    if (Model.SearchTermMinimumLength > 0)
+    {
+        <script type="text/javascript">
+            $("#small-search-box-form").submit(function(event) {
+                if ($("#small-searchterms").val() == "") {
+                    alert('@Html.Raw(HttpUtility.JavaScriptStringEncode(T("Search.EnterSearchTerms").Text))');
+                    $("#small-searchterms").focus();
+                    event.preventDefault();
+                }
+            });
+        </script>
+    }
+
+
+    if (Model.AutoCompleteEnabled)
+    {
+        <text>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#small-searchterms').autocomplete({
+                            delay: 500,
+                            minLength: @(Model.SearchTermMinimumLength.ToString()),
+                            source: '@(Url.RouteUrl("ProductSearchAutoComplete"))',
+                            appendTo: '.search-box',
+                            select: function(event, ui) {
+                                $("#small-searchterms").val(ui.item.label);
+                                setLocation(ui.item.producturl);
+                                return false;
+                            }
+                        })
+                        .data("ui-autocomplete")._renderItem = function(ul, item) {
+                            var t = item.label;
+                            //html encode
+                            t = htmlEncode(t);
+                            return $("<li></li>")
+                                .data("item.autocomplete", item)
+                                .append("<a>@(Model.ShowProductImagesInSearchAutoComplete ? Html.Raw("<img src='\" + item.productpictureurl + \"'>") : null)<span>" + t + "</span></a>")
+                                .appendTo(ul);
+                        };
+                });
+            </script>
+        </text>
+    }
+
+
+
+
+    @*<input type="submit" class="button-1 search-box-button" value="@T("Search.Button")" />*@
+    <div class="searchBar__contents" data-singleproduct="product" data-multiproduct="products" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+        <div class="searchBar__query">
+            <input type="text" class="search-box-text" id="small-searchterms" autocomplete="off" name="q" placeholder="Search Products..." />
+        </div>
+        <div class="searchBar__count grid-x grid-padding-x">
+            <div class="cell small-16 medium-auto">Your search</div>
+            <div class="cell auto">
+
+
+
+
+
+
+               
+                <span><i data-searchcount="">0</i> <span class="countlabel">products</span></span>
+            </div>
+        </div>
+        <div class="searchBar__items" data-turbolinks="true">
+            @Html.Widget("searchbox_before_search_button")
+
+
+
+        </div>
+        <div class="searchBar__empty" style="display: none;">Sorry, No products found</div>
+    </div>
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

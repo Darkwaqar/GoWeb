@@ -1,0 +1,32 @@
+@model WishlistModel
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.ShoppingCart
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Wishlist").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-wishlist-page");
+
+    var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+}
+
+<div class="page wishlist-page" id="ordersummarypagewishlist">
+    <div class="page-title">
+        <h1>My Favourite
+            @*@if (Model.IsEditable)
+            {
+                
+            }
+            else
+            {
+                @String.Format(T("Wishlist.WishlistOf").Text, Model.CustomerFullname)
+            }*@
+        </h1>
+    </div>
+    <div class="page-body">
+        @Html.Partial("WishlistSummary", Model)
+    </div>
+</div>

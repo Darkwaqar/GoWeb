@@ -1,0 +1,272 @@
+﻿@model TopMenuModel
+@using Nop.Web.Models.Catalog;
+@using Nop.Services.Common;
+@{
+    bool ShowRackEnabled = true;
+    var currentCustomer = Nop.Core.Infrastructure.EngineContext.Current.Resolve<Nop.Core.IWorkContext>().CurrentCustomer;
+    var FirstName = currentCustomer.GetAttribute<string>(Nop.Core.Domain.Customers.SystemCustomerAttributeNames.FirstName);
+}
+
+@helper RenderCategoryLine(CategorySimpleModel category, int level)
+{
+if (category.SubCategories.Count > 0)
+{
+        @RenderSubCategoryLine(category, level)
+}
+else
+{
+        <li class="leftmenu-width">
+            <a href="@Url.RouteUrl("Category", new { SeName = category.SeName })" style="height:40px">
+                @category.Name
+            </a>
+
+        </li>
+}
+}
+
+@helper RenderSubCategoryLine(CategorySimpleModel category, int level)
+{
+    <li class="@(level > 0 ? "dropdown-submenu" : "dropdown") leftmenu-width left-height">
+        @*<a class="hidden-sm hidden-xs" href="@Url.RouteUrl("Category", new { SeName = category.SeName })" style="font-weight:normal;height:40px"> *@
+	<a class="hidden-sm hidden-xs" style="font-weight:normal;height:40px;cursor: pointer;">
+            @{
+                if (category.Name.ToLower() == "footprint")
+                {
+                    <span>Shop</span>
+                }
+                else
+                {
+                    <span>@category.Name</span>
+                }
+            }
+            
+            @if (level == 0)
+            {
+                <span class="hidden-lg hidden-md pull-right fa fa-angle-right"></span>
+            }
+        </a>
+        <a class="hidden-md hidden-lg" href="@Url.RouteUrl("Category", new { SeName = category.SeName })" data-toggle="dropdown" style="font-weight:normal;height:40px">
+           @{
+                if (category.Name.ToLower() == "footprint")
+                {
+                    <span>Shop</span>
+                }
+                else
+                {
+                    <span>@category.Name</span>
+                }
+            }
+            @if (level == 0)
+            {
+                <span class="hidden-lg hidden-md pull-right fa fa-angle-right"></span>
+            }
+        </a>
+        <ul class="dropdown-menu ">
+            @foreach (var subCategory in category.SubCategories.Where(x=>x.IncludeInTopMenu))
+            {
+                @RenderCategoryLine(subCategory, level + 1)
+            }
+        </ul>
+    </li>
+}
+
+
+
+<div id="leftmenu" class="hidden-md hidden-lg hidden-xl uppercase" style="top:0px;position:fixed">
+    <div class="header" style="background-color: #051C3B;height:69px">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-xs-4 nopadding" style="margin-top:16px"><a href="/logout" class="leftmenu-signout" style="color:white;padding-left:0px">SIGN OUT</a></div>
+            <div class="col-xs-4 nopadding" style="margin-top:16px;margin-left:9px;border-left:1px solid white"><a href="/customer/info" class="leftmenu-account" style="color:white">@FirstName</a></div>
+        }
+        else
+        {
+            <div class="col-xs-3 nopadding" style="margin-top:16px"><a href="/login" class="leftmenu-signin" style="color: white; padding-left: 0px">SIGN  IN</a></div>
+            <div class="col-xs-3 nopadding" style="text-align:right;margin-top: 16px;border-left:1px solid white"><a href="/register" class="leftmenu-newin" style="color:white">NEW IN</a></div>
+        }
+        <span style="margin-top:15px" class="pull-right"><img style="width:12px" src="~/Themes/FootPrint//content/images/cross2.png" onclick="closenav()" /></span>
+    </div>
+    <hr />
+    <div>
+
+
+        <ul class="nav navbar-nav nav-stacked nopadding no-margin">
+
+
+
+            @{
+                var rootCategories2 = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
+            }
+           
+            
+            @foreach (var category in rootCategories2)
+            {
+                @RenderCategoryLine(category, 0)
+            }
+	   
+            @*<li> <a href="/blog"> Blog </a> </li>*@
+
+            @foreach (var topic in Model.Topics)
+            {
+                <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+            }
+           @* <li class="dropdown leftmenu-width left-height">
+                <a href="javascript:" data-toggle="dropdown" style="height:40px">
+                    DISCOVER
+                    <span class="hidden-lg hidden-md pull-right fa fa-angle-right"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/gift-2">GIFT</a></li>
+                    <li><a href="/loyalty-program-footprint">LOYALTY PROGRAM</a></li>
+                    <li><a href="/wishlists">FAVOURITE</a></li>
+                </ul>
+            </li> *@
+
+            @if (rootCategories2.Count == 0 && Model.Topics.Count == 0)
+            {
+
+                <li><a href="@Url.RouteUrl("HomePage")">@T("HomePage")</a></li>
+                if (Model.NewProductsEnabled)
+                {
+                    <li>
+                        <a href="#">@T("Products.NewProducts")</a>
+                    </li>
+                }
+                <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+                <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+                if (Model.BlogEnabled)
+                {
+                    <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                }
+                if (Model.ForumEnabled)
+                {
+                    <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                }
+                <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+		
+            }
+	<li><a href="/loyalty-program-footprint">LOYALTY</a></li>
+	<li class="dropdown leftmenu-width left-height">
+                <a href="javascript:" data-toggle="dropdown" style="height:40px">
+                    ESTD. 2003
+                    <span class="hidden-lg hidden-md pull-right fa fa-angle-right"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/myjourney">MY JOURNEY</a></li>
+                    <li><a href="/brand">BRAND</a></li>
+                </ul>
+            </li>
+
+
+        </ul>
+	@*
+        <div style="border-bottom: solid 1px rgb(239,239,239); border-top: solid 1px rgb(239,239,239)">
+
+            <a href="@Url.RouteUrl("Wishlist")" class="li-item" style="">
+                <table>
+                    <tr>
+                        <td style="padding-top:7px;padding-bottom:7px"><span class="" style="font-size:12px;margin-left:21px">FAVOURITE</span></td>
+                    </tr>
+                </table>
+            </a>
+        </div>*@
+        <div>@Html.Action("CurrencySelector", "Common")</div>
+
+
+    </div>
+</div>
+
+<nav class="navbar navbar-default topmenu hidden-xs hidden-sm" role="navigation">
+
+
+    <div class="collapse navbar-collapse nopadding" id="top-menu" role="navigation" aria-label="Main menu">
+
+        <ul class="nav navbar-nav">
+            @Html.Widget("header_menu_before")
+            @{
+                var rootCategories = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
+            }
+            @foreach (var category in rootCategories)
+            {
+                @RenderCategoryLine(category, 0)
+            }
+            @foreach (var topic in Model.Topics)
+            {
+                <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })" style="height:40px">@topic.Name</a></li>
+            }
+            @*<li><a href="/blog" style="height:40px">Blog</a></li>*@
+            @if (ShowRackEnabled)
+            {
+               @* <li class="dropdown leftmenu-width left-height">
+                    <a href="javascript:" style="height:40px">DISCOVER</a>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="/gift-2">GIFT</a></li>
+                        <li><a href="/wishlist">FAVOURITE</a></li>
+                    </ul>
+                </li>*@
+		<li><a href="/loyalty-program-footprint">LOYALTY</a></li>
+            }
+	   
+	   <li class="dropdown leftmenu-width left-height">
+                <a href="javascript:" style="height:40px">ESTD. 2003</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/myjourney">MY JOURNEY</a></li>
+                    <li><a href="/brand">BRAND</a></li>
+                </ul>
+            </li>
+            @if (rootCategories.Count == 0 && Model.Topics.Count == 0)
+            {
+                //no categories or topis to display? in this case let's diplay some default menu items (should we?)
+                <li><a href="@Url.RouteUrl("HomePage")">@T("HomePage")</a></li>
+                if (Model.NewProductsEnabled)
+                {
+                    <li>
+                        <a href="#">@T("Products.NewProducts")</a>
+                    </li>
+                }
+                <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+                <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+                if (Model.BlogEnabled)
+                {
+                    <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+
+                }
+                if (Model.ForumEnabled)
+                {
+                    <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                }
+                <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+
+            }
+            @Html.Widget("header_menu_after")
+        </ul>
+    </div>
+    @*<div class="submenubg">
+
+    </div>*@
+</nav>
+
+<script>
+    $('.topmenu .dropdown').hover(function () {
+        $(".submenubg").show();
+        $(this).find('.dropdown-menu').show();
+
+    }, function () {
+        $(this).find('.dropdown-menu').hide();
+        $(".submenubg").hide();
+    });
+    function closenav() {
+        $('#leftmenu').animate({ 'width': 'toggle' }, 350, function () {
+        });
+    }
+</script>
+
+
+
+
+
+
+
+
+

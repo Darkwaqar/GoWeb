@@ -1,0 +1,63 @@
+﻿@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+@{
+    Html.AddScriptParts("~/Scripts/jquery.magnific-popup.min.js");
+    Html.AddCssFileParts("~/Content/magnific-popup/magnific-popup.css");
+}
+
+
+
+<div class="productDetail__gallery">
+    <div class="productDetail__gallery__slider">
+        <div class="productDetail__gallery__sliderWrap flickity-enabled is-draggable" data-component="ProductDetailGallery">
+ 
+
+            @if (Model.PictureModels.Count > 1)
+            {
+                var count = 0;
+
+                foreach (var picture in Model.PictureModels)
+                {
+                    if (count % 2 == 0)
+                    {
+                        <figure class="productDetail__gallery__item inView inViewDone">
+                            <img width="1000" height="1340" src="@picture.FullSizeImageUrl" alt="@picture.AlternateText" title="@picture.Title" data-defaultsize="@picture.ImageUrl" data-fullsize="@picture.FullSizeImageUrl" class="attachment-woocommerce_single size-woocommerce_single" alt="" sizes="(max-width: 1000px) 100vw, 1000px" />
+                        </figure>
+
+
+                    }
+                    else
+                    {
+
+                        <figure class="productDetail__gallery__item inView inViewDone">
+                            <img width="1000" height="1000" src="@picture.FullSizeImageUrl" alt="@picture.AlternateText" title="@picture.Title" data-defaultsize="@picture.ImageUrl" data-fullsize="@picture.FullSizeImageUrl" class="attachment-woocommerce_single size-woocommerce_single" alt="" sizes="(max-width: 1000px) 100vw, 1000px" />
+                        </figure>
+
+
+                    }
+
+                    count = count + 1;
+
+                }
+
+
+
+            }
+            else
+            {
+
+                <figure class="productDetail__gallery__item inView inViewDone">
+                    <img width="1000" height="1340" src="@Model.DefaultPictureModel.ImageUrl" alt="@Model.DefaultPictureModel.AlternateText" title="@Model.DefaultPictureModel.Title" data-defaultsize="@Model.DefaultPictureModel.ImageUrl" class="attachment-woocommerce_single size-woocommerce_single" alt="" sizes="(max-width: 1000px) 100vw, 1000px" />
+                </figure>
+
+
+            }
+
+
+
+
+
+        </div>
+
+    </div>
+</div>

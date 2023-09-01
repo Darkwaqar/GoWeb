@@ -1,0 +1,118 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@using Nop.Web.Framework.Themes
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+   
+
+}
+<style>
+    
+    .sizechart tr > th {
+        text-align: center;
+        text-transform: uppercase;
+        background-color: #8DA7A8;
+        color:white;
+    }
+</style>
+
+<div class="container-fluid">
+    <h3>Footwear</h3>
+    <table class="table table-bordered sizechart text-center">
+        <tr>
+            <th>Size</th>
+            <th>US</th>
+            <th>UK</th>
+        </tr>
+        <tr>
+            <td>XXS</td>
+            <td>3 - 6.5</td>
+            <td>2 - 5.5</td>
+        </tr>
+        <tr>
+            <td>XS</td>
+            <td>7-7.5</td>
+            <td>6-6.5</td>
+        </tr>
+        <tr>
+            <td>S</td>
+            <td>8-8.5</td>
+            <td>7-7.5</td>
+        </tr>
+        <tr>
+            <td>M</td>
+            <td>9-9.5</td>
+            <td>8-8.5</td>
+        </tr>
+        <tr>
+            <td>L</td>
+            <td>10-10.5</td>
+            <td>9-9.5</td>
+        </tr>
+        <tr>
+            <td>XL</td>
+            <td>11-11.5</td>
+            <td>10-10.5</td>
+        </tr>
+        <tr>
+            <td>XXL</td>
+            <td>12-12.5</td>
+            <td>11-11.5</td>
+        </tr>
+		 <tr>
+            <td>XXXL</td>
+            <td>13-16</td>
+            <td>12-15</td>
+        </tr>
+    </table>
+    <h3>Belts</h3>
+    <table class="table table-bordered sizechart text-center">
+        <tr>
+            <th>Size</th>
+            <th>CM (Length)</th>
+            <th>Inches (Length)</th>
+        </tr>
+        <tr>
+            <td style="width:333px">XXS</td>
+            <td>75</td>
+            <td>30</td>
+        </tr>
+        <tr>
+            <td>XS</td>
+            <td>80</td>
+            <td>32</td>
+        </tr>
+        <tr>
+            <td>S</td>
+            <td style="width:419px">85</td>
+            <td>34</td>
+        </tr>
+        <tr>
+            <td>M</td>
+            <td>90-95</td>
+            <td>36-38</td>
+        </tr>
+        <tr>
+            <td>L</td>
+            <td>100</td>
+            <td>40</td>
+        </tr>
+        <tr>
+            <td>XL</td>
+            <td>105</td>
+            <td>42</td>
+        </tr>
+        <tr>
+            <td>XXL</td>
+            <td>110-115</td>
+            <td>44-46</td>
+        </tr>
+		<tr>
+            <td>XXXL</td>
+            <td>120</td>
+            <td>48</td>
+        </tr>
+    </table>
+</div>

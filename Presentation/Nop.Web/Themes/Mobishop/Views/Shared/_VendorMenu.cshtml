@@ -1,0 +1,37 @@
+﻿@model MenuItemModel
+@using SevenSpikes.Nop.Plugins.MegaMenu.Models
+@using Nop.Services.Vendors;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Catalog;
+@using Nop.Services.Seo;
+@{
+    int x = 0;
+    Int32.TryParse(Model.Url, out x);
+    var vendors = EngineContext.Current.Resolve<IVendorService>().GetVendorByCategoryID(categoryId: x);
+    var currentCategory = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(categoryId: x);
+    var hasSublist = Model.SubItems.Count > 0;
+    var hasSublistClass = hasSublist ? "has-sublist" : string.Empty;
+    var withSubcategoriesClass = hasSublist ? "with-subcategories" : string.Empty;
+}
+
+<li class="@Model.CssClass @hasSublistClass">
+    <a href="/@currentCategory.GetSeName()" class="@withSubcategoriesClass" title="@Model.Title" @if (Model.OpenInNewWindow) { <text> target="_blank" </text>            }><span> @Model.Title</span></a>
+    <div class="plus-button"></div>
+    <div class="sublist-wrap">
+        <ul class="sublist">
+            <li class="back-button">
+                <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+            </li>
+           
+                    @foreach (var category in vendors.Take(5))
+                    {
+                        <li><a href="/@category.GetSeName()">@category.Name</a></li>
+                    }
+             
+        </ul>
+    </div>
+</li>
+
+
+
+

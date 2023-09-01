@@ -1,0 +1,83 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.UI
+@using SevenSpikes.Nop.Core.Helpers
+
+@{
+    var isMobileDevice = DeviceHelper.IsMobileDevice(EngineContext.Current.Resolve<HttpContextBase>().Request);
+
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+
+    Html.AppendCssFileParts("~/Plugins/SevenSpikes.Core/Styles/perfect-scrollbar.min.css");
+
+    if (supportRtl) // only RTL
+    {
+
+        if (Request.Browser.Browser == "IE" || Request.Browser.Browser == "InternetExplorer")
+        {
+            if (Request.Browser.MajorVersion == 9)
+            {
+                Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/ie9.rtl.css");
+            }
+            if (Request.Browser.MajorVersion == 10 || Request.Browser.MajorVersion == 11)
+            {
+                Html.AppendCssFileParts("~/Themes/PoppyUM/Content/CSS/ie10-11.rtl.css");
+            }
+        }
+
+        if (!isMobileDevice)
+        {
+            Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/1280.rtl.css");
+            Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/1000.rtl.css");
+            Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/jquery.selectbox.rtl.css");
+        }
+
+        Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/768.rtl.css");
+        Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/480.rtl.css");
+        Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/mobile-only.rtl.css");
+        Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/tables.rtl.css");
+        Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/styles.rtl.css");
+    }
+    else // only LTR
+    {
+
+        if (Request.Browser.Browser == "IE" || Request.Browser.Browser == "InternetExplorer")
+        {
+            if (Request.Browser.MajorVersion == 9)
+            {
+                Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/ie9.css");
+            }
+            if (Request.Browser.MajorVersion == 10 || Request.Browser.MajorVersion == 11)
+            {
+                Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/ie10-11.css");
+            }
+        }
+
+        if (!isMobileDevice)
+        {
+            Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/1280.css");
+            Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/1000.css");
+            Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/jquery.selectbox.css");
+        }
+
+        Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/768.css");
+        Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/480.css");
+        Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/mobile-only.css");
+        Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/tables.css");
+        Html.AppendCssFileParts("~/Themes/Poppymozzam/Content/CSS/styles.css");
+    }
+
+    // main and common resources for both directions
+
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/footable.js");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/perfect-scrollbar.min.js");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/SevenSpikesExtensions.min.js");
+
+    if (!isMobileDevice)
+    {
+        Html.AddScriptParts("~/Themes/Poppymozzam/Content/scripts/jquery.selectbox-0.2.min.js");
+        Html.AddScriptParts("~/Themes/Poppymozzam/Content/scripts/masonry.pkgd.min.js");
+    }
+
+    Html.AddScriptParts("~/Themes/Poppymozzam/Content/scripts/poppy.js");
+}

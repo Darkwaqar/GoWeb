@@ -1,0 +1,81 @@
+﻿@model HeaderLinksModel
+@using Nop.Web.Models.Common;
+@{
+    var count = 1;
+    count += Model.AllowPrivateMessages ? 1 : 0;
+}
+
+<span class="btn-group">
+    <div class="lang-wrap">
+        <div class="btn-lang-alternative btn-lang-alternative-1">
+            @if (Model.WishlistEnabled)
+            {
+                <a href="@Url.RouteUrl("Wishlist")" class="btn btn-stripe ico-wishlist">
+                    @T("Wishlist")
+                    <span class="wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span>
+                </a>
+            }
+            
+        </div>
+        @if (Model.ShoppingCartEnabled)
+            {
+            <a id="topcartlink" href="@Url.RouteUrl("ShoppingCart")" class="btn btn-stripe ico-cart">
+                @T("ShoppingCart")
+                <span class="cart-qty">(@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems))</span>
+                
+            </a>
+        }
+       
+    </div>
+    @Html.Widget("header_links_before")
+    @Html.Action("AdminHeaderLinks", "Common")
+    <div class="lang-wrap">
+        <div class="btn-lang-alternative btn-lang-alternative-@(count)">
+            @if (Model.IsAuthenticated)
+            {
+
+                <a href="@Url.RouteUrl("Logout")" class="btn btn-stripe">@T("Account.Logout")</a>
+            }
+            else
+            {
+                <a href="@Url.RouteUrl("Login")" class="btn btn-stripe">@T("Account.Login")</a>
+            }
+           @if (Model.AllowPrivateMessages)
+            {
+
+            <a href="@Url.RouteUrl("PrivateMessages", new { tab = "" })" class="btn btn-stripe ico-inbox">
+                @T("PrivateMessages.Inbox")
+            </a>
+           }
+
+        </div>
+        @if (Model.IsAuthenticated)
+        {
+            <a href="@Url.RouteUrl("CustomerInfo")" class="btn btn-stripe">@T("Account.MyAccount")</a>
+        }
+        else
+        {
+            <a href="@Url.RouteUrl("Register")" class="btn btn-stripe">@T("Account.Register")</a>
+
+        }
+        
+    </div>
+    <a class="btn btn-stripe mute">
+        SOUND ON
+    </a>
+    <a class="btn btn-stripe unmute" style="display: none">
+        SOUND OFF
+    </a>
+    @Html.Widget("header_links_after")
+</span>
+
+
+@if (Model.AllowPrivateMessages && !string.IsNullOrEmpty(Model.AlertMessage))
+{
+    //new private message notification
+    <script type="text/javascript">
+            $(document).ready(function () {
+                displayPopupNotification('@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.AlertMessage))', 'success', false);
+            });
+    </script>
+}

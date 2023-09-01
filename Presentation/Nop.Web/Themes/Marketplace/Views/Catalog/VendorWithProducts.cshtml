@@ -1,0 +1,167 @@
+﻿@model IList<VendorModel>
+    @{
+        //  Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+        Layout = "";
+        int c = 0;
+
+        //title
+        Html.AddTitleParts(T("PageTitle.Vendors").Text);
+        //page class
+        Html.AppendPageCssClassParts("html-vendor-list-page");
+    }
+    @using Nop.Web.Models.Catalog;
+    <style>
+        .tab-pane {
+            background: transparent;
+            padding: 40px 40px 50px;
+        }
+        .t1-GalleryHeight {
+            margin-top: 5px;
+            height: 180px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+            color: #555;
+            cursor: default;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-bottom-color: transparent;
+        }
+    </style>
+    @*<div class="page vendor-list-page">
+        
+        <div class="page-body">
+            <div class="vendor-grid">
+                <div class="item-grid">
+                    @foreach (var item in Model)
+                    {
+                        <div class="item-box">
+                            <div class="vendor-item">
+                                <h2 class="title">
+                                    <a href="@Url.RouteUrl("Vendor", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                        @item.Name
+                                    </a>
+                                </h2>
+                                <div class="picture">
+                                    <a href="@Url.RouteUrl("Vendor", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                        <img alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" class="img-responsive" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+    @*---------------test code--------------*@
+    <div class="hidden-sm hidden-xs">
+    <!-- Brand Tabs -->
+    <div id="content">
+        
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" style="max-width:100%;max-height:43px;overflow:scroll">
+        @foreach (var item in Model) {
+            if (c == 0) { 
+                <li class="active">
+                <a href="#red-@c" data-toggle="tab" style="font-size:20px">
+                    @item.Name
+                </a>
+            </li>
+            }
+            else { 
+             <li class="">
+                 <a href="#red-@c" data-toggle="tab" style="font-size:20px">
+                     @item.Name
+                 </a>
+            </li>
+            }
+            c++;
+        }
+        </ul>
+        <div id="my-tab-content" class="tab-content">
+            @{
+                c = 0;
+            }
+            @foreach (var Image in Model) {
+                if (c == 0) { 
+            <div class="tab-pane active row" id="red-@c">
+                <div class="col-md-8" style="margin-top: -2%;">
+                    <h2 class="text-center text-brand-heading" style="color: black;">SPRING 2016 COLLECTION</h2>
+                    <p class="text-center" style="color: black; margin-top: -4%;">New York Fashion Week</p>
+                    <img src="@Image.PictureModel.FullSizeImageUrl" alt="" class="img-responsive" style="width:500px;height:277px" />
+
+                    <div class="t1-GalleryHeight hidden-sm hidden-xs">
+                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+                            @foreach (var product in Image.Products) { 
+                            <div class="col-md-3">
+                                @*<img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">*@
+                                @Html.Partial("_ProductBoxHome", product)
+                            </div>
+                            }
+                        </div>
+
+        
+                    </div>
+
+                </div>
+                <div class="col-sm-12 hidden-md hidden-lg" style="height: 20px;"></div>
+                <div class="col-md-4">
+                    <img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive" id="placesrc" style="width: 100% !important;">
+                    <div class="col-md-12" style="background-color: #1a1a1a; color: white;">
+                        <div class="col-md-6">
+                            <h5>Look 1</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="pull-right">Look 1</h5>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                }
+                else { 
+                <div class="tab-pane  row" id="red-@c">
+                <div class="col-md-8" style="margin-top: -2%;">
+                    <h2 class="text-center text-brand-heading" style="color: black;">SPRING 2016 COLLECTION</h2>
+                    <p class="text-center" style="color: black; margin-top: -4%;">New York Fashion Week</p>
+                    <img src="@Image.PictureModel.FullSizeImageUrl" alt="" class="img-responsive" style="width:500px;height:277px">
+
+                    <div class="t1-GalleryHeight hidden-sm hidden-xs">
+                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+                            @foreach (var product in Image.Products) { 
+                            <div class="col-md-3">
+                                @*<img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive thumb" style="height: 81px; width: 55px;">*@
+                                @Html.Partial("_ProductBoxHome", product)
+                            </div>
+                            }
+                        </div>
+
+        
+                    </div>
+
+                </div>
+                <div class="col-sm-12 hidden-md hidden-lg" style="height: 20px;"></div>
+                <div class="col-md-4">
+                    <img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive" id="placesrc" style="width: 100% !important;">
+                    <div class="col-md-12" style="background-color: #1a1a1a; color: white;">
+                        <div class="col-md-6">
+                            <h5>Look 1</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="pull-right">Look 1</h5>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                }
+                c++;
+            }
+        </div>
+    </div>
+    <!-- Brand Tabs End -->
+    </div>

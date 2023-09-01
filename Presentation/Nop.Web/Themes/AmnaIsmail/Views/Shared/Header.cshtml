@@ -1,0 +1,130 @@
+﻿
+@using growonline.Core
+@using growonline.Core.Infrastructure
+@using growonline.Services.Localization
+@using growonline.Web.Framework.Themes
+@{
+    //logo path
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    var logoPath = "~/Themes/" + currentThemeName + "/Content/images/logo.png";
+    var SmalllogoPath = "~/Themes/" + currentThemeName + "/Content/images/logo-sm.png";
+
+    //store name
+    var storeName = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.GetLocalized(x => x.Name);
+}
+
+<!-- Search Panel-->
+<section>
+    <div id="SearchPanel" style="display:none">
+        <div>
+            <h3><b>FIND YOUR STUFF</b>
+            <br /><small>Search for products, brand and categories.</small>
+            </h3>
+            @Html.Action("SearchBox", "Catalog")
+            
+            
+            
+        </div>
+    </div>
+</section>
+@if(!User.Identity.IsAuthenticated)
+{ 
+<section>
+    <div id="AuthPanel" style="display:none">
+        <div class="row">
+             <div class="col-md-8">
+                 <form action="/login" method="post">
+                     <div class="loginPanel">
+                         <div class="heading text-black">Please Sign In</div>
+                         <p>ENTER YOUR E-MAIL AND PASSWORD TO ACCESS MY ACCOUNT</p>
+                         <div class="form-group">
+
+                             <input type="email" name="Email" placeholder="Email Address" />
+
+                         </div>
+                         <div class="form-group">
+
+                             <input type="password" name="Password" placeholder="Password" />
+
+                         </div>
+                         <br />
+                         <div><button type="submit" class="btn-orignal bg-black">Log In</button></div>
+                     </div>
+                 </form>
+             </div>
+            <div class="col-md-4">
+                <div class="registerPanel">
+                    <div class="heading text-white ">New User</div>
+                    <p>REGISTER TO ENJOY THE BENEFITS OF MY ACCOUNT.</p>
+                    <small class="text-white bold">Only registered users can:</small>
+                    <ul>
+                        <li>Access all personal information through My Account</li>
+                        <li>
+                          
+                            Use the Wish List to save their favourite products
+                            
+                        </li>
+                        <li>
+                            
+                            Complete the checkout process more quickly
+                        </li>
+                    </ul>
+                    <div><a href="/register" class="btn-orignal" >Register</a></div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+}
+
+<!-- Second navbar for search -->
+<nav class="navbar topheader" >
+    <div class="container-fluit">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        @*<div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-3">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+           
+        </div>*@
+        @Html.Partial("_AuthPanel")
+        @*@Html.Action("HeaderLinks", "Common")*@
+        <!-- Collect the nav links, forms, and other content for toggling -->
+     <!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav><!-- /.navbar -->
+<script>
+$(document).ready(function(){
+ $("#authBtn").on("click",function(){
+     if (document.getElementById("AuthPanel").style.display == "none") {
+         closeIfOpened("SearchPanel");
+         $("#AuthPanel").show("slow");
+         return;
+     }
+     $("#AuthPanel").hide("slow");
+ });
+ $("#searchBtn").on("click", function () {
+     if (document.getElementById("SearchPanel").style.display == "none") {
+         closeIfOpened("AuthPanel");
+         $("#SearchPanel").show("slow");
+         return;
+     }
+     $("#SearchPanel").hide("slow");
+ });
+
+});
+
+function closeIfOpened(name) {
+  
+    if (document.getElementById(name)!= null && document.getElementById(name).style.display != "none") {
+        $("#" + name).hide("slow");
+        
+    }
+
+}
+</script>

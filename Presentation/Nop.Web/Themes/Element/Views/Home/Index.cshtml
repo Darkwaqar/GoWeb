@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+}
+<div class="page home-page">
+    <div class="page-body">
+        @*@Html.Partial("")*@
+
+        @Html.Widget("home_page_top")
+        <div class="HomePageReper">
+            <div class="Reper-div Reper-div-h">
+                <div class="raper-body">
+                    <h2>Health CARE</h2>
+                    <p>
+                        This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet Aenean sollicitudin,
+                        lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit Duffs sed odio sit arnet
+                        nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit Nam nec tellus a odio tincidunt auctor a ornare odio.
+                        Sed non mauris vitae erat consequat auctor eu in elit Class aptent tacit sociosqu ad litora torquent per conubia nostra,
+                        per inceptos himenaeos. Mauris in eratjusto. Nullam ac uma eu fells dapibus condimentum sit arnet a augue.
+                        Sed non neque elit Sed ut imperdiet nisi. Proin condimentum fermentum nunc.
+                        Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisi quis neque.
+                        Suspendisse in orci enim.
+                    </p>
+                </div>
+            </div>
+            <div class="Reper-div">
+                <img src="~/Themes/Element/Content/img/bannerdm.jpg" />
+            </div>
+        </div>
+        @* Row One End Row tow start*@
+        <div class="HomePageReper">
+            <div class="Reper-div Reper-div-mid Reper-div-h">
+                <div class="raper-body">
+                    <h2>Eye CARE</h2>
+                    <p>
+                        This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet Aenean sollicitudin,
+                        lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit Duffs sed odio sit arnet
+                        nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit Nam nec tellus a odio tincidunt auctor a ornare odio.
+                        Sed non mauris vitae erat consequat auctor eu in elit Class aptent tacit sociosqu ad litora torquent per conubia nostra,
+                        per inceptos himenaeos. Mauris in eratjusto. Nullam ac uma eu fells dapibus condimentum sit arnet a augue.
+                        Sed non neque elit Sed ut imperdiet nisi. Proin condimentum fermentum nunc.
+                        Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisi quis neque.
+                        Suspendisse in orci enim.
+                    </p>
+                </div>
+            </div>
+            <div class="Reper-div Reper-div-img">
+                <img src="~/Themes/Element/Content/img/bannerdm.jpg" />
+            </div>
+        </div>
+        <script>
+            //if ( $(window).width() > 1000) {
+
+                $(window).load(function () {
+                    $(".Reper-div-h").height($(".Reper-div-img img").height());
+                });
+
+                //$(document).ready(function () {
+                //    $(".Reper-div-mid").height($(".Reper-div-img img").height());
+                //});
+
+                $(window).resize(function () {
+                    $(".Reper-div-h").height($(".Reper-div-img img").height());
+                });
+            //}
+        </script>
+        @* Row tow End Row three start*@
+        <div class="HomePageReper">
+            <div class="Reper-div Reper-div-h">
+                <div class="raper-body">
+                    <h2>PERSONAL CARE</h2>
+                    <p>
+                        This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet Aenean sollicitudin,
+                        lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit Duffs sed odio sit arnet
+                        nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit Nam nec tellus a odio tincidunt auctor a ornare odio.
+                        Sed non mauris vitae erat consequat auctor eu in elit Class aptent tacit sociosqu ad litora torquent per conubia nostra,
+                        per inceptos himenaeos. Mauris in eratjusto. Nullam ac uma eu fells dapibus condimentum sit arnet a augue.
+                        Sed non neque elit Sed ut imperdiet nisi. Proin condimentum fermentum nunc.
+                        Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisi quis neque.
+                        Suspendisse in orci enim.
+                    </p>
+                </div>
+            </div>
+            <div class="Reper-div">
+                <img src="~/Themes/Element/Content/img/bannerdm.jpg" />
+            </div>
+        </div>
+        @* Row three End*@
+        @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageText" })
+        @Html.Widget("home_page_before_categories")
+        @*@Html.Action("HomepageCategories", "Catalog")*@
+        @Html.Widget("home_page_before_products")
+        @*@Html.Action("HomepageProducts", "Product")*@
+        @Html.Widget("home_page_before_best_sellers")
+        @*@Html.Action("HomepageBestSellers", "Product")*@
+        @Html.Widget("home_page_before_news")
+        @Html.Action("HomePageNews", "News")
+        @Html.Widget("home_page_before_poll")
+        @Html.Action("HomePagePolls", "Poll")
+        <div class="home-page-banners">
+            @Html.Widget("home_page_banners")
+        </div>
+        @Html.Widget("home_page_bottom")
+    </div>
+</div>

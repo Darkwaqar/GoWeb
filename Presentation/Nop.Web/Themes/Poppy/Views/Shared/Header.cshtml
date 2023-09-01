@@ -1,0 +1,86 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Configuration
+@using Nop.Services.Localization
+
+@using Nop.Services.Common;
+
+@{
+
+    Response.Cookies.Add(new HttpCookie("side", "sidebar-collapse"));
+
+    HttpCookie StudentCookies = new HttpCookie("StudentCookies");
+
+    const string hidePanelMenu = "HideSadafAmirSideMenu";
+    var hidemenu = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer.GetAttribute<bool>(hidePanelMenu);
+
+    var currentStore = EngineContext.Current.Resolve<IStoreContext>().CurrentStore;
+    var storeId = currentStore.Id;
+    var settingService = EngineContext.Current.Resolve<ISettingService>();
+
+    var workingLanguageId = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Id;
+
+    var removeCopyright = settingService.GetSettingByKey("poppythemesettings.removecopyright", false, storeId, true);
+    var removeDesignedBy = settingService.GetSettingByKey("poppythemesettings.removedesignedby", false, storeId, true);
+}
+
+<div class="header @if(hidemenu) {<text>collapsed-box</text>}">
+    @Html.Widget("header")
+    <div class="header-top">
+        <div class="header-logo">
+	    @Html.Action("Logo", "Common")
+        </div>
+
+        <div class="desktop-filters-button">
+            <span>Filters</span>
+        </div>
+
+        <div class="desktop-blog-options-button">
+            <span>Blog options</span>
+        </div>
+    </div>
+
+    <div class="header-footer">
+        <div class="ourApp">
+            <div>
+                <p>Download Our App</p>
+            </div>
+            <ul>
+                <li>
+                    <a target="_blank" href="https://www.gomobishop.com/share?sid=10">
+                        <img src="~/Themes/Poppy/Content/img/googleplayold.png" />
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://share.gomobishop.com/share?sid=10">
+                        <img src="~/Themes/Poppy/Content/img/ios.png" />
+                    </a>
+                </li>
+            </ul>            
+        </div>
+
+        <ul class="social-sharing">
+		@Html.Action("Social", "Common")
+        </ul>
+        @if (!removeCopyright)
+        {
+            <div class="footer-powered-by">
+                @*Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a>*@
+                <a style="text-decoration:none;font-size: 12px; color: #a3a3a3;" href="https://info.gomobishop.com/" target="_blank">
+                    Powered by &nbsp;
+                    <span>
+           <img class="grow" src="/themes/Poppy/Content/img/GrowOnline-logo.png" style="width: 22px;vertical-align: bottom;" />
+                    </span>
+                    GROW ONLINE
+                </a>
+            </div>
+        }
+        @if (!removeDesignedBy)
+        {
+            <div class="footer-designed-by">
+                Designed by <a href="http://www.nop-templates.com/" target="_blank">Nop-Templates.com</a>
+            </div>
+        }
+    </div>
+</div>
+

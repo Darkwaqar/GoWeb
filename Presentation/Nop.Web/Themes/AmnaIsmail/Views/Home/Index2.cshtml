@@ -1,0 +1,180 @@
+﻿@using growonline.Core
+@using growonline.Core.Infrastructure
+@using growonline.Services.Localization
+@using growonline.Web.Framework.Themes
+@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+}
+
+<style>
+    .sub-box {
+        text-align: center;
+        width: 100%;
+        padding-top: 30%;
+        padding-bottom: 35%;
+        background: url(../imgs/panel3-bottom.png) no-repeat;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .sub-head {
+        font-size: 38px;
+        font-weight: bold;
+    }
+
+    .line-image {
+        background: url(../imgs/line-black.png);
+        display: block;
+        height: 3px;
+        width: 45px;
+        margin: 0 auto;
+    }
+
+    .sub-head-text {
+        font-size: 30px;
+        padding: 20px;
+    }
+
+    .linked {
+        width: 100px;
+        height: 100px;
+        top: 20px;
+        left: 100px;
+    }
+
+
+
+    @@media all and (max-width: 1000px) {
+        .theme-custom {
+            max-width: 600px;
+            margin: 0px;
+        }
+
+            .theme-custom .nivo-directionNav {
+                display: none;
+            }
+    }
+	.nopadding{
+	padding:0px;
+	background-position:top center;
+	}
+</style>
+
+<div class="container-fluid">
+       <div class="row" style="overflow:hidden; height:360px">
+        <div class="col-md-2 nopadding" style="background-image: url(/content/images/mainpage/1.jpg); background-size:cover; height:100%">
+
+        </div>
+        <div class="col-md-4 nopadding" style="background-image: url(/content/images/mainpage/2.jpg); background-size: cover; height: 100%">
+
+        </div>
+        <div class="col-md-2 nopadding" style="background-image: url(/content/images/mainpage/3.jpg); background-size: cover; height: 100%">
+
+        </div>
+        <div class="col-md-2 nopadding">
+            <div class="col-md-12 nopadding" style="background-image: url(/content/images/mainpage/4.jpg); background-size: cover; height: 180px">
+
+            </div>
+            <div class="col-md-12 nopadding" style="background-image: url(/content/images/mainpage/5.jpg); background-size: cover; height: 180px">
+
+            </div>
+
+        </div>
+        <div class="col-md-2 nopadding" style="background-image: url(/content/images/mainpage/6.jpg); background-size: cover; height: 100%">
+
+        </div>
+
+    </div>
+    <div class="row" style="overflow:hidden; height:360px">
+        <div class="col-md-2 nopadding">
+            <div class="col-md-12 nopadding" style="background-image: url(/content/images/mainpage/7.jpg); background-size: cover; height: 180px">
+
+            </div>
+            <div class="col-md-12 nopadding" style="background-image: url(/content/images/mainpage/8.jpg); background-size: cover; height: 180px">
+
+            </div>
+
+        </div>
+        <div class="col-md-2 nopadding" style="background-image: url(/content/images/mainpage/9.jpg); background-size: cover; height: 100%">
+
+        </div>
+        <div class="col-md-2 nopadding">
+            <div class="col-md-12 nopadding" style="background-image: url(/content/images/mainpage/10.jpg); background-size: cover; height: 180px">
+
+            </div>
+            <div class="col-md-12 nopadding" style="background-image: url(/content/images/mainpage/11.jpg); background-size: cover; height: 180px">
+
+            </div>
+
+        </div>
+        <div class="col-md-4 nopadding" style="background-image: url(/content/images/mainpage/12.jpg); background-size: cover; height: 100%">
+
+
+        </div>
+        <div class="col-md-2 nopadding">
+            <div class="col-md-12 nopadding" style="background-image: url(/content/images/mainpage/13.jpg); background-size: cover; height: 180px">
+
+            </div>
+            <div class="col-md-12 nopadding" style="background-image: url(/content/images/mainpage/14.jpg); background-size: cover; height: 180px">
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row" style="overflow:hidden; height:360px">
+        <div class="col-md-4 nopadding" style="background-image: url(/content/images/mainpage/15.jpg); background-size: cover; height: 100%">
+
+
+        </div>
+        <div class="col-md-6 nopadding" style="background-image: url(/content/images/mainpage/16.jpg); background-size: cover; height: 100%">
+
+        </div>
+        <div class="col-md-2 nopadding" style="background-image: url(/content/images/mainpage/17.jpg); background-size: cover; height: 100%">
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+@*<div class="text-center hidden-xs" style="padding:20px; margin-bottom:20px ">
+        @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageTopBanner" })
+    </div>*@
+@*<div>
+        @Html.Widget("home_page_top")
+    </div>*@
+
+@*<div class="container banners hidden-xs">
+
+        @Html.Action("TopicBlock", "Topic", new { systemName = "HomePage_WhatIsHot" })
+        @Html.Action("TopicBlock", "Topic", new { systemName = "HomePage_Offers" })
+
+    </div>*@
+
+
+
+
+@*<div class="container">*@
+@*@Html.Widget("home_page_before_categories")*@
+@*@Html.Action("HomepageCategories", "Catalog")*@
+@*@Html.Widget("home_page_before_products")*@
+@*@Html.Action("HomepageProducts", "Product")*@
+@*@Html.Widget("home_page_before_best_sellers")*@
+@*@Html.Action("HomepageBestSellers", "Product")*@
+@*@Html.Widget("home_page_before_news")*@
+@*@Html.Action("HomePageNews", "News")*@
+@*@Html.Widget("home_page_before_poll")
+    @Html.Action("HomePagePolls", "Poll")*@
+@*<br />*@
+@*@Html.Action("ManufacturerHomePage", "Catalog")*@
+@*</div>*@
+
+
+@Html.Widget("home_page_bottom")

@@ -1,0 +1,185 @@
+﻿@model Nop.Plugin.Misc.ComingSoonPage.Models.PublicInfoModel
+@using Nop.Core.Domain
+@using Nop.Services.Configuration
+@using Nop.Web.Framework.UI;
+@using Nop.Web.Framework.Security.Captcha;
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+
+    //title
+    Html.AddTitleParts(T("Plugins.Misc.ComingSoonPage.PageTitle").Text);
+
+    Html.AddCssFileParts("~/Plugins/Misc.ComingSoonPage/Content/css/styles.css");
+    Html.AddScriptParts("~/Plugins/Misc.ComingSoonPage/Scripts/jquery.countdown.min.js");
+
+}
+@{
+    var service = Nop.Core.Infrastructure.EngineContext.Current.Resolve<ISettingService>();
+    var storeInformationSettings = service.LoadSetting<StoreInformationSettings>();
+}
+<style>
+    body, .csp-login-form {
+        background-image: url(@Model.BackgroundUrl)
+    }
+</style>
+<div class="csp-wrapper">
+    <div class="csp-container">
+        <div class="csp-heading">
+            @if (Model.DisplayLoginButton)
+            {
+                <div class="csp-button csp-login-button" onclick="$('#csp-login-form').slideToggle();">@T("Account.Login")</div>
+                var validationSummary = Html.ValidationSummary(true, T("Account.Login.Unsuccessful").Text);
+                var displayErrorMessage = !MvcHtmlString.IsNullOrEmpty(validationSummary) ? "csp-show" : "csp-hide";
+                <div class="csp-login-form @displayErrorMessage" id="csp-login-form">
+                    @using (Html.BeginForm("Login", "ComingSoonPage"))
+                    {
+
+                        <div class="csp-form-fields">
+                            <div class="csp-login-input csp-login-name">
+                                @if (Model.UsernamesEnabled)
+                                {
+                                    <input autofocus="autofocus" class="username valid" id="Username" name="Username" placeholder="@T("Account.Login.Fields.Username")" type="text" value="">
+                                    <span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                                }
+                                else
+                                {
+                                    <input autofocus="autofocus" class="email valid" data-val="true" data-val-email="@T("Common.Wrongemail")" data-val-required="@T("Account.Login.Fields.Email.Required")" id="Email" name="Email" placeholder="@T("Account.Login.Fields.Email")" type="text" value="">
+                                    <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                                }
+                            </div>
+                            <div class="csp-login-input csp-login-password">
+                                <input class="csp-password" id="Password" name="Password" placeholder="@T("Account.Login.Fields.Password")" type="password">
+                                <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="csp-login-input">
+                                <input class="csp-button" type="submit" value="@T("Account.Login")" />
+                            </div>
+                            <div class="csp-login-input csp-login-remember-me reversed">
+                                <input data-val="true" id="RememberMe" name="RememberMe" type="checkbox" value="true">
+                                <input name="RememberMe" type="hidden" value="false">
+                                <label for="RememberMe">@T("Account.Login.Fields.RememberMe")</label>
+                            </div>
+                            @if (Model.DisplayCaptcha)
+                            {
+                                <div class="csp-login-input csp-login-captcha">
+                                    <div class="csp-captcha-box">
+                                        @Html.Raw(Html.GenerateCaptcha())
+                                    </div>
+                                </div>
+                            }
+                            <div style="clear: both;"></div>
+                        </div>
+                        <div class="csp-message-error @displayErrorMessage">@validationSummary</div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="csp-content">
+            <div class="csp-title csp-section">
+                @T("Plugins.Misc.ComingSoonPage.ComingSoon")
+            </div>
+            <div class="csp-subtitle csp-section">
+                @T("Plugins.Misc.ComingSoonPage.ComingSoon.Hint")
+            </div>
+            @if (Model.DisplayCountdown && Model.OpeningDate != null)
+            {
+                <div id="countdown" class="csp-countdown csp-section">
+                    <div class="years"></div>
+                    <div class="weeks"></div>
+                    <div class="days"></div>
+                    <div class="time"></div>
+                </div>
+                <script type="text/javascript">
+                    $("#countdown")
+                        .countdown("@Model.OpeningDate").on('update.countdown', function (event) {
+                            if (event.offset.years > 0) {
+                                $('.years').html(event.strftime('%-Y %!Y:@T("Plugins.Misc.ComingSoonPage.Countdown.Year"),@T("Plugins.Misc.ComingSoonPage.Countdown.Years");'));
+                            }
+                            else {
+                                $('.years').html('');
+                            }
+                            if (event.offset.weeks > 0) {
+                                $('.weeks').html(event.strftime('%-W %!W:@T("Plugins.Misc.ComingSoonPage.Countdown.Week"),@T("Plugins.Misc.ComingSoonPage.Countdown.Weeks");'));
+                            }
+                            else {
+                                $('.weeks').html('');
+                            }
+                            if (event.offset.totalDays > 0) {
+                                $('.days').html(event.strftime('%-d %!d:@T("Plugins.Misc.ComingSoonPage.Countdown.Day"),@T("Plugins.Misc.ComingSoonPage.Countdown.Days");'));
+                            }
+                            else {
+                                $('.days').html('');
+                            }
+                            $('.time').html(event.strftime('%H:%M:%S'));
+                        });
+                </script>
+            }
+            @if (Model.DisplayNewsletterBox)
+            {
+                <div class="csp-newsletter csp-section">
+                    <div class="newsletter-subscribe" id="newsletter-subscribe-block">
+                        <div class="newsletter-email">
+                            <input class="newsletter-subscribe-text" id="newsletter-email" name="NewsletterEmail" placeholder="@T("Newsletter.Email.Placeholder")" type="text" value="">
+                            <input type="button" value="@T("Newsletter.Options.Subscribe")" id="newsletter-subscribe-button" class="csp-button newsletter-subscribe-button">
+                        </div>
+                        <div class="newsletter-validation">
+                            <span id="subscribe-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span>
+                            <span class="field-validation-valid" data-valmsg-for="NewsletterEmail" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="newsletter-result" id="newsletter-result-block"></div>
+                    <script type="text/javascript">
+                        function newsletter_subscribe(subscribe) {
+                            var subscribeProgress = $("#subscribe-loading-progress");
+                            subscribeProgress.show();
+                            var postData = {
+                                subscribe: subscribe,
+                                email: $("#newsletter-email").val()
+                            };
+                            $.ajax({
+                                cache: false,
+                                type: "POST",
+                                url: "@(@Url.Action("SubscribeNewsletter", "Newsletter"))",
+                                data: postData,
+                                success: function (data) {
+                                    subscribeProgress.hide();
+                                    $("#newsletter-result-block").html(data.Result);
+                                    if (data.Success) {
+                                        $('#newsletter-subscribe-block').hide();
+                                        $('#newsletter-result-block').show();
+                                    } else {
+                                        $('#newsletter-result-block').fadeIn("slow").delay(2000).fadeOut("slow");
+                                    }
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    alert('Failed to subscribe.');
+                                    subscribeProgress.hide();
+                                }
+                            });
+                        }
+
+                        $(document).ready(function () {
+                            $('#newsletter-subscribe-button').click(function () {
+                                newsletter_subscribe('true');
+                            });
+                            $("#newsletter-email").keydown(function (event) {
+                                if (event.keyCode == 13) {
+                                    $("#newsletter-subscribe-button").click();
+                                    return false;
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            }
+        </div>
+        @if (!storeInformationSettings.HidePoweredByNopCommerce)
+        {
+            <div class="csp-footer">
+                <div class="powered-by-nopcommerce">
+                    Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

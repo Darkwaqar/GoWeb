@@ -1,0 +1,61 @@
+﻿@model CurrencySelectorModel
+@using Nop.Web.Models.Common;
+@using Nop.Core;
+@using Nop.Core.Infrastructure;
+@if (Model.AvailableCurrencies.Count > 1)
+{
+
+    var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+
+    var currencies = Model.AvailableCurrencies.Select(x => new SelectListItem
+    {
+        Text = x.Name,
+        Value = webHelper.ModifyQueryString(Url.RouteUrl("ChangeCurrency", new { customercurrency = x.Id }), "returnurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl), null),
+        Selected = x.Id.Equals(Model.CurrentCurrencyId)
+    });
+
+    //@Html.DropDownList("customerCurrency", currencies, new { onchange = "setLocation(this.value);" })
+
+    <li id="currencySelector" class="dropdown currencySelector hidden-xs hidden-sm">
+        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#" style="padding:24.5px">
+            @foreach (var just_currency in currencies)
+                {
+                    if (just_currency.Selected == true)
+                    {
+                    @just_currency.Text
+                }
+            }
+           @* <b class="caret"></b>*@
+        </a>
+        <ul class="dropdown-menu">
+
+            @foreach (var currency in currencies)
+                {
+                <li><a href="@currency.Value">@currency.Text</a></li>
+
+            }
+
+        </ul>
+    </li>
+       <li class="dropdown currencySelector hidden-md hidden-lg hidden-xs hidden-sm" style="padding-top: 9px; padding-bottom: 9px;border-bottom:solid 1px rgb(239,239,239);margin-left:-31px">
+           <a class="dropdown-toggle someClass" data-toggle="dropdown" data-hover="dropdown" href="#" style="width:95%;position:absolute;z-index:1000">
+               @foreach (var just_currency2 in currencies)
+               {
+                   if (just_currency2.Selected == true)
+                   {
+                       @just_currency2.Text
+                   }
+               }
+               @* <b class="caret"></b>*@
+           </a><span style="margin-right:20px;color:rgb(7,28,57);" class="hidden-lg hidden-md pull-right fa fa-angle-right"></span>
+        <ul class="dropdown-menu nopadding" style="background-color: rgb(239,239,241);width:100%;border:0px">
+
+            @foreach (var currency2 in currencies)
+                {
+                <li style="height:36px;padding-top:9px;border-bottom:1px solid rgb(142,168,169)"><a href="@currency2.Value" style="border-bottom:0px;margin-left:30px">@currency2.Text</a></li>
+
+            }
+
+        </ul>
+    </li>
+}

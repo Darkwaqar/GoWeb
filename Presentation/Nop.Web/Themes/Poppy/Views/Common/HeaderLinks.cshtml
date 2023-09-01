@@ -1,0 +1,168 @@
+﻿
+@model HeaderLinksModel
+@using Nop.Web.Models.Common;
+
+<div class="header-links-wrapper">
+    <div class="header-links">
+        <ul class="header-links-list">
+            @Html.Widget("header_links_before")
+            <li class="header-links-item">
+                @if (Model.IsAuthenticated)
+                {
+                    <span class="account-dd-trigger logged-in">@T("Account.Register")</span>
+                }
+                else
+                {
+                    <span class="account-dd-trigger logged-out">@T("Account.Register")</span>
+                }
+                <ul class="account-dd">
+                    @if (Model.IsAuthenticated)
+                    {
+                        <li>
+                            <a href="@Url.RouteUrl("CustomerInfo")" class="ico-account">@T("Account.MyAccount")</a>
+                        </li>
+                        if (Model.AllowPrivateMessages)
+                        {
+                            <li>
+                                <a href="@Url.RouteUrl("PrivateMessages", new { tab = "" })" class="ico-inbox">
+                                    <span class="inbox-label">@T("PrivateMessages.Inbox")</span>
+                                    <span class="inbox-unread">@Model.UnreadPrivateMessages</span>
+                                </a>
+                            </li>
+                        }
+                        <li><a href="@Url.RouteUrl("Logout")" class="ico-logout">@T("Account.Logout")</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.RouteUrl("Register")" class="ico-register">@T("Account.Register")</a></li>
+                        <li><a href="@Url.RouteUrl("Login")" class="ico-login">@T("Account.Login")</a></li>
+                    }
+                </ul>
+            </li>
+            @if (Model.WishlistEnabled)
+            {
+                <li class="header-links-item wishlist-link-item">
+                    <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                        <span class="wishlist-label">@T("Wishlist")</span>
+                        <span class="wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span>
+                    </a>
+                </li>
+            }
+            @if (Model.ShoppingCartEnabled)
+            {
+                <li id="topcartlink" class="header-links-item cart-link-item">
+                    <a href="@Url.RouteUrl("ShoppingCart")" class="ico-cart">
+                        <span class="cart-label">@T("ShoppingCart")</span>
+                        <span class="cart-qty">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</span>
+                    </a>
+                    @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+                </li>
+            }
+            @Html.Widget("header_links_after")
+        </ul>
+
+        @if (Model.AllowPrivateMessages && !string.IsNullOrEmpty(Model.AlertMessage))
+        {
+            //new private message notification
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    displayPopupNotification('@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.AlertMessage))', 'success', false);
+                });
+            </script>
+        }
+        @if (Model.ShoppingCartEnabled)
+        {
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.header-links-wrapper').on('mouseenter', '#topcartlink', function () {
+                        $('#flyout-cart').addClass('active');
+                    });
+                    $('.header-links-wrapper').on('mouseleave', '#topcartlink', function () {
+                        $('#flyout-cart').removeClass('active');
+                    });
+                    $('.header-links-wrapper').on('mouseenter', '#flyout-cart', function () {
+                        $('#flyout-cart').addClass('active');
+                    });
+                    $('.header-links-wrapper').on('mouseleave', '#flyout-cart', function () {
+                        $('#flyout-cart').removeClass('active');
+                    });
+                });
+            </script>
+        }
+    </div>
+
+    <div class="header-links-logo" >
+        <a href="/">
+            <img src="~/Themes/Poppy/Content/img/Sadaf Amir logo1.png"/>
+        </a>
+    </div>
+
+    <div class="search-box store-search-box">
+        @Html.Action("SearchBox", "Catalog")
+    </div>
+    <div class="Poppymenu" onclick="Poppymenu()">
+        <p>Icon</p>
+    </div>
+    <div class="header-selectors-wrapper">
+        @Html.Action("TaxTypeSelector", "Common")
+        @Html.Action("CurrencySelector", "Common")
+        @Html.Action("LanguageSelector", "Common")
+        @Html.Widget("header_selectors")
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('body').addClass(localStorage.getItem("closeMenu"));
+        if ($('body').hasClass("sidebar-collapse")) {
+            $(".desktop .header").css("left", "-" + $(".desktop .header").css("width"));
+        }
+	moveLogo()
+    })
+
+$(window).resize(function () {
+        moveLogo()
+    })
+
+    function moveLogo() {
+        if ($(window).width() < 983) {
+            
+            if (!$("div").hasClass('header-logo-mobile'))
+            {
+                $(".header-logo").clone().addClass("header-logo-mobile").removeClass("header-logo").appendTo(".close-menu");
+                $(".header-footer").clone().addClass("header-footer-mobile").removeClass("header-footer").appendTo(".close-menu");
+                //ourApp        
+            }
+
+           // $(".header-logo").addClass("header-logo-hide");
+            return
+        }
+        else {
+            $(".header-logo-mobile").remove();
+           // $(".header-logo").removeClass("header-logo-hide");
+            return
+        }
+    }
+
+    function Poppymenu() {
+        
+        if ($('body').hasClass("sidebar-collapse")) {
+            localStorage.removeItem("closeMenu");
+            $('body').removeClass("sidebar-collapse");
+            $(".desktop .header").removeAttr("style", "left");
+            return
+        } else {
+            $(".desktop .header").css("left", "-" + $(".desktop .header").css("width"));
+
+            localStorage.setItem("closeMenu", "sidebar-collapse");
+
+            if (!$("body").hasClass("sidebar-collapse")) {
+                $('body').addClass(localStorage.getItem("closeMenu"));
+            }
+            return
+    
+        }
+        $(".desktop .header").slideToggle();
+    }
+</script>

@@ -1,0 +1,319 @@
+﻿@model FooterModel
+@using growonline.Core
+@using growonline.Core.Domain.Tax
+@using growonline.Core.Infrastructure
+@using growonline.Web.Models.Common;
+
+<style>
+    .footer-body .navbar-default {
+        background-color:transparent;
+
+    }
+    .footer-body .list-unstyled > li > a {
+        background-color: transparent;
+        border:none;
+        padding:4px 0px;
+    }
+    .footer-body .list-unstyled {
+        padding:20px 0px;
+    }
+    .footer-body .container {
+        padding-top:20px;
+    }
+</style>
+
+    <div class="footer">
+        <div class="container">
+            <div class="footer-header"></div>
+            <div class="footer-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-3">
+                            <nav class="navbar navbar-default bglightBlack " role="navigation">
+                                <div class="navbar-header">
+
+
+                                </div>
+                                <div class="" style="margin-top:-18px">
+                                    <img style="padding-left:9px;margin-top:33px;width:146px" src="\Themes\BootstrapDC\Content\images\logo-2.png" />
+                                </div>
+                                <div class="navbar-collapse ">
+                                    <ul class="list-unstyled" style="margin-top:11px;letter-spacing:1px;font-size:13px;color:white">
+
+                                        <li style="width:255px">
+                                            Based in the biggest hub of Pakistan,
+                                            Karachi,Oriel Textiles has a network
+                                            of customized embroidery work and embroidery
+                                            machines under own setup
+                                        </li>
+                                    </ul>
+
+                                </div><!-- /.navbar-collapse -->
+                            </nav>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-2">
+                            <nav class="navbar navbar-default bglightBlack " role="navigation">
+                                <div class="navbar-header">
+                                    @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#information">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>*@
+                                    @*<a style="color:white" class="navbar-brand visible-xs" href="#">@T("Footer.Information")</a>*@
+                                </div>
+                                <div class="hidden-xs">
+                                    @*<h4 style="color:white;font-size:16px;padding-left:11px;margin-top:33px">@T("Footer.Information")</h4>*@
+                                </div>
+                                <div class="navbar-collapse " id="information">
+                                    <ul class="list-unstyled">
+                                        @if (Model.SitemapEnabled)
+                                        {
+                                            <li><a style="color:white" href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</a></li>
+                                        }
+                                        @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                                        {
+                                            <li><a style="color:white" href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                                        }
+                                        <li><a style="color:white" href="@Url.RouteUrl("ContactUs")">Contact Us</a></li>
+                                    </ul>
+
+                                </div><!-- /.navbar-collapse -->
+                            </nav>
+                        </div>
+                        @*<div class="col-xs-12 col-sm-4 col-md-3">
+                            <nav class="navbar navbar-default bglightBlack " role="navigation">
+                                <div class="navbar-header">
+                                   
+                                    <a class="navbar-brand visible-xs" href="#">@T("Footer.CustomerService")</a>
+                                </div>
+                                <div class="hidden-xs">
+                                    <h4>@T("Footer.CustomerService")</h4>
+                                </div>
+                                <div class="navbar-collapse " id="service">
+                                    <ul class="list-unstyled">
+                                        <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a> </li>
+                                        @if (Model.NewsEnabled)
+                                        {
+                                            <li><a href="@Url.RouteUrl("NewsArchive")">@T("News")</a></li>
+                                        }
+                                        @if (Model.BlogEnabled)
+                                        {
+                                            <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                                        }
+										
+                                        @if (Model.ForumEnabled)
+                                        {
+                                            <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                                        }
+                                        @if (Model.RecentlyViewedProductsEnabled)
+                                        {
+                                            <li><a href="@Url.RouteUrl("RecentlyViewedProducts")">@T("Products.RecentlyViewedProducts")</a></li>
+                                        }
+                                        @if (Model.CompareProductsEnabled)
+                                        {
+                                            <li><a href="@Url.RouteUrl("CompareProducts")">@T("Products.Compare.List")</a></li>
+                                        }
+                                        @if (Model.RecentlyAddedProductsEnabled)
+                                        {
+                                            <li><a href="@Url.RouteUrl("RecentlyAddedProducts")">@T("Products.NewProducts")</a></li>
+                                        }
+                                        @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
+                                        {
+                                            <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>*@
+                        <div class="col-xs-12 col-sm-4 col-md-2">
+                            <nav class="navbar navbar-default bglightBlack " role="navigation">
+                                <div class="navbar-header">
+                                    @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#account">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>*@
+                                    @*<a style="color:white" class="navbar-brand visible-xs" href="#">@T("Footer.MyAccount")</a>*@
+                                </div>
+                                <div class="hidden-xs">
+                                    @*<h4 style="color: white; font-size: 16px; padding-left: 11px;margin-top:33px">@T("Footer.MyAccount")</h4>*@
+                                </div>
+                                <div class="navbar-collapse " id="account">
+                                    <ul class="list-unstyled">
+                                        <li><a style="color:white" href="@Url.RouteUrl("CustomerInfo")" class="account">@T("Account.MyAccount")</a></li>
+                                        @*@if (!Model.HideOrders)
+                                        {
+                                            <li><a style="color:white" href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</a></li>
+                                        }
+                                        @if (!Model.HideAddresses)
+                                        {
+                                            <li><a style="color:white" href="@Url.RouteUrl("CustomerAddresses")" class="">Address</a></li>
+                                        }*@
+                                        @if (Model.ShoppingCartEnabled)
+                                        {
+                                            <li><a style="color:white" href="@Url.RouteUrl("ShoppingCart")" class="ico-cart">Shopping Cart</a></li>
+                                        }
+                                        @if (Model.WishlistEnabled)
+                                        {
+                                            <li><a style="color:white" href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">@T("Wishlist")</a></li>
+                                        }
+                                        @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn3).ToList())
+                                        {
+                                            <li><a style="color:white" href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2">
+                            <div class="social">
+                                @*<h4 style="color: white; font-size: 16px; padding-left: 11px;margin-top:33px">@T("Footer.FollowUs")</h4>*@
+                                <ul class="networks list-unstyled list-inline">
+                                    @if (!string.IsNullOrEmpty(Model.FacebookLink))
+                                    {
+                                        <li class="facebook">
+                                            <a style="color:white" href="https://www.facebook.com/amnaismailstudio/" target="_blank" title="@T("Footer.FollowUs.Facebook")" class="tooltipOn" style="color:#2da2cd;">
+                                                <i class="fa fa-facebook-square fa-3x"></i>
+                                            </a>
+
+                                        </li>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.TwitterLink))
+                                    {
+                                        <li class="twitter">
+                                            <a style="color:white" href="@Model.TwitterLink" target="_blank" title="@T("Footer.FollowUs.Twitter")" class="tooltipOn">
+                                                <i class="fa fa-twitter fa-2x"></i>
+                                            </a>
+                                        </li>
+                                    }
+                                    @*@if (Model.NewsEnabled)
+                                    {
+                                        <li class="rss">
+                                            <a style="color:white" href="@Url.RouteUrl("NewsRSS", new {languageId = Model.WorkingLanguageId})" title="@T("Footer.FollowUs.RSS")" class="tooltipOn colorRss">
+                                                <i class="fa fa-rss fa-2x"></i>
+                                            </a>
+                                        </li>
+                                    }*@
+                                    @if (!string.IsNullOrEmpty(Model.YoutubeLink))
+                                    {
+                                        <li class="youtube">
+                                            <a style="color:white" href="https://www.instagram.com/?hl=en" target="_blank" title="Instagram" class="tooltipOn">
+                                                <i class="fa fa-instagram fa-2x"></i>
+                                            </a>
+                                        </li>
+                                    }
+                                    @*@if (!string.IsNullOrEmpty(Model.GooglePlusLink))
+                                    {
+                                        <li class="google-plus">
+                                            <a style="color:white" href="@Model.GooglePlusLink" target="_blank" title="@T("Footer.FollowUs.GooglePlus")" class="tooltipOn">
+                                                <i class="fa fa-google-plus fa-2x"></i>
+                                            </a>
+                                        </li>
+                                    }*@
+                                </ul>
+                            </div>
+                            @*@Html.Action("NewsletterBox", "Newsletter")*@
+                            <p style=" color: white; font-size: 15px;">Official Partner</p>
+                            <div class="">
+                                <img style="margin-top:10px" src="\Themes\BootstrapDC\Content\images\Tcs.JPG" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-3" style="width:3%">
+
+                            <div class="row">
+                                <div class="col-md-4" style="margin-top:-13px">
+                                    <div class="">
+                                        <img style="padding-left:27px;margin-top:33px" src="\Themes\BootstrapDC\Content\images\cash.JPG" />
+                                    </div>
+
+
+                                </div>
+                                
+
+                                <div class="" style="margin-top:-21px">
+                                    <div class="">
+                                        <img style="padding-left:24px;margin-top:33px" src="\Themes\BootstrapDC\Content\images\western.JPG" />
+                                    </div> 
+                                </div>
+                                
+                                <div class="col-md-4" style="margin-left: 23px; margin-top: -21px">
+                                    <div class="">
+                                        <img style="padding-left:9px;margin-top:33px" src="\Themes\BootstrapDC\Content\images\ep.JPG" />
+                                    </div>
+                                </div>
+                               
+                               
+                            </div>
+                          
+                             
+
+                            @*<nav class="navbar navbar-default bglightBlack " role="navigation">
+                <div class="navbar-header">
+                    @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#information">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+                                    <a style="color:white" class="navbar-brand visible-xs" href="#">@T("Footer.Information")</a>
+                                </div>
+                                <div class="hidden-xs">
+                                    <h4 style="color:white;font-size:16px;padding-left:11px;margin-top:33px">@T("Footer.Information")</h4>
+                                </div>
+                                <div class="navbar-collapse " id="information">
+                                    <ul class="list-unstyled">
+                                        @if (Model.SitemapEnabled)
+                                        {
+                                            <li><a style="color:white" href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</a></li>
+                                        }
+                                        @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                                        {
+                                            <li><a style="color:white" href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                                        }
+                                        <li><a style="color:white" href="@Url.RouteUrl("ContactUs")">Contact Us</a></li>
+                                    </ul>
+
+                                </div><!-- /.navbar-collapse -->
+                            </nav>*@
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+                <div >
+                    <hr style="border-color:#999; margin-bottom:0px" />
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 " style="padding-bottom:12px" >
+                                <small style="color:white">@T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)</small>
+                                @if (Model.DisplayTaxShippingInfoFooter)
+                                {
+                                    var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+                                    <small style="color:white">
+                                        @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+                                    </small>
+                                }
+                            </div>
+                            <div class="col-md-4">
+                                <small style="color:white" class="footer-powered-by pull-right " >
+                                    Powered by <img src="/content/images/logo-footer.png" /> <a style="color:white" href="#">GROW ONLINE</a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @Html.Widget("footer")
+        </div>
+    </div>
+
+
+
+
+

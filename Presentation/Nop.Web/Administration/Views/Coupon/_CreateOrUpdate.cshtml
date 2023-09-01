@@ -1,0 +1,346 @@
+﻿@model CouponModel
+
+@using Nop.Core.Domain.Affiliates;
+@using Nop.Services
+
+@Html.ValidationSummary(false)
+@Html.HiddenFor(model => model.Id)
+
+<script>
+    $(document).ready(function() {
+        bindBootstrapTabSelectEvent('coupon-edit');
+    });
+</script>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div id="coupon-edit" class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                @Html.RenderBootstrapTabHeader("tab-info", @T("Admin.Coupons.Info"), true)
+                @if (Model.Id > 0)
+                {
+                    @Html.RenderBootstrapTabHeader("tab-history", @T("Admin.Coupons.History"))
+                }
+            </ul>
+            <div class="tab-content">
+                @Html.RenderBootstrapTabContent("tab-info", @TabInfo(), true)
+                @if (Model.Id > 0)
+                {
+                    @Html.RenderBootstrapTabContent("tab-history", @TabHistory())
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    //custom tabs
+    var eventMessage = new AdminTabStripCreated(this.Html, "coupon-edit");
+    EngineContext.Current.Resolve<IEventPublisher>().Publish(eventMessage);
+    foreach (var eventBlock in eventMessage.BlocksToRender)
+    {
+        @eventBlock
+    }
+}
+
+@*save selected tab name*@
+<input type="hidden" id="selected-tab-name" name="selected-tab-name" value="@(Html.GetSelectedTabName())">
+
+@helper TabInfo()
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#@Html.FieldIdFor(model => model.CouponTypeId)").change(toggleCouponType);
+            toggleCouponType();
+        });
+
+        function toggleCouponType() {
+            var selectedCouponTypeId = $("#@Html.FieldIdFor(model => model.CouponTypeId)").val();
+            if (selectedCouponTypeId == @(((int) CouponType.Virtual).ToString())) {
+                $('#pnlRecipientEmail').show();
+                $('#pnlSenderEmail').show();
+                $('#pnlNotifyRecipient').show();
+            } else {
+                $('#pnlRecipientEmail').hide();
+                $('#pnlSenderEmail').hide();
+                $('#pnlNotifyRecipient').hide();
+            }
+        }
+    </script>
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.CouponTypeId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopDropDownListFor(model => model.CouponTypeId, ((CouponType)Model.CouponTypeId).ToSelectList())
+                        @Html.ValidationMessageFor(model => model.CouponTypeId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Amount)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Amount, Model.PrimaryStoreCurrencyCode)
+                        @Html.ValidationMessageFor(model => model.Amount)
+                    </div>
+                </div>
+                @if (Model.Id > 0)
+                {
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.RemainingAmountStr)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDisplayFor(model => model.RemainingAmountStr)
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.IsCouponActivated)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.IsCouponActivated)
+                        @Html.ValidationMessageFor(model => model.IsCouponActivated)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.CouponCouponCode)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            @Html.NopEditorFor(model => model.CouponCouponCode)
+                            @Html.ValidationMessageFor(model => model.CouponCouponCode)
+                            <div class="input-group-btn">
+                                <button type="button" id="generateCouponCode" class="btn btn-info">@T("Admin.Coupons.Fields.CouponCouponCode.Generate")</button>
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        $('#generateCouponCode').click(function() {
+                                            var postData = {};
+
+                                            addAntiForgeryToken(postData);
+
+                                            $.ajax({
+                                                cache: false,
+                                                type: "POST",
+                                                url: "@(Url.Action("GenerateCouponCode", "Coupon"))",
+                                                data: postData,
+                                                success: function(data) {
+                                                    $('#@Html.FieldIdFor(model => model.CouponCouponCode)').val(data.CouponCode);
+                                                },
+                                                error: function(xhr, ajaxOptions, thrownError) {
+                                                    alert('Failed to generate code.');
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.RecipientName)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.RecipientName)
+                        @Html.ValidationMessageFor(model => model.RecipientName)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlRecipientEmail">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.RecipientEmail)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.RecipientEmail)
+                        @Html.ValidationMessageFor(model => model.RecipientEmail)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.SenderName)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.SenderName)
+                        @Html.ValidationMessageFor(model => model.SenderName)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlSenderEmail">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.SenderEmail)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.SenderEmail)
+                        @Html.ValidationMessageFor(model => model.SenderEmail)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Message)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopTextAreaFor(model => model.Message)
+                        @Html.ValidationMessageFor(model => model.Message)
+                    </div>
+                </div>
+                @if (Model.Id > 0)
+                {
+                    <div class="form-group" id="pnlNotifyRecipient">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.IsRecipientNotified)
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group input-group-short">
+                                <div class="input-group-text">
+                                    @Html.NopDisplay(Model.IsRecipientNotified.ToString())
+                                </div>
+                                <div class="input-group-btn">
+                                    <button type="submit" name="notifyRecipient" class="btn btn-info">
+                                        @T("Admin.Coupons.Fields.IsRecipientNotified.Notify")
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (Model.Id > 0)
+                {
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.CreatedOn)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDisplayFor(model => model.CreatedOn)
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabHistory()
+{
+    var defaultGridPageSize = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().DefaultGridPageSize;
+    var gridPageSizes = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().GridPageSizes;
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="usagehistory-grid"></div>
+
+                <script>
+                    $(document).ready(function() {
+                        $("#usagehistory-grid").kendoGrid({
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    read: {
+                                        url: "@Html.Raw(Url.Action("UsageHistoryList", "Coupon", new {couponId = Model.Id}))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    }
+                                },
+                                schema: {
+                                    data: "Data",
+                                    total: "Total",
+                                    errors: "Errors"
+                                },
+                                error: function(e) {
+                                    display_kendoui_grid_error(e);
+                                    // Cancel the changes
+                                    this.cancelChanges();
+                                },
+                                pageSize: @(defaultGridPageSize),
+                                serverPaging: true,
+                                serverFiltering: true,
+                                serverSorting: true
+                            },
+                            pageable: {
+                                refresh: true,
+                                pageSizes: [@(gridPageSizes)],
+                                @Html.Partial("_GridPagerMessages")
+                            },
+                            editable: {
+                                confirmation: "@T("Admin.Common.DeleteConfirmation")",
+                                mode: "inline"
+                            },
+                            scrollable: false,
+                            columns: [
+                            {
+                                field: "CreatedOn",
+                                title: "@T("Admin.Coupons.History.CreatedOn")",
+                                width: 200,
+                                type: "date",
+                                format: "{0:G}"
+                            }, {
+                                    field: "AffiliateId",
+                                title: "@T("Admin.Coupons.History.AffiliateId")",
+                                width: 200,
+                                headerAttributes: { style: "text-align:center" },
+                                attributes: { style: "text-align:center" },
+                                    template: '<a class="btn btn-default" href="@Url.Content("~/Admin/Affiliate/Edit/")#=Id#"><i class="fa fa-eye"></i>#=AffiliateId# - @T("Admin.Common.View")</a>'
+                            }, {
+                                    field: "AffiliateName",
+                                title: "@T("Admin.Coupons.History.AffiliateName")",
+                                width: 200
+                                }
+                                , {
+                                    field: "FromSender",
+                                title: "@T("Admin.Coupons.History.FromSender")",
+                                width: 200
+                                }
+                                , {
+                                    field: "ToRecipient",
+                                title: "@T("Admin.Coupons.History.ToRecipient")",
+                                width: 200
+                                }
+                                 , {
+                                     field: "FromCity",
+                                title: "@T("Admin.Coupons.History.FromCity")",
+                                width: 200
+                                }
+                                   , {
+                                       field: "FromZip",
+                                title: "@T("Admin.Coupons.History.FromZip")",
+                                width: 200
+                            } , {
+                                       field: "FromCountry",
+                                title: "@T("Admin.Coupons.History.FromCountry")",
+                                width: 200
+                            }
+                                   , {
+                                       field: "ToCity",
+                                title: "@T("Admin.Coupons.History.ToCity")",
+                                width: 200
+                            }
+                                    , {
+                                        field: "ToState",
+                                title: "@T("Admin.Coupons.History.ToState")",
+                                width: 200
+                                }
+                                    , {
+                                        field: "ToZip",
+                                title: "@T("Admin.Coupons.History.ToZip")",
+                                width: 200
+                                }
+                                    , {
+                                        field: "ToCountry",
+                                title: "@T("Admin.Coupons.History.ToCountry")",
+                                width: 200
+                            }
+                            ]
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+}

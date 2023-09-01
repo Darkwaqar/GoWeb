@@ -1,0 +1,13 @@
+﻿@using growonline.Core.Infrastructure
+@using growonline.Services.Helpers
+@{
+    var dateTimeHelper = EngineContext.Current.Resolve<IDateTimeHelper>();
+}
+<div class="row marginTop20">
+    <div class="col-sm-4">
+        @Html.Partial("_SearchBox")
+    </div>
+    <div class="col-sm-8 text-right">
+        @dateTimeHelper.ConvertToUserTime(DateTime.UtcNow).ToString("F")
+    </div>
+</div>

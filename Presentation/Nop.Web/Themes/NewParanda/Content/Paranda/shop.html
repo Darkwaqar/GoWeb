@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="cookies svg history target willchange multiplebgs opacity csspositionsticky supports  displaytable display-table no-nthchild cssvmaxunit cssvminunit mediaqueries fullscreen boxsizing csstransforms csstransforms3d preserve3d csstransitions chrome safari READY ">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>multiscroll.js - split multi-scrolling pages plugin</title>
+	<meta name="author" content="Alvaro Trigo Lopez" />
+	<meta name="description" content="multiscroll plugin by Alvaro Trigo. Create divided multi-scrolling pages with two splited vertical layouts or panels." />
+	<meta name="keywords"  content="multiscroll,jquery,alvaro,trigo,plugin,divided,splitscreen,screen,panels,layouts,vertical,split,splited" />
+	<meta name="Resource-type" content="Document" />
+	<link rel="stylesheet" type="text/css" href="multiscroll.js-master/jquery.multiscroll.css" />
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript" src="multiscroll.js-master/vendors/jquery.easings.min.js"></script>
+	<script type="text/javascript" src="multiscroll.js-master/jquery.multiscroll.js"></script>
+	<script type="text/javascript" src="js/slideout.js"></script>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<link href="/css/fontawesome.css" rel="stylesheet"  >
+
+
+
+	<script type="text/javascript">
+
+    document.addEventListener('gesturestart', function (e) {
+        e.preventDefault();
+    });
+
+	function responsiveCheck(width){
+		if($( window ).width() > 1022){
+
+	 startScroll();
+	  }else if($( window ).width() < 1023){
+
+
+
+
+	 		$('html').css('overflow','visible');
+	 		$('html').css('height', 'auto');
+	 		$('body').css('overflow', 'visible');
+	 		$('body').css('height', 'auto');
+	  }
+
+	}
+
+
+
+	function startScroll(set){
+		set = "the_title_attribute( $args = '' )"
+
+
+
+	}
+
+
+
+	 $(document).ready(function() {
+
+
+		// responsiveCheck($(window).width());
+
+
+		// $('#myContainer').multiscroll({
+		//  sectionsColor: ['#', '#', '#'],
+		//  anchors: ['first', 'second', 'third'],
+   //
+		//  navigation: false,
+		//  navigationTooltips: ['One', 'Two', 'Three'],
+		//  loopBottom: true,
+		//  loopTop: false,
+		//  afterResize: function(){
+		// 	 //responsiveCheck($(window).width());
+   //
+   //
+		//  },
+		//  afterLoad: function(anchorLink, index){
+		//  //using index
+		//  if(index == '1'){
+		//  $('.homeBox__imageBox').css('opacity', 1);
+		//  $('.homeBox__titleBox .homeBox__titleBox__wrapper').css('opacity', 1);
+	 // }
+   //
+	 // if( index == '2' ){
+		//  $('.homeBox__imageBox').css('opacity', 0);
+		//  $('.homeBox__titleBox .homeBox__titleBox__wrapper').css('opacity', 0);
+   //
+   //
+	 // }
+	 // if( index == '3' ){
+		//  $('.homeBox__imageBox').css('opacity',1);
+		//  $('.homeBox__titleBox .homeBox__titleBox__wrapper').css('opacity', 1);
+   //
+   //
+	 // }
+   //
+   //
+   //
+	 // }
+	 // });
+
+
+
+
+
+
+		 $( window ).resize(function() {
+
+			// responsiveCheck($(window).width());
+		 });
+
+
+
+
+
+
+
+
+        });
+    </script>
+</head>
+<body class="shop page-template page-template-template-catalog template-catalog page page-id-1670 page-parent woocommerce-js shop app-data index-data singular-data page-data page-1670-data page-shop-data template-catalog-data    pace-done ">
+
+<!--
+<ul id="menu">
+	<li data-menuanchor="first"><a href="#first">First slide</a></li>
+	<li data-menuanchor="second"><a href="#second">Second slide</a></li>
+	<li data-menuanchor="third"><a href="#third">Third slide</a></li>
+</ul>-->
+
+<div id="menuMain" class="menu sidenav sidebarBase__container">
+
+
+			<div class=" sidebarBase__title ">
+			<div class="sidebarBase__close" data-assistencetoggle="">  <a href="javascript:void(0)" class="closebtn" onclick="closeNav('menuMain')"><i class="fal fa-times"></i></a></div>
+</div>
+
+
+			<div class="sidebarBase__contents" >
+
+
+			      <div class="assistance__sections" data-turbolinks="false" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+
+
+
+
+			        <div class="assistence__section">
+
+			          <div class="content">
+			<a href="shop.html" detailsbar="">Shop</a>
+			<a href="collection.html" detailsbar="">Collections</a>
+			<a href="about.html" detailsbar="">About</a>
+			<a href="#" onclick="closeNav('menuMain'); openNav('assist');"  detailsbar="">Assistance</a>
+
+
+
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+</div>
+
+
+<div id="assist" class="menu sidenav sidebarBase__container">
+
+
+			<div class=" sidebarBase__title ">Assistance
+			<div class="sidebarBase__close" data-assistencetoggle="">  <a href="javascript:void(0)" class="closebtn" onclick="closeNav('assist')"><i class="fal fa-times"></i></a></div>
+</div>
+
+
+			<div class="sidebarBase__contents" >
+
+
+			      <div class="assistance__sections" data-turbolinks="false" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+			        <div class="assistence__section">
+			          <div class="name">Contact</div>
+			          <div class="content">
+			            Customer service<br>
+			Phone: + 39 02 841 901 34<br>
+			Mail: contact@paranda.com<br>
+			Hours: Monday - Friday: 09.30 - 13.30/14.30-18.30<br>
+			<br>
+			Store<br>
+			Address: Tariq Road, Main<br>
+			Phone:  + 39 02 841 901 34<br>
+			Mail: contact@paranda.com<br>
+			Hours: Monday - Friday: 09.30 - 13.30/14.30-18.30
+			          </div>
+			        </div>
+
+			        <div class="assistence__section">
+			          <div class="name">Information</div>
+			          <div class="content">
+			            <a href="#" detailsbar="">Clothing Care</a>
+			<a href="#" detailsbar="">Delivery and Returns</a>
+
+			          </div>
+			        </div>
+
+
+
+			        <div class="assistence__section">
+			          <div class="name">Legal</div>
+			          <div class="content">
+			            <a href="#" detailsbar="">Privacy Policy</a>
+			<a href="#" detailsbar="">Cookies Policy</a>
+			          </div>
+			        </div>
+
+			        <div class="assistence__section">
+			          <div class="name">Terms &amp; Conditions</div>
+			          <div class="content">
+			              <a href="#" detailsbar="">Dealer company and site owner</a>
+			<a href="#" detailsbar="">Orders</a>
+			<a href="#" detailsbar="">Conclusion of contract</a>
+			<a href="#" detailsbar="">Object of the contract</a>
+			<a href="#" detailsbar="">Price of products and other expenses</a>
+			<a href="#" detailsbar="">Shipping</a>
+			<a href="#" detailsbar="">Time and means of delivery</a>
+			<a href="#" detailsbar="">How to deal with the delivery of the products</a>
+			<a href="#" detailsbar="">Liability and limitation of liability</a>
+			<a href="#" detailsbar="">Right of&nbsp;withdrawal and implementation procedure</a>
+			<a href="#" detailsbar="">Customer Support</a>
+			<a href="#" detailsbar="">Technical Information and Changes</a>
+			<a href="#" detailsbar="">Applicable Law</a>
+			<a href="#" detailsbar="">Jurisdiction in the event of dispute</a>
+
+
+
+
+
+
+
+
+
+
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+
+
+
+
+</div>
+<div id="search1" class="search sidenav sidebarBase__container">
+
+
+	<div class=" sidebarBase__title ">Search
+	<div class="sidebarBase__close" data-assistencetoggle="">  <a href="javascript:void(0)" style="color:#000;" class="closeSearch" onclick="closeNav('search1')"><i class="fal fa-times"></i></a>
+
+	</div>
+</div>	<div class="sidebarBase__contents">
+			        <div class="searchBar__contents" data-singleproduct="product" data-multiproduct="products" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+			          <div class="searchBar__query">
+			            <input type="text" name="search" placeholder="Search Products...">
+			          </div>
+			          <div class="searchBar__count grid-x grid-padding-x">
+			            <div class="cell small-16 medium-auto">Your search</div>
+			            <div class="cell auto"><span><i data-searchcount="">0</i> <span class="countlabel">products</span></span></div>
+			          </div>
+			          <div class="searchBar__items" data-turbolinks="true"></div>
+			          <div class="searchBar__empty" style="display: none;">Sorry, No products found</div>
+			      </div>
+			      </div>
+
+</div>
+
+
+
+
+
+  <main id="panel1" class="panel back1 ">
+
+    <div class="mainHeader">
+        <a href="#" class="mainHeader__logo">
+            <img class="img-logo" src="img/logo.png" alt="Paranda" />
+        </a>
+        <div class="mainHeader__menu">
+
+            <div class="mainHeader__menu__item show-for-large">
+                <p class="freetext">Free Shipping on all orders! </p>
+            </div>
+            <div class="mainHeader__menu__item show-for-large">
+                <a data-turbolinks="false" href="#">
+                    <span>
+                                                My Account                                    </span>
+                </a>
+            </div>
+            <div class="mainHeader__menu__item hide-for-large" data-togglesearch="">
+              <a data-turbolinks="false" onclick="openNav('search1')">
+                  <i class="fal fa-search"></i>
+              </a>
+                </div>
+            <div class="mainHeader__menu__item">
+                <a class="" data-turbolinks="false" data-toggleminicart="" id="cartcount" href="#">
+                    <span class="show-for-large">Shopping bag</span>
+                    <span class="hide-for-large"><i class="fal fa-shopping-bag"></i></span>
+                    <span class="count show-for-large">0</span>
+                </a>
+            </div>
+            <div class="mainHeader__menu__item show-for-large">
+                <a data-togglewishlist="" class="" title="Wishlist" href="#">
+                    <span class="show-for-large">Wishlist</span>
+                    <span class="hide-for-large">
+                        <i class="fal fa-heart"></i>
+                    </span>
+                    <span data-turbolinks-permanent="" id="wishlistcount" class="count" data-wishlishtcount="">0</span>
+                </a>
+            </div>
+            <div class="mainHeader__menu__item mobileMenuToggle hide-for-large" data-togglemenu="">
+                <a href="#" onclick="openNav('menuMain')" ><i class="fal fa-bars toggle"></i></a>
+                <i class="fal fa-times close"></i>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class="floatingMenu right">
+        <div class="floatingMenu__content">
+            <div class="floatingMenu__contentWrap">
+                <ul>
+                    <li>
+                      <a href="#" onclick="openNav('search1')" class="js-slideout-toggle-search">Search</a>
+                    </li>
+                    <li>
+                        <a href="#"  onclick="openNav('assist')" class="js-slideout-toggle">Assistance</a>
+                    </li>
+
+                </ul>
+                        </div>
+        </div>
+    </div>
+
+    <div class="floatingMenu left" id="leftfloating">
+        <div class="floatingMenu__content">
+            <div class="floatingMenu__contentWrap">
+                <ul>
+                                        <li>
+                            <a href="shop.html" class="">Shop</a>
+                                                </li>
+
+                                                            <li>
+                                                <a href="collection.html">Collections</a>
+                        </li>
+
+                </ul>
+                <ul id="floatingNavLeft" class="floatingNav"><li id="menu-item-43" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-43"><a href="about.html">About</a></li>
+    </ul>        </div>
+        </div>
+    </div>
+
+
+
+
+<div id="wrapperMain">
+
+<div class="paddedContainer">
+        <div class="productsArchive productsListingWrapper" data-component="ProductsCatalog" data-currentpage="1" data-maxpages="8">
+                        <div class="catalogMenu" data-component="CategoriesMenu">
+  <nav class="catalogMenu__nav">
+    <div class="catalogMenu__link catalogMenu__link--toggle hide-for-medium">View : <span></span></div>
+    <ul id="catalogMenu__nav" class="catalogMenu__ul"><li id="menu-item-4145" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1670 current_page_item menu-item-4145"><a href="collection.html">View All</a></li>
+<li id="menu-item-4144" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4144"><a href="">Cuffs</a></li>
+<li id="menu-item-4143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4143"><a href="">Brooches</a></li>
+<li id="menu-item-4142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4142"><a href="">Earrings</a></li>
+<li id="menu-item-4141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4141"><a href="">Headbands</a></li>
+<li id="menu-item-4140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4140"><a href="">Necklaces</a></li>
+<li id="menu-item-4139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4139"><a href="">Pendants</a></li>
+<li id="menu-item-4138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4138"><a href="">Rings</a></li>
+</ul>  </nav>
+</div>
+                                           <div class="productsGrid grid-x mac">
+                                                                                                                                                            <div class="productsGrid__product cell small-14 medium-7 medium-offset-4 post-3425 product type-product status-publish has-post-thumbnail product_cat-rings pa_material-natural-bronze product_collection-malva first instock purchasable product-type-simple inViewDone inView" data-link="https://madinavisconti.com/product/the-malva-ring/" data-sku="AN 123 BR NR" data-id="3425" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="img/AN123BRNR.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="product-detail.html" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Malva Ring
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">300,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+
+                                                                                                                                                            <div class="productsGrid__product cell small-14 medium-7 medium-offset-1 post-3430 product type-product status-publish has-post-thumbnail product_cat-rings pa_material-natural-bronze-with-orange-enamel product_collection-malva onbackorder purchasable product-type-simple inViewDone inView" data-link="https://madinavisconti.com/product/the-malva-ring-2/" data-sku="AN 123 BR NR 440" data-id="3430" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="img/AN123BRNR440.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="#" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Malva Ring
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">350,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+                                                                                      <div class="cell show-for-medium medium-6 productsGrid__product--clear"></div>
+                                                                                      <div class="cell show-for-medium medium-4 productsGrid__product--clear"></div>
+                                                                                                              <div class="productsGrid__collectionIntro cell small-28 medium-7 inViewDone inView" data-termid="26">
+  <div class="productsGrid__collectionIntro__sizer">
+    <div class="contents">
+
+          <div class="name">Malva</div>
+
+
+          <div class="info">A reference to the organic forms of nature and its nuances in each season of the year.</div>
+
+      </div>
+  </div>
+</div>
+                                                                                                                                                            <div class="productsGrid__product productsGrid__product--highlight cell small-14 medium-15 productsGrid__product--editorial medium-offset-1 post-3435 product type-product status-publish has-post-thumbnail product_cat-rings pa_material-natural-bronze-and-cherry-enamel product_collection-malva instock purchasable product-type-simple inViewDone inView" data-link="https://madinavisconti.com/product/the-malva-ring-3/" data-sku="AN 123 BR NR 402" data-id="3435" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="1300" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/AN123BRNR402_highlight_editorial.jpg" class="wider-image" alt=""  sizes="(max-width: 1300px) 100vw, 1300px">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/AN123BRNR402.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="#" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Malva Ring
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">350,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+
+                                                                                                                                                            <div class="productsGrid__product cell small-14 medium-7 medium-offset-4 post-3440 product type-product status-publish has-post-thumbnail product_cat-rings pa_material-natural-bronze-and-green-enamel product_collection-malva last instock purchasable product-type-simple inViewDone inView" data-link="https://madinavisconti.com/product/the-malva-ring-4/" data-sku="AN 123 BR NR 550" data-id="3440" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/AN123BRNR550.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Malva Ring
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">350,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+                                                                                      <div class="cell show-for-medium medium-12 productsGrid__product--clear"></div>
+
+                                                                                                                                                            <div class="productsGrid__product cell small-14 medium-7 medium-offset-12 post-3445 product type-product status-publish has-post-thumbnail product_cat-necklaces pa_material-natural-bronze product_collection-malva first onbackorder purchasable product-type-simple inViewDone inView" data-link="https://madinavisconti.com/product/the-malva-necklace/" data-sku="C 148 BR NR" data-id="3445" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/C148BRNR.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="#" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Malva Necklace
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">400,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+
+                                                                                                                                                            <div class="productsGrid__product cell small-14 medium-7 medium-offset-1 post-3450 product type-product status-publish has-post-thumbnail product_cat-necklaces pa_material-natural-bronze-and-cherry-enamel product_collection-malva instock purchasable product-type-simple inViewDone inView" data-link="https://madinavisconti.com/product/the-malva-necklace-2/" data-sku="C 148 BR NR 402" data-id="3450" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/C148BRNR402.jpg" class="" alt="" sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Malva Necklace
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">450,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+
+                                                                                                                                                            <div class="productsGrid__product cell small-14 medium-7 medium-offset-12 post-3455 product type-product status-publish has-post-thumbnail product_cat-necklaces pa_material-natural-bronze-and-violet-enamel product_collection-malva onbackorder purchasable product-type-simple inViewDone inView" data-link="https://madinavisconti.com/product/the-malva-necklace-3/" data-sku="C 148 BR NR 440" data-id="3455" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/C148BRNR440.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="#" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Malva Necklace
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">450,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+
+                                                                                                                                                            <div class="productsGrid__product productsGrid__product--highlight cell small-14 medium-15 productsGrid__product--editorial medium-offset-4 post-3460 product type-product status-publish has-post-thumbnail product_cat-earrings pa_material-natural-bronze-and-orange-enamel product_collection-malva last onbackorder purchasable product-type-simple inViewDone inView" data-link="https://madinavisconti.com/product/the-malva-earrings/" data-sku="OR 287 BR NR 328" data-id="3460" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="1300" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/OR287BRNR328_highlight_editorial.jpg" class="wider-image" alt=""  sizes="(max-width: 1300px) 100vw, 1300px">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/OR287BRNR328.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="#" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Malva Earrings
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">550,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+
+                                                                                                                                                            <div class="productsGrid__product cell small-14 medium-7 medium-offset-12 post-3465 product type-product status-publish has-post-thumbnail product_cat-earrings pa_material-natural-bronze-and-cherry-enamel product_collection-malva first instock purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-malva-earrings-2/" data-sku="OR 287 BR NR 402" data-id="3465" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/OR287BRNR402.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="#" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Malva Earrings
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">550,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+
+                                                                                                                                                            <div class="productsGrid__product cell small-14 medium-7 medium-offset-1 post-3470 product type-product status-publish has-post-thumbnail product_cat-earrings pa_material-natural-bronze-and-green-enamel product_collection-malva instock purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-malva-earrings-3/" data-sku="OR 287 BR NR 550" data-id="3470" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/OR287BRNR550.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Malva Earrings
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">550,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+                                                          <div class="productsGrid__product productsGrid__product--highlight cell small-14 medium-15 productsGrid__product--editorial medium-offset-4 post-3480 product type-product status-publish has-post-thumbnail product_cat-rings pa_material-925-sterling-silver product_collection-ali first instock purchasable product-type-simple inViewDone" data-link="#" data-sku="AN 136 AR NR 215" data-id="3480" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="1300" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/AN136ARNR215_highlight_editorial.jpg" class="wider-image" alt="" sizes="(max-width: 1300px) 100vw, 1300px">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/AN136ARNR215.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Ali Ring with Turquoise Enamel
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">350,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div><div class="productsGrid__collectionIntro cell small-28 medium-7 inViewDone" data-termid="67">
+  <div class="productsGrid__collectionIntro__sizer">
+    <div class="contents">
+
+          <div class="name">Ali</div>
+
+
+          <div class="info">The delicacy and impalpability of butterflies enclosed in bronze and silver.</div>
+
+      </div>
+  </div>
+</div><div class="productsGrid__product cell small-14 medium-7 medium-offset-20 post-3475 product type-product status-publish has-post-thumbnail product_cat-rings pa_material-925-sterling-silver product_collection-ali instock purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-ali-ring/" data-sku="AN 136 AR NR 210" data-id="3475" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/AN136ARNR210.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Ali Ring with Pink Enamel
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">350,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div><div class="productsGrid__product cell small-14 medium-7 medium-offset-4 post-3485 product type-product status-publish has-post-thumbnail product_cat-earrings pa_material-natural-bronze-and-cherry-enamel product_collection-ali instock purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-ali-earrings/" data-sku="OR 316 BR NR 402" data-id="3485" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/OR316BRNR402.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Ali Earrings
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">350,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div><div class="productsGrid__product cell small-14 medium-7 medium-offset-1 post-3490 product type-product status-publish has-post-thumbnail product_cat-earrings pa_material-24kt-gold-plated-brass product_collection-ali last onbackorder purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-ali-earrings-2/" data-sku="OR 316 OT OR" data-id="3490" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/OR316OTOR.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Ali Earrings
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">300,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div><div class="productsGrid__product cell small-14 medium-7 medium-offset-4 post-3578 product type-product status-publish has-post-thumbnail product_cat-earrings pa_material-natural-bronze-and-green-enamel product_collection-ali first instock purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-ali-earrings-4/" data-sku="OR 316 BR NR 550" data-id="3578" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/OR316BRNR550.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="#" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Ali Earrings
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">350,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div><div class="productsGrid__product cell small-14 medium-7 medium-offset-9 post-3495 product type-product status-publish has-post-thumbnail product_cat-earrings pa_material-925-sterling-silver product_collection-ali onbackorder purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-ali-earrings-3/" data-sku="OR 316 AR NR" data-id="3495" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/OR316ARNR.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Ali Earrings
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">300,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div><div class="productsGrid__product productsGrid__product--highlight cell small-14 medium-15 productsGrid__product--editorial medium-offset-12 post-3583 product type-product status-publish has-post-thumbnail product_cat-brooches pa_material-natural-bronze product_collection-ali instock purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-ali-brooch/" data-sku="SP 02 BR NR" data-id="3583" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="1300" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/SP02BRNR_highlight_editorial.jpg" class="wider-image" alt=""  sizes="(max-width: 1300px) 100vw, 1300px">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/SP02BRNR.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="#" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Ali Brooch
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">300,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div><div class="productsGrid__product cell small-14 medium-7 medium-offset-4 post-3588 product type-product status-publish has-post-thumbnail product_cat-brooches pa_material-oxidized-925-sterling-silver product_collection-ali last onbackorder purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-ali-brooch-2/" data-sku="SP 02 AR OS" data-id="3588" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/SP02AROS.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Ali Brooch
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">300,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div><div class="productsGrid__product cell small-14 medium-7 medium-offset-1 post-3593 product type-product status-publish has-post-thumbnail product_cat-brooches pa_material-oxidized-925-sterling-silver-with-cherry-enamel product_collection-ali first instock purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-ali-brooch-3/" data-sku="SP 02 AR OS 402" data-id="3593" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/SP02AROS402.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Ali Brooch
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">350,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div><div class="productsGrid__product cell small-14 medium-7 medium-offset-1 post-3598 product type-product status-publish has-post-thumbnail product_cat-brooches pa_material-natural-bronze-and-orange-enamel product_collection-ali onbackorder purchasable product-type-simple inViewDone" data-link="https://madinavisconti.com/product/the-ali-brooch-4/" data-sku="SP 02 BR NR 328" data-id="3598" data-component="CatalogProduct">
+        <div class="productsGrid__product__image">
+                    <img width="600" height="800" src="https://assets.madinavisconti.com/uploads/2018/07/SP02BRNR328.jpg" class="" alt=""  sizes="(max-width: 600px) 100vw, 600px">
+            </div>
+    <a href="#" class="productsGrid__product__details">
+                        <div class="productName override">
+            The Ali Brooch
+        </div>
+        <div class="priceWrap">
+
+  <span class="woocommerce-Price-amount amount">350,00<span class="woocommerce-Price-currencySymbol">€</span></span>
+
+        </div>
+        <div class="cta">
+            Shop Now
+        </div>
+    </a>
+    </div>
+
+
+  </div>                                                                                </div>
+    </div>
+
+
+
+
+</div>
+
+</main>
+
+
+<script>
+
+  function openNav(id) {
+    document.getElementById(id).style.width = "300px";
+
+  }
+
+  function closeNav(id) {
+    document.getElementById(id).style.width = "0";
+  }
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

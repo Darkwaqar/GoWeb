@@ -1,0 +1,69 @@
+﻿@model CatalogPagingFilteringModel
+@using Nop.Web.Models.Catalog;
+<div class="row no-margin " >
+    <div class="col-md-12 nopadding">
+        <div class="form-inline text-right" style="text-align:left">
+            @*view mode*@
+            @*@if (Model.AllowProductViewModeChanging)
+            {
+               
+                if (Model.AvailableViewModes.Count > 1)
+                {
+                    var gridMode = Model.AvailableViewModes[0];
+                    var listMode = Model.AvailableViewModes[1];
+                    <div id="products-viewmode" class="btn-group pull-right hidden-xs">
+                        <a class="active tooltipOn" data-toggle="tooltip" title="@gridMode.Text" href="@gridMode.Value"><i class="glyphicon glyphicon-th"></i></a>
+                        <a class="tooltipOn" data-toggle="tooltip" title="@listMode.Text" href="@listMode.Value"><i class="glyphicon glyphicon-th-list"></i></a>
+                    </div>
+                    
+                }
+            }*@
+            @*sorting*@
+            @*@if (Model.AllowProductSorting)
+            {
+                <div class="form-group form-group-sm">
+                    
+                    @Html.DropDownList("products-orderby", Model.AvailableSortOptions, new { onchange = "setLocation(this.value);", @class = "ddl" })
+                    
+                </div>
+            }*@
+           
+
+
+                <div class="col-md-12 nopadding filter-bar filterbar-responsive">
+
+
+                    <span style="cursor:pointer"> <span class="fa fa-angle-down hidden-md hidden-lg" id="filterArrowx" style="font-size:16px;padding-right:8px"></span>SORT BY </span>
+
+                    <div class="filter-panel filter-hide">
+
+
+                        @foreach (var spec in Model.AvailableSortOptions)
+                        {
+
+                            <div><a class="fakecheck" onclick="javascript:abc('@(spec.Value)');" href="javascript:" id="@spec.Value"></a><span class="fakechecktext">@spec.Text  </span></div>
+                        }
+
+                        <script>
+                            function abc(a) { window.location=a;//console.log(a);
+                            }
+                            //window.location.href=;
+                        </script>
+                    </div>
+
+
+                </div>
+            
+            @*page size*@
+            @*@if (Model.AllowCustomersToSelectPageSize)
+            {
+                <div class="form-group form-group-sm">
+                   
+                    @Html.DropDownList("products-pagesize", Model.PageSizeOptions, new { onchange = "setLocation(this.value);", @class = "ddl" })
+
+                </div>
+            }*@
+        </div>
+    </div>
+
+</div>

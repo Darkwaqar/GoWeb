@@ -1,0 +1,90 @@
+﻿@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+@if (Model.DisplayBackInStockSubscription)
+{
+    //Html.AddScriptParts("~/Scripts/jquery.fancybox-1.3.4.pack.js");
+    //Html.AddCssFileParts("~/Content/fancybox/jquery.fancybox-1.3.4.css");
+    <div >
+
+       
+        <div id="newpost" data-target="#backInStockSubscribe"  style="display:none;">
+                <div id="backInStockSubscribe" class="" style="height:0px;z-index:-1000000000">
+
+                            <div class="" id="backInStockSubscribePopup" style="height:83px;float:right;position:absolute;z-index:1000">
+                                <p></p>
+                            </div>
+  
+            </div>
+        
+        
+        </div>
+
+
+
+
+
+        <a id="back-in-stock-subscribe-@Model.Id"   class="buttton btn-med btn-big" id="button" onclick="showhide()" data-target="#backInStockSubscribe" style="z-index:10000000000;padding-top:8px; text-align:center; padding-bottom:10px;cursor:pointer">
+          NOTIFY ME
+        </a>
+        <script>
+            $("#back-in-stock-subscribe-@Model.Id").click(function () {
+                $.get('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })', function (res) {
+                    
+                    $("#backInStockSubscribePopup").html(res);
+                });
+            })
+        </script>
+        @*<script type="text/javascript">
+            $(document).ready(function () {
+                $("#back-in-stock-subscribe-@Model.Id").fancybox({
+                    'href': '@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })',
+                    'speedIn': 600,
+                    'speedOut': 200,
+                    'width': 450,
+                    'height': 255,
+                    'type': 'iframe',
+                    'centerOnScroll': true
+                });
+            });
+        </script>*@
+    </div>
+
+
+
+    @*<div class="notify-res">
+        <div id="backInStockSubscribe" class="modal modal-backdrop" role="dialog" style="z-index:1000000;opacity:1;position:relative;overflow-y:hidden;background-color:transparent;margin-top:-36px">
+            <div class="modal-dialog modal-sm" style="display:inline">
+
+             
+                <div class="modal-content notify-content-res" style="">
+
+                    <div class="modal-body text-center" id="backInStockSubscribePopup" style="height:182px">
+                        <p>Some text in the modal.</p>
+                    </div> 
+
+                </div>
+
+            </div>
+        </div>
+    </div>*@
+}
+   @*<script>
+       $(".buttton").click(function () {
+           $("#item").slideToggle();
+       });
+   </script>*@
+
+
+
+
+<script>
+    function showhide() {
+        var div = document.getElementById("newpost");
+        if (div.style.display !== "none") {
+            div.style.display = "none";
+        }
+        else {
+            div.style.display = "block";
+        }
+    }
+</script>

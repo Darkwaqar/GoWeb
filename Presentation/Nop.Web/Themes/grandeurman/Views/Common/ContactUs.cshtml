@@ -1,0 +1,188 @@
+﻿@model ContactUsModel
+@using Nop.Web.Models.Common;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ContactUs").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-contact-page");
+}
+<div class="page contact-page contactPage">
+
+    <script>
+        $(document).ready(function () {
+	    $(".phone input").attr("placeholder","Phone")
+            $(".phone input").siblings("Label").css("display", "none");
+
+	$(".phone input").attr("onkeypress","isNumber(event)");      
+
+        })
+
+function isNumber(evt) {
+	var keycode = event.which;
+
+	if (!(event.shiftKey == false && (keycode == 43 || (keycode >= 48 && keycode <= 57)))) {
+		event.preventDefault();
+	}
+}
+
+	/*function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+		console.log(charCode );
+            if (charCode > 31 && (charCode < 48 || charCode > 57 || charCode > 42 || charCode < 44) ) {
+                return false;
+console.log(charCode +" false");
+            }
+            return true;
+        }*/
+
+    </script>
+
+    <div class="page-title">
+        <h1>@T("PageTitle.ContactUs")</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="page-body">
+                            @Html.Action("TopicBlock", "Topic", new { systemName = "ContactUs" })
+                            @Html.Widget("contactus_top")
+                            @if (Model.SuccessfullySent)
+                            {
+                                <div class="result">
+                                    @Model.Result
+                                </div>
+                            }
+                            else
+                            {
+                                using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+                                    var validationSummary = Html.ValidationSummary(true);
+                                    if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                                    {
+                                        <div class="message-error">@validationSummary</div>
+                                    }
+                                    <div class="fieldset">
+                                        <div class="form-fields">
+                                            <div class="inputs">
+                                               @* @Html.Label("Name")*@
+                                                @Html.TextBoxFor(model => model.FullName, new { @class = "fullname" ,placeholder= "Name"})
+                                                @* , placeholder = T("ContactUs.FullName.Hint") *@
+                                                @Html.RequiredHint()
+                                                @Html.ValidationMessageFor(model => model.FullName)
+                                            </div>
+                                            <div class="inputs">
+                                               @* @Html.Label("Email") *@
+                                                @Html.TextBoxFor(model => model.Email, new { @class = "email" , placeholder= "Email"})
+                                                @* , placeholder = T("ContactUs.Email.Hint") *@
+                                                @Html.RequiredHint()
+                                                @Html.ValidationMessageFor(model => model.Email)
+                                            </div>
+                                            <div class="phone">
+                                            	@Html.Partial("_ContactAttributes", Model.ContactAttributes)
+                                            </div>
+                                            @if (Model.SubjectEnabled)
+                                            {
+                                                <div class="inputs">
+                                                    @Html.LabelFor(model => model.Subject)
+                                                    @Html.TextBoxFor(model => model.Subject, new { @class = "subject", placeholder = T("ContactUs.Subject.Hint") })
+                                                    @Html.RequiredHint()
+                                                    @Html.ValidationMessageFor(model => model.Subject)
+                                                </div>
+                                            }
+                                                <div class="inputs">
+                                                @*@Html.Label("Query")*@
+                                               @* @Html.LabelFor(model => model.Enquiry) *@
+                                                    @Html.TextAreaFor(model => model.Enquiry, new { @class = "enquiry" ,placeholder= "Enquiry" })
+                                                    @* , placeholder = T("ContactUs.Enquiry.Hint") *@
+                                                    @Html.ValidationMessageFor(model => model.Enquiry)
+                                                </div>
+                                            @if (Model.DisplayCaptcha)
+                                            {
+                                                <div class="captcha-box">
+                                                    @Html.Raw(Html.GenerateCaptcha())
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="buttons">
+                                        <input type="submit" name="send-email" class="button-1 contact-us-button" value="@T("ContactUs.Button")" />
+                                    </div>
+                                }
+                            }
+                            @Html.Widget("contactus_bottom")
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 locations">
+                        <div class="locations-body">
+                            <h2 class="location-heading">Find Us At</h2>
+                            <table class="locations-on-web">
+                                <tr>
+                                    <td> <h2 class="title">Zamazama</h2> </td>
+                                    <td> <h2 class="title">Shaheed E Millat</h2> </td>
+                                    <td> <h2 class="title">Hyderi</h2> </td>
+                                </tr>
+                                <tr class="adres">
+                                    <td>
+                                        <div>
+                                            <p> 6C 7th Commercial Ln, Phase V Zamzama Commercial Area Defence V Zamzama، Karachi, Sindh 75600</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>83، Shaheed-e-Millat Rd, Jinnah Society Jinnah Housing Society PECHS, Karachi, Sindh 72400.</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>Shop No: 1 Ground Floor Plot No: D-14 Block -H Near Five Star, Block H North Nazimabad Town, Karachi, Sindh 74600.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="adres-link">
+                                        <a target="_blank" href="https://www.google.com/maps/search/Moazzam+Khan+karachi/24.8858855,67.010484,12.25z">Get Direction</a>
+                                    </td>
+                                    <td class="adres-link">
+                                        <a target="_blank" href="https://www.google.com/maps/search/Moazzam+Khan+karachi/24.8858855,67.010484,12.25z">Get Direction</a>
+                                    </td>
+                                    <td class="adres-link">
+                                        <a target="_blank" href="https://www.google.com/maps/search/Moazzam+Khan+karachi/24.8858855,67.010484,12.25z">Get Direction</a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div class="locations-on-mobile">
+                                <div>
+                                    <h2 class="title">Zamazama</h2>
+                                    <p> 6C 7th Commercial Ln, Phase V Zamzama Commercial Area Defence V Zamzama، Karachi, Sindh 75600</p>
+                                    <!--<a target="_blank" href="https://goo.gl/maps/38Kf7rWuHHTyXEUx5">View Map</a>-->
+                                    <a target="_blank" href="https://www.google.com/maps/search/Moazzam+Khan+karachi/24.8858855,67.010484,12.25z">View Map</a>
+                                </div>
+                                <div>
+                                    <h2 class="title">Shaheed E Millat</h2>
+                                    <p>83، Shaheed-e-Millat Rd, Jinnah Society Jinnah Housing Society PECHS, Karachi, Sindh 72400.</p>
+                                    <!--<a target="_blank" href="https://g.page/moazzamkhancouture?share">View Map</a>-->
+                                    <a target="_blank" href="https://www.google.com/maps/search/Moazzam+Khan+karachi/24.8858855,67.010484,12.25z">View Map</a>
+                                </div>
+                                <div>
+                                    <h2 class="title">Hyderi</h2>
+                                    <p>Shop No: 1 Ground Floor Plot No: D-14 Block -H Near Five Star, Block H North Nazimabad Town, Karachi, Sindh 74600.</p>
+                                    <!--<a target="_blank" href="https://goo.gl/maps/dQXfp5aGGwyRbicy9">View Map</a>-->
+                                    <a target="_blank" href="https://www.google.com/maps/search/Moazzam+Khan+karachi/24.8858855,67.010484,12.25z">View Map</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

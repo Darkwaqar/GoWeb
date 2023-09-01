@@ -1,0 +1,162 @@
+﻿@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+
+@{
+    Html.AddScriptParts("~/Scripts/videopopup.js");
+    Html.AddCssFileParts("~/Content/video-popup/videopopup.css");
+    if (!Model.DefaultPictureZoomEnabled)
+    {
+        Html.AddCssFileParts("~/Themes/grandeur_man/Content/Scripts/zoom-io/ddfullscreenimageviewer.css");
+        Html.AddCssFileParts("~/Themes/grandeur_man/Content/Scripts/zoom-io/zoomio.css");
+
+        Html.AddScriptParts("~/Themes/grandeur_man/Content/Scripts/zoom-io/ddfullscreenimageviewer.js");
+        Html.AddScriptParts("~/Themes/grandeur_man/Content/Scripts/zoom-io/zoomio.js");
+    }
+}
+
+<div class="gallery">
+    <div class="picture">
+        @if (Model.DefaultPictureZoomEnabled)
+        {
+            <a href="@Model.DefaultPictureModel.FullSizeImageUrl" title="@Model.DefaultPictureModel.Title" id="main-product-img-lightbox-anchor-@Model.Id">
+                <img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" itemprop="image" id="main-product-img-@Model.Id" />
+            </a>
+            @*<script type="text/javascript">
+                $(document).ready(function () {
+                    $('#main-product-img-lightbox-anchor-@Model.Id').magnificPopup(
+                    {
+                        type: 'image',
+                        removalDelay: 300,
+                        gallery: {
+                            enabled: true,
+                            tPrev: '@T("Media.MagnificPopup.Previous")',
+                            tNext: '@T("Media.MagnificPopup.Next")',
+                            tCounter: '@T("Media.MagnificPopup.Counter")'
+                        },
+                        tClose: '@T("Media.MagnificPopup.Close")',
+                        tLoading: '@T("Media.MagnificPopup.Loading")'
+                    });
+                });
+            </script>*@
+        }
+        else
+        {
+            <img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" data-largesrc="@Model.DefaultPictureModel.FullSizeImageUrl" data-large="@Model.DefaultPictureModel.FullSizeImageUrl" data-scale="3" title="@Model.DefaultPictureModel.Title" itemprop="image" id="main-product-img-@Model.Id" />
+            <script>
+                $(document).ready(function () {
+                    $("#main-product-img-@Model.Id").fullscreenimage();
+                    //use if need inside zoom
+                    @*$('#main-product-img-@Model.Id').zoomio()*@
+                    if ($(window).width()<600) {
+                        $('#main-product-img-@Model.Id').zoomio()
+                    }
+                });
+            </script>
+           <div id="vidBox" style="display:none">
+               <a class="close-video" style="color: black;position: absolute;right: 2%; top:0;">X</a>
+                    <video autoplay id="v1" loop controls="controls"></video>
+            </div>
+        }
+    </div>
+    <div class="picture-thumbs">
+        @foreach (var picture in Model.PictureModels)
+            {
+            <div class="thumb-item">
+                <img src="@picture.ThumbImageUrl" alt="@picture.AlternateText" title="@picture.Title" data-defaultsize="@picture.ImageUrl" data-fullsize="@picture.FullSizeImageUrl" data-large="@picture.FullSizeImageUrl" data-scale="3" />
+            </div>
+        }
+        @foreach (var video in Model.VideoModels)
+        {
+            <div class="thumb-item">
+                <img id="video1" src="@video.ThumbImageUrl" alt="@video.AlternateText" title="@video.Title" data-video="@video.VideoUrl" data-defaultsize="@video.ImageUrl" data-fullsize="@video.FullSizeImageUrl" data-large="@video.FullSizeImageUrl" data-scale="3" />
+                <img src="~/Themes/DefaultClean/Content/images/play.png" alt="@video.AlternateText" title="@video.Title" data-video="@video.VideoUrl" data-defaultsize="@video.ImageUrl" data-fullsize="@video.FullSizeImageUrl" data-large="@video.FullSizeImageUrl" />
+            </div>
+        }
+    </div>
+    @if (Model.PictureModels.Count > 1)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.thumb-item img').on('click', function () {
+                    $('#main-product-img-@Model.Id').attr('src', $(this).attr('data-defaultsize'));
+                    $('#main-product-img-@Model.Id').attr('title', $(this).attr('title'));
+                    $('#main-product-img-@Model.Id').attr('alt', $(this).attr('alt'));
+                    $('#main-product-img-lightbox-anchor-@Model.Id').attr('href', $(this).attr('data-fullsize'));
+                    $('#main-product-img-lightbox-anchor-@Model.Id').attr('title', $(this).attr('title'));
+                    //for zoomio
+                    $('#main-product-img-@Model.Id').attr('data-large', $(this).attr('data-large'));
+                    $("#main-product-img-@Model.Id").fullscreenimage();
+                    if ($('#v1').length > 0) {
+                        $('#v1').source.attr('src', $(this).attr('data-video')).video.play();
+                    }
+                });
+                //use if want to zoom image which are thumbs
+                //$(".picture-thumbs img").fullscreenimage()
+            });
+        </script>
+    }
+    @if(Model.VideoModels.Count > 0) {
+       <script type="text/javascript">
+            $(document).ready(function () {
+                $('.thumb-item img').on('click', function () {
+                    var video = document.getElementById('v1');
+                    while (video.firstChild) {
+                        video.firstChild.remove();
+                    }
+                    var source = document.createElement('source');
+                    video.pause();
+                    source.setAttribute('src', $(this).attr('data-video'));
+                    video.appendChild(source);
+                    video.load();
+                    video.play();
+                    $('#main-product-img-@Model.Id').fadeOut();
+                    $('#vidBox').fadeIn();
+                });
+                //use if want to zoom image which are thumbs
+                //$(".picture-thumbs img").fullscreenimage()
+                $('.close-video').on('click', function () {
+                    var video = document.getElementById('v1');
+                    while (video.firstChild) {
+                        video.firstChild.remove();
+                    }
+                    var source = document.createElement('source');
+                    video.pause();
+                    $('#vidBox').fadeOut();
+                    $('#main-product-img-@Model.Id').fadeIn();
+                });
+            });
+        </script>
+        @*<script type="text/javascript">
+            $(function () {
+                $('#vidBox').VideoPopUp({
+                    backgroundColor: "#17212a",
+                    maxweight: "640",
+                    idvideo: "v1"
+                });
+            });
+             $(document).ready(function () {
+                $('.thumb-item img').on('click', function () {
+                    var video = document.getElementById('v1');
+                    while (video.firstChild) {
+                        video.firstChild.remove();
+                    }
+                    var source = document.createElement('source');
+                    video.pause();
+                    source.setAttribute('src', $(this).attr('data-video'));
+                    video.appendChild(source);
+                    video.load();
+                    video.play();
+                    $('#vidBox').show();
+                });
+                //use if want to zoom image which are thumbs
+                //$(".picture-thumbs img").fullscreenimage()
+            });
+        </script>*@
+    }
+</div>
+@*<div id="vidBox" style="display:none">
+    <div id="videCont">
+        <video autoplay id="v1" loop controls="controls">
+        </video>
+    </div>
+</div>*@

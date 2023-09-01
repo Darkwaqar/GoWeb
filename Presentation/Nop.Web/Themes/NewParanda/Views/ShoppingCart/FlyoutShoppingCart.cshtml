@@ -1,0 +1,223 @@
+﻿@model MiniShoppingCartModel
+@using Nop.Web.Models.ShoppingCart;
+@*<div id="flyout-cart" class="flyout-cart">
+        <div class="mini-shopping-cart">
+            <div class="count">
+                @if (Model.TotalProducts == 0)
+                {
+                    @T("ShoppingCart.Mini.NoItems")
+                }
+                else
+                {
+                    @Html.Raw(string.Format(T("ShoppingCart.Mini.ItemsText").Text, string.Format("<a href=\"{0}\">{1}</a>", Url.RouteUrl("ShoppingCart"), string.Format(T("ShoppingCart.Mini.Items").Text, Model.TotalProducts))))
+                }
+            </div>
+            @if (Model.TotalProducts > 0)
+            {
+                <div class="items">
+                    @for (int i = 0; i < Model.Items.Count; i++)
+                    {
+                        var item = Model.Items[i];
+                        <div class="item @(i == 0 ? "first" : null)">
+                            @if (Model.ShowProductImages)
+                            {
+                                <div class="picture">
+                                    <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })" title="@item.Picture.Title">
+                                        <img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+                                    </a>
+                                </div>
+                            }
+                            <div class="product">
+                                <div class="name">
+                                    <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })">@item.ProductName</a>
+                                </div>
+                                @if (!String.IsNullOrEmpty(item.AttributeInfo))
+                                {
+                                    <div class="attributes">
+                                        @Html.Raw(item.AttributeInfo)
+                                    </div>
+                                }
+                                <div class="price">@T("ShoppingCart.Mini.UnitPrice"): <span>@item.UnitPrice</span></div>
+                                <div class="quantity">@T("ShoppingCart.Mini.Quantity"): <span>@item.Quantity</span></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="totals">@T("ShoppingCart.Totals.SubTotal"): <strong>@Model.SubTotal</strong></div>
+                <div class="buttons">
+                    @if (Model.DisplayShoppingCartButton)
+                    {
+                        <input type="button" value="@T("ShoppingCart.Mini.ViewCart")" class="button-1 cart-button" onclick="setLocation('@(Url.RouteUrl("ShoppingCart"))')" />
+
+                    }
+                    @if (Model.DisplayCheckoutButton)
+                    {
+                        var checkoutUrl = "";
+                        if (Model.AnonymousCheckoutAllowed && Model.CurrentCustomerIsGuest)
+                        {
+                            checkoutUrl = Url.RouteUrl("LoginCheckoutAsGuest", new { returnUrl = Url.RouteUrl("ShoppingCart") });
+                        }
+                        else
+                        {
+                            checkoutUrl = Url.RouteUrl("Checkout");
+                        }
+                        <input type="button" value="@T("Checkout.Button")" class="button-1 checkout-button" onclick="setLocation('@checkoutUrl')" />
+                    }
+                </div>
+            }
+        </div>
+    </div>*@
+
+
+
+
+<div class="flyout-cart" id="flyout-cart">
+
+
+
+    <div class="sidebarBase__contents iscroll-view ">
+        <div class="minicart__container mini-shopping-cart" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+            <div class="minicart__wrapper iscroll-view">
+                <div class="minicart__scroller scrollbar-inner">
+
+
+                    @if (Model.TotalProducts > 0)
+                    {
+
+
+
+                        @*@Model.Items.Count*@
+
+
+                        for (int i = 0; i < Model.Items.Count; i++)
+                        {
+                            var item = Model.Items[i];
+                            <div class="minicart__item grid-x align-middle mini_cart_item">
+                                <div class="minicart__item__data cell small-14">
+                                    <div class="name">  @item.ProductName</div>
+                                    <div class="price"><span class="woocommerce-Price-amount amount">@item.UnitPrice<span class="woocommerce-Price-currencySymbol"></span></span></div>
+                                    <div class="attributes">
+                                        <div class="quantity">@T("ShoppingCart.Mini.Quantity"): <span>@item.Quantity</span></div>
+                                        @*<div class="quantity" data-component="QuantityControl" data-quantity="1" data-cart_item_key="ecdcd675b3a4cbb5578baf72f255ec21">
+                                                <span>Qty: </span>
+                                                <span class="quantity__ctrl disabled reduce">-</span>
+                                                <span class="quantity__val">1</span>
+                                                <span class="quantity__ctrl add">+</span>
+                                            </div>*@
+
+
+
+                                    </div>
+                                    @*<a href="" data-turbolinks="false" class="remove_from_cart" data-remove_from_cart="" aria-label="Remove this item" data-product_id="3623" data-cart_item_key="ecdcd675b3a4cbb5578baf72f255ec21" data-product_sku="BR 228 BR NR 550">Remove</a>*@
+                                </div>
+
+                                <div class="minicart__item__image cell small-14">
+
+                                    @if (Model.ShowProductImages)
+                                    {
+                                        <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })" style="background-image:url(@item.Picture.ImageUrl)"></a>
+
+                                    }
+
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+                        }
+
+
+                    }
+                    else
+                    {
+
+
+
+                        <div class="minicart__empty">
+                            <p class="woocommerce-mini-cart__empty-message">No products in the cart.</p>
+                        </div>
+
+
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="sidebarBase__footer seperator grid-x text-center align-middle">
+        <div href="" class="cell small-14 minicart__forward">
+            @*<a href="https://madinavisconti.com/checkout/" class="">Checkout</a>*@
+
+            @if (Model.DisplayShoppingCartButton)
+            {
+                <input type="button" value="@T("ShoppingCart.Mini.ViewCart")" class="button-1 cart-button" onclick="setLocation('@(Url.RouteUrl("ShoppingCart"))')" />
+
+            }
+            @if (Model.DisplayCheckoutButton)
+            {
+                var checkoutUrl = "";
+                if (Model.AnonymousCheckoutAllowed && Model.CurrentCustomerIsGuest)
+                {
+                    checkoutUrl = Url.RouteUrl("LoginCheckoutAsGuest", new { returnUrl = Url.RouteUrl("ShoppingCart") });
+                }
+                else
+                {
+                    checkoutUrl = Url.RouteUrl("Checkout");
+                }
+                <input type="button" value="@T("Checkout.Button")" class="button-1 checkout-button" onclick="setLocation('@checkoutUrl')" />
+            }
+
+
+        </div>
+        <div href="" class="cell small-14 minicart__totals">
+
+
+            @if (Model.TotalProducts > 0)
+            {
+
+                <div class="label">Totals:</div>
+                <div class="totals"><span class="woocommerce-Price-amount amount">@Model.SubTotal<span class="woocommerce-Price-currencySymbol"></span></span></div>
+            }
+            else
+            {
+
+
+                <div class="label">Totals:</div>
+
+                <div class="totals"><span class="woocommerce-Price-amount amount">00.0<span class="woocommerce-Price-currencySymbol"></span></span></div>
+
+
+
+            }
+        </div>
+    </div>
+
+</div>
+<script>
+
+    $(document).on('ready', function () {
+        $('.scrollbar-inner').scrollbar();
+    });
+
+
+</script>

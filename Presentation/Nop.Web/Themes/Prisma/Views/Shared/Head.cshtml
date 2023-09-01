@@ -1,0 +1,49 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.UI
+@using Nop.Web.Framework.Themes
+
+
+@{
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+
+    var browser = Request.Browser;
+    if (browser.Browser == "IE" && browser.MajorVersion >= 9)
+    {
+        Html.AppendCssFileParts("~/Themes/Prisma/Content/css/ie9-fix.css");
+    }
+    Html.AppendCssFileParts("~/Themes/Prisma/Content/CSS/styles.css");
+    Html.AppendCssFileParts("~/Themes/Prisma/Content/CSS/bootstrap.min.css");
+    Html.AppendCssFileParts("~/Themes/Prisma/Content/CSS/jquery.mCustomScrollbar.min.css");
+    Html.AppendCssFileParts("~/Plugins/SevenSpikes.Core/Styles/perfect-scrollbar.min.css");
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+
+
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/footable.js");
+   // Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/perfect-scrollbar.min.js");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/sevenspikes.core.min.js");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/sevenspikes.theme.min.js");
+
+    Html.AddScriptParts("~/Themes/Prisma/Content/scripts/prisma.js");
+    Html.AddScriptParts("~/Themes/Prisma/Content/scripts/bootstrap.min.js");
+    Html.AddScriptParts("~/Themes/Prisma/Content/scripts/ResizeSensor.min.js");
+    Html.AddScriptParts("~/Themes/Prisma/Content/scripts/theia-sticky-sidebar.min.js");
+    Html.AddScriptParts("~/Themes/Prisma/Content/scripts/jquery.mCustomScrollbar.concat.min.js");
+    Html.AddScriptParts("~/Themes/Prisma/Content/scripts/isotope.pkgd.min.js");
+    Html.AddScriptParts("~/Themes/Prisma/Content/scripts/packery-mode.pkgd.min.js");
+    Html.AddScriptParts("~/Themes/Prisma/Content/scripts/imagesloaded.pkgd.js");
+    Html.AddScriptParts("~/Themes/Prisma/Content/scripts/jquery.lazy.min.js");
+
+    <link rel="manifest" href="@string.Format("/Themes/{0}/Content/manifest.json", themeName)">
+    Html.AddScriptParts("https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js");
+    Html.AddScriptParts("https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js");
+	Html.AddScriptParts(string.Format("~/Themes/{0}/Content/scripts/app.js", themeName));
+
+
+}
+

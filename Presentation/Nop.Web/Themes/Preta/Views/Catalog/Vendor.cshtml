@@ -1,0 +1,123 @@
+﻿@model VendorModel
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-vendor-page");
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var vendorUrl = Url.RouteUrl("Vendor", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(vendorUrl);
+    }
+       Html.AddCssFileParts("~/Themes/Preta/Content/assets/css/main.css");
+    var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+}
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+<div class="page vendor-page">
+    <div class="page-body">
+        @Html.Widget("vendordetails_top", Model.Id)
+        <div class="row vendor-page-banner">
+            <div class="col-sm-12 col-md-12 no-padding vendor-banner">
+                <img src="@Model.ShopBanner.FullSizeImageUrl" alt="@Model.ShopBanner.AlternateText" class="img-responsive margin-auto" />
+
+
+                @*@if (Model.AllowCustomersToContactVendors)
+                    {
+                            <input type="button" value="@(Model.Brand? "Contact Brand": "Contact Designer")" class="button-2 contact-vendor-button" onclick="setLocation('@Url.RouteUrl("ContactVendor", new { vendorId = Model.Id })')" />
+                    }*@
+            </div>
+            <div class="col-sm-12 col-md-12 no-padding">
+                @Html.Partial("_VendorCategories", Model.Id)
+            </div>
+        </div>
+        @if (Model.Products.Count > 0)
+        {
+            <div class="product-selectors">
+                @*view mode*@
+                @if (!pager.IsEmpty())
+                {
+                <div class="pager">
+                    @pager
+                </div>
+                }
+                @if (Model.PagingFilteringContext.AllowProductViewModeChanging)
+                {
+
+                    <div class="product-viewmode">
+                        <span>@T("Catalog.ViewMode")</span>
+                        @if (Model.PagingFilteringContext.AvailableViewModes.Count > 1)
+                        {
+                            var gridMode = Model.PagingFilteringContext.AvailableViewModes[0];
+                            var listMode = Model.PagingFilteringContext.AvailableViewModes[1];
+
+                            <a class="viewmode-icon grid four @if(gridMode.Selected){<text>selected</text>}" onclick="changelayout(true)" title="Four">Four</a>
+                            <a class="viewmode-icon three" onclick="changelayout(false)" title="Three">Three</a>
+                        }
+                    </div>
+
+                }
+                @*sorting*@
+                @if (Model.PagingFilteringContext.AllowProductSorting)
+                {
+                    <div class="product-sorting">
+                        <span>@T("Catalog.OrderBy")</span>
+                        @Html.DropDownList("products-orderby", Model.PagingFilteringContext.AvailableSortOptions, new { onchange = "setLocation(this.value);" })
+                    </div>
+                }
+                @*page size*@
+                @if (Model.PagingFilteringContext.AllowCustomersToSelectPageSize)
+                {
+                    <div class="product-page-size">
+                        <span>@T("Catalog.PageSize")</span>
+                        @Html.DropDownList("products-pagesize", Model.PagingFilteringContext.PageSizeOptions, new { onchange = "setLocation(this.value);" })
+                        <span>@T("Catalog.PageSize.PerPage")</span>
+                    </div>
+                }
+            </div>
+        }
+
+        @*product list*@
+        @if (Model.Products.Count > 0)
+        {
+            <div class="@(Model.PagingFilteringContext.ViewMode == "list" ? "product-list" : "product-grid")">
+                <div class="item-grid">
+                    @foreach (var product in Model.Products)
+                    {
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", product)
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @if (!pager.IsEmpty())
+        {
+            <div class="pager">
+                @pager
+            </div>
+        }
+        @Html.Widget("vendordetails_bottom", Model.Id)
+    </div>
+</div>
+<script>
+    function changelayout(x) {
+        if (x) {
+            $(".center-2").addClass("four-per-row");
+            $(".center-2").removeClass("three-per-row");
+        }
+        else {
+            $(".center-2").addClass("three-per-row");
+            $(".center-2").removeClass("four-per-row");
+        }
+
+    }
+</script>

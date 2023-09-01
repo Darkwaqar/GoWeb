@@ -1,0 +1,152 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+
+<div class="master-wrapper-page">
+    @Html.Action("AdminHeaderLinks", "Common")
+    @Html.Partial("Header")
+    <nav class="navbar fixed-header" role="navigation" id="myHeader" >
+       
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                @*<button type="button" onclick="openNav1()" class="navbar-toggle" >
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>*@
+
+                <div class="nav-icon navbar-toggle">
+                    <div></div>
+                </div>
+
+
+
+                @Html.Action("Logo", "Common")
+
+                <div class="mobile-icons">
+                    <ul class="icon-menu">
+
+
+
+                        @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            <li><a href="/login" class="my-account-icon"></a></li>
+                        }
+                        else 
+                        {
+
+                            <li><a href="@Url.RouteUrl("CustomerInfo")" class="my-account-icon"></a></li>
+
+
+                        }
+
+
+
+
+                        <li><a href="/cart" class="my-cart-icon"></a></li>
+                    </ul>
+                </div>
+
+                <div class="search-div">
+
+                    @Html.Action("SearchBox", "Catalog")
+
+                </div>
+
+
+
+
+                @*<div class="search-mobile"><span onclick="openNav()"><img src="~/Themes/SadafAmir/Content/images/img/search-btn.png" /></span></div>*@
+            </div>
+            
+            <!-- Collect the nav links, forms, and other content for toggling -->
+  
+                   
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="navbar-collapse" id="navbar-brand-centered">
+                @Html.Widget("content_before")   
+            
+                <ul class="navbar-nav navbar-right customnav-right">
+                    <li>
+                        <div class="search-desktop" style="display:inline-block"><a onclick="openNav()"><img src="~/Themes/SadafAmir/Content/images/img/search-btn.png" /></a></div>
+                     </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle user-show" data-toggle="dropdown" href="#">
+                            <img src="~/Themes/SadafAmir/Content/images/img/user-icon.png" alt="User Image" />
+                        </a>
+                    </li>
+                    @Html.Action("HeaderLinks", "Common")
+                    @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+                    @*<li>
+                @*<a href="#"><img src="images/cart-icon.png" alt="Cart"></a>
+            </li>*@
+                </ul>
+                           
+            </div><!-- /.navbar-collapse -->
+
+
+
+
+
+
+
+
+       
+    </nav>
+    <script type="text/javascript">
+         AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+    </script>
+    
+    <div class="master-wrapper-content">
+       
+
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb") 
+        }
+        <div class="master-column-wrapper">
+
+
+          
+
+
+
+            @RenderBody()
+
+
+            @Html.Widget("content_after")
+
+            @Html.Action("Footer", "Common")
+        </div>
+       
+    
+    </div>
+   
+</div>
+
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")

@@ -1,0 +1,169 @@
+﻿
+
+
+@model VendorModel
+@using Nop.Services.Vendors;
+@using Nop.Services.Media;
+@using Nop.Services.Catalog;
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+
+@{
+    /**/
+
+    Layout = "~/Views/Shared/_MyColumns.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-vendor-page");
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var vendorUrl = Url.RouteUrl("Vendor", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(vendorUrl);
+    }
+
+    var Vendor = EngineContext.Current.Resolve<IVendorService>().GetVendorById(Model.Id);
+  
+    var breadcrumbDelimiter = EngineContext.Current.Resolve<CommonSettings>().BreadcrumbDelimiter;
+}
+
+
+
+
+<div class=row>
+    <div class="col-md-12">   <div class="logo-placeholder"></div> </div><div class="col-md-12 text-center" id="rotate" style="position:relative">
+        <p class="mine "> All in one shopping app has many individual apps <br class="hidden-xs"> of your favourite brands inside it</p>
+        <p class="mine "> One super app offers multiple mobile apps in one place  <br class="hidden-xs"></p>
+        <p class="mine "> Place single order for items you shop   <br class="hidden-xs">  at different apps even they are closed</p>
+        <p class="mine"> App Icon(s) of your favourite brands on mobile screen   <br class="hidden-xs"></p>
+        <p class="mine "> No need to download 100s of shopping apps anymore   <br class="hidden-xs"></p>
+        <p class="mine "> All-in-one shopping app for one to one brand experience    <br class="hidden-xs"></p>
+        <p class="mine "> One page checkout with multiple secure payment options    <br class="hidden-xs"></p>
+
+    </div>
+
+    <div class="col-md-12"><div class="col-md-3"></div><div class="col-md-6" style="text-align:center;margin:10px 0px;"><img style="width:90%" src="https://info.gomobishop.com/main.png" /></div> <div class="col-md-3"></div> </div>  <div class="col-md-12">
+        <div class="col-md-3"></div><div class="col-md-3" style="text-align:center">
+            <a href="https://info.gomobishop.com/gomobishop" style="display:block;width:60%;line-height:1;margin: 20px auto;" class="main_button" href="#">For Customers</a>
+
+        </div> <div class="col-md-3" style="text-align:center"><a style="display: block;width: 60%;line-height: 1;margin: 20px auto;" class="main_button " href="https://info.gomobishop.com">For Businesses</a></div> <div class="col-md-3"></div>
+    </div>
+</div>
+
+
+
+<script>
+
+
+
+
+    (function () {
+        //var jc = $.dialog({
+        //    title: '',
+        //    content: '<div class=row><div class="col-md-12">   <div class="logo-placeholder"> <a class="home-main" href="/"><span class="moto">Mobile App Shopping Platform</span><span class="logo"></span></a></div> </div><div class="col-md-12 text-center" id="rotate" style="position:relative"><p class="mine "> All in one shopping app has many individual apps <br class="hidden-xs"> of your favourite brands inside it</p>'
+        //        + '<p class="mine "> One super app offers multiple mobile apps in one place  <br class="hidden-xs"></p>'
+        //        + '<p class="mine "> Place single order for items you shop   <br class="hidden-xs">  at different apps even they are closed</p>'
+        //        + '<p class="mine"> App Icon(s) of your favourite brands on mobile screen   <br class="hidden-xs"></p>'
+        //        + '<p class="mine "> No need to download 100s of shopping apps anymore   <br class="hidden-xs"></p>'
+        //        + '<p class="mine "> All-in-one shopping app for one to one brand experience    <br class="hidden-xs"></p>'
+        //        + '<p class="mine "> One page checkout with multiple secure payment options    <br class="hidden-xs"></p>'
+        //        + '</div>'
+
+        //        + '<div class="col-md-12"><div class="col-md-3"></div><div class="col-md-6" style="text-align:center;margin:10px 0px;"><img style="width:90%" src="https://info.gomobishop.com/main.png" /></div> <div class="col-md-3"></div> </div>  <div class="col-md-12"> <div class="col-md-3"></div><div class="col-md-3" style="text-align:center"><a  href="https://info.gomobishop.com/gomobishop"  style="display:block;width:60%;line-height:1;margin: 20px auto;" class="main_button" href="#">For Customers</a>'
+        //        + '</div> <div class="col-md-3" style="text-align:center"><a style="display: block;width: 60%;line-height: 1;margin: 20px auto;" class="main_button " href="https://info.gomobishop.com">For Businesses</a></div> <div class="col-md-3"></div></div></div> ',
+
+        //    columnClass: 'style',
+        //    bootstrapClasses: {
+        //        container: 'container container1',
+        //        containerFluid: 'container-fluid',
+        //        row: 'row',
+        //    }, onContentReady: function () {
+        //        // when content is fetched & rendered in DOM
+        //        $('#die').on('click', function () {
+
+        //            jc.close();
+
+        //        });
+
+
+        //        $('.jconfirm-closeIcon').hide();
+
+
+
+
+
+
+
+        $.fn.extend({
+            rotaterator: function (options) {
+
+                var defaults = {
+                    fadeSpeed: 110000,
+                    pauseSpeed: 10000,
+                    child: null
+                };
+
+                var options = $.extend(defaults, options);
+
+                return this.each(function () {
+                    var o = options;
+                    var obj = $(this);
+                    var items = $(obj.children(), obj);
+                    items.each(function () { $(this).hide(); })
+                    if (!o.child) {
+                        var next = $(obj).children(':first');
+                    } else {
+                        var next = o.child;
+                    }
+                    $(next).fadeIn(o.fadeSpeed, function () {
+                        $(next).delay(o.pauseSpeed).fadeOut(o.fadeSpeed, function () {
+                            var next = $(this).next();
+                            if (next.length == 0) {
+                                next = $(obj).children(':first');
+                            }
+                            $(obj).rotaterator({ child: next, fadeSpeed: o.fadeSpeed, pauseSpeed: o.pauseSpeed });
+                        })
+                    });
+                });
+            }
+        });
+
+
+
+        $('#rotate').rotaterator({ fadeSpeed: 3000, pauseSpeed: 3000 });
+
+
+
+
+
+
+
+
+
+
+        //}
+        //});
+
+
+
+
+
+
+
+
+    }());
+
+
+
+
+
+
+</script>

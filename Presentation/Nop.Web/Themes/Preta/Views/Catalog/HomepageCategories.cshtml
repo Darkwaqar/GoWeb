@@ -1,0 +1,135 @@
+﻿@model IList<CategoryModel>
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Catalog;
+@using Nop.Services.Media;
+@using Nop.Services.Seo;
+@using Nop.Web.Factories;
+@using Nop.Services.Catalog;
+@{
+    Html.AppendPageCssClassParts("html-product-details-page");
+    var Collection = Model.Where(category => category.Collection);
+    bool firstli = true;
+    bool firstdiv = true;
+}
+
+
+@using Nop.Web.Models.Catalog;
+<!-- Brand Tabs -->
+<div id="content">
+
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        @foreach (var item in Collection)
+            {
+                var cat = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(item.Id);
+                while (cat != null && cat.ParentCategoryId != 0)
+                {
+                    cat = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(cat.ParentCategoryId);
+                };
+
+            <li class="@(firstli ? "active" : "")">
+                @{ firstli = false;}
+                <a class="font-chronicle last-panel-head" href="#@item.Id" data-toggle="tab">
+                    @cat.Name
+                    </a>
+                </li>
+         }
+
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        @foreach (var item in Collection)
+        {
+            <div class="tab-pane @(firstdiv ? "active": "")" id="@item.Id">
+                @{ firstdiv = false;}
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center margin-top text-brand-heading" style="color: black;">
+                            @item.CollectionName
+                        </h2>
+                        <div class="text-center padding-bottom">
+                            @Html.Raw(item.CollectionDiscription)
+
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-md-7 margin-top-small">
+                        <img src="@item.CollectionPricture.FullSizeImageUrl" alt="" class="img-responsive">
+                    </div>
+                    <div class="col-sm-5 col-md-5 div-on-right margin-top-small">
+                        <img src="~/Themes/Preta/Content/assets/img/newCollectionItems/item%20(1).jpg" alt=""
+                             class="img-responsive margin-auto placesrcr1">
+                        <div class="col-md-12 no-padding" style="background-color: #1a1a1a; color: white;">
+                            <div class="col-xs-8 col-md-8 no-padding">
+                                <h6 class="collection-product-name"></h6>
+                            </div>
+                            <div class="col-xs-4 col-md-4 no-padding">
+                                <a data-producturl="" @*onclick=loadiframe(this)*@ class="producturl pull-right"><h6>Shop the Look</h6></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-md-7 margin-top-small clearboth-small-screen">
+                        <div class="t1-GalleryHeight">
+                            <div class="row">
+                                @{
+                                    var categories = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(item.Id);
+                                    IList<int> catagoriesid = new List<int>();
+                                    catagoriesid.Add(categories.Id);
+                                    var products = EngineContext.Current.Resolve<IProductService>().SearchProducts(categoryIds: catagoriesid);
+                                    var firstproduct = true;
+                                }
+                                @foreach (var product in products)
+                                {
+
+                                    var picture = EngineContext.Current.Resolve<IPictureService>().GetPicturesByProductId(product.Id);
+                                    var src = EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(picture[0].Id);
+
+                                    var productmodel = EngineContext.Current.Resolve<IProductModelFactory>().PrepareProductDetailsModel(product);
+                                    <div class="col-md-3 col-xs-6 margin-top ">
+                                        <img id="@(firstproduct ? "firstproduct" : "")" src="@src" alt="@product.Name" data-producturl="@product.GetSeName()"
+                                             class="img-responsive thumb margin-auto">
+                                        @{firstproduct = false;}
+                                    </div>
+                                            }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+                                            }
+
+
+    </div>
+    <div id="detail">
+
+
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#firstproduct").trigger('click');
+    });
+
+    function loadiframe(a) {
+        var url = a.getAttribute("data-producturl")
+        $('#detail').load(url + ' #product-details-form');
+        $('html, body').animate({
+            scrollTop: $("#detail").offset().top
+        }, 2000);
+    };
+
+    $(".thumb").click(function () {
+        var thumbsrc = $(this).attr('src');
+        var name = $(this).attr('alt');
+        var url = $(this).attr('data-producturl');
+        var image = $(".placesrcr1");
+        image.fadeOut('fast', function () {
+            image.attr('src', thumbsrc);
+            image.fadeIn('fast');
+        });
+        $(".collection-product-name").text(name);
+        $(".producturl").attr('href', url)
+    });
+</script>
+<!-- Brand Tabs End -->

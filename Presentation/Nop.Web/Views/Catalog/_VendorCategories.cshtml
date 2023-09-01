@@ -1,0 +1,42 @@
+﻿@model int
+@using Nop.Services.Catalog;
+@using Nop.Services.Vendors;
+@using Nop.Core.Infrastructure;
+@{
+    var vendor = EngineContext.Current.Resolve<IVendorService>().GetVendorById(Model);
+    var categories = EngineContext.Current.Resolve<ICategoryService>().GetCategoriesByVendorId(vendor.Id);
+}
+
+@if (categories.Count > 0)
+{
+    <div class="vendor-category-grid">
+        <ul>
+            @foreach (var item in categories)
+            {
+                var subcategories = EngineContext.Current.Resolve<ICategoryService>().GetAllCategoriesByParentCategoryId(item.Id);
+                <li>
+                    <a href="javascript:SearchInVendorCategory(@item.Id)"><span>@item.Name</span></a>
+                    @if (subcategories.Any())
+                    {
+                        <div class="vendor-sub-category-grid">
+                            <ul>
+                                @foreach (var subcategory in subcategories)
+                                {
+                                    <li><a href="javascript:SearchInVendorCategory(@subcategory.Id)"><span>@subcategory.Name</span></a></li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+    <script>
+        function SearchInVendorCategory(x) {
+            window.location.hash = '/noFilterApplied';
+            $(".nopAjaxFilters7Spikes").attr("data-categoryid", x).attr("data-vendorid", 0);
+            $(".viewmode-icon.grid").removeClass("selected").click();
+        }
+    </script>
+
+}

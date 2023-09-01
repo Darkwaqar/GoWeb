@@ -1,0 +1,58 @@
+﻿@using Nop.Core;
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Framework.UI
+@{
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+
+    //add browser specific CSS files
+    var browser = Request.Browser;
+    if (browser.Browser == "IE" && browser.MajorVersion == 8)
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/ie8.css", themeName));
+    }
+    //add main CSS file
+    if (supportRtl)
+    {
+       
+    }
+    else
+    {
+
+        //Sanitizer Css
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/main.css", themeName));
+        //bootstrap
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/bootstrap.min.css", themeName));
+        //Owl Carousel
+       
+        Html.AppendCssFileParts("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" );
+        Html.AppendCssFileParts("" );
+        
+        
+        
+    }
+
+    //add jQuery UI css file
+    
+
+    if (browser.Browser == "IE" && browser.MajorVersion == 8)
+    {
+        Html.AddScriptParts("~/Scripts/selectivizr.min.js");
+        Html.AddScriptParts("~/Scripts/respond.min.js");
+    }
+    //Sadaf Amir Js
+
+
+    Html.AppendScriptParts("https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js");
+
+    Html.AddScriptParts(string.Format("~/Themes/Hashmisanitizer/Content/js/bootstrap.min.js", themeName));
+    Html.AddScriptParts(string.Format("https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js", themeName));
+    
+    
+    
+   
+  
+
+}
+

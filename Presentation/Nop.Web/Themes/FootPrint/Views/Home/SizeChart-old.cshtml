@@ -1,0 +1,108 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@using Nop.Web.Framework.Themes
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+   
+
+}
+<style>
+    
+    .sizechart tr > th {
+        text-align: center;
+        text-transform: uppercase;
+        background-color: #8DA7A8;
+        color:white;
+    }
+</style>
+
+<div class="container-fluid">
+    <h3>Footwear</h3>
+    <table class="table table-bordered sizechart text-center">
+        <tr>
+            <th>Size</th>
+            <th>US</th>
+            <th>UK</th>
+        </tr>
+        <tr>
+            <td>XXS</td>
+            <td>3 - 6.5</td>
+            <td>2 - 5.5</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <h3>Belts</h3>
+    <table class="table table-bordered sizechart text-center">
+        <tr>
+            <th>Size</th>
+            <th>CM (Length)</th>
+            <th>Inches (Length)</th>
+        </tr>
+        <tr>
+            <td>XXS</td>
+            <td>75</td>
+            <td>30</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language Name="English">
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Menu.MenuName">
+    <Value>Poppy</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Admin.SettingsSubmenu.Poppy">
+    <Value>Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="Sevenspikes.Themes.Admin.ManageResources.Poppy">
+    <Value>Manage Resources</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings">
+    <Value>Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings">
+    <Value>Poppy Theme Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.ColorScheme">
+    <Value>Color Scheme</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.ColorScheme.Hint">
+    <Value>Choose the color scheme of the theme.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.ColorSchemes.Light">
+    <Value>Light</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.ColorSchemes.Dark">
+    <Value>Dark</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.Preset">
+    <Value>Preset</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.Preset.Hint">
+    <Value>Choose your color preset of the theme.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.MobileNavigationPosition">
+    <Value>Mobile Navigation Position</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.MobileNavigationPosition.Hint">
+    <Value>Choose one of the two predefined mobile navigation positions</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.MobileNavigationPosition.Top">
+    <Value>Top</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.MobileNavigationPosition.Bottom">
+    <Value>Bottom</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.HeaderLayout">
+    <Value>Header layout design</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.HeaderLayout.Hint">
+    <Value>Choose one of the two predefined header layout designs</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.FooterLayout">
+    <Value>Footer layout design</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.FooterLayout.Hint">
+    <Value>Choose one of the two predefined layout designs for the footer</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.CategoriesHoverEffect">
+    <Value>Featured Categories Hover Effect</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.CategoriesHoverEffect.Hint">
+    <Value>Choose one of the two predefined hover effects for the featured categories displayed on the home page</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.CatalogPagesItemBoxesPerRow">
+    <Value>Number of products per row</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.CatalogPagesItemBoxesPerRow.Hint">
+    <Value>Choose how many products will be displayed on one line on all catalog pages</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.AddToCartButtonStyle">
+    <Value>Add to cart button style</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.AddToCartButtonStyle.Hint">
+    <Value>Choose one of the two predefined designs for the add to cart button</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.ProductPageLayout">
+    <Value>Product page layout</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.ProductPageLayout.Hint">
+    <Value>Choose one of the two predefined layouts for the product page: one column or two columns design</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.MegaMenuWithPicturesLayout">
+    <Value>Mega Menu with pictures layout</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.MegaMenuWithPicturesLayout.Hint">
+    <Value>Choose one of the two predefined layouts for the mega menu when categories with pictures template is selected</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.HideSecondMainSliderOnMobile">
+    <Value>Hide second slider on home page on mobile displays</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.Settings.ThemeSettings.HideSecondMainSliderOnMobile.Hint">
+    <Value>Choose to hide the second slider on smaller resolutions. This is in case that you have the two sliders on the home page added</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.TabTitle.GeneralSettings">
+    <Value>General Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Admin.TabTitle.AdditionalSettings">
+    <Value>Additional Settings</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Common.FeaturedCategories">
+    <Value>Featured Categories</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.CategoryProducts.Items">
+    <Value>items</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Footer.Subscribe.Text">
+    <Value>Subscribe for latest news</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Footer.Information.Text">
+    <Value>Put your short company information here. You can edit this from the Language string resources admin panel</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="SevenSpikes.NopAjaxCart.ShoppingCartNotificationBoxViewYourBasket">
+    <Value>Go to cart</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Category.SelectSubcategory">
+    <Value>Select subcategory</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="SevenSpikes.Poppy.ShoppingCart.MobileCouponGiftCardTitle">
+    <Value>discount &amp; giftcodes</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="SevenSpikes.Poppy.ShoppingCart.GiftCardCodeLabel">
+    <Value>gift card code</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="SevenSpikes.Poppy.Order.ShippingInfo">
+    <Value>Shipping information</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Newsletter.Title">
+    <Value>Subscribe to our Newsletter to be the first know about new items and upcoming promotions!</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Product.ImageThumbs.Next">
+    <Value>Next</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="SevenSpikes.Themes.Poppy.Product.ImageThumbs.Prev">
+    <Value>Previous</Value>
+  </LocaleResource>
+</Language>

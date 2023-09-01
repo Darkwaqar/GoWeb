@@ -1,0 +1,18 @@
+﻿@model ProductDetailsModel
+@using growonline.Web.Models.Catalog;
+@if (!String.IsNullOrWhiteSpace(Model.StockAvailability) || Model.DisplayBackInStockSubscription)
+{
+    <div class="availability">
+        
+        @if (!String.IsNullOrWhiteSpace(Model.StockAvailability))
+        {
+            <hr />
+            <div class="stock">
+                <span class="">@T("Products.Availability"):</span>
+                <span class="value">@Model.StockAvailability</span>
+            </div>
+            <hr />
+        }
+        @Html.Partial("_BackInStockSubscription", Model)
+    </div>
+}

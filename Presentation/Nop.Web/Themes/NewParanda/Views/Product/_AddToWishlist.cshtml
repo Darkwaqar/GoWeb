@@ -1,0 +1,25 @@
+﻿@model ProductDetailsModel.AddToCartModel
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Domain.Orders;
+@if (!Model.DisableWishlistButton)
+{
+    var addToWishlistText = "";
+    var cls = "";
+    if (Model.UpdatedShoppingCartItemId > 0 && Model.UpdateShoppingCartItemType.HasValue && Model.UpdateShoppingCartItemType.Value == ShoppingCartType.Wishlist)
+    {
+        addToWishlistText = "REMOVE FROM WISHLIST";
+        cls = "liked";
+    }
+    else
+    {
+        addToWishlistText = "SAVE FOR LATER";
+        cls = "nonlike";
+    }
+   
+        <button type="button" id="add-to-wishlist-button-@Model.ProductId" class="button expanded light hollow @cls"
+                value="@addToWishlistText" data-productid="@Model.ProductId"
+                onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new {productId = Model.ProductId, shoppingCartTypeId = (int) ShoppingCartType.Wishlist})', '#product-details-form');return false;">
+            @addToWishlistText
+        </button>
+   
+}

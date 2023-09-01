@@ -1,0 +1,247 @@
+﻿@model AddressModel
+@using Nop.Web.Models.Common;
+@using Nop.Services.Common;
+
+
+@{
+    var currentCustomer = Nop.Core.Infrastructure.EngineContext.Current.Resolve<Nop.Core.IWorkContext>().CurrentCustomer;
+     var FirstName = currentCustomer.GetAttribute<string>(Nop.Core.Domain.Customers.SystemCustomerAttributeNames.FirstName);
+     var LastName = currentCustomer.GetAttribute<string>(Nop.Core.Domain.Customers.SystemCustomerAttributeNames.LastName);
+     var Email = currentCustomer.Email;
+  
+    
+    
+}
+
+@Html.HiddenFor(model => model.Id)
+<div class="form-horizontal uppercase addnewaddress">
+    <div class="form-group"style="width:100%;">
+        @Html.LabelFor(m => m.FirstName, new { @class = "col-sm-2 control-label" , style="text-align:left" }, ":")
+        <div class="col-sm-5 nopadding">
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control uppercase" })
+@*<input type="text" name="FirstName" value="@FirstName" class="form-control uppercase" />*@
+            <small class="text-center text-danger">@Html.ValidationMessageFor(m => m.FirstName)</small>
+        </div>
+        @*<div class="col-sm-1">
+            @Html.RequiredHint()
+        </div>*@
+    </div>
+    <div class="form-group"style="width:100%;">
+        @Html.LabelFor(m => m.LastName, new { @class = "col-sm-2 control-label", style = "text-align:left" }, ":")
+        <div class="col-sm-5 nopadding">
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control uppercase" })
+  @*<input type="text" name="LastName" value="@LastName" class="form-control uppercase" />*@
+            <small class="text-center text-danger">@Html.ValidationMessageFor(m => m.LastName)</small>
+        </div>
+        @*<div class="col-sm-1">
+            @Html.RequiredHint()
+        </div>*@
+    </div>
+    <div class="form-group"style="width:100%;">
+        @Html.LabelFor(m => m.Email, new { @class = "col-sm-2 control-label", style = "text-align:left" }, ":")
+        <div class="col-sm-5 nopadding">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control uppercase" })
+            @*<input type="text" name="Email" value="@Email" class="form-control uppercase" />*@
+            <small class="text-center text-danger">@Html.ValidationMessageFor(m => m.Email)</small>
+        </div>
+        @*<div class="col-sm-1">
+            @Html.RequiredHint()
+        </div>*@
+    </div>
+    @if (Model.CompanyEnabled)
+    {
+        <div class="form-group"style="width:100%;">
+            @Html.LabelFor(m => m.Company, new { @class = "col-sm-2 control-label", style = "text-align:left" }, ":")
+            <div class="col-sm-5 nopadding">
+                @Html.TextBoxFor(m => m.Company, new { @class = "form-control uppercase" })
+                <small class="text-center text-danger">@Html.ValidationMessageFor(m => m.Company)</small>
+            </div>
+            @if (Model.CompanyRequired)
+            {
+                <div class="col-sm-1">
+                    @Html.RequiredHint()
+                </div>
+            }
+        </div>
+    }
+    @if (Model.CountryEnabled)
+    {
+        <div class="form-group"style="width:100%;">
+            @Html.LabelFor(m => m.CountryId, new { @class = "col-sm-2 control-label", style = "text-align:left" }, ":")
+            <div class="col-sm-5 nopadding">
+                @Html.DropDownList("CountryId", Model.AvailableCountries, new { @class = "form-control uppercase" })
+                <small class="text-center text-danger">@Html.ValidationMessageFor(m => m.CountryId)</small>
+            </div>
+            @*<div class="col-sm-1">
+                @Html.RequiredHint()
+            </div>*@
+        </div>
+    }
+
+    @if (Model.CountryEnabled && Model.StateProvinceEnabled)
+    {
+        <div class="form-group"style="width:100%;">
+            @Html.LabelFor(model => model.StateProvinceId, new { @class = "col-sm-2 control-label", style = "text-align:left" }, ":")
+            <div class="col-sm-5 nopadding">
+                @Html.DropDownList("StateProvinceId", Model.AvailableStates, new { @class = "form-control uppercase" })
+                <small class="text-center text-danger">@Html.ValidationMessageFor(m => m.StateProvinceId)</small>
+                <span id="states-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span>
+            </div>
+            @*<div class="col-sm-1">
+                @Html.RequiredHint()
+            </div>*@
+        </div>
+    }
+    @if (Model.CityEnabled)
+    {
+        <div class="form-group"style="width:100%;">
+            @Html.LabelFor(m => m.City, new { @class = "col-sm-2 control-label", style = "text-align:left" }, ":")
+            <div class="col-sm-5 nopadding">
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control uppercase" })
+                <small class="text-center text-danger">@Html.ValidationMessageFor(m => m.City)</small>
+            </div>
+            @*@if (Model.CityRequired)
+            {
+                <div class="col-sm-1">
+                    @Html.RequiredHint()
+                </div>
+            }*@
+        </div>
+    }
+    @if (Model.StreetAddressEnabled)
+    {
+        <div class="form-group" style="width:100%;">
+            @Html.LabelFor(model => model.Address1, new { @class = "col-sm-2 control-label", style = "text-align:left" }, ":")
+            <div class="col-sm-5 nopadding">
+                @Html.TextBoxFor(model => model.Address1, new { @class = "form-control uppercase"})
+                <small class="text-center text-danger">@Html.ValidationMessageFor(model => model.Address1)</small>
+            </div>
+            @*@if (Model.StreetAddressRequired)
+            {
+                <div class="col-sm-1">
+                    @Html.RequiredHint()
+                </div>
+            }*@
+
+        </div>
+    }
+    @if (Model.StreetAddress2Enabled)
+    {
+        <div class="form-group"style="width:100%;">
+            @Html.LabelFor(model => model.Address2, new { @class = "col-sm-2 control-label", style = "text-align:left" }, ":")
+            <div class="col-sm-5 nopadding">
+                @Html.TextBoxFor(model => model.Address2, new { @class = "form-control uppercase" })
+                <small class="text-center text-danger">@Html.ValidationMessageFor(model => model.Address2)</small>
+            </div>
+            @if (Model.StreetAddress2Required)
+            {
+                <div class="col-sm-1">
+                    @Html.RequiredHint()
+                </div>
+            }
+
+        </div>
+    }
+   @if (Model.ZipPostalCodeEnabled)
+    {
+        <div class="form-group hidden"style="width:100%;">
+            @Html.LabelFor(model => model.ZipPostalCode, new { @class = "col-sm-2 control-label", style = "text-align:left" }, ":")
+            <div class="col-sm-5 nopadding">
+                @Html.TextBoxFor(model => model.ZipPostalCode, new { @class = "form-control uppercase", @Value = "37991", type = "hidden" })
+                <small class="text-center text-danger">@Html.ValidationMessageFor(model => model.ZipPostalCode)</small>
+            </div>
+
+            @if (Model.ZipPostalCodeRequired)
+            {
+                <div class="col-sm-1">
+                    @Html.RequiredHint()
+                </div>
+            }
+
+        </div>
+    }
+    @if (Model.PhoneEnabled)
+    {
+        <div class="form-group" style="width:100%;">
+            @Html.LabelFor(model => model.PhoneNumber, new { @class = "col-sm-2 control-label uppercase", style = "text-align:left" }, ":")
+            <div class="col-sm-5 nopadding">
+                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control uppercase" })
+                <small class="text-center text-danger">@Html.ValidationMessageFor(model => model.PhoneNumber)</small>
+            </div>
+            @*@if (Model.PhoneRequired)
+            {
+                <div class="col-sm-1">
+                    @Html.RequiredHint()
+                </div>
+            }*@
+
+        </div>
+    }
+    @if (Model.FaxEnabled)
+    {
+        <div class="form-group" style="width:100%">
+            @Html.LabelFor(model => model.FaxNumber, new { @class = "col-sm-2 control-label", style = "text-align:left" }, ":")
+            <div class="col-sm-5 nopadding">
+                @Html.TextBoxFor(model => model.FaxNumber, new { @class = "form-control uppercase" })
+                <small class="text-center text-danger">@Html.ValidationMessageFor(model => model.FaxNumber)</small>
+            </div>
+            @if (Model.FaxRequired)
+            {
+                <div class="col-sm-1">
+                    @Html.RequiredHint()
+                </div>
+            }
+        </div>
+    }
+    @if (Model.CustomAddressAttributes.Count > 0)
+    {
+        @Html.Partial("_AddressAttributes", Model.CustomAddressAttributes)
+    }
+</div>
+@if (Model.CountryEnabled && Model.StateProvinceEnabled)
+{
+    <script type="text/javascript">
+        $(window).load(function () {
+            // Run code
+        
+        //$(function () {
+            $("#@Html.FieldIdFor(model => model.CountryId)").change(function () { 
+                var selectedItem = $(this).val();
+                var ddlStates = $("#@Html.FieldIdFor(model => model.StateProvinceId)");
+                var statesProgress = $("#states-loading-progress");
+                statesProgress.show();
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "@(Url.RouteUrl("GetStatesByCountryId"))",
+                    data: { "countryId": selectedItem, "addSelectStateItem": "true" },
+                    success: function (data) {
+                        ddlStates.html('');
+                        $.each(data, function (id, option) {
+                            ddlStates.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                        statesProgress.hide();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve states.');
+                        statesProgress.hide();
+                    }
+                });
+            });
+        });
+      //  });
+    </script>
+}
+<script>
+    $('.wikki').unbind('keyup change input paste').bind('keyup change input paste', function (e) {
+        var $this = $(this);
+        var val = $this.val();
+        var valLength = val.length;
+        var maxCount = $this.attr('maxlength');
+        if (valLength > maxCount) {
+            $this.val($this.val().substring(0, maxCount));
+        }
+    });
+
+</script>
+

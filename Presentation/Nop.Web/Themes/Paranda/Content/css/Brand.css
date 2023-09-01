@@ -1,0 +1,412 @@
+﻿.firstqu{
+        padding-top: 4% !important;
+    padding-left: 2% !important;
+    padding-right: 2% !important;
+}
+.firstboxqu{
+        width: 800px;
+
+}
+.firstminqu{
+        padding-top: 33% !important;
+}
+.firstfontparaeqs{
+        padding-top: 22% !important;
+    padding-left: 7% !important;
+    padding-right: 7% !important;
+    background-color: #e6e7e8 !important;
+    min-height: 603px !important;
+    position: absolute !important;
+}
+.firstsecondqu{
+           padding-top: 7%;
+}
+.firstlstqu{
+        background-color: white;
+    padding-top: 12% !important;
+    padding-bottom: 12% !important;
+}
+
+.firstlastsecqu{
+    padding-top:13.3% !important;
+    padding-bottom:13.3% !important;
+}
+.firsttopqu{
+        padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+
+
+
+   .brandtext {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        color: #777;
+        /*padding: 40px 0px;*/
+    }
+.subhead, .subhead2 {
+    font-size: 16px;
+        color: black;
+    margin-top: 39px;
+  
+}
+.mstl{
+        /*height: 391px;*/
+}
+
+.minheading{
+           color: #262626;
+    /*padding-top: 206px;*/
+}
+
+    #brand h1 {
+        text-transform: uppercase;
+        color: #041d3b;
+            font-size: 51px;
+        font-weight: bold;
+        font-family: Montserrat-Bold;
+        margin: 20px 0px;
+        text-align: center;
+    }
+
+    #brand .row > div {
+        padding: 0px;
+      
+    }
+
+#brand .minheading {
+    text-align: center;
+    /*padding-top: 185px;*/
+}
+
+ .para2 {
+    /*padding: 234px 43px;*/
+}
+    .lastpara {
+        padding: 114px 71px;
+    }
+
+   #brand .bg1 {
+        background-color:#e5ded1;
+    }
+   #brand .bg2 {
+         background-color:#0a2746;
+    }
+    #brand .bg3 {
+        background-color:#e6e7e8;
+    }
+
+
+    #brand .bg4{
+        background-color:#e6e7e8;
+    }
+.fontpara {
+     
+    font-size: 16px;
+    color: #777;
+}
+.onemore > .brandtext > .fontpara {
+      padding-top: 0px;
+    padding-bottom: 4px;
+}
+.totalheight {
+
+/*min-height:422px;*/
+/*max-height:422px;
+height:422px;*/
+}
+.totalheight > .brandtext {
+    /*padding-top: 128px;*/
+}
+/*.againadd{
+    height:800px;
+}*/
+@media (max-width:420px){
+    .picone > img {
+            min-height: 288px;
+    }
+    .pictwo > img{
+         min-height: 288px;
+         margin-top: 145px;
+    }
+    .picthree > img{
+            min-height: 325px;
+    }
+    .responsqueryone{
+        max-height: 375px;
+    /*height: 375px;*/
+
+    }
+    .responsequery2{
+       /*max-height: 489px;
+    height: 422px;*/
+    }
+    .responsequery3{
+            /*max-height: 500px;
+    height: 461px;*/
+    }
+    .respnsequery4{
+            padding: 62px 50px;
+    text-align: center;
+    max-height: 321px;
+    height: 126px;
+    }
+
+    /*.totalheight {
+     min-height: 0px; 
+     max-height: 0px; 
+     height: 642px;
+}*/
+
+     .totalheight >    .brandtext {
+        padding-top: 50px;
+}
+    .brandtext {
+     width: 100%;
+    margin: auto;
+    text-align: center;
+    color: #777;
+     padding: 41px 10px;
+}
+
+
+    #brand h1 {
+        text-transform: uppercase;
+        color: #041d3b;
+        font-size: 30px;
+        font-weight: bold;
+        font-family: Montserrat-Bold;
+        margin: 19px 0px;
+        text-align: center;
+    }
+
+    .para2 {
+    padding:39px 42px;
+    text-align: center;
+}
+    /*.totalheight {
+     min-height: 0px; 
+     max-height: 0px; 
+     height: 0px; 
+}*/
+.asd > img {
+    margin-top: 4px;
+}
+.mstl {
+    /*margin-top: 1px;*/
+    height: 375px;
+}
+.ada {
+        /*height: 500px;
+    min-height: 481px;
+    max-height: 500px;*/
+
+}
+}
+
+@media (max-width:1920px) {
+ /*.para2 {
+     padding: 125px 43px;
+}*/
+    #brand .minheading {
+      text-align: center;
+    /*padding-top: 159px;*/
+}
+    .totalheight > .brandtext {
+    /*padding-top: 75px;*/
+}
+}
+
+
+@media (max-width: 1800px) {
+    .para2 {
+    /*padding: 108px 43px;*/
+    }
+    .totalheight > .brandtext {
+    /*padding-top: 65px;*/
+        width: 80%;
+}
+}
+
+@media (max-width: 1440px) {
+    .para2 {
+        /*padding: 92px 42px;*/
+    text-align: left;
+    }
+    #brand .minheading {
+     text-align: center;
+    /*padding-top: 155px;*/
+}
+
+}
+
+
+@media (max-width:1280px){
+    .totalheight > .brandtext {
+    /*padding-top: 49px;*/
+}
+/*.totalheight {
+    min-height: 421px;
+}*/
+    .mstl{
+            /*height: 412px;*/
+    }
+ 
+.para2 {
+    
+    text-align: left;
+}
+}
+
+
+@media (max-width:1024px){
+    /*.para2 {
+      padding: 28px 43px;
+}*/
+
+    #brand .minheading {
+    text-align: center;
+    /*padding-top: 155px;*/
+}
+
+    /*.totalheight {
+    min-height: 366px;
+}*/
+    .fontpara {
+    font-size: 12px;
+    color: #777;
+}
+    #brand h1 {
+    
+        font-size: 39px;
+
+    }
+    .para2 {
+    /*padding: 107px 43px;*/
+}
+
+}
+
+
+
+
+
+@media (max-width: 412px) {
+    .totalheight > .brandtext {
+        padding-top: 9px;
+    }
+}
+
+@media (max-width: 414px) {
+    .totalheight > .brandtext {
+        padding-top: 15px;
+            width: 100%;
+    }
+    #brand .minheading {
+    text-align: center;
+    padding-top: 139px;
+}
+
+}
+
+@media (max-width: 375px) {
+    #brand .minheading {
+        text-align: center;
+        padding-top: 139px;
+    }
+}
+
+
+
+@media (max-width: 360px) {
+    .totalheight > .brandtext {
+        padding-top: 21px;
+    }
+    #brand .minheading {
+    text-align: center;
+    padding-top: 123px;
+}
+
+}
+
+
+
+
+.subhead2  > img {
+    width:7%;
+}
+
+
+
+
+
+
+
+
+@media (max-width: 360px) {
+    .para2 {
+        padding: 60px 42px;
+        text-align: center;
+    }
+    .subhead2 {
+    font-size: 11px;
+    margin-top: 39px;
+}
+}
+
+
+@media (max-width: 441px) {
+    .para2 {
+           padding: 45px 42px;
+        text-align: center;
+    }
+    .fontpara {
+    font-size: 14px;
+    color: #777;
+}
+    #brand h1 {
+    font-size: 25px;
+}
+}
+
+@media (max-width: 768px) {
+
+#brand h1 {
+margin: 10px 0px;
+}}
+
+
+
+
+
+@media(max-width:375px){
+    .subhead, .subhead2 {
+    font-size: 12px;
+    margin-top: 39px;
+}
+}
+
+@media (max-width:414px)
+{
+    .subhead, .subhead2 {
+        font-size: 11px;
+    margin-top: 39px;
+}
+}
+
+
+
+
+@media (max-width:320px){
+    .subhead, .subhead2 {
+     font-size: 9.9px;
+    margin-top: 39px;
+}
+}
+
+.pane{
+    box-shadow:none;
+}
+

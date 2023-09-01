@@ -1,0 +1,59 @@
+﻿@model Nop.Web.Models.ArchiveModel
+@{
+    //Layout = "~Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/custom-icons.css">
+<link rel="stylesheet" type="text/css" href="assets/css/my-instagram-gallery.css">
+<link rel="stylesheet" type="text/css" href="assets/css/odometer-theme-default.css">
+<link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+<link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="assets/css/prettyPhoto.css">
+<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/carousel-my.css">
+<link rel="stylesheet" href="assets/css/article-carousel.css">
+<h2>ContenMagzines</h2>
+
+@foreach (var Magzine in Model.Magzines)
+{
+    <div data-path="/archive/@Model.DirectoryName/content/@Magzine.DirectoryName/html/index.htm" onclick="getMagazineContent(this)">
+        <img src="@Magzine.ThumbUrl" />
+        <span>@Magzine.Title</span>
+    </div>
+}
+
+
+
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/packery.pkgd.min.js"></script>
+<script src="assets/js/masonry.pkgd.min.js"></script>
+<script src="assets/js/isotope.pkgd.min.js"></script>
+<script src="assets/js/jquery.stellar.min.js"></script>
+<script src="assets/js/my-instagram-gallery.js"></script>
+<script src="assets/js/slick.min.js"></script>
+<script src="assets/js/jquery.inview.js"></script>
+<script src="assets/js/odometer.min.js"></script>
+<script src="assets/js/tweetie.min.js"></script>
+<script src="assets/js/jquery.timeago.js"></script>
+<script src="assets/js/jquery.knob.min.js"></script>
+<script src="assets/js/css3-animate-it.js"></script>
+<script src="assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="assets/js/jquery.prettyPhoto.js"></script>
+<script src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/slick/slick.min.js"></script>
+<script src="assets/js/jquery.elevatezoom.js"></script>
+<div id="container"></div>
+<script>
+
+    function getMagazineContent(arg) {
+        var target = $(arg);
+        var path = target.attr("data-path");
+        $.get(path, function (r) {
+            $("#container").html(r);
+        });
+    }
+
+</script>

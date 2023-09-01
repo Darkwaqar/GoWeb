@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.cshtml";
+}
+@if (IsSectionDefined("Breadcrumb"))
+{
+    @section Breadcrumb {
+        @RenderSection("Breadcrumb")
+    }
+}
+
+
+
+<div class="container-fluid container-full">
+
+    @RenderBody()
+
+</div>
+

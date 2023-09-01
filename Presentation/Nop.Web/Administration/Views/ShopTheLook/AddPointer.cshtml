@@ -1,0 +1,236 @@
+﻿@model ProductModel.ProductPictureModel
+@using Nop.Services.Catalog
+
+@{
+    //page title
+    ViewBag.Title = T("Admin.Catalog.Products.AddPointer").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("Shop the look");
+    Html.AppendScriptParts("~/Administration/Content/hotspot/jquery.hotspot.js");
+    Html.AppendCssFileParts("~/Administration/Content/hotspot/jquery.hotspot.css");
+
+}
+@Html.AntiForgeryToken()
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        @T("Admin.Catalog.Products.AddPointer")
+        <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink((T("Admin.Catalog.Products.BackToProductPictures").Text), "Edit" + "/" + Model.ProductId)</small>
+    </h1>
+</div>
+<div class="content">
+    <div class="form-horizontal">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                @Html.RenderBootstrapTabHeader("tab-info", @T("Admin.Catalog.Products.Image.Pointers"), true)
+            </ul>
+            <div class="tab-content">
+                <div class="raw clearfix">
+                    <div class="col-md-5">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    @T("Admin.Catalog.Products.CommonInfo")
+                                </div>
+                                <div class="panel-body">
+                                    <div id="@Model.PictureId" class="outfit" style="position: relative;">
+                                        <img src="@Model.PictureUrl" class="img-responsive" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="panel-group">
+                            <div class="panel panel-default margin-bottom" id="group-associated-products">
+                                <div class="panel-heading">
+                                    @T("Admin.Catalog.Products.AssociatedProducts")
+                                </div>
+                                @if (Model.ProductId > 0)
+                                {
+                                    <div class="panel-body">
+                                        <ul class="common-list">
+                                            <li>
+                                                @T("Admin.Catalog.Products.AssociatedProducts.Note1")
+                                            </li>
+                                            <li>
+                                                @T("Admin.Catalog.Products.AssociatedProducts.Note2")
+                                            </li>
+                                        </ul>
+
+                                        <div id="associatedproducts-grid"></div>
+
+                                        <script>
+                            $(document).ready(function() {
+                                $("#associatedproducts-grid").kendoGrid({
+                                    dataSource: {
+                                        type: "json",
+                                        transport: {
+                                            read: {
+                                                url: "@Html.Raw(Url.Action("AssociatedProductList", "Product", new {productId = Model.ProductId }))",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: addAntiForgeryToken
+                                            },
+                                            update: {
+                                                url: "@Html.Raw(Url.Action("AssociatedProductUpdate", "Product"))",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: addAntiForgeryToken
+                                            },
+                                            destroy: {
+                                                url: "@Html.Raw(Url.Action("AssociatedProductDelete", "Product"))",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: addAntiForgeryToken
+                                            }
+                                        },
+                                        schema: {
+                                            data: "Data",
+                                            total: "Total",
+                                            errors: "Errors",
+                                            model: {
+                                                id: "Id",
+                                                fields: {
+                                                    ProductName: { editable: false, type: "string" },
+                                                    DisplayOrder: { editable: true, type: "number" },
+                                                    Id: { editable: false, type: "number" }
+                                                }
+                                            }
+                                        },
+                                        requestEnd: function(e) {
+                                            if (e.type == "update") {
+                                                this.read();
+                                            }
+                                        },
+                                        error: function(e) {
+                                            display_kendoui_grid_error(e);
+                                            // Cancel the changes
+                                            this.cancelChanges();
+                                        },
+                                        serverPaging: true,
+                                        serverFiltering: true,
+                                        serverSorting: true
+                                    },
+                                    pageable: {
+                                        refresh: true,
+                                        numeric: false,
+                                        previousNext: false,
+                                        info: false,
+                                        @Html.Partial("_GridPagerMessages")
+                                    },
+                                    editable: {
+                                        confirmation: "@T("Admin.Common.DeleteConfirmation")",
+                                        mode: "inline"
+                                    },
+                                    scrollable: false,
+                                    columns: [
+                                        {
+                                            field: "Pointer",
+                                            title: "@T("Admin.Catalog.Products.AssociatedProducts.Fields.Id")",
+                                            template: '<div id="#=Id#" class="dot ui-draggable ui-draggable-handle">#=Id#</div>',
+                                            width: 50
+                                        },
+                                        {
+                                            field: "ProductName",
+                                            title: "@T("Admin.Catalog.Products.AssociatedProducts.Fields.Product")",
+                                            template: '<a href="@Url.Content("~/Admin/Product/Edit/")#=Id#">#=ProductName#</a>',
+                                            width: 250
+                                        }, {
+                                            field: "DisplayOrder",
+                                            title: "@T("Admin.Catalog.Products.AssociatedProducts.Fields.DisplayOrder")",
+                                            //integer format
+                                            format: "{0:0}",
+                                            width: 120
+                                        }, {
+                                            command: [
+                                                {
+                                                    name: "edit",
+                                                    text: {
+                                                        edit: "@T("Admin.Common.Edit")",
+                                                        update: "@T("Admin.Common.Update")",
+                                                        cancel: "@T("Admin.Common.Cancel")"
+                                                    }
+                                                }, {
+                                                    name: "destroy",
+                                                    text: "@T("Admin.Common.Delete")"
+                                                }
+                                            ],
+                                            width: 220
+                                        }
+                                    ]
+                                });
+                            });
+                                        </script>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <button type="submit" id="btnAddNewAssociatedProduct" onclick="javascript:OpenWindow('@(Url.Action("AssociatedProductAddPopup", "Product", new {productId = Model.ProductId, btnId = "btnRefreshAssociatedProducts", formId = "product-form"}))', 800, 800, true); return false;" class="btn btn-primary">
+                                            @T("Admin.Catalog.Products.AssociatedProducts.AddNew")
+                                        </button>
+                                        <input type="submit" id="btnRefreshAssociatedProducts" style="display: none" />
+                                        <script type="text/javascript">
+                                            $(document).ready(function () {
+                                                $('#btnRefreshAssociatedProducts').click(function () {
+                                                    //refresh grid
+                                                    var grid = $("#associatedproducts-grid").data('kendoGrid');
+                                                    grid.dataSource.read();
+
+                                                    //return false to don't reload a page
+                                                    return false;
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="panel-body">
+                                        @T("Admin.Catalog.Products.AssociatedProducts.SaveBeforeEdit")
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+                                            $.ajax({
+                                                url: "@Html.Raw(Url.Action("GetPointers", "ShopTheLook"))/@(Model.PictureId)", success: function (result) {
+                                                     $("#@(Model.PictureId)").hotspot({
+                                                     data: result,
+                                                     mode: "admin", // Switching to admin mode
+                                                     ajax: true, // Turn on ajax
+                                                ajaxOptions: {
+                                                    url: "@Html.Raw(Url.Action("SavePointers", "ShopTheLook"))",
+                                                    type: 'POST'},
+                                                schema: [
+                                                     {
+                                                        'property': 'TaggedProductId',
+                                                        'default': '0'
+                                                     },
+                                                     {
+                                                        'property': 'ProductId',
+                                                        'default': '@Model.ProductId'
+                                                     },
+                                                     {
+                                                        'property': 'PictureId',
+                                                        'default': '@Model.PictureId'
+                                                     },
+                                                ],
+                                                        LS_Variable: @(Model.PictureId),
+                                                        PictureId :@(Model.PictureId),
+                                                        afterSave: function (err, data) {
+                                                            alert('Hotspot data saved');
+                                                        },
+                                                        afterRemove: function (err, message) {
+                                                            alert('Hotspot data removed');
+                                                            window.location.reload();
+                                                        }
+                                                     });
+                                                }
+
+                                            });
+</script>

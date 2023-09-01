@@ -1,0 +1,140 @@
+﻿@model HeaderLinksModel
+@using Nop.Web.Models.Common;
+<div class="header-links">
+    <ul>
+        @Html.Widget("header_links_before")
+        <li class="search-box-li">
+		<span class="search-btn">
+                        <svg id="Icon_Search" data-name="Icon/Search" xmlns="http://www.w3.org/2000/svg" width="16.354" height="16.354" viewBox="0 0 16.354 16.354">
+                            <g id="Ellipse_17_search" data-name="Ellipse 17 search" fill="none" stroke="currentColor" stroke-width="1">
+                                <circle cx="6.5" cy="6.5" r="6.5" stroke="none"></circle>
+                                <circle cx="6.5" cy="6.5" r="6" fill="none"></circle>
+                            </g>
+                            <line id="Line_116_search" data-name="Line 116 search" x2="5" y2="5" transform="translate(11 11)" fill="none" stroke="currentColor" stroke-width="1"></line>
+                        </svg>
+                    </span>
+            @*<div class="header-selectors-wrapper grid-item"><div class="search-box store-search-box"> </div></li>*@
+        <li class="user-currency">
+            @Html.Action("CurrencySelector", "Common")
+        </li>
+        <li class="user-icon">
+            @if (Model.IsAuthenticated)
+            {
+                <a href="@Url.RouteUrl("CustomerInfo")" class="ico-account">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="19.5" viewBox="0 0 17 19.5">
+                        <g id="Icon_Account" data-name="Icon/Account" transform="translate(0.5 0.5)">
+                            <circle id="Ellipse_15_donw" data-name="Ellipse 15 down" cx="4" cy="4" r="4" transform="translate(4)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></circle>
+                            <path id="Path_56_down" data-name="Path 56 down" d="M16,16A8,8,0,0,0,0,16" transform="translate(0 3)" fill="none" stroke="currentColor" stroke-width="1"></path>
+                        </g>
+                    </svg>
+                </a>
+            }
+            else
+            {
+                <a href="@Url.RouteUrl("Login")" class="ico-register">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="19.5" viewBox="0 0 17 19.5">
+                        <g id="Icon_Account" data-name="Icon/Account" transform="translate(0.5 0.5)">
+                            <circle id="Ellipse_15_donw" data-name="Ellipse 15 down" cx="4" cy="4" r="4" transform="translate(4)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></circle>
+                            <path id="Path_56_down" data-name="Path 56 down" d="M16,16A8,8,0,0,0,0,16" transform="translate(0 3)" fill="none" stroke="currentColor" stroke-width="1"></path>
+                        </g>
+                    </svg>
+                </a>
+            }
+            @*<ul class="customer-account">
+                @if (Model.IsAuthenticated)
+                {
+                    <li><a href="@Url.RouteUrl("CustomerInfo")" class="ico-account"> @T("Account.MyAccount") * @Model.CustomerName* @</a></li>
+                    <li><a href="@Url.RouteUrl("Logout")" class="ico-logout">@T("Account.Logout")</a></li>
+                }
+                else
+                {
+                    <li><a href="@Url.RouteUrl("Register")" class="ico-register">@T("Account.Register")</a></li>
+                    <li><a href="@Url.RouteUrl("Login")" class="ico-login">@T("Account.Login")</a></li>
+                }
+            </ul>*@
+            </li>
+            @if (Model.AllowPrivateMessages)
+            {
+                @*<li>
+                    <a href="@Url.RouteUrl("PrivateMessages", new { tab = "" })" class="ico-inbox">
+                        <span class="inbox-label">@T("PrivateMessages.Inbox")</span>
+                        <span class="inbox-unread">@Model.UnreadPrivateMessages</span>
+                    </a>
+                </li>*@
+            }
+            @if (Model.WishlistEnabled)
+            {
+               @* <li>
+                    <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                        <span class="wishlist-label">
+                            @  *  @T("Wishlist") *  @
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27.688" height="13.546" viewBox="0 0 27.688 13.546">
+                            <g id="Icon_Shoe" data-name="Icon/Shoe" transform="translate(0.582 0.856)">
+                                <path id="Path_6_shoe" data-name="Path 6 shoe" d="M265.1,283.693s-1.519,3.167-.06,8.1v2.393h5.887v-2.393a13.417,13.417,0,0,1,4.98,1.051c2.185,1.062,4.859,1.343,8.561,1.343,1.815,0,4.874-.141,5.887-.6,1.152-.519.757-4.165-2.393-4.668-4.726-.755-6.923-2.251-12.612-6.924C275.054,282.922,272.157,288.28,265.1,283.693Z" transform="translate(-264.404 -281.991)" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="1"></path>
+                                <line id="Line_4_shoe" data-name="Line 4 shoe" x2="6" transform="translate(0.538 9.8)" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="1"></line>
+                                <line id="Line_5_shoe" data-name="Line 5 shoe" y1="1.867" x2="1.653" transform="translate(11.921 2.338)" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="1"></line>
+                                <line id="Line_6_shoe" data-name="Line 6 shoe" y1="1.914" x2="1.576" transform="translate(13.942 3.924)" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="1"></line>
+                                <line id="Line_7_shoe" data-name="Line 7 shoe" y1="2.029" x2="1.591" transform="translate(15.87 5.317)" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="1"></line>
+                            </g>
+                        </svg>
+                    </span>
+                    <span class="wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span>
+                </a>
+            </li>*@
+        }
+            @if (Model.ShoppingCartEnabled)
+            {
+                <li id="topcartlink">
+                    <a href="@Url.RouteUrl("ShoppingCart")" class="ico-cart">
+                        <span class="cart-label">
+                            @*@T("ShoppingCart")*@
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18.501" viewBox="0 0 16 18.501">
+                                <g id="Icon_Bag" data-name="Icon/Bag" transform="translate(0 0.5)">
+                                    <g id="Path_112" data-name="Path 112" transform="translate(0 4.001)" fill="none">
+                                        <path d="M1,0H15l1,14H0Z" stroke="none"></path>
+                                        <path d="M 1.931120872497559 1 L 1.073977470397949 13 L 14.92602252960205 13 L 14.06887912750244 1 L 1.931120872497559 1 M 1 0 L 15 0 L 16 14 L 0 14 L 1 0 Z" stroke="none" fill="currentColor"></path>
+                                    </g>
+                                    <path id="Path_111_bag" data-name="Path 111 bag" d="M0,6V3A3,3,0,0,1,6,3V6" transform="translate(4.999)" fill="none" stroke="currentColor" stroke-width="1"></path>
+                                    <line id="Line_249_bag" data-name="Line 249 bag" x2="5" transform="translate(5.5 14.001)" fill="none" stroke="currentColor" stroke-width="1"></line>
+                                    <g id="Rectangle_523_bag" data-name="Rectangle 523 bag" transform="translate(6 10.122) rotate(-45)" fill="none" stroke="currentColor" stroke-width="1">
+                                        <rect width="3" height="3" stroke="none"></rect>
+                                        <rect x="0.5" y="0.5" width="2" height="2" fill="none"></rect>
+                                    </g>
+                                </g>
+                            </svg>
+                        </span>
+                        <span class="cart-qty">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</span>
+                    </a>
+                </li>
+            }
+            @Html.Widget("header_links_after")
+        </ul>
+    @if (Model.AllowPrivateMessages && !string.IsNullOrEmpty(Model.AlertMessage))
+    {
+        //new private message notification
+        <script type="text/javascript">
+            $(document).ready(function () {
+                displayPopupNotification('@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.AlertMessage))', 'success', false);
+            });
+        </script>
+    }
+    @if (Model.ShoppingCartEnabled)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.header').on('mouseenter', '#topcartlink', function () {
+                    $('#flyout-cart').addClass('active');
+                });
+                $('.header').on('mouseleave', '#topcartlink', function () {
+                    $('#flyout-cart').removeClass('active');
+                });
+                $('.header').on('mouseenter', '#flyout-cart', function () {
+                    $('#flyout-cart').addClass('active');
+                });
+                $('.header').on('mouseleave', '#flyout-cart', function () {
+                    $('#flyout-cart').removeClass('active');
+                });
+            });
+        </script>
+    }
+</div>

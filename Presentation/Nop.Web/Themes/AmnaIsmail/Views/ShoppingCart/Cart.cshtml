@@ -1,0 +1,27 @@
+﻿@model ShoppingCartModel
+@using growonline.Web.Models.Checkout
+@using growonline.Web.Models.ShoppingCart;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ShoppingCart").Text);
+}
+@if (!Model.OnePageCheckoutEnabled)
+{
+    @Html.Action("CheckoutProgress", "Checkout", new {step = CheckoutProgressStep.Cart})
+}
+   
+    <div class="container">
+       <br>
+	   <br>
+        @Html.Partial("OrderSummary", Model)
+    </div>
+	
+	<script>
+fbq('track', 'AddToCart', {
+value: 3.50,
+currency: 'USD'
+});
+</script>
+

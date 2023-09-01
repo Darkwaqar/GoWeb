@@ -1,0 +1,49 @@
+﻿@model List<PrivateMessageModel>
+@using Nop.Admin.Models.PrivateMessages;
+
+<div id="converstation">
+    @foreach (var Messages in Model)
+    {
+
+        if (Messages.AlignLeft)
+        {
+             <!-- Message. Default to the left -->
+            <div class="direct-chat-msg">
+                <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-left">@Messages.CustomerFromName</span>
+                    <span class="direct-chat-timestamp pull-right">@Messages.CreatedOn</span>
+                </div>
+                <!-- /.direct-chat-info -->
+                <img class="direct-chat-img" src="https://adminlte.io/themes/AdminLTE/dist/img/user3-128x128.jpg" alt="message user image">
+                <!-- /.direct-chat-img -->
+                <div class="direct-chat-text">
+                    @Messages.Message
+                </div>
+                <!-- /.direct-chat-text -->
+            </div>
+            <!-- /.direct-chat-msg -->
+        }
+        else
+        {
+             <!-- Message to the right -->
+            <div class="direct-chat-msg right">
+                <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-right">@Messages.CustomerFromName</span>
+                    <span class="direct-chat-timestamp pull-left">@Messages.CreatedOn</span>
+                </div>
+                <!-- /.direct-chat-info -->
+                <img class="direct-chat-img" src="https://adminlte.io/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="message user image">
+                <!-- /.direct-chat-img -->
+                <div class="direct-chat-text">
+                    @Messages.Message
+                </div>
+                <!-- /.direct-chat-text -->
+            </div>
+            <!-- /.direct-chat-msg -->
+        }
+    }
+    @if (!Model.Any())
+    {
+        <div><p>Once you start a new conversation, you’ll see it listed here.</p></div>
+    }
+</div>

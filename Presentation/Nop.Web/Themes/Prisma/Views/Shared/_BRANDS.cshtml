@@ -1,0 +1,44 @@
+﻿@using Nop.Services.Seo
+@using Nop.Services.Vendors
+@using Nop.Core.Infrastructure
+@using Nop.Services.Media
+
+@{
+    var vendor = EngineContext.Current.Resolve<IVendorService>().GetAllVendors(showHidden: false).Where(x => x.Brand);
+}
+
+<div class="col-lg-12 col-md-12 brand-box">
+    @foreach (var item in vendor.Skip(2).Take(4))
+    {
+        <div class="col-md-3 col-sm-3 col-xs-6 brand">
+
+            <div class="col-md-12">
+                <a href="@item.GetSeName()">
+                    <img class="img-responsive" src="@(EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(item.CoverPictureId))" />
+                </a>
+            </div>
+            <div class="col-md-12 content-box">
+                <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4 vendor-logo hidden-xs">
+                    <img class="img-responsive"
+                         src="@(EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(item.PictureId))" />
+                </div>
+                <div class="col-md-8 col-lg-8">
+
+                    <h3 class="title">
+                        <a href="@item.GetSeName()">
+                            @item.Name
+                            </a>
+                    </h3>
+
+                    
+
+                    <div class="rating">
+                        @Html.Action("VendorRating", "Vendor",new { vendorid =  item.Id })
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    }
+</div>

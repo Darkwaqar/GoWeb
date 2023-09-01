@@ -1,0 +1,68 @@
+﻿@*@model WishlistModel
+@using Nop.Web.Models.ShoppingCart
+<div id="flyout-cart2" class="flyout-cart">
+    <div class="main uppercase">
+        <div class="title">
+            @if (Model.Items.Count == 0)
+            {
+             
+                <p style="font-weight:normal;color:black">YOU HAVE @Model.Items ITEM(S) IN YOUR SHOE RACK</p>
+            }
+            else
+            {
+               
+                <p style="font-weight:normal;color:black">THERE ARE @Model.Items ITEM(S) IN YOUR SHOE RACK</p>
+            }
+        </div>
+        @if (Model.Items.Count > 0)
+        {
+            <div class="items">
+                @for (int i = 0; i < Model.Items.Count; i++)
+                {
+
+                    var item = Model.Items[i];
+                    <div class="row   @(i == 0 ? "first" : null) ">
+                        @if (Model.ShowProductImages)
+                        {
+                            <div class="col-sm-3 ">
+                                <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })" title="@item.Picture.Title">
+                                    <img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" width="50px" />
+                                </a>
+                            </div>
+                        }
+                        <div class="col-sm-5 nopadding">
+                            <div class="productname">
+                                <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })">@item.ProductName</a>
+                            </div>
+                            @if (!String.IsNullOrEmpty(item.AttributeInfo))
+                            {
+                                <div class="attribute">
+                                    @Html.Raw(item.AttributeInfo)
+                                </div>
+                            }
+                            <div class="carttxt">
+                               
+                                <div>@T("ShoppingCart.Mini.Quantity"): <span>@item.Quantity</span></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 ">
+
+                            <span>@item.Quantity x @item.UnitPrice</span>
+                        </div>
+                    </div>
+
+
+                }
+            </div>
+        
+            <div class="text-center">
+                @if (Model.Items.Count > 0)
+                {
+                    <input type="button" value="@T("ShoppingCart.Mini.ViewCart")" class="btn-med" onclick="setLocation('@(Url.RouteUrl("ShoppingCart"))')" />
+
+                }
+              
+            </div>
+        }
+    </div>
+</div>*@

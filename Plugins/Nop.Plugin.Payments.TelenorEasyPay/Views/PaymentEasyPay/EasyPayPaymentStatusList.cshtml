@@ -1,0 +1,278 @@
+﻿@using Nop.Plugin.Payments.TelenorEasyPay.Domain
+@using Nop.Core.Infrastructure
+@model EasyPayPaymentStatusList
+
+@{
+    Layout = "~/Administration/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@{
+    var defaultGridPageSize = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().DefaultGridPageSize;
+    var gridPageSizes = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().GridPageSizes;
+
+    //page title
+    ViewBag.Title = T("Plugins.Payments.TelenorEasyPay.List").Text;
+
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Plugins.Payments.TelenorEasyPay.List.Payments")
+        </h1>
+    </div>
+    <div class="content">
+        <div class="form-horizontal">
+            <div class="panel-group">
+                <div class="panel panel-default panel-search">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.AccountNumber)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopEditorFor(model => model.AccountNumber)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.Msisdn)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopEditorFor(model => model.Msisdn)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.OrderId)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopEditorFor(model => model.OrderId)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.PaymentMethod)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopDropDownList("PaymentMethod", Model.AvailablePaymentMethod)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.PaymentToken)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopEditorFor(model => model.PaymentToken)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.ResponseCode)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopEditorFor(model => model.ResponseCode)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.TransactionAmount)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopEditorFor(model => model.TransactionAmount)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.StoreId)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopDropDownList("StoreId", Model.AvailableStores)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.TransactionId)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopEditorFor(model => model.TransactionId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        @Html.NopLabelFor(model => model.TransactionStatus)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.NopDropDownList("TransactionStatus", Model.AvailableTransactionStatus)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7 col-md-offset-5">
+                                <button type="button" id="search-action" class="btn btn-primary btn-search">
+                                    <i class="fa fa-search"></i>
+                                    @T("Admin.Common.Search")
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="action-grid"></div>
+
+                        <script>
+                            $(document).ready(function() {
+                                $("#action-grid").kendoGrid({
+                                    dataSource: {
+                                        type: "json",
+                                        transport: {
+                                            read: {
+                                                url: "@Html.Raw(Url.Action("EasyPayPaymentStatusList", "PaymentEasyPay"))",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: additionalData
+                                            }
+                                        },
+                                        schema: {
+                                            data: "Data",
+                                            total: "Total",
+                                            errors: "Errors"
+                                        },
+                                        error: function(e) {
+                                            display_kendoui_grid_error(e);
+                                            // Cancel the changes
+                                            this.cancelChanges();
+                                        },
+                                        pageSize: @(defaultGridPageSize),
+                                        serverPaging: true,
+                                        serverFiltering: true,
+                                        serverSorting: true
+                                    },
+                                    pageable: {
+                                        refresh: true,
+                                        pageSizes: [@(gridPageSizes)],
+                                        @Html.Partial("_GridPagerMessages")
+                                    },
+                                    scrollable: false,
+                                    columns: [
+                                        {
+                                            field: "Id",
+                                            headerTemplate: "<input id='mastercheckbox' type='checkbox'/>",
+                                            headerAttributes: { style: "text-align:center" },
+                                            attributes: { style: "text-align:center" },
+                                            template: "<input type='checkbox' value='#=Id#' class='checkboxGroups'/>",
+                                            width: 50
+                                        }, {
+                                            field: "AccountNumber",
+                                            title: "@T("Plugins.Payments.TelenorEasyPay.Fields.AccountNumber")",
+                                            width: 200
+                                        },
+                                        {
+                                            field: "Msisdn",
+                                            title: "@T("Plugins.Payments.TelenorEasyPay.Fields.Msisdn")",
+                                            width: 200
+                                        },
+                                        {
+                                            field: "OrderId",
+                                            title: "@T("Plugins.Payments.TelenorEasyPay.Fields.OrderId")",
+                                            width: 50
+                                        },
+                                        {
+                                            field: "PaymentMethod",
+                                            title: "@T("Plugins.Payments.TelenorEasyPay.Fields.PaymentMethod")",
+                                            width: 50
+                                        },
+                                        {
+                                            field: "PaymentToken",
+                                            title: "@T("Plugins.Payments.TelenorEasyPay.Fields.PaymentToken")",
+                                            width: 200
+                                        },
+                                        {
+                                            field: "ResponseCode",
+                                            title: "@T("Plugins.Payments.TelenorEasyPay.Fields.ResponseCode")",
+                                            width: 200
+                                        },
+                                        {
+                                            field: "TransactionAmount",
+                                            title: "@T("Plugins.Payments.TelenorEasyPay.Fields.TransactionAmount")",
+                                            width: 200
+                                        },
+                                        {
+                                            field: "StoreId",
+                                            title: "@T("Plugins.Payments.TelenorEasyPay.Fields.StoreId")",
+                                            width: 50
+                                        },
+                                        {
+                                            field: "TransactionId",
+                                            title: "@T("Plugins.Payments.TelenorEasyPay.Fields.TransactionId")",
+                                            width: 100
+                                        },
+                                        {
+                                            field: "TransactionStatus",
+                                            title: "@T("Plugins.Payments.TelenorEasyPay.Fields.TransactionStatus")",
+                                            width: 100
+                                        }
+                                    ]
+                                });
+                            });
+                        </script>
+
+                        <script type="text/javascript">
+
+                            $(document).ready(function () {
+                            //search button
+                                $('#search-action').click(function () {
+                                //search
+                                    var grid = $('#action-grid').data('kendoGrid');
+                                grid.dataSource.page(1); //new search. Set page size to 1
+                                //grid.dataSource.read(); we already loaded the grid above using "page" function
+                                return false;
+                            });
+
+                            $("#@Html.FieldIdFor(model => model.AccountNumber)").keydown(function (event) {
+                                if (event.keyCode == 13) {
+                                    $("#search-action").click();
+                                    return false;
+                                }
+                            });
+                            });
+
+                            function additionalData() {
+                                var data = {
+                                    AccountNumber: $('#@Html.FieldIdFor(model => model.AccountNumber)').val(),
+                                    Msisdn: $('#@Html.FieldIdFor(model => model.Msisdn)').val(),
+                                    OrderId: $('#@Html.FieldIdFor(model => model.OrderId)').val(),
+                                    PaymentMethod: $('#@Html.FieldIdFor(model => model.PaymentMethod)').val(),
+                                    PaymentToken: $('#@Html.FieldIdFor(model => model.PaymentToken)').val(),
+                                    ResponseCode: $('#@Html.FieldIdFor(model => model.ResponseCode)').val(),
+                                    TransactionAmount: $('#@Html.FieldIdFor(model => model.TransactionAmount)').val(),
+                                    StoreId: $('#@Html.FieldIdFor(model => model.StoreId)').val(),
+                                    TransactionId: $('#@Html.FieldIdFor(model => model.TransactionId)').val(),
+                                    TransactionStatus: $('#@Html.FieldIdFor(model => model.TransactionStatus)').val(),
+                                };
+                                addAntiForgeryToken(data);
+                                return data;
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

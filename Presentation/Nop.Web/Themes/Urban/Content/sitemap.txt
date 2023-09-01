@@ -1,0 +1,2512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://footprint.pk/</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/gift-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/bespoke-footprint</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/myjourney</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/brand</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/register</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/login</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/narbonne-semi-brogue-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/follow-the-footprint</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/time-to-pull-your-boots-up</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/faq-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/contactus</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=106</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/americas-butler-brogue</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/bernardi-double-monk</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/cannes</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/coventry-cap-toe</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/glasgow-laced-monk</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/hollywood-lace-up</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/marie-fred</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/new-castle-verb-texture</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/newburgh-brogue-pumps</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/athens-lace-up</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/silver-voucher</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/brighton-black-tussled-loafer-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/chancellor-brogue-buttler</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/chukka-boots-ankle-high-black-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/chukka-boots-ankle-high-purple</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/cologne-cap-toe</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/voucher-20000</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/douglas-brogue-boots-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/edward-double-monk</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/voucher-10000</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?pagenumber=2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?pagenumber=3</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?pagenumber=4</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?pagenumber=5</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?specs=106</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/latest-shoes-men?pagenumber=2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?specs=69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/lisbon-ss</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/trump-boots</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/bond-street-cap-toe</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/bond-street-mix-match</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/bronson-boots</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/burton-monk</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?pagenumber=2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/formal-shoes-men?pagenumber=3</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?specs=108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/newport-brogue-pump</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/pie-town-brogue-buckled-loaferpie-town-brogue-buckled-loafer</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/raipur</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/ripon-tussled-pump</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/rockwell-loafer</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/trosa-brogue-pump</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/wild-west-biker-boots</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?pagenumber=2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?pagenumber=3</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?pagenumber=4</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/casual-shoes-men?pagenumber=5</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?specs=72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/hudson-velvet</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/maribor-lace-up</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?pagenumber=2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/fashion-shoes-men?pagenumber=3</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?specs=69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/lisbon-ck-derby-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/lisbon-cs-brogue</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/lisbon-blue-derby-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/malbrok-plain-loafer</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/penny-loafer-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/penny-loafer-classic</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/rhino-loafer</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/georgia-brogue</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?pagenumber=2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/classic-shoes-men?pagenumber=3</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/gift-2?viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/gift-2?viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/voucher-15000</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/passwordrecovery</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/naples-valvet-pumps</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/nybro</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/productreviews/136</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/producttag/6/leather</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/producttag/8/cap-toe</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/producttag/20/lace-up</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/producttag/217/brown</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/producttag/1208/shoes</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/bergamo-lace-up-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/derby-classic</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/reason-to-buy-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/get-your-boots-on-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/handmade-shoes-revival-of-a-fading-trend</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog/tag/footprint</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog/tag/bespoke%20shoes%20in%20pakistan</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog/tag/handmade%20shoes%20in%20pakistan</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog/tag/online%20shopping%20in%20pakistan</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog/tag/mens%20footwear%20in%20karachi</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog/tag/luxury%20footwear</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog/tag/mens%20formal%20shoes%20in%20pakistan</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/men-in-black</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens-quick-tips</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog/month/2020-7</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog/month/2020-6</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/blog/month/2018-12</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;specs=106</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;pagenumber=2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;pagenumber=3</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;pagenumber=4</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=grid&amp;pagenumber=5</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;specs=106</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;pagenumber=2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;pagenumber=3</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;pagenumber=4</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?viewmode=list&amp;pagenumber=5</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432&amp;viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432&amp;viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1432,106</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/wimply-suede-brogue-boots</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/castro-boots</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/chester-boots</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437&amp;viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437&amp;viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1437,106</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/oliver-semi-brogue</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/lisbon-classic-brogue</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/lisbon-ck-brogue</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/ravoli</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/shadow-time-brogue-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/boxer</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440&amp;viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440&amp;viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1440,106</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442&amp;viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442&amp;viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1442,106</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/leeds</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431&amp;viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431&amp;viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431,106</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/rakaposhi</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/sucre</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/visby-lace-up-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/avesta</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/james-derby</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1431&amp;pagenumber=2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438&amp;viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438&amp;viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1441</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1438,106</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/cardiff-ck-loafers-2</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/kremlin-tasseled-loafer</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/lilith-loafer</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441&amp;viewmode=grid</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441&amp;viewmode=list</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1432</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1437</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1440</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1442</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1431</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1438</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1435</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1434</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1443</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1433</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,1445</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,90</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,92</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,740</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,857</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,752</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,85</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,66</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,67</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,68</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,69</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,71</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,298</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,72</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://footprint.pk/mens?specs=1441,108</loc>
+  <lastmod>2020-10-13T07:22:20+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+
+</urlset>

@@ -1,0 +1,111 @@
+﻿@using SevenSpikes.Nop.Plugins.MegaMenu.Models
+@using Nop.Services.Catalog;
+@using Nop.Services.Media;
+@using Nop.Core.Infrastructure;
+
+@model MenuItemCategoryModel
+@{
+    var areCategoriesInASingleItem = Model.Item.EntityId == 0;
+    var hasSubCategories = Model.Categories.Count > 0;
+    var hasSublistClass = hasSubCategories ? "has-sublist" : string.Empty;
+    var withSubcategoriesClass = hasSubCategories ? "with-subcategories" : string.Empty;
+}
+<li class="@hasSublistClass @Model.Item.CssClass">
+    @if (areCategoriesInASingleItem)
+    {
+        <span class="@withSubcategoriesClass single-item-categories labelfornextplusbutton">@Model.Item.Title</span>
+    }
+    else
+    {
+        <a class="@withSubcategoriesClass" href="@Model.Item.Url"><span>@Model.Item.Title</span></a>
+    }
+    @if (hasSubCategories)
+    {
+        <div class="plus-button asd_@Model.Item.Id" onclick="dropFunction('asd_@Model.Item.Id')"></div>
+        <div class="sublist-wrap asd_@Model.Item.Id">
+            <ul class="sublist">
+                <li class="back-button">
+                    <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                </li>
+                @CreateSubLists(Model.Categories)
+            </ul>
+        </div>
+    }
+</li>
+@helper CreateSubLists(IList<MegaMenuCategoryModel> category)
+{
+    foreach (var subCategory in category)
+    {
+        if (subCategory.SubCategories.Count > 0)
+        {
+            <li class="has-sublist">
+                @*<a href="@Url.RouteUrl("Category", new { SeName = subCategory.CategoryModel.SeName })" title="@subCategory.CategoryModel.Name" class="with-subcategories"><span>@subCategory.CategoryModel.Name</span></a>*@
+                <a title="@subCategory.CategoryModel.Name" class="with-subcategories subcategories-heading"><span>@subCategory.CategoryModel.Name</span></a>
+                <div class="plus-button asd_@subCategory.CategoryModel.Id" onclick="dropFunction('asd_@subCategory.CategoryModel.Id')"></div>
+                <div class="sublist-of-list asd_@subCategory.CategoryModel.Id">
+                    <ul class="sublist">
+                        <li class="back-button">
+                            <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                        </li>
+                        @CreateSubLists(subCategory.SubCategories)
+                        @if (subCategory.ShouldShowViewAllLink)
+                        {
+                            <li>
+                                <a class="view-all" href="@Url.RouteUrl("Category", new {subCategory.CategoryModel.SeName})" title="@T("SevenSpikes.MegaMenu.ViewAllCategories")">
+                                    <span>@T("SevenSpikes.MegaMenu.ViewAllCategories")</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </li>
+        }
+        else
+        {
+            <li class="lastLevelCategory Categorylist @subCategory.CategoryModel.Name">
+                <a class="lastLevelCategory" href="@Url.RouteUrl("Category", new {SeName = subCategory.CategoryModel.SeName})" title="@subCategory.CategoryModel.Name"><span>@subCategory.CategoryModel.Name</span></a>
+                <div class="menu-right">
+                    <div class="category-description">
+                        <div>
+                            @{
+                                var CategoriDescription = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(
+                                    subCategory.CategoryModel.Id);
+                            }
+                            <p class="POPPINS-SEMIBOLD cat-name">@CategoriDescription.Name</p>
+                            @Html.Raw(CategoriDescription.Description)
+                        </div>
+                    </div>
+                    <div class="catagory_image">
+                        @if (subCategory.CategoryModel.Name != null)
+                        {
+                            var categoriImg = EngineContext.Current.Resolve<ICategoryService>().GetCategoryById(
+                                subCategory.CategoryModel.Id).PictureId;
+                            var ImageURl = EngineContext.Current.Resolve<IPictureService>().GetPictureUrl(categoriImg);
+                            <img src="@ImageURl" />
+                        }
+                    </div>
+                </div>
+            </li>
+        }
+    }
+}
+
+<script>
+    function dropFunction(x) {
+        $(".mega-menu-responsive .sublist-wrap." + x).slideToggle();
+        $(".sublist-of-list." + x).slideToggle();
+
+        if ($(".plus-button." + x).hasClass("plus-plus")) {
+            $(".mega-menu-responsive .plus-button." + x).removeClass("plus-plus");
+        } else {
+            $(".mega-menu-responsive .plus-button." + x).addClass("plus-plus");
+        }
+    }
+    //side-nav menu-close menu-open
+   
+    $(".master-wrapper-content").click(function () {
+        if ($(".side-nav.menu-close").hasClass("menu-open")) {
+            $(".side-nav.menu-close.menu-open").removeClass("menu-open");
+        }
+    });
+</script>

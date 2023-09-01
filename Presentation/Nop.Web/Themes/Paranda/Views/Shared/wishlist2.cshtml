@@ -1,0 +1,35 @@
+﻿@model Nop.Web.Models.Common.HeaderLinksModel
+@using Nop.Core;
+
+
+
+@if (Model.WishlistEnabled)
+{
+
+    <li style="" class="hidden-md">
+        <a href="@Url.RouteUrl("Wishlist")" class="li-item" style="">
+
+
+            <table>
+                <tr>
+                    <td><span class="" style="font-size:20px"><img src="~/Themes/paranda/content/images/wishlist.png" /></span></td>
+                    <td>
+                        <div style="line-height: 14px; margin-left: 10px" class="hidden-xs li-item">
+
+                            <div style="">
+                                <span class="cart-qty2" style="border-radius:10px;padding-top:2px;padding-left:15px">@Model.WishlistItems</span>
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </a>
+    </li>
+
+
+
+}

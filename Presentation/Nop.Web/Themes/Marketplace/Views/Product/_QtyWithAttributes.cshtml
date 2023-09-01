@@ -1,0 +1,41 @@
+﻿@model ProductDetailsModel
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+
+@{
+    var dataDictAddToCart = new ViewDataDictionary();
+    dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+    
+}
+<div class="row">
+    <div class="col-md-12" >
+        <table>
+            <tr>
+                <td>
+                    <div>QTY:</div>
+
+                    @Html.TextBoxFor(model => model.AddToCart.EnteredQuantity, new { @class = "qty-input-2" })
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#@Html.FieldIdFor(model => model.AddToCart.EnteredQuantity)").keydown(function (event) {
+                                if (event.keyCode == 13) {
+                                    $("#add-to-cart-button-@Model.AddToCart.ProductId").click();
+                                    return false;
+                                }
+                            });
+                        });
+                    </script>
+                </td>
+                <td>
+                    @Html.Partial("_ProductAttributes", Model.ProductAttributes, dataDictAddToCart)
+                </td>
+            </tr>
+        </table>
+      
+
+       
+       
+    </div>
+   
+</div>

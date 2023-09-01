@@ -1,0 +1,169 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Configuration
+@using Nop.Services.Vendors
+
+@{
+    Layout = "~/Views/Shared/_Root.cshtml";
+
+    //current category ID
+    int currentCategoryId = 0;
+
+    //current vendor ID
+    int vendorId = 0;
+    string controllerName = Url.RequestContext.RouteData.Values["controller"].ToString();
+    string actionName = Url.RequestContext.RouteData.Values["action"].ToString();
+
+    if (controllerName.Equals("catalog", StringComparison.InvariantCultureIgnoreCase) && actionName.Equals("category", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentCategoryId = Convert.ToInt32(Url.RequestContext.RouteData.Values["categoryId"].ToString());
+    }
+
+    if (controllerName.Equals("catalog", StringComparison.InvariantCultureIgnoreCase) && actionName.Equals("Vendor", StringComparison.InvariantCultureIgnoreCase))
+    {
+        vendorId = Convert.ToInt32(Url.RequestContext.RouteData.Values["vendorId"].ToString());
+        currentCategoryId = 0;
+    }
+
+    //current manufacturer ID
+    int currentManufacturerId = 0;
+    if (controllerName.Equals("catalog", StringComparison.InvariantCultureIgnoreCase) && actionName.Equals("manufacturer", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentManufacturerId = Convert.ToInt32(Url.RequestContext.RouteData.Values["manufacturerId"].ToString());
+    }
+
+    //current product ID
+    int currentProductId = 0;
+    if (controllerName.Equals("product", StringComparison.InvariantCultureIgnoreCase) && actionName.Equals("productdetails", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentProductId = Convert.ToInt32(Url.RequestContext.RouteData.Values["productId"].ToString());
+    }
+
+    var storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+    string gridNuberOfItemsClass = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("prismathemesettings.categorygriditemsnumber", "three-per-row", storeId, true);
+
+    var isAccountPage = (controllerName.Equals("customer", StringComparison.InvariantCultureIgnoreCase) && (
+        actionName.Equals("info", StringComparison.InvariantCultureIgnoreCase) ||
+        actionName.Equals("addresses", StringComparison.InvariantCultureIgnoreCase) ||
+        actionName.Equals("addressadd", StringComparison.InvariantCultureIgnoreCase) ||
+        actionName.Equals("addressedit", StringComparison.InvariantCultureIgnoreCase) ||
+
+        actionName.Equals("downloadableproducts", StringComparison.InvariantCultureIgnoreCase) ||
+        actionName.Equals("changepassword", StringComparison.InvariantCultureIgnoreCase) ||
+        actionName.Equals("avatar", StringComparison.InvariantCultureIgnoreCase))) ||
+        actionName.Equals("customerproductreviews", StringComparison.InvariantCultureIgnoreCase) ||
+        controllerName.Equals("helpdesk", StringComparison.InvariantCultureIgnoreCase) ||
+        controllerName.Equals("vendor", StringComparison.InvariantCultureIgnoreCase) &&
+        actionName.Equals("info", StringComparison.InvariantCultureIgnoreCase) ||
+        (controllerName.Equals("backinstocksubscription", StringComparison.InvariantCultureIgnoreCase) &&
+        actionName.Equals("customersubscriptions", StringComparison.InvariantCultureIgnoreCase)) ||
+        (controllerName.Equals("order", StringComparison.InvariantCultureIgnoreCase) &&
+        actionName.Equals("customerorders", StringComparison.InvariantCultureIgnoreCase)) ||
+
+        (controllerName.Equals("order", StringComparison.InvariantCultureIgnoreCase) &&
+        actionName.Equals("customerrewardpoints", StringComparison.InvariantCultureIgnoreCase)) ||
+        (controllerName.Equals("boards", StringComparison.InvariantCultureIgnoreCase) &&
+        actionName.Equals("customerforumsubscriptions", StringComparison.InvariantCultureIgnoreCase)) ||
+        (controllerName.Equals("returnrequest", StringComparison.InvariantCultureIgnoreCase) &&
+        actionName.Equals("customerreturnrequests", StringComparison.InvariantCultureIgnoreCase)) ||
+        (controllerName.Equals("orderdetails", StringComparison.InvariantCultureIgnoreCase)
+
+
+
+
+        );
+}
+
+@if (!isAccountPage)
+{
+    @*<div class="right @gridNuberOfItemsClass" id="pageContent">
+            @Html.Widget("main_column_before")
+            @RenderBody()
+            @Html.Widget("main_column_after")
+        </div>
+        <div class="left">
+            @if (IsSectionDefined("left"))
+            {
+                @RenderSection("left")
+            }
+            else
+            {
+                @Html.Action("CategoryNavigation", "Catalog", new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
+                @Html.Widget("left_side_column_before")
+
+                @Html.Widget("left_side_column_after_category_navigation")
+                @Html.Action("ManufacturerNavigation", "Catalog", new { currentManufacturerId = currentManufacturerId })
+                @Html.Action("VendorNavigation", "Catalog")
+                @Html.Action("RecentlyViewedProductsBlock", "Product", new { productThumbPictureSize = 64 })
+                @Html.Action("PopularProductTags", "Catalog")
+                @Html.Action("PollBlock", "Poll", new { systemKeyword = "LeftColumnPoll" })
+                @Html.Widget("left_side_column_after")
+            }
+
+            @*<script type="text/javascript">
+                jQuery(document).ready(function () {
+                    jQuery('.center-2, .side-2').theiaStickySidebar({
+                        // Settings
+                        additionalMarginTop: 180
+                    });
+                });
+            </script>
+        </div>*@
+
+
+    <div class="row">
+
+        <div class="col-md-3">
+            @if (IsSectionDefined("left"))
+            {
+                @RenderSection("left")
+            }
+        </div>
+        <div class="col-md-9">
+            @*<div class="page-title">
+                    <h1>@T("Account.MyAccount")</h1>
+                </div>*@
+            <div class="content-info">
+                @Html.Widget("main_column_before")
+                @RenderBody()
+                @Html.Widget("main_column_after")
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+}
+else
+{
+
+    <div class="row">
+
+        <div class="col-md-3">
+            @if (IsSectionDefined("left"))
+            {
+                @RenderSection("left")
+            }
+        </div>
+        <div class="col-md-9 wishlist">
+            @*<div class="page-title">
+                    <h1>@T("Account.MyAccount")</h1>
+                </div>*@
+            <div class="content-info">
+                @Html.Widget("main_column_before")
+                @RenderBody()
+                @Html.Widget("main_column_after")
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+}

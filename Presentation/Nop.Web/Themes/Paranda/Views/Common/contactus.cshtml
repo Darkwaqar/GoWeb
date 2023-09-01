@@ -1,0 +1,127 @@
+﻿@model ContactUsModel
+@using Nop.Web.Models.Common;
+@using Nop.Services.Common;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Framework.Themes;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ContactUs").Text);
+    var currentCustomer = Nop.Core.Infrastructure.EngineContext.Current.Resolve<Nop.Core.IWorkContext>().CurrentCustomer;
+    var FirstName = currentCustomer.GetAttribute<string>(Nop.Core.Domain.Customers.SystemCustomerAttributeNames.FirstName);
+    var LastName = currentCustomer.GetAttribute<string>(Nop.Core.Domain.Customers.SystemCustomerAttributeNames.LastName);
+    var Email = currentCustomer.Email;
+    var themeName = EngineContext.Current.Resolve<IThemeContext>
+   ().WorkingThemeName;
+
+    var img = string.Format(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/{0}/Content/images", themeName);
+}
+
+
+<div class="row nopadding no-margin" style="margin-top: 40px; margin-bottom: 70px;">
+    <div class="page-body col-md-6 forcontactheading">
+        <h3 style="font-weight:bold">CONTACT US</h3>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8">
+                @if (Model.SuccessfullySent)
+                {
+                    <div class="alert alert-success" role="alert">
+                        @Model.Result
+                    </div>
+                }
+                else
+                {
+                    using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        var validationSummary = Html.ValidationSummary(true);
+                        if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                        {
+                            <div class="text-danger">@validationSummary</div>
+                        }
+                        <div class="form-horizontal">
+                            <div class="form-group formgrp-bottom">
+
+                                <div class="col-sm-12">
+                                    <input type="text" id="first" name="FirstName" class="textbox3" placeholder="First Name" value="@FirstName" required="required" />
+                                    <small class="text-danger">@Html.ValidationMessageFor(model => model.FullName)</small>
+                                </div>
+                            </div>
+                            <div class="form-group formgrp-bottom">
+
+                                <div class="col-sm-12">
+
+                                    <input type="text" id="last" name="LastName" class="textbox3" placeholder="Last Name" value="@LastName" required="required" />
+                                    <small class="text-danger">@Html.ValidationMessageFor(model => model.FullName)</small>
+				    @Html.HiddenFor(model => model.FullName)
+                                </div>
+                            </div>
+                            <div class="form-group formgrp-bottom">
+
+                              <div class="col-sm-12">
+                                    @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "textbox3", placeholder = "CONTACT", required = "required" })
+                                    <small class="text-danger">@Html.ValidationMessageFor(model => model.PhoneNumber)</small>
+                                </div> 
+                            </div>
+                            <div class="form-group formgrp-bottom">
+                                <div class="col-sm-12">
+                                    <input type="text" name="Email" class="textbox3" placeholder="Email" value="@Email" required="required" />
+                                    <small class="text-danger">@Html.ValidationMessageFor(model => model.Email)</small>
+                                </div>
+                            </div>
+                            @if (Model.SubjectEnabled)
+                            {
+                                <div class="form-group formgrp-bottom">
+                                    <div class="col-sm-12">
+                                        @Html.TextBoxFor(model => model.Subject, new { @class = "textbox3", placeholder = T("ContactUs.Subject.Hint") })
+                                        <small class="text-danger">@Html.ValidationMessageFor(model => model.Subject)</small>
+                                    </div>
+                                </div>
+                            }
+                            <div class="form-group formgrp-bottom">
+                                <div class="col-sm-12">
+                                    @Html.TextAreaFor(model => model.Enquiry, new { @class = "textbox3", rows = "10", placeholder = "MESSAGE" })
+                                    <small class="text-danger">@Html.ValidationMessageFor(model => model.Enquiry)</small>
+                                </div>
+                            </div>
+                            @if (Model.DisplayCaptcha)
+                            {
+                                <div class="row marginTop10">
+                                    <div class="col-md-offset-3 col-sm-9">
+                                        @Html.Raw(Html.GenerateCaptcha())
+                                    </div>
+                                </div>
+                            }
+                            <center>
+                                <div class="form-group ">
+                                    <div class="col-md-2 col-sm-offset-3 col-sm-9 text-right" style="margin-left: -1px;float:left;">
+                                        <input type="submit" name="send-email" id="btn-med" class="btn-med" value="@T("ContactUs.Button")" />
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        @Html.Widget("contactus_bottom")
+    </div>
+
+    <div class="col-md-6 ">
+        <img class="img-responsive" src="@img/gift2.jpg">
+        <center style="margin-top:-64px;">
+            @Html.Action("TopicBlock", "Topic", new { systemName = "contactusinfo" })
+        </center>
+    </div>
+</div>
+
+<script>
+        /*$("#btn-med").click(function () {
+            $("#FullName").val($("#first").val() + " " + $("#last").val());
+        })*/
+    $("#last").change(function () {
+        $("#FullName").val($("#first").val() + " " + $("#last").val());
+        console.log($("#FullName").val());
+    })
+</script>

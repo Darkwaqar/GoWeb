@@ -1,0 +1,250 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+
+    string FirsttimeUser = string.Empty;
+    HttpCookie reqCookies = Request.Cookies["User"];
+    if (reqCookies == null)
+    {
+        string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+        if (domainName == "https://sheearns.gomobishop.com")
+        {
+            HttpCookie user = new HttpCookie("User");
+            user["FirsttimeUser"] = "true";
+            Response.Cookies.Add(user);
+            Response.Redirect("~/vendor/all?sheearns=true");
+        }
+    }
+}
+<div class="page home-page">
+    <div class="page-body">
+        <div class="mainslider">
+             @*@Html.Widget("home_page_top")*@
+            <div class="mainbanner">
+                 <img width="100%" src="~/Themes/grandeurman/Content/images/grand/b01.jpg" />
+                <div class="banner-caption">
+                    <h3>Simply <br/> Wowww!!</h3>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mobile-view">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12" style="padding: 0;">
+                            <img width="100%" src="~/Themes/grandeurman/Content/images/grand/Mobile.png" />
+                            <div class="cateinfo">
+                                
+                                <p class="catefont-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
+				<h2 class="homeTop">Dream High and Walk More.</h2>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <img width="100%" src="~/Themes/grandeurman/Content/images/grand/b02.jpg" />
+                        </div>
+                        <div class="col-xs-12 mobile-slider">
+                        @*    <div class="owl-carousel owl-theme">
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-1.jpg">  <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-1.jpg" /></a></div>
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-2.jpg">  <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-2.jpg" /></a></div>
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-3.jpg">  <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-3.jpg" /></a></div>
+
+                            </div> mobile Slider*@ 
+                             <div class="cateinfo">
+                                <h2>Feel the difference</h2>
+				<p class="catefont-2">Lorem Ipsum is simply dummy text of the printing  and typesetting industry. Lorem Ipsum has been the industry's standard. Lorem Ipsum has been</p>
+                            </div>
+                            <div class="btnholder-new">
+                                <a href="#">DISCOVER MORE</a>
+                            </div>
+                        </div>
+<div class="col-xs-12 ">
+   <div class="row">
+       <div class="col-xs-12">
+           <img width="100%" src="~/Themes/grandeurman/Content/images/grand/image.png" />
+	</div>
+</div>
+</div>
+@*
+<div class="col-xs-12 cate-white">
+   <div class="row">
+       <div class="col-xs-12">
+           <img width="100%" src="~/Themes/moazzamKhanCo/Content/images/moazzam/mbanner-3.jpg" />
+	</div>
+
+                        <div class="col-xs-12 mobile-slider">
+                            <div class="owl-carousel owl-theme">
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-1.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-1.jpg" /></a></div>
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-2.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-2.jpg" /></a></div>
+                                <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-3.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-2-3.jpg" /></a></div>
+
+
+                            </div>
+                             <div class="cateinfo">
+                                <h2>Burning Star</h2>
+<p class="catefont-2">“Be your own kind of beautiful, and you’ll see, that suddenly all the love songs are about you.”</p>
+                            </div>
+                            
+                            <div class="btnholder-new">
+                                <a href="/mk-bridal-03">DISCOVER MORE</a>
+                            </div>
+                        </div>
+    </div>
+</div>
+*@
+
+
+                        <div class="col-xs-12" style="padding: 0;">
+                            <img width="100%" src="~/Themes/grandeurman/Content/images/grand/b04.jpg" />
+                            
+                            <div class="mobile-slider">
+                                @*<div class="owl-carousel owl-theme">
+                                    <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-1.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-1.jpg" /></a></div>
+                                    <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-2.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-2.jpg" /></a></div>
+                                    <div class="item"><a data-fancybox="gallery" href="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-3.jpg"> <img src="~/Themes/moazzamKhanCo/Content/images/moazzam/slide-cate-3-3.jpg" /></a></div>
+                                </div>*@
+                            </div>
+                            <div class="cateinfo">
+                                <h2>Bring Comfort <span>to your feet.</span></h2>
+                                <p class="catefont-2">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
+                                </p>
+                            </div>
+                            <div class="btnholder-new">
+                                <a href="#">DISCOVER MORE</a>
+                            </div>
+                        </div>
+                      
+
+                    </div>
+
+                </div>
+            </div>
+           
+         
+        </div>
+        
+        @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageText" })
+        @*@Html.Widget("home_page_before_categories")*@
+
+        <div class="container-fluid">
+                <div class="row">
+                        <div class="top-txtholder">
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
+                            <p><strong>Dream High and Walk More.</strong></p>
+                        </div>
+                    </div><!-- // Row -->
+            </div><!-- Container-fluid-->
+
+
+
+
+      
+        <div class="row contact-row">
+            
+            <div class="col-md-10 contact-links">
+                <ul>
+                    <li>
+                        <a class="whatsapp">
+                            <span>whatsapp</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="call">
+                            <span>call</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="email">
+                            <span>email</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="location">
+                            <span>location</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-2 ithadto mobile-d-none">
+                <img width="100%"  src="~/Themes/moazzamKhanCo/Content/images/logo/ithadtobe.jpg" />
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row banner-cate">
+                <div class="new-wrapper col-sm-7">
+                    <div class="banner-cate">
+                       <img width="100%"  src="~/Themes/grandeurman/Content/images/grand/b02.jpg" />
+                    </div>
+                </div>
+<div class="banner-txt banner-txt-a col-sm-5">
+	<h2>Feel the difference</h2>
+    <p>Lorem Ipsum is simply dummy text of the printing </p>
+    <p> and typesetting industry. Lorem Ipsum has been the </p>
+	<p>industry's standard. Lorem Ipsum has been</p>
+    
+    <a href="#">Discover more</a>
+</div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="banner-cate" style="margin-top: 40px;">
+			<img width="100%" src="~/Themes/grandeurman/Content/images/grand/b03.jpg" />
+
+                       @* <div class="banner-txt banner-position-2">
+                            <p>“Black may be a universal color, but red is an acquired obsession.”</p>
+                            <a href="/mk-bridal-01-2">Discover more</a>
+                        </div>*@
+                    </div>
+
+                
+            </div><!-- // Row // -->
+        </div><!-- // Container-fluid // -->
+
+        <div class="container-fluid">
+            <div class="row ">
+		    <div class="banner-cate col-sm-5">
+		    <div class="banner-txt banner-position-3">
+                         <h2>Bring Comfort <span>to your feet.</span></h2>
+    			 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.</p>
+			 <a href="#">Discover more</a>
+                     </div>
+                     </div><!-- // Col// -->
+                     <div class="banner-cate col-sm-7" style="margin-top: 40px;">
+			<img width="100%" src="~/Themes/grandeurman/Content/images/grand/b04.jpg" />
+                     </div><!-- // Col // -->
+                
+            </div><!-- // Row // -->
+        </div><!-- // Container-fluid // -->
+
+	
+
+        <div class="contain">
+		
+            @Html.Widget("home_page_main_slider1")
+            @*@Html.Widget("home_page_before_products")*@
+            @*@Html.Action("HomepageCategories", "Catalog")*@
+        </div>
+        <!--marg-->
+
+        @*@Html.Action("HomepageProducts", "Product")*@
+        @Html.Widget("home_page_before_best_sellers")
+        @*@Html.Action("HomepageBestSellers", "Product")*@
+        @Html.Widget("home_page_before_news")
+        @Html.Action("HomePageNews", "News")
+        @Html.Widget("home_page_before_poll")
+        @Html.Action("HomePagePolls", "Poll")
+ 	@*<div class="row top-buffer">
+            <div class="col-md-12">
+                <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+                <div class="elfsight-app-67259936-39e9-447b-9ca2-c15c9983fa0a"></div>
+            </div>
+        </div> *@
+        @Html.Widget("home_page_bottom")
+    </div>
+</div>
+

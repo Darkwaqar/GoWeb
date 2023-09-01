@@ -1,0 +1,176 @@
+﻿@using growonline.Core.Domain.Common;
+@using growonline.Core.Infrastructure;
+@{
+    var displayMiniProfiler = EngineContext.Current.Resolve<growonline.Core.Domain.StoreInformationSettings>().DisplayMiniProfilerInPublicStore;
+    Html.AppendScriptParts("~/Themes/BootstrapDC/Content/bootstrap335/js/bootstrap.min.js");
+    Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");
+    Html.AppendScriptParts("~/Scripts/public.common.js");
+    Html.AppendScriptParts("~/Scripts/jquery-migrate-1.2.1.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery-ui-1.10.3.custom.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery.validate.unobtrusive.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery.validate.min.js");
+    Html.AppendScriptParts("~/Scripts/jquery-1.10.2.min.js");
+
+    //X-UA-Compatible tag
+    var commonSettings = EngineContext.Current.Resolve<CommonSettings>();
+    if (commonSettings.RenderXuaCompatible)
+    {
+        Html.AppendHeadCustomParts(string.Format("<meta http-equiv=\"X-UA-Compatible\" content=\"{0}\"/>", commonSettings.XuaCompatibleValue));
+    }
+}
+<!DOCTYPE html>
+<html @Html.Partial("LanguageAttributes")>
+<head>
+    <title>@Html.NopTitle(true)</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-99097258-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    <script src="//load.sumome.com/" data-sumo-site-id="2a88b20ad7a1e606181cdce493f95b46953c6002f10558695b37251f33713fb0" async="async"></script>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <meta name="description" content="@(Html.NopMetaDescription())" />
+    <meta name="keywords" content="@(Html.NopMetaKeywords())" />
+    <meta name="generator" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    @Html.NopHeadCustom()
+    @*This is used so that themes can inject content into the header*@
+    @Html.Partial("Head")
+    @Html.Widget("head_html_tag")
+    @Html.NopCssFiles(this.Url, ResourceLocation.Head)
+    @Html.NopScripts(this.Url, ResourceLocation.Head)
+    @Html.NopCanonicalUrls()
+    @Html.Action("RssHeaderLink", "News")
+    @Html.Action("RssHeaderLink", "Blog")
+    @*Favicon - upload favicon.ico file to the root directory*@
+    @Html.Action("Favicon", "Common")
+    @if (displayMiniProfiler)
+    {
+        @StackExchange.Profiling.MiniProfiler.RenderIncludes()
+    }
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            }; if (!f._fbq) f._fbq = n;
+            n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+        }(window,
+        document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+        fbq('init', '1592079711105718');
+        fbq('track', "PageView");
+        fbq('track', 'ViewContent');
+        fbq('track', 'Purchase', { value: '0.00', currency: 'USD' });
+        fbq('track', 'AddToCart');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id=1592079711105718&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+	
+		 <!-- Facebook Pixel Code -->
+<script>
+
+!function(f,b,e,v,n,t,s)
+
+
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+
+
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+
+
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+
+
+n.queue=[];t=b.createElement(e);t.async=!0;
+
+
+t.src=v;s=b.getElementsByTagName(e)[0];
+
+
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+
+
+'https://connect.facebook.net/en_US/fbevents.js');
+
+
+fbq('init', '1637628872921340');
+
+
+fbq('track', 'PageView');
+
+</script>
+<noscript>
+<img height="1" width="1"
+src="https://www.facebook.com/tr?id=1637628872921340&ev=PageView
+&noscript=1"/>
+</noscript>
+<!-- End Facebook Pixel Code -->
+@*Search Code*@
+<script>
+fbq('track', 'Search', {
+search_string: 'lawn'
+});
+</script>
+ 
+ 
+@*Lead Page*@
+<script>
+fbq('track', 'Purchase', {
+value: 247.35,
+currency: 'USD'
+});
+</script>
+ 
+ 
+@*Complete Registration*@
+<script>
+fbq('track', 'CompleteRegistration', {
+value: 25.00,
+currency: 'USD'
+});
+</script>
+</head>
+<body>
+    @RenderBody()
+    @Html.NopCssFiles(this.Url, ResourceLocation.Foot)
+    @Html.NopScripts(this.Url, ResourceLocation.Foot)
+
+    <script type="text/javascript">
+		//!-- convert gstextile.pk to amna ismail.pk
+		var url = window.location.href;
+		console.log('asd');
+		if (url.indexOf("gstextile.pk") >= 0) {
+			var arr = url.split('gstextile.pk');
+			var remainUrl = "";
+			if (arr.length > 0) {
+				remainUrl = arr[1];
+			}
+			window.location.href = "http://amnaismail.com" + remainUrl;
+		}
+	
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/572e54d6c6045a5c6e8c5e17/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+</body>
+</html>

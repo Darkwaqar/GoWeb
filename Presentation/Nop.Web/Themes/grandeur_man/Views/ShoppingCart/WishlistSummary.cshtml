@@ -1,0 +1,219 @@
+@model WishlistModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.ShoppingCart;
+@{
+    var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+}
+<div class="wishlist-summary-content" id="wishlistsummarypage">
+    @if (Model.Items.Count > 0)
+    {
+        <div class="wishlist-content">
+            @if (Model.Warnings.Count > 0)
+                {
+                <div class="message-error">
+                    <ul>
+                        @foreach (var warning in Model.Warnings) {
+                            <li>@warning</li>
+                        }
+                    </ul>
+                </div>
+            }
+            @using (Html.BeginRouteForm("Wishlist", FormMethod.Post, new { id = "wishlist-form" }))
+                {
+                @Html.AntiForgeryToken()
+                <div class="table-wrapper">
+                    <table class="cart">
+                        <colgroup>
+                            @if (Model.IsEditable)
+                            {
+                                <col width="1" />
+                            }
+                            @if (Model.DisplayAddToCart)
+                            {
+                                <col width="1" />
+                            }
+                            @if (Model.ShowProductImages)
+                            {
+                                <col width="1" />
+                            }
+                            <col />
+                            <col width="1" />
+                            <col width="1" />
+                            <col width="1" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                
+                                @if (Model.ShowProductImages)
+                                {
+                                    <th class="product-picture">
+                                        @*@T("ShoppingCart.Image")*@
+                                    </th>
+                                }
+                                <th class="product">
+                                    @T("ShoppingCart.Product(s)")
+                                </th>
+                                <th class="unit-price">
+                                    @T("ShoppingCart.UnitPrice")
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                            <tr>
+
+                                @if (Model.ShowProductImages)
+                                {
+                                    <td class="product-picture">
+                                        <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })"><img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" /></a>
+                                    </td>
+                                }
+                                <td class="product">
+                                    <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })" class="product-name">@item.ProductName</a>
+                                    @if (!String.IsNullOrEmpty(item.AttributeInfo))
+                                    {
+                                        <div class="attributes">
+                                            @Html.Raw(item.AttributeInfo)
+                                        </div>
+                                    }
+                                    @if (item.VendorId > 0)
+                                    {
+                                        @*<div class="store-name">
+                                            <em>
+                                                Store: <a href="@Url.RouteUrl("Vendor", new { SeName = item.VendorSeName })" class="product-name">@item.VendorName</a>
+                                            </em>
+                                        </div>*@
+                                    }
+                                    @if (!String.IsNullOrEmpty(item.RecurringInfo))
+                                    {
+                                        <div class="recurring-info">
+                                            @Html.Raw(item.RecurringInfo)
+                                        </div>
+                                    }
+                                    @if (!String.IsNullOrEmpty(item.RentalInfo))
+                                    {
+                                        <div class="rental-info">
+                                            @Html.Raw(item.RentalInfo)
+                                        </div>
+                                    }
+                                    @if (item.Warnings.Count > 0)
+                                    {
+                                        <div class="message-error">
+                                            <ul>
+                                                @foreach (var warning in item.Warnings)
+                                                {
+                                                    <li>@warning</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                </td>
+                                <td class="unit-price">
+                                    <label class="td-title">@T("ShoppingCart.UnitPrice"):</label>
+                                    <span class="product-unit-price">@item.UnitPrice</span>
+                                </td>
+                                <td class="remove-from-cart">
+                                    @if (Model.IsEditable)
+                                    {
+                                        <button type="button" class="remove-product deletewishlistitem" data-href="@Url.RouteUrl("DeleteWishlistItem", new { id = item.Id })">
+                                            Remove
+                                        </button>
+                                    }
+                                    @if (Model.DisplayAddToCart)
+                                    {
+                                        <button type="button" class="add-product-to-wishlist addcartfromwwishlist" data-href="@Url.RouteUrl("AddWishlistItemToCart", new {  id = item.Id})">
+                                            Add To Cart
+                                        </button>
+                                    }
+                                </td>
+                                @* <td class="add-to-cart"> </td>*@
+                                                              
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                if (Model.Items.Count > 0 && Model.DisplayTaxShippingInfo)
+                {
+                    var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+                    //tax info is already included in the price (incl/excl tax). that's why we display only shipping info here
+                    //of course, you can modify appropriate locales to include VAT info there
+                    <div class="tax-shipping-info">
+                        @T(inclTax ? "Wishlist.TaxShipping.InclTax" : "Wishlist.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+                    </div>
+                }
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-data">
+            @T("Wishlist.CartIsEmpty")
+        </div>
+    }
+    @if (Model.IsEditable && Model.Items.Count > 0)
+    {
+        <div class="share-info">
+            <span class="share-label">@T("Wishlist.YourWishlistURL"):</span>
+            <a href="@Url.RouteUrl("Wishlist", new { customerGuid = Model.CustomerGuid })" class="share-link">@Url.RouteUrl("Wishlist", new { customerGuid = Model.CustomerGuid }, "http")</a>
+        </div>
+    }
+
+    <script>
+
+    function ChangeWishlist() {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    data: $('#wishlist-form').serialize(),
+                    url: '@Url.RouteUrl("UpdateWishlist")',
+                    success: function (data) {
+                        $(AjaxCart.topwishlistselector).html(data.totalproducts);
+                        $('#wishlistsummarypage').replaceWith(data.wishlist);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve Wishlist Page.');
+                    }
+                });
+            }
+
+        $(document).ready(function () {
+            $(".deletewishlistitem").click(function () {
+                var href = $(this).closest('[data-href]').data('href');
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: href,
+                    success: function (data) {
+                        $(AjaxCart.topwishlistselector).html(data.totalproducts);
+                        $('#wishlistsummarypage').replaceWith(data.wishlist);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve Wishlist Page.');
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $(".addcartfromwwishlist").click(function () {
+                var href = $(this).closest('[data-href]').data('href');
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: href,
+                    success: function (data) {
+                        $(AjaxCart.topwishlistselector).html(data.totalproducts);
+                        $('#wishlistsummarypage').replaceWith(data.wishlist);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve Wishlist Page.');
+                    }
+                });
+            });
+        });
+    </script>
+
+</div>

@@ -1,0 +1,80 @@
+﻿@model CheckoutShippingMethodModel
+@using Nop.Web.Models.Checkout;
+<div class="checkout-data">
+    <div class="section shipping-method">
+        <h2>Shipping methods</h2>
+        @Html.Widget("op_checkout_shipping_method_top")
+        @if (Model.Warnings.Count == 0)
+        {
+            <ul class="method-list">
+                @for (int i = 0; i < Model.ShippingMethods.Count; i++)
+                {
+                    var shippingMethod = Model.ShippingMethods[i];
+                    <li>
+                        <div class="method-name">
+                            <input id="shippingoption_@(i)" type="radio" name="shippingoption" value="@(shippingMethod.Name)___@(shippingMethod.ShippingRateComputationMethodSystemName)" checked="@shippingMethod.Selected" />
+                            <label for="shippingoption_@(i)">@T("Checkout.SelectShippingMethod.MethodAndFee", shippingMethod.Name, shippingMethod.Fee)</label>
+                        </div>
+                        @if (!String.IsNullOrEmpty(shippingMethod.Description))
+                        {
+                            <div class="method-description align-middle">
+                                @Html.Raw(shippingMethod.Description)
+                            </div>
+                        }
+                    </li>
+                }
+            </ul>
+            if (Model.NotifyCustomerAboutShippingFromMultipleLocations)
+            {
+                <div class="multiple-locations">
+                    @T("Checkout.ShippingMethod.ShippingFromMultipleLocations")
+                </div>
+            }
+        }
+        else
+        {
+            <div class="message-error">
+                <ul>
+                    @foreach (var warning in Model.Warnings)
+                    {
+                        <li>@warning</li>
+                    }
+                </ul>
+            </div>
+        }
+        @Html.Widget("op_checkout_shipping_method_bottom")
+    </div>
+</div>
+
+
+<script>
+    (function () {
+
+        $('.method-name > input[type="radio"]').change(function () {
+
+            
+
+
+            if ($(this).is(':checked')){
+
+               
+
+                $('.method-description').hide();
+                $(this).parent().parent().find('.method-description').show();
+
+
+            }
+
+
+        });
+
+
+        $('.method-list li input[type="radio"]:checked').parent().parent().find('.method-description').show();
+
+    }());
+
+
+
+
+
+</script>

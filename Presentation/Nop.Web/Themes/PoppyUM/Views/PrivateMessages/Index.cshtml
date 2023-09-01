@@ -1,0 +1,82 @@
+﻿@model PrivateMessageIndexModel
+@using Nop.Web.Models.PrivateMessages;
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Common
+@{
+    //Layout = "~/Views/Shared/_Root.Head.cshtml";
+
+    ////title
+    //Html.AddTitleParts(T("PageTitle.PrivateMessages").Text);
+    ////page class
+    //Html.AppendPageCssClassParts("html-private-messages");
+    //Html.AppendPageCssClassParts("html-private-messages-page");
+
+    const string prefix = "chat";
+    const string hidePanelAttributeName = "HideChatPanel";
+    var hidePanel = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer.GetAttribute<bool>(hidePanelAttributeName);
+    Html.AppendCssFileParts("~/Themes/DefaultClean/Content/css/Chat.css");
+    Html.AddScriptParts("~/Scripts/jquery.signalr-2.1.0.min.js");
+    Html.AddScriptParts("~/signalr/hubs");
+    Html.AddScriptParts("~/Scripts/jquery.chat.js");
+}
+<!-- DIRECT CHAT -->
+<div class="box box-warning direct-chat direct-chat-warning minimize-chat  @if (hidePanel){<text>collapsed-box</text>}" id="@(prefix)-box">
+    <div class="box-header with-border">
+        <h3 class="box-title" onclick="Chat.minimizeChat()">
+            Direct Chat
+            <span data-toggle="tooltip" title="" class="badge bg-yellow" id="totalMessages" data-original-title="@(Model.NumberOfUnreadMessage) New Messages">@Model.NumberOfUnreadMessage</span>
+        </h3>
+        <div class="box-tools pull-right" style="display:none">
+            <button data-toggle="tooltip" type="button" class="btn btn-box-tool" title="" data-widget="chat-pane-toggle" data-original-title="Contacts" id="allchat" onclick="Chat.toggleChat()"></button>
+            <button type="button" class="btn btn-box-tool" data-original-title="reload" onclick="Chat.reloadChat()"></button>
+            <button class="btn btn-box-tool" data-original-title="@(hidePanel?"minimize":"maximize")" data-widget="collapse" onclick="Chat.minimizeChat()"></button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body" style="display:none;">
+        <!-- Contacts are loaded here -->
+        <div class="direct-chat-contacts">
+            <ul class="contacts-list" id="chat-contacts">
+                @Html.Raw(Model.Inbox)
+            </ul>
+            <!-- /.contatcts-list -->
+        </div>
+        <!-- Contacts are loaded here -->
+        <div class="direct-chat-vendors" style="display:none;">
+            <ul class="contacts-list">
+                @Html.Action("Vendors")
+            </ul>
+            <!-- /.contatcts-list -->
+        </div>
+        <!-- /.direct-chat-pane -->
+        <!-- Conversations are loaded here -->
+        <div class="direct-chat-messages">
+            @Html.Raw(Model.Conversations)
+        </div>
+        <!--/.direct-chat-messages-->
+    </div>
+    <!-- /.box-body -->
+
+    <div class="box-footer" style="display:none;">
+        @if (!Model.IsGuest)
+        {
+            <form action="#" method="post" id="sendchatform">
+                @Html.AntiForgeryToken()
+                <div class="input-group">
+                    @Html.HiddenFor(model => model.ToCustomerId)
+                    @Html.HiddenFor(model => model.FromCustomerId)
+                    @Html.TextBoxFor(model => model.Message, new { @class = "form-control" })
+                    <span class="input-group-btn">
+                        <button type="button" id="sendMessage" onclick="Chat.sendChat()" class="btn btn-warning btn-flat">Send</button>
+                    </span>
+                </div>
+            </form>
+            <script type="text/javascript">
+                    Chat.init('#sendchatform', '#converstation', '#chat-contacts', '#totalMessages', '#@(Html.FieldIdFor(model => model.ToCustomerId))','#@(Html.FieldIdFor(model => model.FromCustomerId))','#@(Html.FieldIdFor(model => model.Message))',false)
+            </script>
+        }
+    </div>
+    <!-- /.box-footer-->
+</div>
+<!--/.direct-chat -->

@@ -1,0 +1,298 @@
+﻿@model ProductDetailsModel
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-product-details-page");
+    Html.AppendPageCssClassParts("~/Themes/Preta/Content/css/font-en.css");
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+        var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(productUrl);
+    }
+
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+    }
+
+    var dataDictPrice = new ViewDataDictionary();
+    dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", Model.Id);
+
+    var dataDictAttributes = new ViewDataDictionary();
+    dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", Model.Id);
+
+    var dataDictAddToWishlist = new ViewDataDictionary();
+    dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+
+    var dataDictAddToCart = new ViewDataDictionary();
+    dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+}
+
+@Html.Widget("productdetails_after_breadcrumb", Model.Id)
+<div class="page product-details-page">
+    <div class="page-body">
+        @Html.Widget("productdetails_top", Model.Id)
+        @using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+        {
+            <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
+                <div class="product-essential">
+                    <div class="product-name">
+                        @Html.Partial("_ProductBreadcrumb", Model.Breadcrumb)
+
+                    </div>
+                    <div class="product-content-wrappper">
+                        @Html.Widget("productdetails_before_pictures", Model.Id)
+                        @{
+                            var cloudZoom = Html.Widget("sevenspikes_cloud_zoom");
+                        }
+                        @if (!MvcHtmlString.IsNullOrEmpty(cloudZoom))
+                        {
+                            @cloudZoom
+                        }
+                        else
+                        {
+                            @Html.Partial("_ProductDetailsPictures", Model)
+                        }
+                        @Html.Widget("productdetails_after_pictures", Model.Id)
+                        <div class="overview">
+                            <h1 class="product-vendor">
+                                @Model.VendorModel.Name
+                            </h1>
+                            <h1 class="product-name" itemprop="name">
+                                @Model.Name
+                            </h1>
+                            @{
+                                @Html.Partial("_ProductTierPrices", Model.TierPrices)
+                                @Html.Partial("_ProductPrice", Model.ProductPrice, dataDictPrice)
+                            }
+                            @Html.Partial("_Discontinued", Model)
+                            @Html.Widget("productdetails_overview_top", Model.Id)
+                            <!--product reviews-->
+                            @Html.Partial("_ProductReviewOverview", Model.ProductReviewOverview)
+                            <!--manufacturers-->
+                            @Html.Partial("_ProductManufacturers", Model.ProductManufacturers)
+                            <!--availability-->
+                            @Html.Partial("_Availability", Model)
+                            <!--SKU, MAN, GTIN, vendor-->
+                            @Html.Partial("_SKU_Man_GTIN_Ven", Model)
+                            <!--delivery-->
+                            @Html.Partial("_DeliveryInfo", Model)
+
+                            <!--sample download-->
+                            @Html.Partial("_DownloadSample", Model)
+                            <!-- qty -->
+                            <div class="quantity-container"></div>
+                            <!--attributes-->
+                            @{
+                                @Html.Partial("_ProductAttributes", Model.ProductAttributes, dataDictAttributes)
+                            }
+                            <!--product SizeGuide-->
+                            @if (Model.ProductSpecifications.Where(x => x.SpecificationAttributeName.ToLower() == "size guide").Any())
+                            {
+                                <div class="size-guide">
+                                    <a class="size-guide-read read" id="size-guide">Size Guide</a>
+                                    <script>
+                                $(document).ready(function () {
+                                    $('#size-guide').on('click', function (e)
+                                    { e.preventDefault(); displayPopupContentFromUrl('/t-popup/@(Model.ProductSpecifications.Where(x => x.SpecificationAttributeName.ToLower() == "size guide").First().ValueRaw)', 'Size Guide'); });
+                                });                         </script>
+                                </div>
+
+                            }
+                            <!--gift card-->
+                            @{
+                                var dataDictGiftCard = new ViewDataDictionary();
+                                dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = string.Format("giftcard_{0}", Model.Id);
+                                @Html.Partial("_GiftCardInfo", Model.GiftCard, dataDictGiftCard)
+                            }
+                            <!--rental info-->
+                            @{
+                                var dataDictRental = new ViewDataDictionary();
+                                dataDictRental.TemplateInfo.HtmlFieldPrefix = string.Format("rental_{0}", Model.Id);
+                                @Html.Partial("_RentalInfo", Model, dataDictRental)
+                            }
+                            <!--price & add to cart-->
+
+                            @if (Model.AddToCart.CustomerEntersPrice)
+                            {
+                                <div class="customer-entered-price">
+                                    <div class="price-input">
+                                        @Html.LabelFor(model => model.AddToCart.CustomerEnteredPrice, new { @class = "enter-price-label" }, ":")
+                                        @*round price*@
+                                        @Html.TextBox("CustomerEnteredPrice", Convert.ToInt32(Math.Ceiling(Model.AddToCart.CustomerEnteredPrice)), new { @class = "enter-price-input", @Name = string.Format("addtocart_{0}.CustomerEnteredPrice", Model.Id) })
+                                    </div>
+                                    <div class="price-range">
+                                        @Model.AddToCart.CustomerEnteredPriceRange
+                                    </div>
+                                </div>
+                            }
+
+                            <!--wishlist, compare, email a friend-->
+                            <div class="overview-buttons">
+                                @Html.Widget("productdetails_inside_overview_buttons_before", Model.Id)
+                                @{
+
+                                    @Html.Partial("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
+                                    @Html.Partial("_AddToCart", Model.AddToCart, dataDictAddToCart)
+                                }
+                                <div class="product-options">
+                                    @Html.Partial("_CompareProductsButton", Model)
+                                    @Html.Partial("_ProductEmailAFriendButton", Model)
+                                </div>
+                                @Html.Widget("productdetails_inside_overview_buttons_after", Model.Id)
+                            </div>
+
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                @if (!String.IsNullOrEmpty(Model.FullDescription))
+                                {
+                                    <div class="panel panel-default" style="border-radius: 0px;border: 0 !important;">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <h4 class="panel-title font-chronicle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">
+                                                <a role="button" data-toggle="collapse" class="panel-text" data-parent="#accordion" href="#-1" aria-expanded="true" aria-controls="collapseOne">
+                                                    Discrption
+                                                    <i class="more-less glyphicon glyphicon-plus pull-right"></i>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="-1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true" style="">
+                                            <div class="panel-body font-gerogia" style="font-size: 12px;">
+                                                @Html.Raw(Model.FullDescription)
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                @Html.Partial("_ProductSpecifications", Model.ProductSpecifications)
+                            </div>
+                            <div class="product-share-wrapper">
+                                <span class="label">@T("SevenSpikes.Themes.Prisma.Common.Share")</span>
+                                @Html.Partial("_ShareButton", Model)
+                            </div>
+
+                            @Html.Widget("productdetails_overview_bottom", Model.Id)
+                        </div>
+                    </div>
+                </div>
+                @Html.Widget("productdetails_before_collateral", Model.Id)
+                <div class="product-collateral">
+
+                    @Html.Partial("_ProductTags", Model.ProductTags)
+                </div>
+            </div>
+                                    }
+
+        @Html.Widget("productdetails_bottom", Model.Id)
+        <section class="xvDeals style1 family-poppins pb-0">
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6 prodCat-btn-1">
+                            <h4 class="text-center" style="font-size: 16px;">
+                                <a href="#tab1default" data-toggle="tab" class="btn btn-primary may-also-like" style="font-size: 12px; font-weight: bold;width: 100%;">YOU MAY ALSO LIKE</a>
+                                <!--<a href="#tab1default" data-toggle="tab">YOU MAY ALSO LIKE</a>-->
+                            </h4>
+                        </div>
+                        <div class="col-md-6 prodCat-btn-2">
+                            <h4 class="text-center" style="font-size: 16px;">
+                                <a href="#tab2default" data-toggle="tab" class="btn btn-primary recently-view" style="font-size: 12px; font-weight: bold;width: 100%;">RECENTLY VIEWED</a>
+                                <!--<a href="#tab2default" data-toggle="tab">RECENTLY VIEWED</a>-->
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="panel with-nav-tabs panel-default" style="border: none;">
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="tab1default">
+                                        @Html.Action("RelatedProducts", "Product", new { productId = Model.Id })
+
+                                    </div>
+                                    <div class="tab-pane fade" id="tab2default">
+                                        @Html.Action("ProductsAlsoPurchased", "Product", new { productId = Model.Id })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <iframe src="https://www.thinglink.com/videocard/1033868958920343554" type="text/html" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen scrolling="no"></iframe>
+    </div>
+</div>
+<div id="sticky-cart" class="product-overview hidden-sm hidden-xs" style="position: fixed; display:none; background-color: white; z-index: 99999; top: 0px; right:0;left:0; box-shadow: rgb(0, 0, 0) 0px 0px 5px 0px;">
+    @using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+    {
+        <div class="row center-block stickey-cart-row">
+            <div class="col-md-3">
+                <h4 class="font-chronicle" style="font-weight: 600;">@Model.VendorModel.Name</h4>
+                <h5 class="font-chronicle">@Model.Name</h5>
+                @Html.Partial("_ProductPrice", Model.ProductPrice, dataDictPrice)
+            </div>
+            <div class="col-md-1">
+                <img src="@Model.DefaultPictureModel.FullSizeImageUrl" class="img-responsive" style="width: 60px; padding: 10px 0">
+            </div>
+            <div class="col-md-5 product-attribute" style="padding-top: 2%;">
+                <div class="quantity-container"></div>
+                <!--attributes-->
+                @{
+                    @Html.Partial("_ProductAttributes", Model.ProductAttributes, dataDictAttributes)
+                }
+            </div>
+            <div class="col-md-3 product-overview-buttons">
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $(window).scroll(function () {
+        productoverview();
+    });
+
+    function productoverview() {
+        if ($(window).scrollTop() > $(".product-share-wrapper").offset().top) {
+            $(".product-overview").show();
+            if ($(".product-overview-buttons").has(".add-to-wishlist").size() > 0) {}
+            else {
+                $(".overview-buttons").detach().prependTo(".product-overview-buttons");
+            }
+        }
+        else {
+            $(".product-overview").hide();
+            if ($(".overview").has(".overview-buttons").size() > 0) {}
+            else {
+                $(".overview-buttons").detach().insertBefore("#accordion");
+            }
+
+        }
+    }
+</script>

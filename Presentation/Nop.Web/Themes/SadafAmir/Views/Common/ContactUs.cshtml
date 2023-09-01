@@ -1,0 +1,110 @@
+﻿@model ContactUsModel
+@using Nop.Web.Models.Common;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ContactUs").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-contact-page");
+}
+<div class="page contact-page">
+    <div class="page-title">
+        <h1><span>@T("PageTitle.ContactUs")</span></h1>
+    </div>
+
+    <div class="page-body">
+        <div class="sendbtn">
+
+            @*<a href="#" class="btn1 fifth font-24" onclick="openNav3()">Send Us A Message</a>*@
+
+            <div id="contactForm" class="contact-form">
+                @*<a href="javascript:void(0)" class="closebtn" onclick="closeNav3()">&times;</a>*@
+
+                <div class="contact-body">
+                    @Html.Action("TopicBlock", "Topic", new { systemName = "ContactUs" })
+                    @Html.Widget("contactus_top")
+                    @if (Model.SuccessfullySent)
+                    {
+                        <div class="result">
+                            @Model.Result
+                        </div>
+                    }
+                    else
+                    {
+                        using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            var validationSummary = Html.ValidationSummary(true);
+                            if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                            {
+                                <div class="message-error">@validationSummary</div>
+                            }
+
+                            <div class="fieldset">
+                                <div class="form-fields row">
+                                    <div class="inputs col-md-12">
+                                        @Html.LabelFor(model => model.FullName)
+                                        @Html.TextBoxFor(model => model.FullName, new { @class = "fullname", placeholder = T("sadafamir.Full.Name") })
+                                        @Html.RequiredHint()
+                                        @Html.ValidationMessageFor(model => model.FullName)
+                                    </div>
+                                  
+                                    @if (Model.SubjectEnabled)
+                                    {
+                                        <div class="inputs col-md-6 col-xs-12">
+                                            @Html.LabelFor(model => model.Subject)
+                                            @Html.TextBoxFor(model => model.Subject, new { @class = "subject", placeholder = T("ContactUs.Subject.Hint") })
+                                            @Html.RequiredHint()
+                                            @Html.ValidationMessageFor(model => model.Subject)
+                                        </div>
+                                    }
+
+                                  
+
+                                    <div class="inputs col-md-12 col-xs-12">
+                                        @Html.LabelFor(model => model.Email)
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "email", placeholder = T("sadafamir.ContactUs.Email.Hint") })
+                                        @Html.RequiredHint()
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </div>
+				    @Html.Partial("_ContactAttributes", Model.ContactAttributes)
+
+                                    <div class="inputs col-md-12 col-xs-12">
+                                        @Html.LabelFor(model => model.Enquiry)
+                                        @Html.TextAreaFor(model => model.Enquiry, new { @class = "enquiry", placeholder = T("sadafamir.ContactUs.Enquiry.Hint") })
+                                        @Html.ValidationMessageFor(model => model.Enquiry)
+                                    </div>
+                                    @if (Model.DisplayCaptcha)
+                                    {
+                                        <div class="captcha-box inputs col-md-12 col-xs-12">
+                                            @Html.Raw(Html.GenerateCaptcha())
+                                        </div>
+                                    }
+                                </div>
+                                <div class="buttons col-md-12 text-left">
+                                    <input type="submit" name="send-email" class="button-1 contact-us-button" value="@T("ContactUs.Button")" />
+                                </div>
+                            </div>
+                        }
+                    }
+                    @Html.Widget("contactus_bottom")
+                </div>
+            </div>
+        </div>
+        
+        <div class="contactinfo m-top-80">
+            <div class="row ">
+                <!--<div class="col-sm-4 text-center contact-adres"><img src="~/Themes/SadafAmir/Content/images/img/mapmarker.png" />
+                    <p>43-C, Lane No. 8, Bukhari Commercial Area,Khayaban e Ittehad Road, D.H.A Phase 6, Karachi</p>
+                </div> -->
+                <div class="col-sm-4 col-sm-offset-2 text-center"><img src="~/Themes/SadafAmir/Content/images/img/envolpe.png" />
+                    <p><a href="mailto:connect@sadafamir.com">connect@sadafamir.com</a></p>
+                </div>
+                <div class="col-sm-4 text-center"><img src="~/Themes/SadafAmir/Content/images/img/phone.png" />
+                    <p> <a href="tel:+92 347-2910502">+92 347-2910502 </a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

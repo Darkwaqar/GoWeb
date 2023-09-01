@@ -1,0 +1,290 @@
+﻿@model CategoryModel
+@{
+    Layout = "~/Views/Shared/_MyColumns.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-category-page");
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var categoryUrl = Url.RouteUrl("Category", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(categoryUrl);
+    }
+
+    var breadcrumbDelimiter = EngineContext.Current.Resolve<CommonSettings>().BreadcrumbDelimiter;
+}
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@*category breadcrumb*@
+
+
+
+@{
+    // Shows the range of products for pagination.
+    // @productRange displays nothing if there are no products in the category
+    // For example: 31 products, 10 per page (4 pages)
+    // page1: (Products 1-10 of 31)
+    // page2: (Products 11-20 of 31)
+    // page3: (Products 21-30 of 31)
+    // page4: (Product 31 of 31)
+
+    string productRange = string.Empty;
+
+    // ensure there are products
+    if (Model.PagingFilteringContext.TotalItems > 0)
+    {
+        int firstProduct = 0;
+        int lastProduct = 0;
+
+        // first product number
+        // first page
+        if (Model.PagingFilteringContext.PageNumber == 1)
+        {
+            firstProduct = 1;
+        }
+        // other pages
+        else
+        {
+            firstProduct = (Model.PagingFilteringContext.PageNumber - 1) *
+                            Model.PagingFilteringContext.PageSize + 1;
+        }
+
+        // last product number
+        // last page (also if there is only one page)
+        if (Model.PagingFilteringContext.TotalPages == Model.PagingFilteringContext.PageNumber)
+        {
+            // on the last page, the last product is the count of items
+            lastProduct = Model.PagingFilteringContext.TotalItems;
+        }
+        else
+        {
+            // on the first page, the last product is the page size
+            if (Model.PagingFilteringContext.PageNumber == 1)
+            {
+                lastProduct = Model.PagingFilteringContext.PageSize;
+            }
+            // for other pages, the last product is pageNumber x pageSize
+            else
+            {
+                lastProduct = Model.PagingFilteringContext.PageNumber *
+                              Model.PagingFilteringContext.PageSize;
+            }
+        }
+
+        // use different text if there is only one product on the page
+        if (firstProduct == lastProduct)
+        {
+            productRange = String.Format("{0} Items",
+                Model.PagingFilteringContext.TotalItems);
+        }
+        else
+        {
+            productRange = String.Format("{0} Items",
+                Model.PagingFilteringContext.TotalItems);
+        }
+    }
+}
+
+    <div class="page category-page">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb" style="border-bottom:none;">
+                    <ul>
+                        <li>
+                            <a href="@Url.RouteUrl("HomePage")" title="@T("Categories.Breadcrumb.Top")">@T("Categories.Breadcrumb.Top")</a>
+                            <span class="delimiter"></span>
+                        </li>
+                        @foreach (var cat in Model.CategoryBreadcrumb)
+                        {
+                            var isLastCategory = cat.Id == Model.Id;
+                            <li>
+                                @if (isLastCategory)
+                                {
+                                    <strong class="current-item">@cat.Name</strong>
+                                }
+                                else
+                                {
+                                    <a href="@Url.RouteUrl("Category", new { SeName = cat.SeName })" title="@cat.Name">@cat.Name</a>
+                                    <span class="delimiter"></span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <div class="page-body">
+            @*<div class="row">
+                <div class="col-md-12">*@
+            @Html.Widget("categorydetails_top", Model.Id)
+            @*description*@
+            @*@if (!String.IsNullOrWhiteSpace(Model.Description))
+                {
+                    <div class="category-description">
+                        @Html.Raw(Model.Description)
+                    </div>
+                }*@
+            @Html.Widget("categorydetails_before_subcategories", Model.Id)
+            @*subcategories*@
+            @*@if (Model.SubCategories.Count > 0)
+                {
+                    <div class="category-grid sub-category-grid">
+                        <div class="item-grid">
+                            @foreach (var item in Model.SubCategories)
+                            {
+                                <div class="item-box">
+                                    <div class="sub-category-item">
+                                        <div class="picture">
+                                            <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                                <img alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" />
+                                            </a>
+                                        </div>
+                                        <div class="content-wrapper">
+                                            <h2 class="title">
+                                                <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                                    @item.Name
+                                                </a>
+                                            </h2>
+
+                                            @Html.Widget("prisma_itembox_subcategories", item.Id)
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }*@
+
+            @*</div>
+                </div>*@
+            <div class="row">
+                <div class="col-md-3">
+
+                    <div class="product-filter">
+                        @Html.Widget("left_side_column_before")
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-9">
+                    <div class="page-title">
+                        <h1>@Model.Name</h1>
+
+                        @if (!String.IsNullOrEmpty(Model.Description))
+                        {
+
+                            <p>@Html.Raw(Model.Description)   </p>
+                        }
+
+
+                    </div>
+
+                    @if (Model.DisplayCategoryBreadcrumb)
+                    {
+
+                        @Html.Widget("categorydetails_after_breadcrumb", Model.Id)
+                    }
+
+                    <div class="head-select">
+                        <div class="product-Range">
+                            @productRange
+                        </div>
+                        @if (Model.Products.Count > 0)
+                        {
+                            @Html.Partial("_CatalogSelectors", Model.PagingFilteringContext, new ViewDataDictionary())
+                        }
+
+
+                    </div>
+
+
+                    @*<div class="product-filters">
+                            @Html.Widget("categorydetails_before_filters", Model.Id)
+
+
+                            @if (Model.PagingFilteringContext.PriceRangeFilter.Enabled)
+                            {
+                                @Html.Partial("_FilterPriceBox", Model.PagingFilteringContext.PriceRangeFilter, new ViewDataDictionary())
+                            }
+
+                            @if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
+                            {
+                                @Html.Partial("_FilterSpecsBox", Model.PagingFilteringContext.SpecificationFilter, new ViewDataDictionary())
+                            }
+                        </div>*@
+
+                    @Html.Widget("categorydetails_before_product_list", Model.Id)
+
+                    @if (Model.Products.Count > 0)
+                    {
+                        <div class=" @(Model.PagingFilteringContext.ViewMode == "list" ? "product-list" : "product-grid")">
+                            <div class="item-grid">
+                                @foreach (var product in Model.Products)
+                                {
+                                    <div class="item-box">
+                                        @Html.Partial("_ProductBox", product)
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    @{
+                        var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+                    }
+                    @if (!pager.IsEmpty())
+                    {
+                        <div class="pager">
+                            @pager
+                        </div>
+                    }
+                    @Html.Widget("categorydetails_bottom", Model.Id)
+
+                </div>
+
+
+            </div>
+            @*@Html.Widget("categorydetails_before_featured_products", Model.Id)*@
+            @*featured products*@
+            @*@if (Model.FeaturedProducts.Count > 0)
+                {
+                    <div class="product-grid featured-product-grid">
+                        <div class="title">
+                            <strong>@T("Products.FeaturedProducts")</strong>
+                        </div>
+                        <div class="item-grid">
+                            @foreach (var item in Model.FeaturedProducts)
+                            {
+                                <div class="item-box">
+                                    @Html.Partial("_ProductBox", item)
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }*@
+            @*@Html.Widget("categorydetails_after_featured_products", Model.Id)*@
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+

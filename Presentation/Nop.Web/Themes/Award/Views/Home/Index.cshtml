@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+}
+
+
+<div class="page home-page">
+    <div class="page-body">
+        @Html.Widget("home_page_top")
+        <div class="glide">
+            <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides">
+                    <li class="glide__slide"> <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%"></li>
+                    <li class="glide__slide"><img src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%"></li>
+                    <li class="glide__slide"><img src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%"></li>
+                </ul>
+            </div>
+            <div class="glide__arrows" data-glide-el="controls">
+                <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+                <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+            </div>
+        </div>
+        @Html.Action("HomePagePolls", "Poll")
+        @Html.Widget("home_page_bottom")
+    </div>
+    <script type="text/javascript">
+        new Glide('.glide', {
+            autoplay: 2000,
+            hoverpause: false,
+            perView: 3
+        }).mount()
+    </script>
+</div>

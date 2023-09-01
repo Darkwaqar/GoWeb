@@ -1,0 +1,105 @@
+﻿@model ProductDetailsModel
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Domain.Orders;
+
+
+<div class="product-variant-list" id="asso_products" style="" >
+    <div class="close" id="close_shopthelook">Close</div>
+    <div class="stl__header">
+        <span class="stl__header-hr"></span>
+        <h3><span>Shop The Look</span></h3>
+    </div>
+    <div class="grpassoprod">
+        @foreach (var variant in Model.AssociatedProducts)
+        {
+            <div class="row" data-productid="@variant.Id">
+                <div class="col-md-5">
+                    @if (!String.IsNullOrWhiteSpace(variant.DefaultPictureModel.ImageUrl))
+            {
+            <div class="variant-picture">
+                <img alt="@variant.DefaultPictureModel.AlternateText" src="@variant.DefaultPictureModel.ImageUrl"
+                     title="@variant.DefaultPictureModel.Title" id="main-product-img-@variant.Id" />
+            </div>
+            }
+                </div>
+                <div class="col-md-7">
+                    <div class="variant-overview">
+                        @if (!String.IsNullOrWhiteSpace(variant.Name))
+                {
+                <div class="variant-name">
+                    @variant.Name
+                </div>
+                }
+                        @if (!String.IsNullOrWhiteSpace(variant.ShortDescription))
+                {
+                <div class="variant-description">
+                    @Html.Raw(variant.ShortDescription)
+                </div>
+                }
+                  @{
+                var dataDictPrice = new ViewDataDictionary();
+                dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", variant.Id);
+                @Html.Partial("_ProductPrice", variant.ProductPrice, dataDictPrice)
+                        }
+                        <!--price breaks-->
+                        @Html.Partial("_ProductTierPrices", variant.TierPrices)
+                        @*<!--availability-->
+                        @Html.Partial("_Availability", variant)
+                        <!--SKU, MAN, GTIN, vendor-->
+                        @Html.Partial("_SKU_Man_GTIN_Ven", variant)
+                        <!--delivery-->
+                        @Html.Partial("_DeliveryInfo", variant)
+                        <!--sample download-->
+                        @Html.Partial("_DownloadSample", variant)*@
+                        <!--attributes-->
+
+                        @Html.Partial("_QtyWithAttributes", Model)
+
+                        @*@{
+                var dataDictAttributes = new ViewDataDictionary();
+                dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", variant.Id);
+                @Html.Partial("_ProductAttributes", variant.ProductAttributes, dataDictAttributes)
+                        }*@
+                        @*<!--gift card-->
+                        @{
+                var dataDictGiftCard = new ViewDataDictionary();
+                dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = string.Format("giftcard_{0}", variant.Id);
+                @Html.Partial("_GiftCardInfo", variant.GiftCard, dataDictGiftCard)
+                        }
+                        <!--rental info-->*@
+                        @*@{
+                var dataDictRental = new ViewDataDictionary();
+                dataDictRental.TemplateInfo.HtmlFieldPrefix = string.Format("rental_{0}", variant.Id);
+                @Html.Partial("_RentalInfo", variant, dataDictRental)
+                        }*@
+                        <!--price & add to cart-->
+                      
+                        @*@{
+                var dataDictAddToCart = new ViewDataDictionary();
+                dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", variant.Id);
+                @Html.Partial("_AddToCart", variant.AddToCart, dataDictAddToCart)
+                        }*@
+                        <input type="button" id="add-to-cart-button-@variant.Id" class="button-1 add-to-cart-button" value="Add to Cart" data-productid="@variant.Id" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = variant.Id, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })', '#product-details-form');return false;" />
+                        <!--wishlist-->
+                        @{
+                var dataDictAddToWishlist = new ViewDataDictionary();
+                dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", variant.Id);
+                @Html.Partial("_AddToWishlist", variant.AddToCart, dataDictAddToWishlist)
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+        }
+
+    </div>
+    @if (Model.AssociatedProducts.Count == 0)
+    {
+        <div class="no-associated-products">
+            @T("Products.NoAssociatedProducts")
+        </div>
+    }
+</div>

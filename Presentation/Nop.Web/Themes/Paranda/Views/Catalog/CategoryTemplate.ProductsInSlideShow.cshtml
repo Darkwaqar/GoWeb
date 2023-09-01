@@ -1,0 +1,281 @@
+﻿@model CategoryModel
+﻿@using Nop.Core;
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@{
+    var themeName = EngineContext.Current.Resolve<IThemeContext>
+    ().WorkingThemeName;
+    var css = string.Format( "Themes/{0}/Content/css", themeName);
+    var js = string.Format( "Themes/{0}/Content/js", themeName);
+    var img = string.Format("Themes/{0}/Content/images", themeName);
+    var video = string.Format("Themes/{0}/Content/Video", themeName);
+}
+
+    @using Nop.Core.Infrastructure;
+    @using Nop.Web.Models.Catalog;
+<head>
+    <link rel='stylesheet' id='bootstrap-css' href='@css/bootstrap.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='font-awesome-css' href='@css/font-awesome.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='screen-css' href='@css/style.css' type='text/css' media='all' />
+    <script type='text/javascript' src='@js/jquery.min.js'></script>
+</head>
+<body class="home page page-id-2561 page-parent page-template page-template-page-templates page-template-home_new page-template-page-templateshome_new-php">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div itemscope itemtype="https://schema.org/ImageObject" class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainmenu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.Action("Logo", "Common")
+            </div>
+            <div id="mainmenu" class="yamm collapse navbar-collapse">
+                <ul id="menu-menu-1" class="nav navbar-nav navbar-right">
+                    @Html.Action("HeaderLinks", "Common")
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="spacer"> </div>
+
+    @Html.Action("TopMenu", "Catalog")
+
+    <!-- Carousel
+            ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+        <div class="carousel-inner">
+           
+            <div class="item active">
+
+                <img src=""  class="img-res" alt="Stefano Ricci Home">
+            </div>
+            
+            <div class="item ">
+                <img src=""  class="img-res" alt="Stefano Ricci Home">
+            </div>
+            
+            <div class="item ">
+
+                <img src=""  class="img-res" alt="Stefano Ricci Home">
+            </div>
+            
+
+
+        </div>
+
+        <div class="carousel-caption scroll-down caption-sfu">
+
+
+            <h1>STEFANO RICCI HOME</h1>
+            <p>The exclusive Home line by STEFANO RICCI is 100% Made in Italy with the finest materials and the talent of master craftsmen.</p>
+
+
+            <i class="fa fa-angle-down fa-4x arrow-animation"></i>
+
+        </div>
+
+
+
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+
+
+    </div>
+
+
+
+
+    <div style="position: relative; overflow: hidden;" class="mos-container isotope">
+        @using Nop.Web.Models.Catalog;
+        @{
+          int counter = 0;
+        }
+
+        @for (int i = Model.SubCategories.Count; i > 0; i--)
+        {
+            var category = Model.SubCategories[counter];
+            int type = 5;
+
+
+            
+
+             if (counter % type == 0)
+            {
+                <div class="mos-item block-2349 item-w2 item-sm-w2 item-sm-h2   full-box taphover">
+
+
+
+                    <img class="img-bg" alt="PORCELAIN LINE" src="@category.PictureModel.FullSizeImageUrl">
+
+
+                    <div class="mos-panel animate">
+
+                        <div class="mos-inner">
+
+                            <h2 class="tit-full-box">@category.Name</h2>
+
+                            <div class="sep-line"></div>
+
+                            <p>
+                                @category.Description<br />
+                                <a class="btn btn-white-trasp" href="@Url.RouteUrl("Category", new { SeName = category.SeName })">DISCOVER THE COLLECTION</a>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+            else if (counter % type == 1)
+            {
+                <div class="mos-item block-2354 item-h2 item-sm-w2 item-sm-h2   full-box taphover">
+
+
+
+                    <img class="img-bg" alt="CRYSTAL LINE" src="@category.PictureModel.FullSizeImageUrl">
+
+
+                    <div class="mos-panel animate">
+
+                        <div class="mos-inner">
+
+                            <h2 class="tit-full-box">@category.Name</h2>
+
+                            <div class="sep-line"></div>
+
+                            <p>
+                                @category.Description<br />
+                                <a class="btn btn-white-trasp" href="@Url.RouteUrl("Category", new { SeName = category.SeName })">DISCOVER THE COLLECTION</a>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+            else if (counter % type == 2)
+            {
+
+                <div class="mos-item block-2357 item-df item-sm-w2 item-sm-h2   full-box taphover">
+
+
+
+                    <img class="img-bg" alt="SILVER LINE" src="@category.PictureModel.FullSizeImageUrl">
+
+
+                    <div class="mos-panel animate">
+
+                        <div class="mos-inner">
+
+                            <h2 class="tit-full-box">@category.Name</h2>
+
+                            <div class="sep-line"></div>
+
+                            <p>
+                                @category.Description<br />
+                                <a class="btn btn-white-trasp" href="@Url.RouteUrl("Category", new { SeName = category.SeName })">DISCOVER THE COLLECTION</a>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            }
+            else if (counter % type == 3)
+            {
+                <div class="mos-item block-2360 item-df item-sm-w2 item-sm-h2 full-box taphover">
+
+
+
+                    <div class="mos-panel text-box">
+
+                        <div class="mos-inner">
+
+                            <h2 class="title-box">@category.Name</h2>
+
+                            <div class="cont-box">
+                                <p>@category.Description</p>
+                                <div class="isShopAvailable" style="padding-top:20px"><a style="font-size:18px;" href="@Url.RouteUrl("Category", new { SeName = category.SeName })">PURCHASE THE COLLECTION ONLINE</a></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="mos-item block-2362 item-w2 item-sm-w2 item-sm-h2   full-box taphover">
+
+
+
+                    <img class="img-bg" alt="LINEN LINE" src="@category.PictureModel.FullSizeImageUrl">
+
+
+                    <div class="mos-panel animate">
+
+                        <div class="mos-inner">
+
+                            <h2 class="tit-full-box">@category.Name</h2>
+
+                            <div class="sep-line"></div>
+
+                            <p>
+                                @category.Description<br />
+                                <a class="btn btn-white-trasp" href="@Url.RouteUrl("Category", new { SeName = category.SeName })">DISCOVER THE COLLECTION</a>
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+            else if (counter % type == 4)
+            {
+                <div class="mos-item block-2365 item-df item-sm-w2 item-sm-h2   full-box taphover">
+                    <img class="img-bg" alt="FURNITURE LINE" src="@category.PictureModel.FullSizeImageUrl">
+
+
+                    <div class="mos-panel animate">
+
+                        <div class="mos-inner">
+
+                            <h2 class="tit-full-box">@category.Name</h2>
+
+                            <div class="sep-line"></div>
+
+                            <p>
+                                @category.Description<br />
+                                <a class="btn btn-white-trasp" href="@Url.RouteUrl("Category", new { SeName = category.SeName })">DISCOVER THE COLLECTION</a>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+            counter++;
+        }
+    </div>
+
+    @Html.Action("Footer", "Common")
+    <script type='text/javascript' src='@js/jquery.mobile.custom.min.js'></script>
+    <script type='text/javascript' src='@js/bootstrap.min.js'></script>
+    <script type='text/javascript' src='@js/jquery.magnific-popup.min.js'></script>
+    <script type='text/javascript' src='@js/isotope.pkgd.min.js'></script>
+    <script type='text/javascript' src='@js/jquery.tooltipster.min.js'></script>
+    <script type='text/javascript' src='@js/script.js'></script>
+    </body>

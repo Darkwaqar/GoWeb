@@ -1,0 +1,49 @@
+﻿@model string
+@using Nop.Core.Infrastructure;
+@using Nop.Core;
+@{
+    var shareUrl = EngineContext.Current.Resolve<IWebHelper>().GetStoreLocation() + Model;
+}
+<div class="product-social-buttons">
+    <ul>
+        <li class="share-item facebook">
+            <!-- Facebook -->
+            <a class="share-link" href="javascript:openShareWindow('https://www.facebook.com/sharer.php?u=@shareUrl')">
+                <svg id="Icon_Facebook" data-name="Icon/Facebook" xmlns="http://www.w3.org/2000/svg" width="8" height="14.998" viewBox="0 0 8 14.998">
+                    <path id="Path_108_face" data-name="Path 108 face" d="M8.057-2.939l.415-2.714H5.878V-7.414A1.354,1.354,0,0,1,7.4-8.881H8.581v-2.311a14.325,14.325,0,0,0-2.093-.183A3.307,3.307,0,0,0,2.956-7.722v2.069H.581v2.714H2.956V3.623H5.878V-2.939Z" transform="translate(-0.581 11.375)" fill="currentColor"></path>
+                </svg>
+            </a>
+        </li>
+        <li class="share-item twitter">
+            <!-- Twitter -->
+            <a class="share-link " href="javascript:openShareWindow('https://twitter.com/share?url=@shareUrl')">
+                <svg id="Icon_Twitter" data-name="Icon/Twitter" xmlns="http://www.w3.org/2000/svg" width="16" height="13" viewBox="0 0 16 13">
+                    <path id="Path_90_tweet" data-name="Path 90 tweet" d="M14.355-13.163A7.05,7.05,0,0,0,16-14.859a6.572,6.572,0,0,1-1.888.508,3.271,3.271,0,0,0,1.442-1.808,6.454,6.454,0,0,1-2.081.792,3.271,3.271,0,0,0-2.4-1.036A3.278,3.278,0,0,0,7.8-13.122a3.7,3.7,0,0,0,.081.752A9.32,9.32,0,0,1,1.117-15.8,3.257,3.257,0,0,0,.67-14.148a3.278,3.278,0,0,0,1.462,2.732A3.3,3.3,0,0,1,.65-11.833v.041a3.281,3.281,0,0,0,2.629,3.22,3.466,3.466,0,0,1-.863.112A4.131,4.131,0,0,1,1.8-8.511,3.285,3.285,0,0,0,4.863-6.236a6.566,6.566,0,0,1-4.071,1.4A6.784,6.784,0,0,1,0-4.875,9.264,9.264,0,0,0,5.036-3.4a9.268,9.268,0,0,0,9.33-9.334C14.366-12.879,14.366-13.021,14.355-13.163Z" transform="translate(0 16.403)" fill="currentColor"></path>
+                </svg>
+            </a>
+        </li>
+        <li class="share-item pinterest">
+            <!-- Pinterest -->
+            <a class="share-link" href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','https://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"></a>
+        </li>
+        <li class="share-item linkedin">
+            <!-- LinkedIn -->
+            <a class="share-link" href="javascript:openShareWindow('https://www.linkedin.com/shareArticle?mini=true&url=@shareUrl')"></a>
+        </li>
+        @*<li class="share-item google">
+            <!-- Google+ -->
+            <a class="share-link" href="javascript:openShareWindow('https://plus.google.com/share?url=@shareUrl')"></a>
+        </li>*@
+    </ul>
+
+    <script>
+        function openShareWindow(url) {
+            var winWidth = 520;
+            var winHeight = 400;
+            var winTop = (screen.height / 2) - (winHeight / 2);
+            var winLeft = (screen.width / 2) - (winWidth / 2);
+
+            window.open(url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+        }
+    </script>
+</div>

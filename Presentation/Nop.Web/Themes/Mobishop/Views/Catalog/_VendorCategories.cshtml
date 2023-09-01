@@ -1,0 +1,29 @@
+﻿@model int
+@using Nop.Services.Catalog;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Seo;
+@using Nop.Services.Media;
+@{
+    var vendors = EngineContext.Current.Resolve<ICategoryService>().GetCategoriesByVendorId(Model);
+}
+
+@if (vendors.Count > 0)
+{
+<ul class="menu-vendor">
+    @foreach (var item in vendors)
+    {
+       
+
+
+
+    <li>
+        <a href="@Url.RouteUrl("Category", new { SeName = item.GetSeName() })" title="@item.Name">
+            @item.Name
+        </a>
+        </li>
+
+
+        }
+</ul>
+        }
+     

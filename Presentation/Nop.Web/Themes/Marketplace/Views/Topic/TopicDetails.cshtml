@@ -1,0 +1,215 @@
+﻿@model TopicModel
+@using Nop.Core.Domain.Seo
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Topics;
+@{
+    var isPopup = ViewBag.IsPopup;
+    if (isPopup == null || isPopup == false)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    //if (!Model.IsPasswordProtected)
+    //{
+    //    //title
+    //    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Title);
+    //    //meta
+    //    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    //    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //}
+
+    //var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    //if (canonicalUrlsEnabled)
+    //{
+    //    var topicUrl = Url.RouteUrl("Topic", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+    //    Html.AddCanonicalUrlParts(topicUrl);
+    //}
+
+    ////page class
+    //Html.AppendPageCssClassParts("html-topic-page");
+
+}
+
+
+@*@if (Model.IsPasswordProtected)
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#button-password').click(function () {
+                var postData = {
+                    id: $("#@Html.FieldIdFor(model => model.Id)").val(),
+                    password: $('#password').val()
+                };
+                addAntiForgeryToken(postData);
+
+
+                $.ajax({
+                    cache: false,
+                    type: 'POST',
+                    url: '@Url.RouteUrl("TopicAuthenticate")',
+                    data: postData,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.Authenticated) {
+                            $('#ph-topic #ph-title h1').html(data.Title);
+                            if ($('#ph-topic #ph-title h1').text().length == 0) {
+                                $('#ph-title').hide();
+                            }
+                            $('#ph-topic .page-body').html(data.Body);
+                            $('#ph-password').hide();
+                            $('#ph-topic').show();
+                        }
+                        else {
+                            $('#password-error').text(data.Error).fadeIn("slow");
+                            $('#ph-password #password').select().focus();
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+
+        $(document).ready(function () {
+            $('#ph-topic').hide();
+            $('#ph-password #password').select().focus();
+        });
+    </script>
+    <div class="topic-password" id="ph-password">
+        @using (Html.BeginRouteForm("TopicAuthenticate"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            <div class="enter-password-title">
+                @T("Topic.EnterPassword")
+            </div>
+            <div class="enter-password-form">
+                @Html.Password("password")
+                <input type="submit" id="button-password" value="@T("Topic.Button")" class="button-1 topic-password-button" />
+            </div>
+            <div class="password-error" id="password-error" style="display: none;"></div>
+        }
+    </div>*@
+}
+@*<div class="page topic-page" id="ph-topic">
+    <div class="page-title" id="ph-title">
+        <h1>@Model.Title</h1>
+    </div>
+    <div class="page-body">*@
+        @Html.Raw(Model.Body)
+    @*</div>
+</div>*@
+<!--====================
+       Scripts
+   ====================-->
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/packery.pkgd.min.js"></script>
+<script src="assets/js/masonry.pkgd.min.js"></script>
+<script src="assets/js/isotope.pkgd.min.js"></script>
+<script src="assets/js/jquery.stellar.min.js"></script>
+<script src="assets/js/my-instagram-gallery.js"></script>
+<script src="assets/js/slick.min.js"></script>
+<script src="assets/js/jquery.inview.js"></script>
+<script src="assets/js/odometer.min.js"></script>
+<script src="assets/js/tweetie.min.js"></script>
+<script src="assets/js/jquery.timeago.js"></script>
+<script src="assets/js/jquery.knob.min.js"></script>
+<script src="assets/js/css3-animate-it.js"></script>
+<script src="assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="assets/js/jquery.prettyPhoto.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/imageMapResizer.min.js"></script>
+
+
+
+
+
+<script>
+    $(".thumb").click(function () {
+        var thumbsrc = $(this).attr('src');
+        var image = $("#placesrc");
+        image.fadeOut('fast', function () {
+            image.attr('src', thumbsrc);
+            image.fadeIn('fast');
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".view-more").click(function () {
+            if ($(".view-more").hasClass("view-close")) {
+                $(".similar-product-div").animate({ height: "750px" });
+                document.getElementById("view").innerHTML = "View Less";
+                $(".view-more").addClass("view-open");
+                $(".view-more").removeClass("view-close");
+            }
+            else if ($(".view-more").hasClass("view-open")) {
+                $(".similar-product-div").animate({ height: "410px" });
+                document.getElementById("view").innerHTML = "View More";
+                $(".view-more").addClass("view-close");
+                $(".view-more").removeClass("view-open");
+            }
+        });
+
+        $("#img00").click(function () {
+
+        });
+
+
+
+    });
+</script>
+<style>
+    .img-tooltip {
+        position: absolute;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('map').imageMapResize();
+        $(document).on("mousemove", '.areaForToolip', function (e) {
+            var a = ($("#" + $(this).attr("data-TooltipId")).attr("data-placement") != "") ? $("#" + $(this).attr("data-TooltipId")).attr("data-placement") : "right";
+            var top = 0, left = 0;
+            if (a == "right") {
+                top = +10;
+                left = +10;
+            } else if (a == "left") {
+                top = +10;
+                left = -10;
+            } else if (a == "top") {
+                top = 0;
+                left = 0;
+            } else if (a == "bottom") {
+                top = 20;
+                left = 0;
+            }
+            $("#" + $(this).attr("data-TooltipId")).css({
+                top: (e.pageY + top - $("#themeSlider").offset().top),
+                left: (e.pageX + left - (($('section[class^="xvDeals"]').width() - $('section[class^="xvDeals"] .container').width()) / 2))
+            });
+            $("#" + $(this).attr("data-TooltipId")).tooltip('show');
+
+            $(".tooltip-arrow").css("border-" + a + "-color", $(this).attr("data-TooltipBackround"));
+            $(".tooltip").css("opacity", parseFloat($(this).attr("data-TooltipOpacity")));
+            $(".tooltip-inner").css("background-color", $(this).attr("data-TooltipBackround"));
+        });
+        $(document).on("mouseleave", '.areaForToolip', function (e) {
+            $("#" + $(this).attr("data-TooltipId")).tooltip('hide')
+        });
+
+        $(document).on('slid.bs.carousel', '#themeSlider', function (e) {
+            var total = $("#themeSlider .carousel-inner").children().length;
+            var index = $("#themeSlider .carousel-inner").children(".active").index() + 1;
+
+            $(".slide_num").text(index + "/" + total);
+        });
+        $("#themeSlider").trigger("slid.bs.carousel");
+    });
+
+
+    setTimeout(function () {
+        $('#abc').html('<i id="img-tooltip17" class="img-tooltip" data-toggle="tooltip" data-html="true" data-placement="bottom" data-animation="false" data-trigger="manual" title="<h5 style=\'color : red; text-align: left;\'><b>The trends</b><br><span style=\'color: white; font-size: 10px;\'>Dress by Some Designer</span><br><span style=\'color: white; font-size: 11px;\'>SHOP THE LOOK</span></h5>"></i>');
+    }, 1000);
+
+</script>

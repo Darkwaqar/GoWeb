@@ -1,0 +1,126 @@
+﻿@model ShoppingCartModel
+@using Nop.Web.Models.Checkout
+@using Nop.Web.Models.ShoppingCart;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ShoppingCart").Text);
+}
+<script>
+    fbq('track', 'AddToCart');
+</script>
+@if (!Model.OnePageCheckoutEnabled)
+{
+    @Html.Action("CheckoutProgress", "Checkout", new {step = CheckoutProgressStep.Cart})
+}
+   
+    <div class="container-fluid shoppingcart uppercase nopadding">
+        <div class="top col-md-6" style="padding-top:42px;padding-bottom:2px">
+            <div class="heading shopcart-header" style="font-size:27px">
+                Shopping cart 
+            </div>
+@if (Model.Items.Count == 0)
+{
+    <p class="text shopcart-header">You have @Model.Items.Count() item(s) in your Shopping cart </p>
+}
+        </div>
+        @if (Model.Items.Count > 0) { 
+        using (Html.BeginRouteForm("ShoppingCart", FormMethod.Post, new { enctype = "multipart/form-data", id = "shopping-cart-form" }))
+        {
+        @Html.AntiForgeryToken()
+            
+        @*<div class="checkout-buttons col-md-6" style="margin-top:46px">
+            @if (String.IsNullOrEmpty(Model.MinOrderSubtotalWarning))
+            {
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#checkout').click(function () {
+                            
+                            var termOfServiceOk = true;
+                            if ($('#termsofservice').length > 0) {
+                                
+                                if (!$('#termsofservice').is(':checked')) {
+                                    $("#terms-of-service-warning-box").dialog();
+                                    termOfServiceOk = false;
+                                } else {
+                                    termOfServiceOk = true;
+                                }
+                            }
+                            return termOfServiceOk;
+                        });
+                    });
+                </script>
+    <div class="proceed-purchase">
+        <button type="submit" id="checkout" name="checkout" value="checkout" class="btn-big proceed-chekout" style="background-color: #051C3B;">
+            PROCEED TO CHECKOUT
+        </button>
+    </div>
+
+            }
+        </div>*@
+ foreach (var item in Model.Items)
+                    {
+        <input type="submit" name="updatecart" style="display:none" class="button-2 update-cart-button" id="updatecart" />
+        <input type="checkbox" name="removefromcart" id="chkbox@(item.Id)" style="display:none" value="@(item.Id)" />
+        }
+        
+        }
+           
+        }
+        @Html.Partial("OrderSummary", Model)
+        @using (Html.BeginRouteForm("ShoppingCart", FormMethod.Post, new { enctype = "multipart/form-data", id = "shopping-cart-form" }))
+        {
+            if (Model.Items.Count > 0) { 
+ <div class="col-md-12">
+            <div class="col-md-6" style="padding-left:27px">@Html.Partial("_GiftCardBox", Model.GiftCardBox)</div>
+            <div class="checkout-buttons col-md-6" style="margin-top:46px">
+                @if (String.IsNullOrEmpty(Model.MinOrderSubtotalWarning))
+                {
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#checkout').click(function () {
+                                //terms of service
+                                var termOfServiceOk = true;
+                                if ($('#termsofservice').length > 0) {
+                                    //terms of service element exists
+                                    if (!$('#termsofservice').is(':checked')) {
+                                        $("#terms-of-service-warning-box").dialog();
+                                        termOfServiceOk = false;
+                                    } else {
+                                        termOfServiceOk = true;
+                                    }
+                                }
+                                return termOfServiceOk;
+                            });
+                        });
+                    </script>
+                    <div class="proceed-purchase">
+                         <button type="submit" id="checkout" name="checkout" value="checkout" class="btn-big proceed-chekout" style="background:#555;" >
+                            PROCEED TO CHECKOUT
+                        </button>
+                    </div>
+
+                }
+               
+            </div>
+        </div>
+            }
+        }
+       
+       
+    </div>
+@if (Model.Items.Count == 0) { 
+
+<style>
+    .footer {
+        /*position:absolute;
+        bottom:0px;*/
+        width:100%;
+        margin-top:335px;
+    }
+</style>
+}
+
+
+

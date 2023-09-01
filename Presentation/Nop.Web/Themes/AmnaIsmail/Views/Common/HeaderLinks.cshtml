@@ -1,0 +1,99 @@
+﻿@model HeaderLinksModel
+@using growonline.Web.Models.Common;
+
+    @Html.Widget("header_links_before")
+    @Html.Widget("header_links_after")
+    @Html.Action("TaxTypeSelector", "Common")
+    @*@Html.Action("CurrencySelector", "Common")
+        @Html.Action("LanguageSelector", "Common")*@
+    @Html.Widget("header_selectors")
+
+
+
+    @if (Model.AllowPrivateMessages)
+    {
+        <li>
+            <a href="@Url.RouteUrl("PrivateMessages", new { tab = "" })" class="li-item">
+                @*<span class="inbox-label">@T("PrivateMessages.Inbox")</span>*@
+                <span class="inbox-unread">@Model.UnreadPrivateMessages</span>
+            </a>
+        </li>
+    }
+
+    @if (Model.WishlistEnabled)
+{
+
+    <li style="border-right: 1px solid silver; border-left: 1px solid silver;top:-21px;height:78px" class="hidden-md">
+        <a href="@Url.RouteUrl("Wishlist")" class="li-item" style="top: 17px; padding: 7px 0px;">
+            @*<span class="wishlist-label">@T("Wishlist")</span>*@
+
+            <table>
+                <tr>
+                    <td><span class="fa fa-shopping-basket" style="font-size:22px"></span></td>
+                    <td>
+                        <div style="line-height: 14px; margin-left: 10px" class="hidden-xs li-item">
+                            @*<div>items <span class="wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span></div>*@
+                            <div style="background-color:red;color:white;border-radius:4px;position:absolute;margin-top:12px;right:16px;left:16px;top:2px"><span class="wishlist-qty" style="background-color:red;border-radius:10px">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </a>
+    </li>
+      
+}
+   
+
+
+
+
+    @if (Model.ShoppingCartEnabled)
+{
+    <li id="topcartlink" class="dropdown hidden-md" style="border-right: 1px solid silver; border-left: 1px solid silver;top:-21px;height:78px">
+        <a href="@Url.RouteUrl("ShoppingCart")" class="dropdown-toggle li-item" data-toggle="dropdown" style="top:17px">
+
+            <table>
+                <tr>
+                    <td><span class="fa fa-shopping-bag" style="font-size:22px"></span></td>
+                    <td>
+                        <div style="line-height:14px; margin-left:10px" class="hidden-xs ">
+
+                            <div><span class="cart-qty">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</span></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+
+
+        </a>
+        <ul class="dropdown-menu" style="display: none;">
+            <li>
+                @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+            </li>
+        </ul>
+    </li>
+               <li style="border-right:1px solid silver;margin-top:-21px;height:77px" class="hidden-md">
+        <a class="" href="#" id="searchBtn" style="color:black;margin-top:21px"><span class="fa fa-search" style="font-size:20px;margin-top:0px"></span></a>
+    </li>
+}
+
+
+
+
+@if (Model.AllowPrivateMessages && !string.IsNullOrEmpty(Model.AlertMessage))
+{
+    //new private message notification
+    <script type="text/javascript">
+            $(document).ready(function () {
+                displayPopupNotification('@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.AlertMessage))', 'success', false);
+            });
+    </script>
+}
+
+
+

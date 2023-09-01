@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.cshtml";
+}
+@{
+    //current category ID
+    int currentCategoryId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("category", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentCategoryId = Convert.ToInt32(Url.RequestContext.RouteData.Values["categoryId"].ToString());
+    }
+
+
+    //current manufacturer ID
+    int currentManufacturerId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("manufacturer", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentManufacturerId = Convert.ToInt32(Url.RequestContext.RouteData.Values["manufacturerId"].ToString());
+    }
+
+
+    //current product ID
+    int currentProductId = 0;
+    var productName = "";
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("product", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("productdetails", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentProductId = Convert.ToInt32(Url.RequestContext.RouteData.Values["productId"].ToString());
+        productName = Url.RequestContext.RouteData.Values["SeName"].ToString();
+    }
+
+    var topicName = "";
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("topic", StringComparison.InvariantCultureIgnoreCase))
+    {
+        topicName = Url.RequestContext.RouteData.Values["SeName"].ToString();
+    }
+
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+
+
+<aside class="@(currentProductId == 0 ? "bg vcenter " + topicName : "video bg-"+productName)">
+    @if (IsSectionDefined("Breadcrumb"))
+    {
+        @RenderSection("Breadcrumb")
+    }
+    @if (IsSectionDefined("left"))
+    {
+        <a class="btn btn-gray btn-close" href="/"></a>
+        @RenderSection("left")
+    }
+    else
+    {
+        @Html.Widget("left_side_column_before")
+        @Html.Action("CategoryNavigation", "Catalog", new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
+        @Html.Widget("left_side_column_after_category_navigation")
+        @Html.Action("ManufacturerNavigation", "Catalog", new { currentManufacturerId = currentManufacturerId })
+        @Html.Action("VendorNavigation", "Catalog")
+        @Html.Action("RecentlyViewedProductsBlock", "Product", new { productThumbPictureSize = 64 })
+        @Html.Action("PopularProductTags", "Catalog")
+        @Html.Action("PollBlock", "Poll", new { systemKeyword = "LeftColumnPoll" })
+        @Html.Widget("left_side_column_after")
+    }
+</aside>
+<main id="content">
+    @Html.Widget("main_column_before")
+    
+    @RenderBody()
+    @Html.Widget("main_column_after")
+</main>

@@ -1,0 +1,172 @@
+﻿<div class="category-grid home-page-category-grid">
+    <div class="title">
+        <strong>Shop By Your Personality</strong>
+    </div>
+    <div class="responsiveCategori">
+        <div class="item-box">
+            <div class="category-item">
+                <div class="picture">
+                    <a href="/lancaster" title="The Trendsetter">
+                        <img src="~/Themes/grandeur_man/Content/images/HomePage/Image1.png" />
+                    </a>
+                </div>
+                <div class="catagory-detail">
+                    <div>
+                        <div class="des-body">
+                            <h2 class="title">
+                                <a href="/the-magnanimous" title="The Magnanimous">The Magnanimous</a>
+                            </h2>
+                            <p class="discription">Multi Color Oxford Genuine Anaconda Skin Welted Leather Sole</p>
+                        </div>
+                        <p>
+                            <a href="/the-magnanimous" title="Shop Now">
+                                Shop Now
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* Row 1 *@
+        <div class="item-box">
+            <div class="category-item">
+                <div class="picture">
+                    <a href="/wandsbek" title="The Honorable">
+                        <img src="~/Themes/grandeur_man/Content/images/HomePage/Image3.png" />
+                    </a>
+                </div>
+                <div class="catagory-detail">
+                    <div>
+                        <div class="des-body">
+                            <h2 class="title">
+                                <a href="/the-cool-dude" title="The Cool Dude">The Cool Dude</a>
+                            </h2>
+                            <p class="discription">Grey Wingtip Brogue Chelsea Boot Patina Finish Crust Leather</p>
+                        </div>
+                        <p>
+                            <a href="/the-cool-dude" title="Shop Now">
+                                Shop Now
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* Row 2 *@
+        <div class="item-box">
+            <div class="category-item">
+                <div class="picture">
+                    <a href="/yorkshire" title="The Valuable">
+                        <img src="~/Themes/grandeur_man/Content/images/HomePage/Image2.png" />
+                    </a>
+                </div>
+                <div class="catagory-detail">
+                    <div>
+                        <div class="des-body">
+                            <h2 class="title">
+                                <a href="/the-gamer" title="The Gamer">The Gamer</a>
+                            </h2>
+                            <p class="discription">Dark Tan Chukka Boot Patina Finish Crust Leather</p>
+                        </div>
+                        <p>
+                            <a href="/the-gamer" title="Shop Now">
+                                Shop Now
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* Row 3 *@
+        @*<div class="item-box">
+            <div class="category-item">
+                <div class="picture">
+                    <a href="/grossmore" title="The Prestige">
+                        <img src="~/Themes/grandeur_man/Content/images/HomePage/pic4.jpg" />
+                    </a>
+                </div>
+                <div class="catagory-detail">
+                    <h2 class="title">
+                        <a href="/the-excellent" title="The Excellent">
+                            The Excellent
+                        </a>
+                    </h2>
+                    <p>
+                        <a href="/the-excellent" title="Shop Now">
+                            Shop Now
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>*@
+        @* Row 4 *@
+        @*<div class="item-box">
+            <div class="category-item">
+                <div class="picture">
+                    <a href="/roseworld" title="The Esteem">
+                        <img src="~/Themes/grandeur_man/Content/images/HomePage/pic5.jpg" />
+                    </a>
+                </div>
+                <div class="catagory-detail">
+                    <h2 class="title">
+                        <a href="/the-trend-setter" title="The Trend Setter">
+                            The Trend Setter
+                        </a>
+                    </h2>
+                    <p>
+                        <a href="/the-trend-setter" title="Shop Now">
+                            Shop Now
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>*@
+        @* Row 5 *@
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.responsiveCategori').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 700,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        dots: false,
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        dots: false,
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        dots: false,
+                    }
+                }
+            ]
+        });
+    });
+</script>

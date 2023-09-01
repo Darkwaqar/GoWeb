@@ -1,0 +1,230 @@
+﻿@model MagazineModel
+
+@Html.ValidationSummary(false)
+@Html.HiddenFor(model => model.Id)
+
+<script>
+    $(document).ready(function () {
+        bindBootstrapTabSelectEvent('magazine-edit');
+    });
+</script>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12 clearfix">
+                <div class="pull-left">
+                    @Html.Action("Mode", "Setting", new { modeName = "category-advanced-mode" })
+                </div>
+            </div>
+        </div>
+        <div id="category-edit" class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                @Html.RenderBootstrapTabHeader("tab-info", @T("Admin.Catalog.Magazine.Info"), true)
+            </ul>
+            <div class="tab-content">
+                @Html.RenderBootstrapTabContent("tab-info", @TabInfo(), true)
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    //custom tabs
+    var eventMessage = new AdminTabStripCreated(this.Html, "magazine-edit");
+    EngineContext.Current.Resolve<IEventPublisher>().Publish(eventMessage);
+    foreach (var eventBlock in eventMessage.BlocksToRender)
+    {
+        @eventBlock
+    }
+}
+
+@*save selected tab name*@
+<input type="hidden" id="selected-tab-name" name="selected-tab-name" value="@(Html.GetSelectedTabName())">
+
+@helper TabInfo()
+{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.UnlimitedDownloads)").click(toggleDownloadableProduct);
+            $("#@Html.FieldIdFor(model => model.HasSampleDownload)").click(toggleDownloadableProduct);
+            $("#@Html.FieldIdFor(model => model.HasUserAgreement)").click(toggleDownloadableProduct);
+            toggleDownloadableProduct();
+        });
+
+
+
+        function toggleDownloadableProduct() {
+                $('#pnlDownloadFile').show();
+                $('#pnlUnlimitedDownloads').show();
+                if ($('#@Html.FieldIdFor(model => model.UnlimitedDownloads)').is(':checked')) {
+                    $('#pnlMaxNumberOfDownloads').hide();
+                } else {
+                    $('#pnlMaxNumberOfDownloads').show();
+                }
+                $('#pnlDownloadExpirationDays').show();
+                $('#pnlDownloadActivationType').show();
+
+                $('#pnlHasUserAgreement').show();
+                if ($('#@Html.FieldIdFor(model => model.HasUserAgreement)').is(':checked')) {
+                    $('#pnlUserAgreementText').show();
+                } else {
+                    $('#pnlUserAgreementText').hide();
+                }
+
+                $('#pnlHasSampleDownload').show();
+
+                if ($('#@Html.FieldIdFor(model => model.HasSampleDownload)').is(':checked')) {
+                    $('#pnlSampleDownloadFile').show();
+                } else {
+                    $('#pnlSampleDownloadFile').hide();
+                }
+        }
+    </script>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Name)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Name, required: true)
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Description)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.EditorFor(x => x.Description, "RichEditor")
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.PictureId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.PictureId)
+                        @Html.ValidationMessageFor(model => model.PictureId)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlDownloadFile">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.DownloadId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.DownloadId)
+                        @Html.ValidationMessageFor(model => model.DownloadId)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlUnlimitedDownloads">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.UnlimitedDownloads)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.UnlimitedDownloads)
+                        @Html.ValidationMessageFor(model => model.UnlimitedDownloads)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlMaxNumberOfDownloads">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.MaxNumberOfDownloads)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.MaxNumberOfDownloads)
+                        @Html.ValidationMessageFor(model => model.MaxNumberOfDownloads)
+                    </div>
+                </div>
+                <div class="form-group advanced-setting" id="pnlDownloadExpirationDays">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.DownloadExpirationDays)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.DownloadExpirationDays)
+                        @Html.ValidationMessageFor(model => model.DownloadExpirationDays)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlHasUserAgreement advanced-setting">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.HasUserAgreement)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.HasUserAgreement)
+                        @Html.ValidationMessageFor(model => model.HasUserAgreement)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlUserAgreementText">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.UserAgreementText)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopTextAreaFor(model => model.UserAgreementText)
+                        @Html.ValidationMessageFor(model => model.UserAgreementText)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlHasSampleDownload">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.HasSampleDownload)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.HasSampleDownload)
+                        @Html.ValidationMessageFor(model => model.HasSampleDownload)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlSampleDownloadFile">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.SampleDownloadId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.SampleDownloadId)
+                        @Html.ValidationMessageFor(model => model.SampleDownloadId)
+                    </div>
+                </div>
+                <div class="form-group advanced-setting">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Published)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(x => x.Published)
+                        @Html.ValidationMessageFor(model => model.Published)
+                    </div>
+                </div>
+                <div class="form-group advanced-setting">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.DisplayOrder)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.DisplayOrder)
+                        @Html.ValidationMessageFor(model => model.DisplayOrder)
+                    </div>
+                </div>
+                @if (Model.CreatedOn.HasValue)
+                {
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.CreatedOn)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDisplay(Model.CreatedOn.Value.ToString("F"))
+                        </div>
+                    </div>
+                }
+                @if (Model.UpdatedOn.HasValue)
+                {
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.UpdatedOn)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDisplay(Model.UpdatedOn.Value.ToString("F"))
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

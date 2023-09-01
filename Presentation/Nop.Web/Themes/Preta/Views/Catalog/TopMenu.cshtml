@@ -1,0 +1,738 @@
+﻿@using Nop.Web.Models.Catalog
+@using Nop.Core.Infrastructure
+@using Nop.Services.Vendors
+@using Nop.Services.Seo
+@model TopMenuModel
+
+@{
+    var vendors = EngineContext.Current.Resolve<IVendorService>().GetAllVendors();
+    var brands = vendors.Where(vendor => vendor.Brand).Take(10).ToList();
+    var designers = vendors.Where(vendor => vendor.Designer).Take(10).ToList();
+    var brandsEmergings = vendors.Where(vendor => vendor.Brand && vendor.Emerging).Take(10).ToList();
+    var designerEmergings = vendors.Where(vendor => vendor.Designer && vendor.Emerging).Take(10).ToList();
+    var Stablishbrands = vendors.Where(vendor => vendor.Brand && vendor.Stablish).Take(10).ToList();
+    var Stablishdesigners = vendors.Where(vendor => vendor.Designer && vendor.Stablish).Take(10).ToList();
+    
+}
+
+
+@helper RenderCategoryLine(CategorySimpleModel category)
+{
+    <li>
+        @if (category.SubCategories.Count > 0)
+        {
+            <a class="with-subcategories" href="@Url.RouteUrl("Category", new { SeName = category.SeName })">@category.Name</a>
+            <div class="plus-button"></div>
+            <div class="sublist-wrap">
+                <div class="navigation-wrapper">
+                    <div class="close-menu">
+                        <span>@T("SevenSpikes.Themes.Common.CloseMenu")</span>
+                    </div>
+                    <div class="back-button">
+                        <span>@T("SevenSpikes.Themes.Common.BackSublist")</span>
+                    </div>
+                </div>
+                <ul class="sublist">
+
+
+                    @foreach (var subCategory in category.SubCategories)
+                    {
+                        @RenderCategoryLine(subCategory)
+                    }
+                </ul>
+            </div>
+        }
+        else
+        {
+            if (category.NumberOfProducts.HasValue)
+            {
+                <a href="@Url.RouteUrl("Category", new { SeName = category.SeName })">@category.Name @T("Categories.TotalProducts", category.NumberOfProducts.Value)</a>
+            }
+            else
+            {
+                <a href="@Url.RouteUrl("Category", new { SeName = category.SeName })">@category.Name</a>
+            }
+        }
+    </li>
+}
+@{
+    var topMenuCategories = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
+}
+<li class="megaparent">
+    <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[0].SeName })">LATEST</a>
+    <div class="mega-xv">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-4 col-md-5 top-menu-border">
+                    <div class="just-in__top__sub-headline">
+                        <p class="text-center">TOP JUST IN</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 padding-bottom">
+                            <a href="">
+                                <img class="img-responsive" src="~/Themes/Preta/Content/assets/img/khadi/header-banner01.jpg" />
+                            </a>
+                        </div>
+                        <div class="hidden-xs col-md-4 text-center">
+                            <img class="img-responsive margin-auto" src="https://s-media-cache-ak0.pinimg.com/736x/44/06/59/4406592a50ce5948f1a73bb586fd748b.jpg">
+                            <span>Simone Rocha</span>
+                        </div>
+                        <div class="hidden-xs col-sm-4 col-md-4 text-center">
+                            <img class="img-responsive margin-auto" src="https://s-media-cache-ak0.pinimg.com/736x/44/06/59/4406592a50ce5948f1a73bb586fd748b.jpg">
+                            <span>Simone Rocha</span>
+                        </div>
+                        <div class="hidden-xs col-sm-4 col-md-4 text-center">
+                            <img class="img-responsive margin-auto" src="https://s-media-cache-ak0.pinimg.com/236x/51/fc/78/51fc7816e4ff3cd7c7277667662f9f07.jpg">
+                            <span>Simone Rocha</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-md-2 top-menu-border">
+                    <p>Launches</p>
+                    <a href="">Sale</a><br>
+                    <a href="">Designers</a><br>
+                    <a href="">Interview</a><br>
+                    <a href="">Story/News/etc.</a>
+                    <div class="hidden-xs justin-counter">
+                        <p class="justin-counter__number">3</p>
+                        <p class="justin-counter__styles">NEW BRANDS</p>
+                        <p class="justin-counter__landed">JUST LANDED</p>
+                        <button class="justin-counter__btn btn">SHOP NOW</button>
+                    </div>
+
+                    <div class="just-in__email margin-top-small">
+                        <div style="width: 20%; display: inline-block;">
+                            <p style="position: relative; top: -3px; padding-bottom: 0px; margin-bottom: 0px;">
+                                <i class="fa fa-envelope fa-2x" style="color: black"></i>
+                            </p>
+                        </div>
+                        <div style="width: 75%; display: inline-block;">
+                            <p style="line-height: 12px; padding-bottom: 0px; margin-bottom: 0px;">
+                                RECEIVE JUST IN EMAIL ALERTS <i class="fa fa-caret-right"></i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-5 col-md-5">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="hidden-xs  col-sm-4 col-md-4 text-center">
+                                <img class="img-responsive margin-auto" src="https://s-media-cache-ak0.pinimg.com/736x/7b/5f/0f/7b5f0fafb1ab18c5b990d6eafa342af9.jpg">
+                                <span>Simone Rocha</span>
+                            </div>
+                            <div class=" hidden-xs col-sm-4 col-md-4 text-center">
+                                <img class="img-responsive margin-auto" src="https://s-media-cache-ak0.pinimg.com/736x/91/41/0d/91410d3250b66e1ae3cad828b665ed60.jpg">
+                                <span>Simone Rocha</span>
+                            </div>
+                            <div class="hidden-xs col-sm-4 col-md-4 text-center">
+                                <img class="img-responsive margin-auto" src="https://s-media-cache-ak0.pinimg.com/736x/91/41/0d/91410d3250b66e1ae3cad828b665ed60.jpg">
+                                <span>Simone Rocha</span>
+                            </div>
+                            <div class="hidden-xs col-sm-12 col-md-12 margin-top text-center">
+                                <a href="">
+                                    <img src="~/Themes/Preta/Content/assets/img/khadi/header-banner02.jpg"
+                                         class="img-responsive margin-auto" />
+                                </a>
+                            </div>
+
+                            <div class="col-sm-12 col-md-12 margin-top text-right">
+                                <a href="#"><span>VIEW ALL JUST IN</span></a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+<li class="megaparent">
+    <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[1].SeName })">MEN</a>
+    <div class="mega-xv">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 top-menu-border  ">
+                    <div class="row top-menu-men-row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 heading-men">
+                            <p>Designers</p>
+                        </div>
+                        <div class="col-xs-12 col-sm 6 col-md-6 padding-top">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="italic">NEW IN</h6>
+                                    <ul>
+                                        <li><a href="#">New In clothing</a></li>
+                                        <li><a href="#">New In Footwear</a></li>
+                                        <li><a href="#">New In Bags</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <h6 class="italic">Top Pick</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 padding-top">
+                                    <h6 class="italic">JEWELLERY</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 padding-top">
+                                    <h6 class="italic">International Brands</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden-xs col-sm 6 col-md-6 padding-top">
+                            <img src="~/Themes/Preta/Content/assets/img/nav/designer1.jpg" class="img-responsive" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="row top-menu-men-row">
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 heading-men">
+                            <p>Brands</p>
+                        </div>
+                        <div class="hidden-xs col-sm 6 col-md-6 padding-top">
+                            <img src="~/Themes/Preta/Content/assets/img/nav/designer2.jpg" class="img-responsive" alt="">
+                        </div>
+                        <div class="col-xs-6 col-sm 6 col-md-6 padding-top">
+                            <div class="row">
+                                
+                                <div class="col-md-6 ">
+                                    <h6 class="italic">Footwear</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <h6 class="italic">Trending</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 padding-top">
+                                    <h6 class="italic">Brand</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 padding-top">
+                                    <h6 class="italic">Watches</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+<li class="megaparent">
+    <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[1].SeName })">WOMEN</a>
+    <div class="mega-xv">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 top-menu-border  ">
+                    <div class="row top-menu-men-row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 heading-men">
+                            <p>Designers</p>
+                        </div>
+                        <div class="col-md-6 padding-top">
+                            <img src="~/Themes/Preta/Content/assets/img/nav/designer1.jpg" class="img-responsive" alt="">
+                        </div>
+                        <div class="col-md-6 padding-top">
+                            <div class="row">
+                                
+                                <div class="col-md-6 ">
+                                    <h6 class="italic">NEW IN</h6>
+                                    <ul>
+                                        <li><a href="#">New In clothing</a></li>
+                                        <li><a href="#">New In Footwear</a></li>
+                                        <li><a href="#">New In Bags</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <h6 class="italic">ETHNIC WEAR</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 padding-top">
+                                    <h6 class="italic">PLUS SIZE</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 padding-top">
+                                    <h6 class="italic">footwear</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="row top-menu-men-row">
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 heading-men">
+                            <p>Brands</p>
+                        </div>
+                       
+                        <div class="col-md-6 padding-top">
+                            <div class="row">
+
+                                <div class="col-md-6 ">
+                                    <h6 class="italic">Kurta/Kurti Store</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <h6 class="italic">Tops & Tees Store</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 padding-top">
+                                    <h6 class="italic">BEAUTY & GROOMING</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 padding-top">
+                                    <h6 class="italic">Fashion Jewellery</h6>
+                                    <ul>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li><a href="#">Subcategory</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 padding-top">
+                            <img src="~/Themes/Preta/Content/assets/img/nav/designer2.jpg" class="img-responsive" alt="">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+
+<li class="megaparent">
+    <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[2].SeName })">DESIGNER</a>
+    <div class="mega-xv">
+        <div class="container">
+            <div class="row padding-top">
+                <div class="hidden-xs  col-sm-2 col-md-2 top-menu-border text-align-center-small ">
+                    <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                        <h6 class="italic">FILTERD BY</h6>
+                    </a>
+                    <ul>
+                        @if (topMenuCategories[4].SubCategories.Count > 0)
+                        {
+                            foreach (var catagory in topMenuCategories[4].SubCategories)
+                            {
+                                <li><a href="@Url.RouteUrl("Category", new { SeName = catagory.SeName })">@catagory.Name</a></li>
+                            }
+                        }
+                    </ul>
+
+                    <div class="trending-shopnow">
+                        <h3 class="italic">TRENDING</h3>
+                        <h3 class="underline italic">SHOPNOW</h3>
+                    </div>
+                </div>
+                <div class="col-xs-6  col-sm-2 col-md-2">
+                    <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                        <h6 class="italic">DESIGNERS</h6>
+                    </a>
+                    <ul>
+
+                        @if (designers.Count > 0)
+                        {
+                            foreach (var designer in designers)
+                            {
+                                <li><a href="@Url.RouteUrl("vendor", new { SeName = designer.GetSeName() })">@designer.Name</a></li>
+                            }
+                            <li class="padding-top-40 underline italic"><a href="/vendor/all">SEE ALL</a></li>
+                        }
+
+                    </ul>
+                </div>
+                <div class="hidden-xs col-sm-3 col-md-3 top-menu-border">
+                    <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                        <h6 class="text-center italic">IN FOCUS</h6>
+                    </a>
+                    <img class="img-responsive" src="~/Themes/Preta/Content/assets/img/nav/Maheen_Khan.jpg" alt="">
+                </div>
+                <div class="col-xs-6  col-sm-2 col-md-2  text-align-center-small">
+                    <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                        <h6 class="italic">BRANDS</h6>
+                    </a>
+                    <ul>
+
+                        @if (brands.Count > 0)
+                        {
+
+                            foreach (var brand in brands)
+                            {
+                                <li><a href="@Url.RouteUrl("vendor", new { SeName = brand.GetSeName() })">@brand.Name</a></li>
+                            }
+                            <li class="padding-top-40 underline italic"><a href="/vendor/all">SEE ALL</a></li>
+                        }
+                    </ul>
+                </div>
+                <div class="hidden-xs col-sm-3 col-md-3 padding-top-small">
+                    <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[4].SeName })">
+                        <h6 class="text-center italic">FEATURED BRAND</h6>
+                    </a>
+                    <img class="img-responsive" src="~/Themes/Preta/Content/assets/img/nav/HSY.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+<li class="megaparent">
+    <a href="@Url.RouteUrl("Category", new { SeName = topMenuCategories[2].SeName })">BRAND	</a>
+    <div class="mega-xv">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6  col-sm-3 col-md-3  text-align-center-small">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6">
+                            <h6>Clothings</h6>
+                            <ul>
+                                <li><a href="#">Eastern Wear</a></li>
+                                <li><a href="#">Westren Wear</a></li>
+                                <li><a href="#">Wedding Wear</a></li>
+                                <li><a href="#">Inner Wear</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <h6>Footwear</h6>
+                            <ul>
+                                <li><a href="#">Formal</a></li>
+                                <li><a href="#">Causal</a></li>
+                                <li><a href="#">Traditional</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-xs col-sm-3 col-md-3 top-menu-border">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 padding-bottom text-center">
+                            <a href="">
+                                <img class="img-responsive margin-auto" src="~/Themes/Preta/Content/assets/img/nav/product.jpg">
+                                <span>Simone Rocha</span>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6 padding-bottom text-center">
+                            <img class="img-responsive margin-auto" src="~/Themes/Preta/Content/assets/img/nav/product.jpg">
+                            <span>Simone Rocha</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 padding-bottom text-center">
+                            <a href="">
+                                <img class="img-responsive margin-auto" src="~/Themes/Preta/Content/assets/img/nav/product.jpg">
+                                <span>Simone Rocha</span>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6 padding-bottom text-center">
+                            <img class="img-responsive margin-auto" src="~/Themes/Preta/Content/assets/img/nav/product.jpg">
+                            <span>Simone Rocha</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-xs col-sm-3 col-md-3 padding-top-small">
+                    <img class="img-responsive" src="~/Themes/Preta/Content/assets/img/nav/longbanner.jpg" alt="">
+                </div>
+                <div class="col-xs-6 col-sm-3 col-md-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-xs-6 col-md-6 ">
+                                    <h6>Brands</h6>
+                                    <ul>
+                                        <li><a href="#">Fahad Husayn</a></li>
+                                        <li><a href="#">Hassan Shehryar</a></li>
+                                        <li><a href="#">Umer sayeed</a></li>
+                                        <li><a href="#">Maheen Khan</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    <h6>Interview & Stories</h6>
+                                    <ul>
+                                        <li><a href="#">HSy</a></li>
+                                        <li><a href="#">Fashion Trends</a></li>
+                                        <li><a href="#">What to wear</a></li>
+                                        <li><a href="#">Fashion Week</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-6 col-md-6 padding-top">
+                                    <h6>Brands</h6>
+                                    <ul>
+                                        <li><a href="#">Fahad Husayn</a></li>
+                                        <li><a href="#">Hassan Shehryar</a></li>
+                                        <li><a href="#">Umer sayeed</a></li>
+                                        <li><a href="#">Maheen Khan</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-6 col-md-6 padding-top">
+                                    <h6>Interview & Stories</h6>
+                                    <ul>
+                                        <li><a href="#">HSy</a></li>
+                                        <li><a href="#">Fashion Trends</a></li>
+                                        <li><a href="#">What to wear</a></li>
+                                        <li><a href="#">Fashion Week</a></li>
+                                        <li class="underline italic"><a href="#">See All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+
+<li class="megaparent">
+    <a href="#">Exclusive</a>
+    <div class="mega-xv">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-3 col-md-3">
+                    <img class="img-responsive" src="~/Themes/Preta/Content/assets/img/nav/whats_new.jpg" alt="">
+                </div>
+                <div class="col-md-3 top-menu-border">
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <h6>Brands</h6>
+                            <ul>
+                                <li><a href="#">Fahad Husayn</a></li>
+                                <li><a href="#">Hassan Shehryar</a></li>
+                                <li><a href="#">Umer sayeed</a></li>
+                                <li><a href="#">Maheen Khan</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 ">
+                            <h6>Brands</h6>
+                            <ul>
+                                <li><a href="#">Fahad Husayn</a></li>
+                                <li><a href="#">Hassan Shehryar</a></li>
+                                <li><a href="#">Umer sayeed</a></li>
+                                <li><a href="#">Maheen Khan</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 padding-top ">
+                            <h6>Brands</h6>
+                            <ul>
+                                <li><a href="#">Fahad Husayn</a></li>
+                                <li><a href="#">Hassan Shehryar</a></li>
+                                <li><a href="#">Umer sayeed</a></li>
+                                <li><a href="#">Maheen Khan</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 padding-top">
+                            <h6>Brands</h6>
+                            <ul>
+                                <li><a href="#">Fahad Husayn</a></li>
+                                <li><a href="#">Hassan Shehryar</a></li>
+                                <li><a href="#">Umer sayeed</a></li>
+                                <li><a href="#">Maheen Khan</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>UK Brands</h6>
+                            <ul>
+                                <li><a href="#">Aquazzura</a></li>
+                                <li><a href="#">Chloé</a></li>
+                                <li><a href="#">Christian Louboutin</a></li>
+                                <li><a href="#">Gianvito Rossi</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12 padding-top">
+                            <div class="well">
+                                <ul>
+                                    <li><a href="#">Shop By Video</a></li>
+                                    <li><a href="#">Shop By Content</a></li>
+                                    <li><a href="#">Shop By Look</a></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="~/Themes/Preta/Content/assets/img/nav/banner1.jpg" alt="" class="img-responsive center-block">
+                        </div>
+                        <div class="col-md-12 padding-top">
+                            <img src="~/Themes/Preta/Content/assets/img/nav/banner2.jpg" alt="" class="img-responsive center-block">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+<li class="megaparent sale-nav">
+    <a href="#">SALE</a>
+    <div class="mega-xv">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-2 col-md-2 ">
+                    <img class="img-responsive" src="~/Themes/Preta/Content/assets/img/nav/leftbanner.jpg" alt="">
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>Brands</h6>
+                            <ul>
+                                <li><a href="#">Fahad Husayn</a></li>
+                                <li><a href="#">Hassan Shehryar</a></li>
+                                <li><a href="#">Umer sayeed</a></li>
+                                <li><a href="#">Maheen Khan</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12 padding-top">
+                            <h6>Interview & Stories</h6>
+                            <ul>
+                                <li><a href="#">HSy</a></li>
+                                <li><a href="#">Fashion Trends</a></li>
+                                <li><a href="#">What to wear</a></li>
+                                <li><a href="#">Fashion Week</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-2 top-menu-border">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>Categories</h6>
+                            <ul>
+                                <li><a href="#">Lawn</a></li>
+                                <li><a href="#">Shirts</a></li>
+                                <li><a href="#">Suiting</a></li>
+                                <li><a href="#">Bridal</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12 padding-top">
+                            <h6>Collection</h6>
+                            <ul>
+                                <li><a href="#">Summer Collection</a></li>
+                                <li><a href="#">Bridal Collection</a></li>
+                                <li><a href="#">2018 Collection</a></li>
+                                <li class="underline italic"><a href="#">See All</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="~/Themes/Preta/Content/assets/img/nav/salebanner.jpg" alt="" class="img-responsive center-block">
+                        </div>
+                        <div class="col-md-12">
+                            <img src="~/Themes/Preta/Content/assets/img/nav/banner2.jpg" alt="" class="img-responsive center-block">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-2">
+                    <img class="img-responsive" src="~/Themes/Preta/Content/assets/img/nav/leftbanner.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+<li class="megaparent wife-nav">
+    <a href="wife.html">W!FE</a>
+</li>

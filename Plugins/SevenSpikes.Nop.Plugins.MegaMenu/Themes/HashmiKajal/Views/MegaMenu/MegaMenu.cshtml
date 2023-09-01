@@ -1,0 +1,212 @@
+﻿@** Copyright 2016 Seven Spikes Ltd. All rights reserved. (http://www.nop-templates.com)
+    * http://www.nop-templates.com/t/licensinginfo
+*@
+
+@using SevenSpikes.Nop.Plugins.MegaMenu
+@using SevenSpikes.Nop.Plugins.MegaMenu.Domain.Enums
+@using SevenSpikes.Nop.Plugins.MegaMenu.Models
+
+@using Nop.Core.Infrastructure;
+@using Nop.Core.Domain.Customers;
+@using Nop.Core;
+
+@model MegaMenuWidgetModel
+
+@{
+    Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.MegaMenu/Themes/" + Model.Theme + "/Content/MegaMenu.css");
+
+    var supportRtl = ShouldUseRtlTheme();
+    if (supportRtl)
+    {
+        Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.MegaMenu/Themes/" + Model.Theme + "/Content/MegaMenu.rtl.css");
+    }
+
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/SevenSpikesExtensions.min.js");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Nop.Plugins.MegaMenu/Scripts/MegaMenu.min.js");
+}
+
+@helper BuildMenuItem(MenuItemModel item)
+{
+    var hasSublist = item.SubItems.Count > 0;
+    var hasSublistClass = hasSublist ? "has-sublist" : string.Empty;
+    var withSubcategoriesClass = hasSublist ? "with-subcategories" : string.Empty;
+    var itemUrl = Constants.PredefinedPageTypes.Contains(item.Type) ? Url.RouteUrl(item.Type.ToString()) : item.Url;
+
+    <li class="@item.CssClass @hasSublistClass">
+        @*title="@item.Title" *@
+        <a href="@itemUrl" class="@withSubcategoriesClass"  @if (item.OpenInNewWindow) { <text> target="_blank" </text> }><span> @item.Title</span></a>
+
+        @if (hasSublist)
+        {
+            <div class="plus-button"></div>
+            <div class="sublist-wrap">
+                <ul class="sublist">
+                    <li class="back-button">
+                        <span>@T("SevenSpikes.MegaMenu.ResponsiveBackButton")</span>
+                    </li>
+                    @foreach (var subItem in item.SubItems)
+                    {
+                        @BuildMenuItem(subItem)
+                    }
+                </ul>
+            </div>
+        }
+    </li>
+}
+
+@foreach (var menu in Model.MegaMenus)
+{
+    List<MvcHtmlString> responsiveMenuItems = new List<MvcHtmlString>();
+
+    <ul class="mega-menu @menu.CssClass"
+        data-isRtlEnabled="@supportRtl.ToString().ToLowerInvariant()"
+        data-enableClickForDropDown="@menu.ShowDropdownsOnClick.ToString().ToLowerInvariant()">
+        @foreach (var item in menu.Items)
+        {
+            var shouldUseCatalogTemplate = (item.Type == MenuItemType.Categories && item.CatalogTemplate != CatalogTemplate.Simple);
+            var shouldUseManufacturerTemplate = (item.Type == MenuItemType.Manufacturers && item.MaximumNumberOfEntities > 0 && item.CatalogTemplate != CatalogTemplate.Simple);
+            var shouldUseVendorTemplate = (item.Type == MenuItemType.Vendors && item.MaximumNumberOfEntities > 0 && item.CatalogTemplate != CatalogTemplate.Simple);
+            var shouldUseTopicTemplate = (item.Type == MenuItemType.Topics && item.MaximumNumberOfEntities > 0 && item.EntityId == 0);
+            var shouldUseProductTagsTemplate = (item.Type == MenuItemType.ProductTags && item.MaximumNumberOfEntities > 0 && item.EntityId == 0);
+
+            if (shouldUseCatalogTemplate)
+            {
+                MvcHtmlString menuItemHtml = Html.Action("GetCategoryTemplate", "MegaMenuCatalog", new { menuItem = item });
+
+                @menuItemHtml
+
+                var responsiveMenu = menuItemHtml;
+
+                if (item.CatalogTemplate == CatalogTemplate.WithPictures)
+                {
+                    MenuItemModel responsiveMenuItem = (MenuItemModel)item.Clone();
+
+                    responsiveMenuItem.CatalogTemplate = CatalogTemplate.List;
+
+                    responsiveMenu = Html.Action("GetCategoryTemplate", "MegaMenuCatalog", new { menuItem = responsiveMenuItem, isResponsive = true });
+                }
+
+                responsiveMenuItems.Add(responsiveMenu);
+            }
+            else if (shouldUseManufacturerTemplate)
+            {
+
+                MvcHtmlString menuItemHtml = Html.Action("GetManufacturerTemplate", "MegaMenuCatalog", new { menuItem = item });
+
+                @menuItemHtml
+
+                var responsiveMenu = menuItemHtml;
+
+                if (item.CatalogTemplate == CatalogTemplate.WithPictures)
+                {
+                    MenuItemModel responsiveMenuItem = (MenuItemModel)item.Clone();
+
+                    responsiveMenuItem.CatalogTemplate = CatalogTemplate.List;
+
+                    responsiveMenu = Html.Action("GetManufacturerTemplate", "MegaMenuCatalog", new { menuItem = responsiveMenuItem });
+                }
+
+                responsiveMenuItems.Add(responsiveMenu);
+            }
+            else if (shouldUseVendorTemplate)
+            {
+
+                MvcHtmlString menuItemHtml = Html.Action("GetVendorTemplate", "MegaMenuCatalog", new { menuItem = item });
+
+                @menuItemHtml
+
+                var responsiveMenu = menuItemHtml;
+
+                if (item.CatalogTemplate == CatalogTemplate.WithPictures)
+                {
+                    MenuItemModel responsiveMenuItem = (MenuItemModel)item.Clone();
+
+                    responsiveMenuItem.CatalogTemplate = CatalogTemplate.List;
+
+                    responsiveMenu = Html.Action("GetVendorTemplate", "MegaMenuCatalog", new { menuItem = responsiveMenuItem });
+                }
+
+                responsiveMenuItems.Add(responsiveMenu);
+            }
+            else if (shouldUseTopicTemplate)
+            {
+                MvcHtmlString menuItemHtml = Html.Action("GetTopicTemplate", "MegaMenuCatalog", new { menuItem = item });
+                responsiveMenuItems.Add(menuItemHtml);
+
+                @menuItemHtml
+            }
+            else if (shouldUseProductTagsTemplate)
+            {
+                MvcHtmlString menuItemHtml = Html.Action("GetProductTagsTemplate", "MegaMenuCatalog", new { menuItem = item });
+                responsiveMenuItems.Add(menuItemHtml);
+
+                @menuItemHtml
+            }
+            else
+            {
+                var menuHelperResult = BuildMenuItem(item);
+                MvcHtmlString menuItemHtml = MvcHtmlString.Create(menuHelperResult.ToHtmlString());
+                responsiveMenuItems.Add(menuItemHtml);
+
+                @menuItemHtml
+            }
+        }
+
+        @Html.Widget("header_menu_after")
+    </ul>
+
+    <div class="menu-title"><span>@T("SevenSpikes.MegaMenu.ResponsiveMenuTitle")</span></div>
+    @*<div class="search-wishlist">
+        <div class="search-wrap li-search">
+            <span>@T("Search")</span>
+        </div>
+        <div class="wishlist-button">
+            <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                <span class="cart-label">@T("Wishlist")</span>
+            </a>
+        </div>
+    </div>*@
+    <ul class="mega-menu-responsive @menu.CssClass">
+        @foreach (var responsiveMenuItem in responsiveMenuItems)
+        {
+            @responsiveMenuItem
+        }
+	<li>
+            <a href="/customer/info" class="ico-user">
+                @if (EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer.IsRegistered())
+                {
+                    <span>My Account</span>
+                }
+                else
+                {
+                    <span>login / Register</span>
+                }
+            </a>
+        </li>
+       <li >
+            <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                <span class="cart-label">@T("Wishlist")</span>
+            </a>
+        </li>
+        @*<li class="li-search">
+            <div class="search-wrap">
+                <span>@T("Search")</span>
+            </div>
+        </li>*@
+        @Html.Widget("header_menu_after")
+    </ul>
+}
+
+    <div class="Social_apps mob-menu-logo">
+        <h2 class="title">@T("Footer.FollowUs")</h2>
+        <div class="social">
+            @Html.Action("Social", "Common")
+        </div>
+    </div>
+
+    @*<div class="mob-menu-logo">
+        <a href="/">
+            <img src="~/Themes/HashmiKajal/Content/homePage/images/hashmi.png" />
+        </a>
+    </div>*@
+

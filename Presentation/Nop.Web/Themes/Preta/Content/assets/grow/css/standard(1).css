@@ -1,0 +1,232 @@
+/* ----------------------------------------- SEARCH RESULT ----------------------------------------- */
+#wrapper.sr {
+	background: url('http://cdn2.yoox.biz/Os/cavalligroup/common/srBG.jpg');
+}
+
+#filterSortBar{
+	font-size:110%;
+	color:#909090;
+}
+
+#filterSortBar .pageWidth{
+	background:rgba(0,0,0, 0.85);
+	padding-left:26px;
+}
+
+.no-rgba #filterSortBar .pageWidth{
+	background:#000;
+	opacity: 0.85;
+	-moz-opacity: 0.85;
+	filter:alpha(opacity=85);
+}
+
+#filterSortContainer>ul>li{
+	margin:0 10px 0 0;
+	width: 140px;
+}
+
+#filterSortContainer .filterLable{
+	position: relative;
+	padding: 0 10px;
+	color: #FFF;
+	text-align:center;
+}
+
+#filterSortContainer .filterText{
+	display: block;
+	padding-right: 6px;
+}
+
+.ru #filterSortContainer .filterText{
+	text-overflow: ellipsis;
+	overflow-x: hidden;
+	white-space: nowrap;
+}
+
+.filterMenu .spriteArrowDown {
+	position: absolute;
+	top: 18px;
+	right: 10px;
+	background-position: -22px -239px;
+}
+
+/*#selectCategoryListContainer,#selectSizeListContainer,#selectColorListContainer*/
+#filterSortContainer .filterMenu .filterMenuContainer {
+	position: absolute;
+	top: 45px;
+	left: -50px;
+	width: 230px;
+	margin-right:-30px;
+	text-align: center;
+	border-top: 1px solid #000;
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.5);
+	background-color: #000;
+	background-image: -webkit-linear-gradient(top, #202020 0%, #000 100%);
+	background-image: -moz-linear-gradient(top, #202020 0%, #000 100%);
+	background-image: -ms-linear-gradient(top, #202020 0%, #000 100%);
+	background-image: -o-linear-gradient(top, #202020 0%, #000 100%);
+	background-image: linear-gradient(top, #202020 0%, #000 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#202020', endColorstr='#000000',GradientType=0 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+#filterSortContainer>ul {
+}
+
+#filterSortContainer .filterMenu ul {
+	padding-top: 0;
+	margin: 2px;
+	line-height:1.2em;
+}
+
+#filterSortContainer .filterMenu li {
+}
+#filterSortContainer .filterMenu li:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+#filterSortContainer .filterMenu li:hover a {
+	color: #FFF;
+}
+
+#filterSortContainer .filterMenu #selectSortListContainer.filterMenuContainer{
+	width:190px;
+}
+
+#sfilterSortContainer .filterMenu li.first {
+}
+
+#pageContent .pageWidth, #pageControls .pageWidth {
+	margin: 2px;
+}
+
+#pageContent .productContainer .productImageStroke{
+	background-color: #FFF;
+}
+
+.ie8 #pageContent .productContainer .productImageStroke, .ie8 #pageContent .productContainer .productAltImageStroke {
+	border-bottom: 1px solid #999;
+	outline:  1px solid #ddd;
+}
+
+.ie7 #pageContent .productContainer .productImageStroke, .ie7 #pageContent .productContainer .productAltImageStroke  {
+	border: 1px solid #DDD;
+}
+
+#pageContent .productContainer .productDetailsContainer {
+	color: #FFF;
+	background-color: #202020;
+	box-shadow: -1px -1px 3px rgba(0,0,0,0.5);
+}
+
+#pageContent .productDescriptionContainer .productMicro {
+	font-size: 110%;
+	color: #909090;
+}
+
+#pageContent .productContainer .newprice{
+	color: #FFF;
+}
+#pageContent .productContainer .oldprice{
+	color: #909090;
+}
+#pageContent .productContainer .discountPct{
+	color: #FFF;
+}
+
+/* STILE PER IL PREZZO CHE VERRA EFFETTIVAMENTE PAGATO (DISCOUTER O REGULAR) */
+
+
+#pageContent .productContainer .productSizeColorSelector{
+	width:43px;
+}
+
+#pageContent .colorsList img {
+	border:1px solid transparent;
+}
+
+#pageContent .colorsList .selected img {
+}
+
+#pageContent .sizesList li{
+}
+
+#pageContent .productMicro{
+	padding-top: 2px;
+}
+#pageContent .productPrice{
+	padding-top: 3px;
+} 
+
+#pageControls {
+	margin-bottom: 26px;
+}
+
+#scrollTopButton .spriteArrowTop{
+	background-position: -24px -204px;
+	opacity: 0.8;
+	filter:alpha(opacity=80);
+}
+
+#scrollTopButton .scrollTopLabel{
+	color:#505050;
+}
+
+/* ---- NO RESULT --- */
+
+#noResultLayer {
+	left:10px;
+	right:10px;
+}
+
+
+/* ----------------------------------------- GALLERY ----------------------------------------- */
+
+#wrapper#gallery  {
+	background: url('http://cdn2.yoox.biz/Os/cavalligroup/justcavalli/Colored_Material.jpg');
+}
+
+#gallery #topBanner{
+}
+
+#gallery #topBanner img{
+}
+
+.srLoading {
+	background: none repeat scroll 0 0 #FFFFFF;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	opacity:0.8;
+	filter:alpha(opacity=80);
+	position: absolute;
+	z-index: 9999;
+}
+
+
+@media screen and (min-width: 1000px) {
+
+
+	#filterSortBar .pageWidth {
+		margin: 0 10px;
+	}
+
+	#pageContent .pageWidthInner{
+		padding: 0px;
+		margin-right: -4%;
+	}
+	#filterSortContainer > ul > li {
+		width: 150px;
+	}
+	
+	#filterSortContainer .filterMenu .filterMenuContainer {
+		left: -30px;
+	}
+}
+
+#pageContent li.product .preorder,
+#gallery #pageContent li.product .preorder{   
+    bottom: 45px;  
+    width: 240px;
+    left:0;
+}

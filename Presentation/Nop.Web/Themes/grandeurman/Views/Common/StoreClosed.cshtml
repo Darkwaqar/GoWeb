@@ -1,0 +1,141 @@
+﻿@{
+   // Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.StoreClosed").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-store-closed-page");
+}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    
+    .newsletter-email input[type="text"] {
+        width: 65%;
+        float: left;
+        padding: 8px;
+    }
+    .newsletter-email .newsletter-subscribe-button {
+    -webkit-appearance: none;
+    cursor: pointer;
+    width: 35%;
+    padding: 8px;
+    background-color: #d1bda9;
+    color: #000;
+    border: solid 2px #d1bda9;
+    float: right;
+    vertical-align: middle;
+    display: inline-block;
+    }
+    .heading{
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .web{
+        display: none;
+    }
+    .mobile{
+        display: block;
+    }
+    .newslatter .title {
+            display: none;
+    }
+    .body{
+        background-image: url(Themes/grandeurman/Content/images/grand/Mobile.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+        background-position: top;
+    }
+    .newslatter {
+        top: 50%;
+        width: 80%;
+        position: absolute;
+        left: 0%;
+        right: 0;
+        margin: auto;
+        background: #000000ad;
+        padding: 5px 10px;
+	text-align: center;
+	    display: none;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   border-radius: 0;
+        }
+    .newsletter-email{
+        display: inline-block;
+    }
+    .newsletter-result {
+	color:#fff;
+    }
+    @@media (min-width: 1080px) {
+        .body{
+            background-image: url(Themes/grandeurman/Content/images/grand/COMING-01.jpg);
+            background-position: top;
+        }
+        .logo{
+            position: absolute;
+            left: 2%;
+            top: 4%;
+        }
+        .logo img{
+            width: 244px;
+        }
+        .heading{ 
+            font-size: 20px;
+        }
+        .newslatter {
+            top: 50%;
+            max-width: 40%;
+            width: 330px;
+            position: absolute;
+            left: 15%;
+            right: unset;
+            background: transparent;
+            padding: 0;
+            text-align: center;
+	    display: block;
+        }
+        /*.newslatter .title,*/
+        .mobile{
+            display: none;
+        }
+        .web{
+            display: block;
+        }
+    }
+    
+    .logo {
+        background: #000;
+        text-align: center;
+    }
+    .logo img {
+        max-width: 170px;
+        margin: 10px auto;
+    }
+
+</style>
+<div class="page store-closed-page">
+    <div class="logo">
+        <img width="100%" src="~/Themes/grandeurman/Content/images/grand/logo.png" />
+    </div>
+    <div class="body"> </div>
+    @* <img class="web" width="100%"  src="" /> *@
+    @* <img class="mobile" width="100%"  src="~/Themes/grandeurman/Content/images/grand/" /> *@
+    <div class="newslatter">
+        @*<p class="heading">Please Send Launching Invitation</p>*@
+        <div id="newsBox">
+            @Html.Action("NewsletterBox", "Newsletter")
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿@using SevenSpikes.Nop.Plugins.RichBlog.Models;
+
+@model  IList<BlogPostModel7Spikes>
+
+@{
+    if (Model.Count == 0)
+    {
+        return;
+    }
+
+    var supportRtl = this.ShouldUseRtlTheme();
+    var theme = Model.FirstOrDefault().Theme;
+
+    Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + theme + "/Content/RichBlog.css");
+    Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + theme + "/Content/css/jquery.mCustomScrollbar.min.css");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + theme + "/Content/js/jquery.mCustomScrollbar.concat.min.js");
+    if (supportRtl)
+    {
+        Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + theme + "/Content/RichBlog.rtl.css");
+
+    }
+}
+
+
+<div class="ph-tpl ph-tpl__promos" style="display:block">
+    <div class="ph-tpl__slider">
+        <div data-mf-target="h-scrollbar" class="mCustomScrollbar _mCS_2">
+            <div id="mCSB_2" class="mCustomScrollBox mCS-dark-thick mCSB_horizontal mCSB_inside" tabindex="0">
+                <div id="mCSB_2_container" class="mCSB_container" >
+                    <div class="ph-tpl__slider__wrapper" >
+
+                        @foreach (var post in Model)
+                        {
+                            <div class="ph-tpl__slider__element womens">
+                                <a href="@Url.RouteUrl("BlogPost", new { SeName = post.SeName })">
+                                    <div class="style-guide--black"></div>
+                                    @if (!string.IsNullOrWhiteSpace(post.HomePagePictureUrl))
+                                    {
+                                        <img class="ph-tpl__slider__element__image" src="@post.HomePagePictureUrl" alt="@post.Title" title="@post.Title">
+
+                                    }
+                                    <p class="ph-tpl__slider__element__gender">Editor’s Picks</p>
+                                    <h4 class="ph-tpl__slider__element__headline">@post.Title</h4>
+                                </a>
+                                <a href="@Url.RouteUrl("BlogPost", new { SeName = post.SeName })" class="ph-tpl__slider__element__link">READ AND SHOP NOW</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                @*<div id="mCSB_2_scrollbar_horizontal" class="mCSB_scrollTools mCSB_2_scrollbar mCS-dark-thick mCSB_scrollTools_horizontal" style="display: block;">
+                    <div class="mCSB_draggerContainer">
+                        <div id="mCSB_2_dragger_horizontal" class="mCSB_dragger" style="position: absolute; min-width: 30px; width: 952px; left: 0px; display: block; max-width: 1724px;" oncontextmenu="return false;">
+                            <div class="mCSB_dragger_bar">
+                            </div>
+                        </div>
+                        <div class="mCSB_draggerRail">
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function ($) {
+        $(window).on("load", function () {
+            $(".ph-tpl__slider").mCustomScrollbar({
+                axis: "x",
+                theme: "dark-3",
+                advanced: {
+                    autoExpandHorizontalScroll: true
+                }
+            });
+        });
+    })(jQuery);
+</script>

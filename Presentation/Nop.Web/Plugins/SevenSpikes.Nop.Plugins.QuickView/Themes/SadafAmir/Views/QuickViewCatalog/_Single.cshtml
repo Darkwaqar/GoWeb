@@ -1,0 +1,98 @@
+﻿@using Nop.Core.Domain.Orders
+@using SevenSpikes.Nop.Plugins.QuickView.Models
+
+@model QuickViewProductPageModel
+
+@{
+    var productDetails = Model.ProductDetails;
+
+    
+}
+
+<input id="add-to-cart-details" type="hidden"
+       data-productid="@productDetails.Id"
+       data-url="@Url.RouteUrl("AddProductToCart-Details", new { productId = productDetails.Id, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })" />
+
+<div class="product-essential">
+    @using (Html.BeginRouteForm("Product", new { SeName = Model.ProductDetails.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+    {
+        @*<div class="popup-header">
+            <h1 class="product-name">
+                @Model.ProductDetails.Name
+            </h1>
+        </div>*@
+        <div class="product-content">
+           
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="gallery">
+                        <!--product pictures-->
+                        @*@Html.Action("ShowCloudZoomPictures", "QuickViewCatalog", new { model = Model })*@
+                        @Html.Partial("_ProductPictures", Model)
+
+                        @*<div class="links-panel">
+                           
+
+
+
+                           
+                        </div>*@
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6 col-pad">
+                    <div class="overview">
+                        <h1 class="product-name">
+                            <a href="@Url.RouteUrl("Product", new { SeName = Model.ProductDetails.SeName })" class="link-to-product-page">  @Model.ProductDetails.Name </a>
+                        </h1>
+                        @{
+                            var dataDictPrice = new ViewDataDictionary();
+                            dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", productDetails.Id);
+                            @Html.Partial("_ProductPrice", productDetails.ProductPrice, dataDictPrice)
+                        }
+
+
+
+
+                        @Html.Partial("_SKU_Man_GTIN_Ven", productDetails)
+                        @Html.Partial("_DeliveryInfo", productDetails)
+                        @Html.Partial("_Availability", productDetails)
+                        <!--product tier prices-->
+                        @Html.Partial("_ProductTierPrices", productDetails.TierPrices)
+
+
+                        @{
+                            var dataDictAttributes = new ViewDataDictionary();
+                            dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", productDetails.Id);
+                            @Html.Partial("_QuickViewProductAttributes", productDetails.ProductAttributes, dataDictAttributes)
+                        }
+                        <div class="addtop-cart">
+
+
+                            @{
+                                var dataDictAddToCart = new ViewDataDictionary();
+                                dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", productDetails.Id);
+                                @Html.Partial("_AddToCart", productDetails.AddToCart, dataDictAddToCart)
+                            }
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+            
+            </div>
+        
+        if (Model.QuickViewSettings.ShowRelatedProducts)
+        {
+            @Html.Action("RelatedProducts", "Product", new { productId = productDetails.Id })
+        }
+        if (Model.QuickViewSettings.ShowProductsAlsoPurchased)
+        {
+            @Html.Action("ProductsAlsoPurchased", "Product", new { productId = productDetails.Id })
+        }
+    }
+</div>

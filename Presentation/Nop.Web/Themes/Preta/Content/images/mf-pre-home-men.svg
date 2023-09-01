@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="102.9px"
+	 height="29.535px" viewBox="-3.494 -1.428 102.9 29.535" enable-background="new -3.494 -1.428 102.9 29.535" xml:space="preserve"
+	>
+<filter  id="blurFilter">  <feGaussianBlur  stdDeviation="2"></feGaussianBlur>
+</filter>
+<g id="Layer_1">
+	<g opacity="0.5">
+	</g>
+	<g filter="url(#blurFilter)">
+		<path fill="#1D1D1B" d="M28.318,24.996V6.516h-0.093L16.485,21.25L4.84,6.516H4.745v18.48H1V2.392h4.652l10.866,13.672
+			L27.413,2.392h4.654v22.604H28.318z"/>
+		<path fill="#1D1D1B" d="M39.625,24.996V2.392h22.791v3.405H43.37v5.776h13.242v3.403H43.37v6.619h19.921V25H39.625V24.996z"/>
+		<path fill="#1D1D1B" d="M89.99,24.996L72.689,6.449v18.547h-3.744V2.392h4.652l17.266,18.545V2.392h3.746v22.604H89.99z"/>
+	</g>
+</g>
+<g id="Layer_1_copy">
+	<g opacity="0.5">
+	</g>
+	<g>
+		<path fill="#FFFFFF" d="M27.318,23.996V5.516h-0.093L15.485,20.25L3.84,5.516H3.745v18.48H0V1.392h4.652l10.866,13.672
+			L26.413,1.392h4.654v22.604H27.318z"/>
+		<path fill="#FFFFFF" d="M38.625,23.996V1.392h22.791v3.405H42.37v5.776h13.242v3.403H42.37v6.619h19.921V24H38.625V23.996z"/>
+		<path fill="#FFFFFF" d="M88.99,23.996L71.689,5.449v18.547h-3.744V1.392h4.652l17.266,18.545V1.392h3.746v22.604H88.99z"/>
+	</g>
+</g>
+</svg>

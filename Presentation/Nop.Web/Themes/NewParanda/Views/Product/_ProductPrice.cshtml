@@ -1,0 +1,53 @@
+﻿@model ProductDetailsModel.ProductPriceModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Catalog;
+@if (!Model.CustomerEntersPrice)
+{
+
+
+
+
+
+    if (Model.CallForPrice)
+    {
+
+
+
+
+    }
+    else
+    {
+
+
+
+        <div class="product_price">
+            <span class="woocommerce-Price-amount amount">@Html.Raw(Model.Price)<span class="woocommerce-Price-currencySymbol">
+    @*@if (!String.IsNullOrEmpty(Model.CurrencyCode))
+    {
+                @Model.CurrencyCode
+    }*@
+
+
+
+</span></span>
+        </div>
+
+
+
+    }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+

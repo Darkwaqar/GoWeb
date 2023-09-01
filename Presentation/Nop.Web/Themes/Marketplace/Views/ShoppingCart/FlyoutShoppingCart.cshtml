@@ -1,0 +1,59 @@
+﻿@model MiniShoppingCartModel
+@using Nop.Web.Models.ShoppingCart;
+  <h5 style="font: 700 13px/12px 'Helvetica Neue','Helvetica','Arial',sans-serif;letter-spacing:1.5px">SHOPPING CART</h5>
+    @if (Model.TotalProducts == 0)
+            {
+                @T("ShoppingCart.Mini.NoItems")
+            }
+            
+   @if (Model.TotalProducts > 0)
+        {
+		for (int i = 0; i < Model.Items.Count; i++)
+                {
+				 var item = Model.Items[i];
+					        <div class="addedItem">
+                                <figure>
+                                    <img alt="" src="@item.Picture.ImageUrl">
+                                </figure>
+                                <div class="itemDetails">
+                                    <span class="name">@item.ProductName</span>
+                                    <span class="price">@item.UnitPrice</span>
+									<span class="price">Qty:  @item.Quantity</span>
+                                    @using (Html.BeginRouteForm("ShoppingCart", FormMethod.Post, new { enctype = "multipart/form-data", id = "shopping-cart-form" }))
+                                    {
+                                         @Html.AntiForgeryToken()
+    <a href="#" onclick="RemoveCartItem('chkbox@(item.Id)')" class="removeitem"><i class="xv-arrows_circle_remove"></i></a>
+                                           <a href="#" onclick="RemoveCartItem('chkbox@(item.Id)')" style="text-decoration: underline;">REMOVE</a>
+                    <input type="checkbox" name="removefromcart" id="chkbox@(item.Id)" style="display:none" value="@(item.Id)" />
+                    <input type="submit" name="updatecart" style="padding-left:0px" class="button-2 update-cart-button update-shoppingcart hidden-md hidden-lg hidden-xs " id="updatecart" value="UPDATE CART" />
+                                    }
+                                </div>
+                            </div>
+
+                }
+                <h6 style="font: 700 13px/12px 'Helvetica Neue','Helvetica','Arial',sans-serif;letter-spacing:1.5px">SUB TOTAL</h6>
+                            <h6><span>@Model.SubTotal</span></h6>
+                            <a href="@Url.RouteUrl("Checkout")" class="btn btn-default">checkout</a>
+                            <span class="viewCart">or <a href="/cart" class="goToCart">view shopping cart</a></span>
+		}
+        
+
+<script>
+    function RemoveCartItem(checkbox) {
+
+        $("#" + checkbox).prop('checked', true);
+        $("#updatecart").click();
+
+    }
+    function updateCart() {
+        $("#updatecart").click();
+    }
+
+
+    $(".qty-input").on('keyup mouseup', function () {
+
+    });
+</script>
+		
+                            
+                            

@@ -1,0 +1,100 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+}
+@Html.Partial("_Notifications")
+@Html.Widget("body_start_html_tag_after")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+@Html.Partial("Header")
+@Html.Action("TopMenu", "Catalog")
+@Html.Widget("container_before")
+@Html.Widget("content_before")
+@if (IsSectionDefined("Breadcrumb"))
+{
+    @RenderSection("Breadcrumb")
+}
+@RenderBody()
+@Html.Widget("content_after")
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")
+@Html.Action("Footer", "Common")
+
+<div id="qview" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" id="quickviewContent">
+        </div>
+    </div>
+</div>
+<script>
+    var loading = "<div class='text-center'><img src='/content/images/loading2.gif' /></div>";
+    function quickView_close() {
+    }
+    function QuickView(sname, id) {
+        $("#quickviewContent").html(loading);
+        $.get("/" + sname, function (r) {
+            $("#quickviewContent").html(r);
+        })
+    }
+</script>
+<script type="text/javascript">
+    AjaxCart.init(false, '.cart-qty', '.wishlist-qty', '#flyout-cart');
+</script>
+<script>
+    $(function () {
+        $(".tooltipOn").tooltip({
+            'placement': 'top'
+        });
+    });
+</script>
+<script type="text/javascript">
+    $('#topcartlink').hover(function () {
+        $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn();
+    }, function () {
+        $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut();
+    });
+</script>
+<script>$(".qty-input").spinner();</script>
+<script>
+    function hideForgetPasswrod() {
+        $("#showsection").addClass("hide");
+        $("#hidesection").show();
+    }
+    $(document).ready(function () {
+        $("#authBtnTrack").on("click", function () {
+            if (document.getElementById("AuthPanel").style.display == "none") {
+                closeIfOpened("SearchPanel");
+                $("#AuthPanel").show("slow");
+                $("#AuthPanel3").hide("slow");
+                return;
+            }
+            $("#AuthPanel").hide("slow");
+        });
+        $("#searchBtn").on("click", function () {
+            if (document.getElementById("SearchPanel").style.display == "none") {
+                closeIfOpened("AuthPanel");
+                $("#SearchPanel").show("slow");
+                return;
+            }
+            $("#SearchPanel").hide("slow");
+        });
+    });
+    function closeIfOpened(name) {
+        if (document.getElementById(name).style.display != "none") {
+            $("#" + name).hide("slow");
+        }
+    }
+    $(".btn-topmenu").on("click", function () {
+        $("#leftmenu").animate({ width: 'toggle' }, 350);
+    })
+</script>
+<script>
+    function hideandshow() {
+        $("#hidesection").hide();
+        $("#showsection").removeClass('hide');
+        $("#showsection").addClass('active');
+    }
+</script>
+<script>
+$(".counter").html($('.cart-qty').html());
+</script>

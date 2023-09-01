@@ -1,0 +1,22 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "T7CDA6EKAJ.com.growonline.Pret-a-pak",
+                "paths": [ "/share*" ]
+            },
+            {
+                "appID": "T7CDA6EKAJ.com.growonline.GoMobiShop",
+                "paths": [ "/share*" ]
+            },{
+                "appID": "T7CDA6EKAJ.pk.footprint.live",
+                "paths": [ "/share*" ]
+            },
+            {
+                "appID": "T7CDA6EKAJ.pk.SadafAmir.live",
+                "paths": [ "/share*" ]
+            }
+        ]
+    }
+}

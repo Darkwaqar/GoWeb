@@ -1,0 +1,411 @@
+﻿@using Nop.Core.Domain.Common;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Framework.Themes;
+    @{
+        var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+
+        var beforContent = System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/" + currentThemeName;
+
+        var displayMiniProfiler = EngineContext.Current.Resolve<Nop.Core.Domain.StoreInformationSettings>().DisplayMiniProfilerInPublicStore;
+        Html.AppendScriptParts(beforContent+ "/Content/bootstrap335/js/bootstrap.min.js");
+        Html.AppendScriptParts(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Scripts/public.ajaxcart.js");
+        Html.AppendScriptParts(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Scripts/public.common.js");
+        Html.AppendScriptParts(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Scripts/jquery-migrate-1.2.1.min.js");
+        Html.AppendScriptParts(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Scripts/jquery-ui-1.10.3.custom.min.js");
+        Html.AppendScriptParts(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Scripts/jquery.validate.unobtrusive.min.js");
+        Html.AppendScriptParts(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Scripts/jquery.validate.min.js");
+        Html.AppendScriptParts(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Scripts/jquery-1.10.2.min.js");
+        
+        //X-UA-Compatible tag
+        var commonSettings = EngineContext.Current.Resolve<CommonSettings>();
+        if (commonSettings.RenderXuaCompatible)
+        {
+            Html.AppendHeadCustomParts(string.Format("<meta http-equiv=\"X-UA-Compatible\" content=\"{0}\"/>", commonSettings.XuaCompatibleValue));
+        }
+    }
+    <!DOCTYPE html>
+    <html @*@Html.Partial("LanguageAttributes")*@>
+    <head>
+       
+        <title>@Html.NopTitle(true)</title>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+        <meta name="description" content="@(Html.NopMetaDescription())" />
+        <meta name="keywords" content="@(Html.NopMetaKeywords())" />
+        <meta name="generator" content="GrowOnlinePk" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="PARANDA" />
+        <link rel="shortcut icon" href="../favicon.ico">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        @*<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">*@
+
+        <link rel="stylesheet" type="text/css" href=@(beforContent+ "/Content/css/Brand.css") />
+        <link rel="stylesheet" type="text/css" href=@(beforContent+ "/Content/css/bespoke.css") />
+        <link rel="stylesheet" type="text/css" href=@(beforContent + "/Content/css/loyality.css") />
+        
+        @Html.NopHeadCustom()
+        @*This is used so that themes can inject content into the header*@
+        @Html.Partial("Head")
+        @Html.Widget("head_html_tag")
+        @Html.NopCssFiles(this.Url, ResourceLocation.Head)
+        @Html.NopScripts(this.Url, ResourceLocation.Head)
+        @Html.NopCanonicalUrls()
+        @Html.Action("RssHeaderLink", "News")
+        @Html.Action("RssHeaderLink", "Blog")
+        @*Favicon - upload favicon.ico file to the root directory*@
+        @Html.Action("Favicon", "Common")
+        @if (displayMiniProfiler)
+        {
+            @StackExchange.Profiling.MiniProfiler.RenderIncludes()
+        }
+        <link rel="stylesheet" type="text/css" href=@(beforContent+"/Content/css/fonts_googleapis_com_roboto.css") />
+
+        <link type="text/css" href=@(beforContent + "/Content/css/owl.carousel.min.css") rel="stylesheet" />
+        <link type="text/css" href=@(beforContent + "/Content/css/owl.theme.default.min.css") rel="stylesheet" />
+
+        <script src=@(beforContent+ "/Content/js/owl.carousel.min.js")></script>
+
+    </head>
+    <body>
+        @RenderBody()
+        @Html.NopCssFiles(this.Url, ResourceLocation.Foot)
+        @Html.NopScripts(this.Url, ResourceLocation.Foot)
+        <a href="javascript:" id="return-to-top"><i class="glyphicon glyphicon-chevron-up"></i></a>
+        <!-- for the blur effect -->
+
+        <script>
+            // this is important for IEs
+            var polyfilter_scriptpath = '/js/';
+        </script>
+        <script>
+            // ===== Scroll to Top ====
+            $(window).scroll(function () {
+                if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+                    $('#return-to-top').fadeIn(200);    // Fade in the arrow
+                } else {
+                    $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+                }
+            });
+            $('#return-to-top').click(function () {      // When arrow is clicked
+                $('body,html').animate({
+                    scrollTop: 0                       // Scroll to top of body
+                }, 500);
+            });
+
+        </script>
+       @* <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            (function () {
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://embed.tawk.to/58402b2b2d02a274f9b19c32/default';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin', '*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->*@
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5c7524a3a726ff2eea597f56/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+        <script>
+            function abcd() {
+                $("#AuthPanel").hide("slow");
+            }
+        </script>
+        <script>
+            function abcd2() {
+                if (document.getElementById("AuthPanel5").style.display == "none") {
+                    closeIfOpened("SearchPanel");
+                    $("#AuthPanel5").show("slow");
+                    $("#AuthPanel").hide("slow")
+                    return;
+                }
+                $("#AuthPanel3").hide("slow");
+                $("#searchBtn").on("click", function () {
+                    if (document.getElementById("SearchPanel").style.display == "none") {
+                        closeIfOpened("AuthPanel5");
+                        $("#SearchPanel").show("slow");
+                        return;
+                    }
+                    $("#SearchPanel").hide("slow");
+                });
+            }
+            $(document).ready(function () {
+                $("#authBtn6").on("click", function () {
+                    if (document.getElementById("AuthPanel5").style.display == "none") {
+                        closeIfOpened("SearchPanel");
+                        $("#AuthPanel5").show("slow");
+                        return;
+                    }
+                    $("#AuthPanel5").hide("slow");
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            function performSearch2()
+            {
+                $('#fldSearch2').toggle('fast'); doSearch2();
+                $('#inputSearch2').focus();
+            }
+            $("#small-search-box-form2").submit(function(event) {
+                if ($("#inputSearch2").val() == "") {
+                    alert('@Html.Raw(HttpUtility.JavaScriptStringEncode(T("Search.EnterSearchTerms").Text))');
+                    $("#inputSearch2").focus();
+                    event.preventDefault();
+                }
+            });
+        </script>
+        <script>
+            function doSearch2() {
+                var txt = $("#inputSearch2").val();
+                if (txt.length > 0) {
+                    window.location = "/Search?q=" + txt;
+                }
+            }
+
+        </script>
+        <script>
+            function hideForgetPasswrod() {
+                $("#showsection").addClass("hide");
+                $("#hidesection").show();
+            }
+
+
+            $(document).ready(function () {
+                $("#authBtn").on("click", function () {
+                    if (document.getElementById("AuthPanel").style.display == "none") {
+                        closeIfOpened("SearchPanel");
+                        $("#AuthPanel").show("slow");
+                        $("#AuthPanel3").hide("slow");
+                        return;
+                    }
+                    //$("#AuthPanel").hide("slow");
+                });
+                $("#searchBtn").on("click", function () {
+                    if (document.getElementById("SearchPanel").style.display == "none") {
+                        closeIfOpened("AuthPanel");
+                        $("#SearchPanel").show("slow");
+                        return;
+                    }
+                    $("#SearchPanel").hide("slow");
+                });
+
+            });
+
+            function closeIfOpened(name) {
+
+                if (document.getElementById(name).style.display != "none") {
+                    $("#" + name).hide("slow");
+                }
+            }
+
+            $(".btn-topmenu").on("click", function () {
+                $("#leftmenu").animate({ width: 'slideRight' }, 350);
+            })
+        </script>
+        <script>
+            function hideandshow() {
+                $("#hidesection").hide();
+                $("#showsection").removeClass('hide');
+                $("#showsection").addClass('active');
+
+            }
+        </script>
+        <script>
+        function btnemailsending() {
+            console.log("btn email");
+
+
+            var email = $("#txtemail").val();
+
+            var jsonObject = {
+                "Email": email
+            };
+
+            $.ajax({
+                url: "@(Url.RouteUrl("PasswordRecovery"))",
+                type: "POST",
+                data: JSON.stringify(jsonObject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    if (response.success == false) {
+                        $("#showsection").hide();
+                    }
+                    alert(response);
+                },
+                success: function (response) {
+                    if (response.success == true) {
+                        $("#showsection").hide();
+                        $("#hidesection").hide();
+                        $("#sectionpasswordrecoverystatus").show();
+                        $("#sectionpasswordrecoverystatus").css("display", "block");
+                        $("#lblmessage").text(response.message);
+                        $("#headmessage").text("THANKS FOR SUBMITTING YOUR EMAIL ADDRESS");
+                    }
+                    else {
+                        $("#emailnotfound").text(response.message);
+                    }
+                }
+            });
+    }
+        </script>
+        <script>
+    function btnlogin () {
+            var loginid = $("#txtloginid").val();
+            var password = $("#txtpassword").val();
+            var x = document.getElementById("txtloginid").value;
+            var atpos = x.indexOf("@@");
+            var dotpos = x.lastIndexOf(".");
+
+            if (document.getElementById("chkremember").checked)
+            {
+                var rememberme = true;
+            }
+            else
+            {
+                var rememberme = false;
+            }
+        
+            if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= x.length) {
+                $("#loginheadmessage").text("Please Enter Valid Email").css("color", "red");
+                return;
+            }
+
+            var jsonObject = {
+                "Email": loginid,
+                "Password": password,
+                "RememberMe": rememberme
+            };
+
+            $.ajax({
+                url: "@(Url.RouteUrl("Login"))",
+                type: "POST",
+                data: JSON.stringify(jsonObject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    if (response.success == false) {
+                        $("#loginheadmessage").text(response);
+                    }
+                    //alert(response);
+                },
+                success: function (response) {
+                    if (response.success == true) {
+                        $("#loginheadmessage").text("Successfully Logged In").css("color", "green");
+                        location.href = "@(Url.RouteUrl("HomePage"))";
+                    }
+                    else {
+                        $("#loginheadmessage").text(response.message).css("color", "red");
+                    }
+                }
+            });
+    }
+        </script>
+        <script>
+        function btnregister() {
+            var gender = null;
+            var Username = $("#txtFirstName").val();
+            var lastName = $("#txtLastName").val();
+            var firstName = $("#txtFirstName").val();
+            var Email = $("#txtEmail").val();
+            var Password = $("#txtPassword").val();
+            var confirmPassword = $("#txtConfirmPassword").val();
+            if ($("#gender-female").is(":checked")) {
+                gender = "F";
+            }
+            else if ($("#gender-male").is(":checked")) {
+                gender = "M";
+            }
+            else {
+                $("#registerheadmessage").text("PLEASE SELECT GENDER").css("color", "red");
+                return;
+            }
+
+            if (firstName == "") {
+                $("#registerheadmessage").text("FIRST NAME IS REQUIRED").css("color", "red");
+                return;
+            }
+
+            if (lastName == "") {
+                $("#registerheadmessage").text("LAST NAME IS REQUIRED").css("color", "red");
+                return;
+
+            }
+
+            if (confirmPassword != Password) {
+                $('#registerheadmessage').text("PASSWORD DOES NOT MATCH").css("color", "red", "font-size", "15px");;
+                return;
+            }
+
+            var jsonObject = {
+                __RequestVerificationToken: $("#register-anti-forgery").val(),
+                captchaValid: true,
+                "Gender": gender,
+                "Username": Username,
+                "FirstName": firstName,
+                "LastName": lastName,
+                "Email": Email,
+                "Password": Password,
+                "ConfirmPassword": confirmPassword
+            };
+
+            $.ajax({
+                url: "@(Url.RouteUrl("Register"))",
+                type: "POST",
+                data: JSON.stringify(jsonObject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    if (response.success == false) {
+                        $("#registerheadmessage").text(response);
+                    }
+                    alert(response);
+                },
+                success: function (response) {
+                    if (response.success == true) {
+                        $("#registerheadmessage").text("SUCCESSFULLY REGISTERED").css("color", "green");
+                        fbq('track', 'CompleteRegisteration');
+                        location.href = "@(Url.RouteUrl("HomePage"))";
+                    }
+                    else {
+                        $("#registerheadmessage").text(response.message).css("color", "red");
+                    }
+                }
+            });
+
+        }
+        </script>
+        <script>
+            function searchbtn() {
+
+                if (document.getElementById("AuthPanel5").style.display == "none") {
+                    closeIfOpened("SearchPanel");
+                    $("#AuthPanel5").show("slow");
+                    return;
+                }
+                $("#AuthPanel5").hide("slow");
+            }
+        </script>
+    </body>
+</html>

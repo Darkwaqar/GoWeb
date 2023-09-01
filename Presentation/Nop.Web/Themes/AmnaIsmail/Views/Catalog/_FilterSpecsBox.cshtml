@@ -1,0 +1,76 @@
+﻿@model CatalogPagingFilteringModel.SpecificationFilterModel
+@using growonline.Web.Models.Catalog;
+@{
+    var notFilteredItemsGroups = Model.NotFilteredItems.GroupBy(x => x.SpecificationAttributeName);
+}
+@if (Model.Enabled)
+{
+    <div class="product-filter product-spec-filter">
+        @*<div class="filter-title">
+                <strong>@T("Filtering.SpecificationFilter")</strong>
+            </div>*@
+        <div class="filter-content">
+            @if (Model.NotFilteredItems.Count > 0)
+            {
+                <div class="row no-margin">
+                    <div class="col-md-2 col-sm-12 col-xs-12  filter-bar">
+                        <span><b>
+    Filter by
+</b>&nbsp;&nbsp;<span class="fa fa-angle-down" id="filterArrow" style="font-size:16px"></span>
+                        </span>
+                    </div>
+                    @foreach (var group in notFilteredItemsGroups)
+{
+    var groupList = group.ToList();
+                       
+
+    <div class="col-md-2 col-sm-12 col-xs-12   filter-bar">
+      
+        <span >@groupList[0].SpecificationAttributeName </span>
+      
+        <div style="display:none " class="filter-panel">
+
+
+            @foreach (var spec in groupList)
+            {
+                <div><a class="fakecheck" href="@spec.FilterUrl"></a><span class="fakechecktext">@spec.SpecificationAttributeOptionName</span></div>
+            }
+            
+        </div>
+        @*<select class="form-control input-sm filter-select" onchange="window.location=this.value">
+                @foreach (var spec in groupList)
+                {
+                    <option value="@spec.FilterUrl">@spec.SpecificationAttributeOptionName</option>
+                }
+            </select>*@
+     
+    </div>
+}
+
+                </div>
+             
+            }
+            @if (Model.AlreadyFilteredItems.Count > 0)
+            {
+                <div class="filtered-items">
+                    <ul>
+                        <li class="title">
+                            @T("Filtering.SpecificationFilter.CurrentlyFilteredBy")
+                        </li>
+                        @foreach (var item in Model.AlreadyFilteredItems)
+                        {
+                            <li class="item">
+                                <strong>@(item.SpecificationAttributeName)</strong> @item.SpecificationAttributeOptionName
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="remove-filter">
+                    <a href="@Model.RemoveFilterUrl">@T("Filtering.SpecificationFilter.Remove")</a>
+                </div>
+            }
+            <div class="text-center" id="btnfilterClose" style="padding:20px 0px; display:none"><button type="button" class="btn-orignal bg-black">Close</button></div>
+        </div>
+
+    </div>
+}

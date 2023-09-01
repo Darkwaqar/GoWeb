@@ -1,0 +1,184 @@
+﻿@model CustomerActionModel
+@using Nop.Services
+@Html.ValidationSummary(false)
+@Html.HiddenFor(model => model.Id)
+
+<script>
+    $(document).ready(function () {
+        bindBootstrapTabSelectEvent('customeraction-edit');
+    });
+</script>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div id="customeraction-edit" class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                @Html.RenderBootstrapTabHeader("tab-info", @T("Admin.Customers.CustomerAction.Info"), true)
+                @Html.RenderBootstrapTabHeader("tab-conditions", @T("Admin.Customers.CustomerAction.Conditions"))
+                @Html.RenderBootstrapTabHeader("tab-reaction", @T("Admin.Customers.CustomerAction.Reaction"))
+                @Html.RenderBootstrapTabHeader("tab-history", @T("Admin.Customers.CustomerAction.History"))
+
+            </ul>
+            <div class="tab-content">
+                @Html.RenderBootstrapTabContent("tab-info", @TabInfo(), true)
+                @Html.RenderBootstrapTabContent("tab-conditions", @TabConditions())
+                @Html.RenderBootstrapTabContent("tab-reaction", @TabReaction())
+                @Html.RenderBootstrapTabContent("tab-history", @TabHistory())
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    //custom tabs
+    var eventMessage = new AdminTabStripCreated(this.Html, "customeraction-edit");
+    EngineContext.Current.Resolve<IEventPublisher>().Publish(eventMessage);
+    foreach (var eventBlock in eventMessage.BlocksToRender)
+    {
+        @eventBlock
+    }
+}
+
+@*save selected tab name*@
+<input type="hidden" id="selected-tab-name" name="selected-tab-name" value="@(Html.GetSelectedTabName())">
+
+@helper TabInfo()
+{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#@Html.FieldIdFor(model => model.ReactionTypeId)").change(toggleReaction);
+        toggleReaction();
+
+        function toggleReaction() {
+            var selectedReactionTypeId = $("#@Html.FieldIdFor(model => model.ReactionTypeId)").val();
+            if (selectedReactionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerReactionTypeEnum.Banner).ToString()))
+            {
+                $('#plnBanner').show();
+                $('#plnInteractiveForm').hide();
+                $('#plnMessage').hide();
+                $('#plnRole').hide();
+                $('#plnTag').hide();
+            }
+            if (selectedReactionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerReactionTypeEnum.InteractiveForm).ToString()))
+            {
+                $('#plnBanner').hide();
+                $('#plnInteractiveForm').show();
+                $('#plnMessage').hide();
+                $('#plnRole').hide();
+                $('#plnTag').hide();
+            }
+            else if (selectedReactionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerReactionTypeEnum.Email).ToString()))
+            {
+                $('#plnBanner').hide();
+                $('#plnInteractiveForm').hide();
+                $('#plnMessage').show();
+                $('#plnRole').hide();
+                $('#plnTag').hide();
+
+            } else if (selectedReactionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerReactionTypeEnum.AssignToCustomerRole).ToString()))
+            {
+                $('#plnBanner').hide();
+                $('#plnInteractiveForm').hide();
+                $('#plnMessage').hide();
+                $('#plnRole').show();
+                $('#plnTag').hide();
+
+            } else if (selectedReactionTypeId == @(((int)Nop.Core.Domain.Customers.CustomerReactionTypeEnum.AssignToCustomerTag).ToString()))
+            {
+                $('#plnBanner').hide();
+                $('#plnInteractiveForm').hide();
+                $('#plnMessage').hide();
+                $('#plnRole').hide();
+                $('#plnTag').show();
+            }
+        }
+    });
+    </script>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Name)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Name)
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Active)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Active)
+                        @Html.ValidationMessageFor(model => model.Active)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.StartDateTime)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.StartDateTime)
+                        @Html.ValidationMessageFor(model => model.StartDateTime)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.EndDateTime)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.EndDateTime)
+                        @Html.ValidationMessageFor(model => model.EndDateTime)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ActionTypeId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopDropDownListFor(model => model.ActionTypeId, Model.ActionType)
+                        @Html.ValidationMessageFor(model => model.ActionTypeId)
+                        <div class="note note-info margin-top-10">
+                            <p>@T("admin.customers.actiontype.helpText.AddToCart")</p>
+                            <p>@T("admin.customers.actiontype.helpText.AddOrder")</p>
+                            <p>@T("admin.customers.actiontype.helpText.Viewed")</p>
+                            <p>@T("admin.customers.actiontype.helpText.Url")</p>
+                            <p>@T("admin.customers.actiontype.helpText.Registration")</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ConditionId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopDropDownListFor(model => model.ConditionId, ((Nop.Core.Domain.Customers.CustomerActionConditionEnum)Model.ConditionId).ToSelectList())
+                        @Html.ValidationMessageFor(model => model.ConditionId)
+                        <div class="note note-info margin-top-10">
+                            <p>@T("admin.customers.actiontype.helpText.OneOfThem")</p>
+                            <p>@T("admin.customers.actiontype.helpText.AllOfThem")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@helper TabConditions()
+{
+    @Html.Partial("_CreateOrUpdateConditions", Model)
+}
+@helper TabReaction()
+{
+    @Html.Partial("_CreateOrUpdateReaction", Model)
+}
+@helper TabHistory()
+{
+    @Html.Partial("_CreateOrUpdateHistory", Model)
+}

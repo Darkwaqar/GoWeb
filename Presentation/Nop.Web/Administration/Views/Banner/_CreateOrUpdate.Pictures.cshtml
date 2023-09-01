@@ -1,0 +1,324 @@
+﻿@model BannerModel
+
+<div class="panel-group">
+    @if (Model.Id > 0)
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="bannerpictures-grid"></div>
+                <script>
+                    $(document).ready(function() {
+                        $("#bannerpictures-grid").kendoGrid({
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    read: {
+                                        url: "@Html.Raw(Url.Action("BannerPictureList", "Banner", new {bannerId = Model.Id}))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    },
+                                    update: {
+                                        url: "@Html.Raw(Url.Action("BannerPictureUpdate", "Banner"))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    },
+                                    destroy: {
+                                        url: "@Html.Raw(Url.Action("BannerPictureDelete", "Banner"))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    }
+                                },
+                                schema: {
+                                    data: "Data",
+                                    total: "Total",
+                                    errors: "Errors",
+                                    model: {
+                                        id: "Id",
+                                        fields: {
+                                            PictureUrl: { editable: false, type: "string" },
+                                            DisplayOrder: { editable: true, type: "number" },
+                                            URL: { editable: true, type: "string" },
+                                            Width: { editable: true, type: "number" },
+                                            Height: { editable: true, type: "number" },
+                                            VendorId: { editable: true, type: "number" },
+                                            CategoryId: { editable: true, type: "number" },
+                                            ProductId: { editable: true, type: "number" },
+                                            OverrideAltAttribute: { editable: true, type: "string" },
+                                            OverrideTitleAttribute: { editable: true, type: "string" }
+                                        }
+                                    }
+                                },
+                                requestEnd: function(e) {
+                                    if (e.type == "update") {
+                                        this.read();
+                                    }
+                                },
+                                error: function(e) {
+                                    display_kendoui_grid_error(e);
+                                    // Cancel the changes
+                                    this.cancelChanges();
+                                },
+                                serverPaging: true,
+                                serverFiltering: true,
+                                serverSorting: true
+                            },
+                            pageable: {
+                                refresh: true,
+                                numeric: false,
+                                previousNext: false,
+                                info: false,
+                                @Html.Partial("_GridPagerMessages")
+                            },
+                            editable: {
+                                confirmation: "@T("Admin.Common.DeleteConfirmation")",
+                                mode: "inline"
+                            },
+                            scrollable: false,
+                            columns: [
+                            {
+                                field: "PictureUrl",
+                                title: "@T("Admin.Promotions.Banners.Pictures.Fields.Picture")",
+                                template: '<a href="#=PictureUrl#" target="_blank"><img alt="#=PictureId#" src="#=PictureUrl#" width="100" /></a>',
+                                width: 100
+                            }, {
+                                field: "DisplayOrder",
+                                title: "@T("Admin.Promotions.Banners.Pictures.Fields.DisplayOrder")",
+                                //integer format
+                                format: "{0:0}",
+                                width: 150
+                            }, {
+                                    field: "URL",
+                                title: "@T("Admin.Promotions.Banners.Pictures.Fields.URL")",
+                            }, {
+                                    field: "Width",
+                                title: "@T("Admin.Promotions.Banners.Pictures.Fields.Width")",
+                            }, {
+                                    field: "Height",
+                                title: "@T("Admin.Promotions.Banners.Pictures.Fields.Height")",
+                            }, {
+                                field: "VendorId",
+                                title: "@T("Admin.Promotions.Banners.Pictures.Fields.VendorId")",
+                            }, {
+                                field: "CategoryId",
+                                title: "@T("Admin.Promotions.Banners.Pictures.Fields.CategoryId")",
+                            }, {
+                                field: "ProductId",
+                                title: "@T("Admin.Promotions.Banners.Pictures.Fields.ProductId")",
+                            }, {
+                                field: "OverrideAltAttribute",
+                                title: "@T("Admin.Promotions.Banners.Pictures.Fields.OverrideAltAttribute")",
+                            }, {
+                                field: "OverrideTitleAttribute",
+                                title: "@T("Admin.Promotions.Banners.Pictures.Fields.OverrideTitleAttribute")",
+                                width: 200
+                            }, {
+                                command: [
+                                {
+                                    name: "edit",
+                                    text: {
+                                        edit: "@T("Admin.Common.Edit")",
+                                        update: "@T("Admin.Common.Update")",
+                                        cancel: "@T("Admin.Common.Cancel")"
+                                    }
+                                }, {
+                                    name: "destroy",
+                                    text: "@T("Admin.Common.Delete")"
+                                }
+                                ],
+                                width: 200
+                            }
+                            ]
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @T("Admin.Promotions.Banners.Pictures.AddNew")
+            </div>
+            <div class="panel-body">
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $('#addBannerPicture').click(function() {
+                            var pictureId = $("#@Html.FieldIdFor(model => model.AddPictureModel.PictureId)").val();
+                            var overrideAltAttribute = $("#@Html.FieldIdFor(model => model.AddPictureModel.OverrideAltAttribute)").val();
+                            var overrideTitleAttribute = $("#@Html.FieldIdFor(model => model.AddPictureModel.OverrideTitleAttribute)").val();
+                            var URL = $("#@Html.FieldIdFor(model => model.AddPictureModel.URL)").val();
+                            var width = $("#@Html.FieldIdFor(model => model.AddPictureModel.Width)").val();
+                            var height = $("#@Html.FieldIdFor(model => model.AddPictureModel.Height)").val();
+                            var vendorId = $("#@Html.FieldIdFor(model => model.AddPictureModel.VendorId)").val();
+                            var categoryId = $("#@Html.FieldIdFor(model => model.AddPictureModel.CategoryId)").val();
+                            var productId = $("#@Html.FieldIdFor(model => model.AddPictureModel.ProductId)").val();
+                            var displayOrder = $("#@Html.FieldIdFor(model => model.AddPictureModel.DisplayOrder)").val();
+
+                            if (pictureId == 0) {
+                                alert('Upload picture first');
+                                return;
+                            }
+
+                            $('#addBannerPicture').attr('disabled', true);
+
+                            var postData = {
+                                pictureId: pictureId,
+                                displayOrder: displayOrder,
+                                overrideAltAttribute: overrideAltAttribute,
+                                overrideTitleAttribute: overrideTitleAttribute,
+                                url: URL,
+                                width: width,
+                                height: height,
+                                vendorId:vendorId,
+                                categoryId:categoryId,
+                                productId:productId,
+                                bannerId: @Model.Id
+                                };
+                            addAntiForgeryToken(postData);
+
+                            $.ajax({
+                                cache: false,
+                                type: "POST",
+                                url: "@(Url.Action("BannerPictureAdd", "Banner"))",
+                                data: postData,
+                                success: function(data) {
+                                    var grid = $("#bannerpictures-grid");
+                                    grid.data('kendoGrid').dataSource.read();
+                                    $('#addBannerPicture').attr('disabled', false);
+                                },
+                                error: function(xhr, ajaxOptions, thrownError) {
+                                    alert('Failed to add banner picture.');
+                                    $('#addBannerPicture').attr('disabled', false);
+                                }
+                            });
+                        });
+
+                    });
+                </script>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddPictureModel.PictureId)
+                    </div>
+                    <div class="col-md-9" id="bannar-image">
+                        @Html.NopEditorFor(model => model.AddPictureModel.PictureId)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.PictureId)
+                    </div>
+                </div>
+                <script>
+                    $('body').on('DOMSubtreeModified', '#bannar-image', function () {
+                        $("#bannar-image img").each(function () {
+                        if (this.complete) {
+                            // this image already loaded
+                            // do whatever you would do when it was loaded
+                            $("#@Html.FieldIdFor(model => model.AddPictureModel.Width)").val($("#bannar-image").find("img").height());
+                            $("#@Html.FieldIdFor(model => model.AddPictureModel.Height)").val($("#bannar-image").find("img").height());
+                        } else {
+                            $(this).on('load', function () {
+                                // image now loaded
+                                $("#@Html.FieldIdFor(model => model.AddPictureModel.Width)").val($("#bannar-image").find("img").width());
+                                $("#@Html.FieldIdFor(model => model.AddPictureModel.Height)").val($("#bannar-image").find("img").height());
+                            });
+                               }
+                        });
+                    });
+                </script>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddPictureModel.OverrideAltAttribute)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AddPictureModel.OverrideAltAttribute)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.OverrideAltAttribute)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddPictureModel.OverrideTitleAttribute)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AddPictureModel.OverrideTitleAttribute)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.OverrideTitleAttribute)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddPictureModel.URL)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AddPictureModel.URL)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.URL)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddPictureModel.Width)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AddPictureModel.Width)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.Width)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddPictureModel.Height)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AddPictureModel.Height)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.Height)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddPictureModel.VendorId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopDropDownListFor(model => model.AddPictureModel.VendorId, Model.AvailableVendors)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.VendorId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddPictureModel.CategoryId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AddPictureModel.CategoryId)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.CategoryId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddPictureModel.ProductId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AddPictureModel.ProductId)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.ProductId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddPictureModel.DisplayOrder)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AddPictureModel.DisplayOrder)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.DisplayOrder)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <button type="button" id="addBannerPicture" class="btn btn-primary">@T("Admin.Promotions.Banners.Pictures.AddButton")</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @T("Admin.Promotions.Banners.Pictures.SaveBeforeEdit")
+            </div>
+        </div>
+    }
+</div>

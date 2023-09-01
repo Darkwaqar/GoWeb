@@ -1,0 +1,197 @@
+﻿@model FooterModel
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Common;
+@using Nop.Web.Framework.Themes
+
+@{
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    var logoPath = "~/Themes/" + currentThemeName + "/Content/images/logo-footer.png";
+}
+<div class="footer">
+
+    <div class="row no-margin hidden-xs" style="">
+	<div class="col-md-12 test-center nopadding footer-top">
+	@*<img src="/themes/FootPrint/content/images/stripe.png" class="img-responsive" style="width:100%" />*@
+	<ul class="">
+		<li> <a href="/bespoke-footprint"> <img src="/themes/FootPrint/content/images/Footercustomize.jpg" class="img-responsive" /> </a> </li>
+
+                <li><a href="/faq-2#shippingpolicy"> <img src="/themes/FootPrint/content/images/Footershipping.jpg" class="img-responsive" /> </a></li>
+                <li><a> <img src="~/themes/FootPrint/content/images/Footershoes.jpg" class="img-responsive" /> </a> </li>
+		<li><img src="/themes/FootPrint/content/images/Footersecure.jpg" class="img-responsive"  /></li>
+            </ul>
+	</div>
+</div>
+    <div class="container-fluid" id="footer-body">
+        <div class="row text-center">
+            <div class="col-md-2 col-md-4 col-sm-4" style="margin-bottom: 10px;">
+                <div class="navbar-collapse footer-SM ">
+                    <h4>COMPANY</h4>
+                    <ul class="list-unstyled footer-SM">
+                        <li><a class="uppercase footer-SM" href="/myjourney">MY JOURNEY</a></li>
+                        <li><a href="/brand">THE BRAND</a></li>
+
+                        <li><a class="uppercase" href="/contactus">CONTACT US</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 col-md-4 col-sm-4" style="margin-bottom: 10px;">
+                <div class="navbar-collapse footer-SM">
+                    <h4>MY ACCOUNT</h4>
+                    <ul class="list-unstyled footer-SM">
+                       @* <li><a href="/gift-vouchers">GIFT CARD</a></li> *@
+                        <li><a class="uppercase" href="/loyalty-program-footprint">LOYALTY PROGRAM</a></li>
+                        <li><a class="uppercase" href="/wishlist">FAVOURITE</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="col-md-2 col-md-4 col-sm-4" style="margin-bottom: 10px;">
+                <div class="navbar-collapse footer-SM" >
+                    <h4>HELP</h4>
+                    <ul class="list-unstyled footer-SM">
+			<li><a class="uppercase" href="/faq-2">TERMS & CONDITIONS</a></li>
+                        <li><a class="uppercase footer-SM" href="/faq-2#shippingpolicy">SHIPPING &amp; DELIVERY</a></li>
+                        <li><a href="/faq-2#exchangepolicy">RETURN &amp; EXCHANGE</a></li>
+			<li><a class="uppercase" href="/faq-2#general_queries">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 col-md-4 col-sm-4">
+                <div class="navbar-collapse footer-SM">
+                    <h4>GET IN TOUCH</h4>
+                    <ul class="list-unstyled footer-SM" style="color: #000">
+                        <li><i class="fa fa-phone"></i>+9221-34380438</li>
+                        <li style="font-size: 12px;padding-bottom: 8px;"> MON TO FRI  (11 AM — 6 PM)</li>
+                        <li style=" width: 100%;border-right: none; font-size: 12px;">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            INFO@FOOTPRINT.PK
+                        </li>
+
+                        <li style="display: none; float: left;padding-right: 8px;"><img src="/themes/FootPrint/content/images/gomobishop.png"></li>
+                        <li style="display: none; font-size: 12px;"><span>APP PARTNER<br> Pretàpak</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 col-md-4 col-sm-4">
+
+                <div class="navbar-collapse " id="service">
+                    <h4>SOCIAL</h4>
+                    <div class="social" style="padding-left:5px">
+
+                        <ul class="networks list-unstyled fixed-network hidden-xs">
+                           
+                            <li class="facebook">
+                                <a href="https://www.facebook.com/fpbespoke" target="_blank" class="tooltipOn" data-original-title="facebook">
+                                    <i class="fa fa-facebook fa-3x"></i>
+                                </a>
+                            </li>
+                            <li class="instagram">
+                                <a href="https://www.instagram.com/fpbespoke/" target="_blank" class="tooltipOn" data-original-title="instagram">
+                                    <i class="fa fa-instagram fa-3x"></i>
+                                </a>
+                            </li>
+ 			    <li class="twitter">
+                                <a href="https://twitter.com/fpbespoke" target="_blank" class="tooltipOn" data-original-title="Twitter">
+                                    <i class="fa fa-twitter fa-3x"></i>
+                                </a>
+                            </li>
+                            <li class="linkedin">
+                                <a href="https://www.linkedin.com/company/footprintbespoke/" target="_blank" class="tooltipOn" data-original-title="linkedin">
+                                    <i class="fa fa-linkedin fa-3x"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="social-bottom" style=" display: inline-block;">
+
+                            <ul class="networks list-unstyled">
+                                
+                                <li class="facebook">
+                                    <a href="https://www.facebook.com/fpbespoke" target="_blank" title="" class="tooltipOn" style="color:#2da2cd;" data-original-title="facebook">
+                                        <i class="fa fa-facebook fa-2x"></i>
+                                    </a>
+                                </li>
+                                <li class="instagram">
+                                    <a href="https://www.instagram.com/fpbespoke/" target="_blank" title="" class="tooltipOn" style="color:#2da2cd;" data-original-title="instagram">
+                                        <i class="fa fa-instagram fa-2x"></i>
+                                    </a>
+                                </li>
+				<li class="twitter">
+                                    <a href="https://twitter.com/fpbespoke" target="_blank" title="" class="tooltipOn" style="color:#2da2cd;" data-original-title="Twitter">
+                                        <i class="fa fa-twitter fa-2x"></i>
+                                    </a>
+                                </li>
+                                <li class="linkedin">
+                                    <a href="https://www.linkedin.com/company/footprintbespoke/" target="_blank" title="" class="tooltipOn" style="color:#2da2cd;" data-original-title="linkedin">
+                                        <i class="fa fa-linkedin fa-2x"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="hidden-xs networks list-unstyled list-inline">
+
+                            <li style="background-color: transparent; width: 100%; display: inline-block;">
+                                <a href="https://play.google.com/store/apps/details?id=com.growonline.gomobishop&referrer=10">
+                                    <img class="img-responsive" src="/themes/FootPrint/content/images/googleplayold.png">
+                                </a>
+                            </li>
+                            <li style="background-color: transparent; width: 100%; display: inline-block;">
+                                <a href="https://itunes.apple.com/US/app/id1361000869?mt=8">
+                                    <img class="img-responsive" src="/themes/FootPrint/content/images/IOS.png">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-md-4 col-sm-4">
+                <h4 style="color:rgb(33,51,71)">PAYMENT OPTIONS</h4>
+                <div class="text-center hidden-xs">
+                    <img class="img-responsive" src="/themes/FootPrint/content/images/footer-icon.png">
+                </div>
+                <div class="col-md-2 footer-logo hidden-sm hidden-md hidden-lg">
+                    <div class="text-center">
+                        <img src="/themes/FootPrint/content/images/footer-payment.png" style="width:100%;height:93px">
+
+                        <a href="https://play.google.com/store/apps/details?id=com.growonline.gomobishop&referrer=10">
+                            <img src="/themes/FootPrint/content/images/googleplayold.png" style=" width: 34.3%; height: 10%;">
+                        </a>
+                        <img src="/themes/FootPrint/content/images/IOS.png" style="width:37%;height:10%">
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    @Html.Widget("footer")
+</div>
+
+
+
+<script>
+    $(".btn-footerOpen").on("click", function () {
+        if (document.getElementById("footer-body").style.display == "none") {
+            $(".footer-header").addClass("footer-header-expend");
+            setTimeout(function () {
+                $("#footer-arrow").removeClass("fa-angle-down");
+                $("#footer-arrow").addClass("fa-angle-up");
+                $("#footer-body").show();
+                $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+            }, 600);
+
+        } else {
+            $(".footer-header").removeClass("footer-header-expend");
+            setTimeout(function () {
+                $("#footer-arrow").removeClass("fa-angle-up");
+                $("#footer-arrow").addClass("fa-angle-down");
+                $("#footer-body").hide("fast");
+            }, 600);
+        }
+
+    });
+</script>
+
+

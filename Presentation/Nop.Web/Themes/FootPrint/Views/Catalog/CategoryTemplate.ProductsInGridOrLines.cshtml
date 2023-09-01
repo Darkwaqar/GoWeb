@@ -1,0 +1,185 @@
+﻿@model CategoryModel
+@{
+    //Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var categoryUrl = Url.RouteUrl("Category", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(categoryUrl);
+    }
+    string theme = "/Themes/FootPrint/";
+    var breadcrumbDelimiter = EngineContext.Current.Resolve<CommonSettings>().BreadcrumbDelimiter;
+
+    bool BannerEnabled = false;
+}
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@*category breadcrumb*@
+@section Breadcrumb
+{
+    @if (Model.DisplayCategoryBreadcrumb)
+    {
+        <style>
+            .modal-header {
+                min-height: 100%;
+                padding: 15px;
+                border-bottom: 0px solid #e5e5e5;
+            }
+        </style>
+        <div class="container-full no-margin nopadding hidden-xs">
+            @Html.Widget("categorydetails_after_breadcrumb", Model.Id)
+        </div>
+    }
+}
+<div class="page-body ">
+
+
+    @Html.Widget("categorydetails_top", Model.Id)
+    @*description*@
+    @if (!String.IsNullOrWhiteSpace(Model.Description))
+    {
+        <div class="page-description" style="display:none" id="catimg">
+            @Html.Raw(Model.Description)
+        </div>
+        <script>
+            $("#categoryimg").attr("src", $("#catimg ").find("img").attr("src")).addClass("img-responsive").css("width", "100%");
+            $("#catimg ").find("img").remove();
+            $(".container-full.no-margin.nopadding").hide();
+        </script>
+    }
+
+
+
+
+    @Html.Widget("categorydetails_before_featured_products", Model.Id)
+    @*featured products*@
+    @if (Model.FeaturedProducts.Count > 0)
+    {
+        <div class="row no-margin">
+            <div class="col-md-12 text-center">
+                <h2>@T("Products.FeaturedProducts")</h2>
+            </div>
+        </div>
+        <div class="row text-center" style="background-color:black">
+
+            @foreach (var item in Model.FeaturedProducts)
+            {
+                <div class="col-xs-12 col-sm-12 col-md-4">
+
+                    @Html.Partial("_ProductBox", item)
+                </div>
+            }
+        </div>
+    }
+    <div class="row no-margin ">
+
+    </div>
+    <div class="row no-margin ">
+
+        @if (Model.SubCategories.Count == 0)
+        {
+            if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
+            {
+                <div class="panel-heading" style="background-color: #8DA7A8; color: #F2EEEE; ">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" style="color:white">
+                        <h4 class="panel-title uppercase">
+
+                            FILTER BY<span class="glyphicon glyphicon-menu-down pull-right" id="collapse-spann"></span>
+
+                        </h4>
+                    </a>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+
+                    <div class="panel-body nopadding">@Html.Partial("_FilterSpecsBox", Model.PagingFilteringContext, new ViewDataDictionary())</div>
+                </div>
+            }
+        }
+
+    </div>
+    <div class="row no-margin">
+        @Html.Widget("categorydetails_after_featured_products", Model.Id)
+        @Html.Widget("categorydetails_before_product_list", Model.Id)
+    </div>
+    @if (Model.SubCategories.Count == 0)
+    {
+        if (Model.Products.Count > 0)
+        {
+            <div class="row no-margin">
+                @{
+                    int productCount = 0;
+                    int bannerNum = 0;
+
+                }
+                <!---Creating products -->
+                @foreach (var product in Model.Products)
+                {
+                    productCount += 1;
+                    if (Model.PagingFilteringContext.ViewMode == "list")
+                    {
+                        <div class="col-xs-12 nopadding">
+                            @Html.Partial("_ProductBoxList", product)
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 slide-box nopadding" id="qProducts@(Model.Id)">
+                            @Html.Partial("_ProductBox", product)
+                        </div>
+
+                        if (BannerEnabled)
+                        {
+                            if (productCount == 8)
+                            {
+                                bannerNum += 1;
+                                <div class="col-xs-12 col-sm-12 col-md-4 nopadding">
+                                    <img src="@theme/content/cat-banners/@Model.SeName/@(bannerNum).jpg" style="max-height:100%" />
+                                </div>
+                            }
+                        }
+                    }
+                }
+            </div>
+                        }
+                    }
+                    else
+                    {
+                        @Html.Partial("Shop")
+                    }
+    @{
+        var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+    }
+    @if (Model.SubCategories.Count == 0)
+    {
+
+        if (!pager.IsEmpty())
+        {
+            <div class="pager">
+                @pager
+            </div>
+        }
+        @Html.Widget("categorydetails_bottom", Model.Id)
+    }
+</div>
+
+
+<!-- Modal -->
+
+<script>
+    var loading = "<div class='text-center'><img src='@theme/content/images/loading2.gif' /></div>";
+
+    $(".filter-bar").on("click", function () {
+
+        $(".filter-panel").show("normal");
+        $("#btn-filter").removeClass("hide");
+		$("#btn-filter-close").removeClass("hide");
+    });
+</script>

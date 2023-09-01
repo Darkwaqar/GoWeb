@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coming Soon</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Themes/ComingSoonHashmi/Content/images/icons/favicon.ico" />
+    
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Themes/ComingSoon/Content/css/main.css">
+    <link href="~/Themes/ComingSoonHashmi/Content/css/style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--===============================================================================================-->
+</head>
+<body>
+    <div class="size1 bg0 where1-parent">
+        <!-- Form -->
+        <div class="col-md-12">
+            <div class="logo">
+                <img width="100%" src="~/Themes/ComingSoonHashmi/Content/images/logored.png" />
+
+            </div>
+            @*<img class="img-responsive" style="width:100%;" src="~/Themes/ComingSoonHashmi/Content/images/ramzan.jpg" />*@
+            @Html.Widget("home_page_main_slider")
+        </div>
+        <div class="col-md-12 text-body">
+            @Html.Action("NewsletterBox", "Newsletter")
+        </div>
+    </div>
+
+    <!--===============================================================================================-->
+    <script src="~/Themes/ComingSoon/Content/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    @*<script src="~/Themes/ComingSoon/Content/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Themes/ComingSoon/Content/vendor/bootstrap/js/bootstrap.min.js"></script>*@
+    <!--===============================================================================================-->
+    @*<script src="~/Themes/ComingSoon/Content/vendor/select2/select2.min.js"></script>*@
+    <!--===============================================================================================-->
+    @*<script src="~/Themes/ComingSoon/Content/vendor/countdowntime/moment.min.js"></script>
+    <script src="~/Themes/ComingSoon/Content/vendor/countdowntime/moment-timezone.min.js"></script>
+    <script src="~/Themes/ComingSoon/Content/vendor/countdowntime/moment-timezone-with-data.min.js"></script>
+    <script src="~/Themes/ComingSoon/Content/vendor/countdowntime/countdowntime.js"></script>*@
+    @*<script>
+        $('.cd100').countdown100({
+            /*Set Endtime here*/
+            /*Endtime must be > current time*/
+            endtimeYear: 0,
+            endtimeMonth: 0,
+            endtimeDate: 35,
+            endtimeHours: 18,
+            endtimeMinutes: 0,
+            endtimeSeconds: 0,
+            timeZone: ""
+            // ex:  timeZone: "America/New_York"
+            //go to " http://momentjs.com/timezone/ " to get timezone
+        });
+    </script>*@
+    <!--===============================================================================================-->
+    @*<script src="~/Themes/ComingSoon/Content/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>*@
+    <!--===============================================================================================-->
+    @*<script src="~/Themes/ComingSoon/Content/js/main.js"></script>*@
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145602227-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-145602227-3');
+</script>
+
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '882985962086045');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=882985962086045&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+</body>
+</html>

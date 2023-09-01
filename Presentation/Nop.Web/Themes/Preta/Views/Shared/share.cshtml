@@ -1,0 +1,200 @@
+﻿@model Nop.Web.Models.Catalog.ProductShareModel
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+
+    var vendorName = Model.Vendor.Name.ToUpper();
+    var title = "";
+
+    if (Model.ProductModel != null)
+    {
+        title = Model.ProductModel.Name + " | " + vendorName;
+        //title
+        Html.AddTitleParts(!String.IsNullOrEmpty(Model.ProductModel.MetaTitle) ? Model.ProductModel.MetaTitle : Model.ProductModel.Name);
+        //meta
+        Html.AddMetaDescriptionParts(Model.ProductModel.MetaDescription);
+        Html.AddMetaKeywordParts(Model.ProductModel.MetaKeywords);
+        var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+
+        //canonical URL
+        if (seoSettings.CanonicalUrlsEnabled)
+        {
+            var productUrl = Url.RouteUrl("Product", new { SeName = Model.ProductModel.SeName }, this.Request.Url.Scheme);
+            Html.AddCanonicalUrlParts(productUrl);
+
+
+        }
+
+        //open graph META tags
+        if (seoSettings.OpenGraphMetaTags)
+        {
+            Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(title) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.ProductModel.MetaDescription)) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.ProductModel.DefaultPictureModel.ImageUrl + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.ProductModel.CurrentStoreName) + "\" />");
+        }
+
+
+        //Twitter META tags
+        if (seoSettings.TwitterMetaTags)
+        {
+            Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.ProductModel.CurrentStoreName) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(title) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.ProductModel.MetaDescription)) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.ProductModel.DefaultPictureModel.ImageUrl + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        }
+    }
+    else
+    {
+        title = vendorName;
+        //title
+        Html.AddTitleParts(!String.IsNullOrEmpty(Model.Vendor.MetaTitle) ? Model.Vendor.MetaTitle : Model.Vendor.Name);
+        //meta
+        Html.AddMetaDescriptionParts(Model.Vendor.MetaDescription);
+        Html.AddMetaKeywordParts(Model.Vendor.MetaKeywords);
+        var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+
+        //canonical URL
+        if (seoSettings.CanonicalUrlsEnabled)
+        {
+            var vendorUrl = Url.RouteUrl("Vendor", new { SeName = Model.VendorSeName }, this.Request.Url.Scheme);
+            Html.AddCanonicalUrlParts(vendorUrl);
+        }
+
+        //open graph META tags
+        if (seoSettings.OpenGraphMetaTags)
+        {
+            Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(title) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.Vendor.MetaDescription)) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.VendorImageUrl + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        }
+
+        //Twitter META tags
+        if (seoSettings.TwitterMetaTags)
+        {
+            Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(title) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.Vendor.MetaDescription)) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.VendorImageUrl + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        }
+    }
+
+
+}
+
+<div class="container-fluid">
+    <center>
+        <div class="logo-placeholder">
+            <a class="home-main" href="/">
+                <span class="logo"></span>
+                <span class="moto"></span>
+            </a>
+        </div>
+    </center>
+
+    <script>
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    </script>
+    @if (Model.ProductModel != null)
+    {
+        if (Model.Vendor.StandAloneAppAndroid)
+        {
+            <center><a id="android" href="https://play.google.com/store/apps/details?id=@Model.Vendor.StandAloneAppPackageIdAndroid&referrer=sid:@Model.Vendor.Id.ToString()"><img src="~/Themes/Prisma/Content/img/google_play_store_icon.jpg" style="margin-top:100px;max-width: 35%;" class="img-responsive" /></a></center>
+            <script>
+                if (/android/i.test(userAgent)) {
+                setTimeout(function () { window.location = "market://details?id=@Model.Vendor.StandAloneAppPackageIdAndroid&referrer=sid:@Model.Vendor.Id.ToString()_pid:@Model.ProductId.ToString()"; }, 25);
+                setTimeout(function () { window.location = $('#android').attr('href'); }, 25);
+                }
+            </script>
+        }
+        else
+        {
+            <center><a id="android" href="https://play.google.com/store/apps/details?id=com.growonline.gomobishop&referrer=sid:@Model.Vendor.Id.ToString()_pid:@Model.ProductId.ToString()"><img src="~/Themes/Prisma/Content/img/google_play_store_icon.jpg" style="margin-top:100px;max-width: 35%;" class="img-responsive" /></a></center>
+            <script>
+                if (/android/i.test(userAgent)) {
+                setTimeout(function () { window.location = "market://details?id=com.growonline.gomobishop&referrer=sid:@Model.Vendor.Id.ToString()_pid:@Model.ProductId.ToString()"; }, 25);
+                setTimeout(function () { window.location = $('#android').attr('href'); }, 25);
+                }
+            </script>
+        }
+
+        if (Model.Vendor.StandAloneAppIos)
+        {
+            var IosRedirection = "https://itunes.apple.com/us/app/gomobishop/id" + Model.Vendor.StandAloneAppPackageIdIos + "?mt=8";
+            <center><a id="ios" href="@IosRedirection"><img src="~/Themes/Prisma/Content/img/apple_app_store_icon-mobile-retina.jpg" style="margin-top:100px;max-width: 35%;" class="img-responsive" /></a></center>
+            <script>
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            setTimeout(function () { "@Model.Vendor.StandAloneAppUrlSchemesIos//share?sid=@Model.Vendor.Id.ToString()_pid:@Model.ProductId.ToString()"; }, 25);
+            setTimeout(function () { window.location = $('#ios').attr('href'); }, 25);
+            }
+            </script>
+        }
+        else
+        {
+            <center><a id="ios" href="https://itunes.apple.com/us/app/gomobishop/id1441632028?mt=8"><img src="~/Themes/Prisma/Content/img/apple_app_store_icon-mobile-retina.jpg" style="margin-top:100px;max-width: 35%;" class="img-responsive" /></a></center>
+            <script>
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            setTimeout(function () { "MShop://share?sid=@Model.Vendor.Id.ToString()_pid:@Model.ProductId.ToString()"; }, 25);
+            setTimeout(function () { window.location = $('#ios').attr('href'); }, 25);
+            }
+            </script>
+        }
+
+    }
+    else
+    {
+        if (Model.Vendor.StandAloneAppAndroid)
+        {
+            <center><a id="android" href="https://play.google.com/store/apps/details?id=@Model.Vendor.StandAloneAppPackageIdAndroid&referrer=sid:@Model.Vendor.Id.ToString()"><img src="~/Themes/Prisma/Content/img/google_play_store_icon.jpg" style="margin-top:100px;max-width: 35%;" class="img-responsive" /></a></center>
+            <script>
+                if (/android/i.test(userAgent)) {
+                setTimeout(function () { window.location = "market://details?id=@Model.Vendor.StandAloneAppPackageIdAndroid&referrer=sid:@Model.Vendor.Id.ToString()"; }, 25);
+                setTimeout(function () { window.location = $('#android').attr('href'); }, 25);
+                }
+            </script>
+        }
+        else
+        {
+            <center><a id="android" href="https://play.google.com/store/apps/details?id=com.growonline.gomobishop&referrer=sid:@Model.Vendor.Id.ToString()"><img src="~/Themes/Prisma/Content/img/google_play_store_icon.jpg" style="margin-top:100px;max-width: 35%;" class="img-responsive" /></a></center>
+            <script>
+                if (/android/i.test(userAgent)) {
+                setTimeout(function () { window.location = "market://details?id=com.growonline.gomobishop&referrer=sid:@Model.Vendor.Id.ToString()"; }, 25);
+                setTimeout(function () { window.location = $('#android').attr('href'); }, 25);
+                }
+            </script>
+        }
+
+        if (Model.Vendor.StandAloneAppIos)
+        {
+            var IosRedirection = "https://itunes.apple.com/us/app/gomobishop/id" + Model.Vendor.StandAloneAppPackageIdIos + "?mt=8";
+            <center><a id="ios" href="@IosRedirection"><img src="~/Themes/Prisma/Content/img/apple_app_store_icon-mobile-retina.jpg" style="margin-top:100px;max-width: 35%;" class="img-responsive" /></a></center>
+            <script>
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            setTimeout(function () { "@Model.Vendor.StandAloneAppUrlSchemesIos//share?sid=@Model.Vendor.Id.ToString()"; }, 25);
+            setTimeout(function () { window.location = $('#ios').attr('href'); }, 25);
+            }
+            </script>
+        }
+        else
+        {
+            <center><a id="ios" href="https://itunes.apple.com/us/app/gomobishop/id1441632028?mt=8"><img src="~/Themes/Prisma/Content/img/apple_app_store_icon-mobile-retina.jpg" style="margin-top:100px;max-width: 35%;" class="img-responsive" /></a></center>
+            <script>
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            setTimeout(function () { "MShop://share?sid=@Model.Vendor.Id.ToString()_pid:@Model.ProductId.ToString()"; }, 25);
+            setTimeout(function () { window.location = $('#ios').attr('href'); }, 25);
+            }
+            </script>
+        }
+    }
+
+</div>

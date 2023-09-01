@@ -1,0 +1,132 @@
+﻿@model CatalogPagingFilteringModel.SpecificationFilterModel
+@using Nop.Web.Models.Catalog;
+@{
+    var notFilteredItemsGroups = Model.NotFilteredItems.GroupBy(x => x.SpecificationAttributeName);
+    var alreadyFilteredItemsGroups = Model.AlreadyFilteredItems.GroupBy(x => x.SpecificationAttributeName);
+    int i=0;
+}
+@if (Model.Enabled)
+{
+    foreach (var group in notFilteredItemsGroups)
+          {
+             
+    var groupList = group.ToList();
+     <div class="col-md-12" style="border: 1px solid black; border-top-color: transparent">
+         @if (i == 0) { 
+                        <div class="row" style="border-bottom: 1px solid black; border-top: 1px solid black">
+                            <div class="col-md-12" style="">
+                                <h4>@groupList[0].SpecificationAttributeName<span class="fa fa-caret-down pull-right"></span></h4>
+                            </div>
+                        </div>
+         }
+         else { 
+         <div class="row" style="border-bottom: 1px solid black">
+             <div class="col-md-12" style="">
+                 <h4>@groupList[0].SpecificationAttributeName<span class="fa fa-caret-down pull-right"></span></h4>
+             </div>
+         </div>}
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <ul class="list-unstyled filter-custom" style="padding-top: 10px;">
+                                    @foreach (var spec in groupList)
+                                    {
+                                       
+                                        <li>
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" class="checkboxinput" value="@spec.SpecificationAttributeOptionId" id="@spec.SpecificationAttributeOptionId">@spec.SpecificationAttributeOptionName</label>
+                                        </div>
+                                            @*<div><a class="fake" href="javascript:" id="filter-@spec.SpecificationAttributeOptionId"></a><span class="fakechecktext">@spec.SpecificationAttributeOptionName  </span></div>*@
+                                    </li>
+                                    }
+                                   
+                                   
+                                </ul>
+                            </div>
+                        </div>
+       
+                    </div>
+    i++;
+}
+        
+            <div class="col-md-12" style="border: 1px solid black;border-top: 0px;height: 42px;">
+                <a href="javascript:" id="btn-filter" class="btn btn-primary center-block add-to-bag" style="margin-top:2px">REFINE</a>
+            </div>
+              
+}
+
+
+<script>
+
+    (function () {
+        var attrs = [];
+        var isSelected = false;
+
+        $(".checkboxinput").on("click", function () {
+            // odd clicks
+            if ($('.checkboxinput').is(":checked")) {
+                attrs.push(this.id);
+
+                $(this).css("background-color", "#000");
+            } else { 
+        
+
+    // even clicks
+    attrs.pop(this.id);
+
+        $(this).css("background-color", "#F2EEEE");
+            }
+        });
+
+
+
+
+        function closeFilter() {
+            $(".filter-panel").hide("slow");
+
+            //$("#btn-filter").addClass("hide");
+            //$("#btn-filter-close").addClass("hide");
+            //$("#btn-filter-close2").addClass("hide");
+        }
+
+
+
+        function doFilter() {
+
+
+            var url = '@Request.Url.AbsoluteUri';
+            var param = "?specs=";
+            var queryIndex = url.indexOf(param);
+            var queryVals = "";
+            console.log(url);
+
+
+            if (queryIndex != -1) {
+                queryVals = url.substr(queryIndex + param.length, url.length) + ",";
+            url = url.substr(0, queryIndex);
+
+            }
+            window.location = url + param + queryVals + attrs.toString();
+        }
+
+        $("#btn-filter").on("click", function () {
+            doFilter();
+        });
+
+        //$(".filter-panel").on("click", function () {
+        //    $("#btn-filter-close2").removeClass("hide");
+        //});
+
+		//$("#btn-filter-close").on("click",function(){
+		//	closeFilter();
+		//})
+
+		//$("#btn-filter-close2").on("click", function () {
+		//    closeFilter();
+		//})
+
+
+    }());
+
+
+</script>

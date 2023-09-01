@@ -1,0 +1,60 @@
+﻿@using SevenSpikes.Nop.Plugins.RichBlog.Models;
+
+@model  IList<BlogPostModel7Spikes>
+
+@{
+    if (Model.Count == 0)
+    {
+        return;
+    }
+
+    var supportRtl = this.ShouldUseRtlTheme();
+    var theme = Model.FirstOrDefault().Theme;
+
+    Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + theme + "/Content/OwlCarousel/css/owl.carousel.min.css");
+    Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + theme + "/Content/OwlCarousel/css/owl.theme.default.min.css");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + theme + "/Content/OwlCarousel/js/owl.carousel.js");
+
+     Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + theme + "/Content/RichBlog.css");
+    if (supportRtl)
+    {
+        Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + theme + "/Content/RichBlog.rtl.css");
+    }
+}
+
+<div class="rich-blog-homepage">
+    <div class="title">
+        @*<strong>@T("SevenSpikes.RichBlog.Public.LatestFromBlog")</strong>  POPPINS-SEMIBOLD*@
+        <h3 class="section__title Allexis">The Articles</h3>
+        <h2 class="section-title-2 ">“Inspired by the people, the heritage and the products of Crockett & Jones.”</h2>
+    </div>
+    <div class="owl-carousel owl-theme">
+        @foreach (var post in Model)
+        {
+            <div class="item">
+                <div class="post-primary">
+                    @if (!string.IsNullOrWhiteSpace(post.HomePagePictureUrl))
+                    {
+                        <a class="post-picture" href="@Url.RouteUrl("BlogPost", new { SeName = post.SeName })">
+                            <img src="@post.HomePagePictureUrl" alt="@post.Title" title="@post.Title" />
+                        </a>
+                    }
+                    
+                </div>
+                <div class="post-details">
+                    @*<span class="post-date">@post.CreatedOn</span>*@
+                    <a class="post-title POPPINS-SEMIBOLD" href="@Url.RouteUrl("BlogPost", new { SeName = post.SeName })">@post.Title</a>
+                    <div class="post-description">
+                        @Html.Raw(!string.IsNullOrEmpty(post.BodyOverview) ? post.BodyOverview : post.Body)
+                    </div>
+                    <a class="read-more" href="@Url.RouteUrl("BlogPost", new { SeName = post.SeName })">Read More</a>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    @*<div class="view-all section__actions">
+        <a class="button-cat" href="@Url.RouteUrl("Blog")">@T("SevenSpikes.RichBlog.Public.ViewAllBlogPosts")</a>
+    </div>*@
+</div>

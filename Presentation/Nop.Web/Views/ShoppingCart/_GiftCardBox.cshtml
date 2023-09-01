@@ -1,0 +1,56 @@
+﻿@model ShoppingCartModel.GiftCardBoxModel
+@using Nop.Web.Models.ShoppingCart;
+@if (Model.Display)
+{
+    <div class="giftcard-box">
+        <div class="title">
+            <strong>@T("ShoppingCart.GiftCardCouponCode")</strong>
+        </div>
+        <div class="hint">@T("ShoppingCart.GiftCardCouponCode.Tooltip")</div>
+        <div class="coupon-code">
+            <input name="giftcardcouponcode" id="giftcardcouponcode" type="text" class="gift-card-coupon-code" />
+            <button type="button" name="applygiftcardcouponcode" id="applygiftcardcouponcode" 
+                    data-href="@Url.RouteUrl("ApplyGiftCard")" class="button-2 apply-gift-card-coupon-code-button" >@T("ShoppingCart.GiftCardCouponCode.Button")</button>
+        </div>
+        @if (!String.IsNullOrEmpty(Model.Message))
+        {
+            <div class="@(Model.IsApplied ? "message-success" : "message-failure")">
+                @Model.Message
+            </div>
+        }
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#giftcardcouponcode').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    $('#applygiftcardcouponcode').click();
+                    return false;
+                }
+            });
+        });
+    </script>
+
+    <script>
+    $(document).ready(function () {
+        $("#applygiftcardcouponcode").click(function () {
+            var href = $(this).closest('[data-href]').data('href');
+            var giftCardData = {
+                giftcardcouponcode: $('#giftcardcouponcode').val(),
+            };
+            addAntiForgeryToken(giftCardData);
+            $.ajax({
+                cache: false,
+                type: "POST",
+                data: giftCardData,
+                url: href,
+                success: function (data) {
+                    $('#ordersummarypagecart').replaceWith(data.cart);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve Shopping Cart Page.');
+                }
+            });
+        });
+    });
+    </script>
+}

@@ -1,0 +1,83 @@
+﻿@model List<PrivateMessageModel>
+@using Nop.Web.Models.PrivateMessages;
+@using Nop.Core.Infrastructure;
+@using Nop.Core;
+@using Nop.Core.Domain.Customers;
+@{
+    var register = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer.IsGuest();
+}
+
+<div id="converstation">
+    @foreach (var Messages in Model)
+    {
+
+        if (Messages.AlignLeft)
+        {
+             <!-- Message. Default to the left -->
+            <div class="direct-chat-msg">
+                <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-left">@Messages.CustomerFromName</span>
+                    <span class="direct-chat-timestamp pull-right">@Messages.CreatedOn</span>
+                </div>
+                <!-- /.direct-chat-info -->
+                @if (!Messages.IsRead)
+                    {
+                    <span class="unread"></span>
+                }
+                <img class="direct-chat-img" src="https://adminlte.io/themes/AdminLTE/dist/img/user3-128x128.jpg" alt="message user image">
+                <!-- /.direct-chat-img -->
+                <div class="direct-chat-text" id="chat-@(Messages.Id)">
+                    @Html.Raw(!Messages.Deleted ? Messages.Message : "Deleted")
+                    @if (Messages.Deleted)
+                    {
+                        <button class="btn btn-box-tool" title="" data-original-title="view" onclick="Chat.viewMessage(@(Messages.Id))"></button>
+                    }
+
+                </div>
+                <!-- /.direct-chat-text -->
+            </div>
+            <!-- /.direct-chat-msg -->
+        }
+        else
+        {
+             <!-- Message to the right -->
+            <div class="direct-chat-msg right">
+                <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-right">@Messages.CustomerFromName</span>
+                    <span class="direct-chat-timestamp pull-left">@Messages.CreatedOn</span>
+                </div>
+                <!-- /.direct-chat-info -->
+                @if (!Messages.IsRead)
+                {
+                    <span class="unread"></span>
+                }
+                <img class="direct-chat-img" src="https://adminlte.io/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="message user image">
+                <!-- /.direct-chat-img -->
+                <div class="direct-chat-text" id="chat-@(Messages.Id)">
+                    @Html.Raw(!Messages.Deleted ? Messages.Message : "Deleted")
+                    @if (!Messages.Deleted)
+                    {
+                        <button class="btn btn-box-tool" title="" data-original-title="delete" id="delete-message" onclick="Chat.deleteMessage(@(Messages.Id))"></button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-box-tool" title="" data-original-title="view" onclick="Chat.viewMessage(@(Messages.Id))"></button>
+                    }
+                </div>
+                <!-- /.direct-chat-text -->
+            </div>
+            <!-- /.direct-chat-msg -->
+        }
+    }
+    @if (!Model.Any())
+    {
+        <div class="no-message">
+            <div class="no-message-message"><a target="_blank" href="#" rel="noreferrer noopener">Use the  App for exclusive offers!</a></div>
+            <p>Once you start a new conversation, you’ll see it listed here.</p>
+            @if (register)
+            {
+                <div class="no-message-login"><a href="@Url.RouteUrl("Login")">Login/Signup</a></div>
+            }
+        </div>
+    }
+</div>

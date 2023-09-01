@@ -1,0 +1,98 @@
+﻿@model ProductOverviewModel
+@using Nop.Core
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Catalog;
+@{
+    //prepare "Add to cart" AJAX link
+    string addtocartlink = "";
+    var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+    var quantity = 1;
+    if (Model.ProductPrice.ForceRedirectionAfterAddingToCart)
+    {
+        addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity, forceredirection = Model.ProductPrice.ForceRedirectionAfterAddingToCart });
+    }
+    else
+    {
+        addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
+    }
+
+    var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
+    var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
+}
+
+
+
+<div class="product-item" data-productid="@Model.Id">
+    <div class="picture" style="width:100px;height:100px">
+        <a class="default-picture" href="@Url.RouteUrl("Product", new { SeName = Model.SeName })" title="@Model.DefaultPictureModel.Title" style="width:100px;height:100px">
+            <img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" class="img-responsive" style="width:100px;height:100px" />
+        </a>
+     
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".productbox-attributes").hide();
+                $('.default-picture').bind({
+                    mouseenter: function (e) {
+                        // Hover event handler
+                        var $default_picture = $(this);
+                        var $alternate_picture = $(this).next('.alternate-picture');
+                        if ($alternate_picture.length) {
+                            $(".productbox-attributes").show();
+                            $default_picture.hide();
+                            $alternate_picture.show();
+                        }
+                    },
+                    mouseleave: function (e) {
+                    }
+                });
+                $('.alternate-picture').bind({
+                    mouseenter: function (e) {
+                    },
+                    mouseleave: function (e) {
+                        // Hover event handler
+                        var $default_picture = $(this).prev();
+                        var $alternate_picture = $(this);
+                        $(".productbox-attributes").hide();
+                        $default_picture.show();
+                        $alternate_picture.hide();
+                    }
+                });
+            });
+        </script>
+    </div>
+    @*<div class="details" style="width:272px">
+        <h4 class="product-title" style="text-align:center">
+            <a style="font-family:HelveticaNeue, Open Sans, sans-serif;font-size:17px;" href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">@Model.Name</a>
+        </h4>
+     
+        <div class="add-info">
+            @Html.Widget("productbox_addinfo_before", Model.Id)
+            <div class="prices" style="text-align:center">
+                @if (!String.IsNullOrEmpty(Model.ProductPrice.OldPrice))
+                {
+                    <span class="price old-price">@Model.ProductPrice.OldPrice</span>
+                }
+                <span style="font-family:HelveticaNeue, Open Sans, sans-serif;font-size:14px;" class="price actual-price">@Model.ProductPrice.Price</span>
+                @if (Model.ProductPrice.DisplayTaxShippingInfo)
+                {
+                    var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+                    
+                    <span class="tax-shipping-info">
+                        @T(inclTax ? "Products.Price.TaxShipping.InclTax" : "Products.Price.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+                    </span>
+                }
+                @if (!String.IsNullOrEmpty(Model.ProductPrice.BasePricePAngV))
+                {
+                    <div class="base-price-pangv">
+                        @Model.ProductPrice.BasePricePAngV
+                    </div>
+                }
+            </div>
+            @Html.Widget("productbox_addinfo_middle", Model.Id)
+           
+            @Html.Widget("productbox_addinfo_after", Model.Id)
+        </div>
+    </div>*@
+</div>

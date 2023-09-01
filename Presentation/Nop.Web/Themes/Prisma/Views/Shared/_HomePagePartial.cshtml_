@@ -1,0 +1,229 @@
+﻿
+<div class="row hidden-xs">
+    <div class="col-lg-4 col-md-4 col-sm-4 ">
+        <h4 class="promo-div">
+            SALE UP TO 30% OFF
+            <br />
+            EXTRA 10% OFF WITH CODE: 2010
+        </h4>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <h4 class="promo-div">
+            LOOK BOOK
+            <br />
+            2018 BEST TRENDS AND DESIGNS
+        </h4>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 promo-margin-bottom ">
+        <h4 class="promo-div promo-div-last">
+            GET OUR APP!
+            <br />
+            AND SAVE BIG MONEY
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8 editor-pick">
+        @Html.Widget("Editor-Pick")
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 margin-10 trending">
+        @*@Html.Widget("Trending")*@
+        <a href="https://www.gomobishop.com/star-of-pakistan" target="_blank">
+
+            <img src="~/Themes/Prisma/Content/img/123.gif" style="width:100%"/>
+
+        </a>
+    </div>
+</div>
+<div class="row visible-xs">
+    <div class="col-xs-6 col-sm-4 ">
+        <div class="mobile-grey-box left-c">
+            SALE UP TO 30% OFF
+            <br />
+            GET DISCOUNT
+        </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-4">
+        <div class="mobile-grey-box right-c">
+            GET OUR APP!
+            <br />
+            AND SAVE BIG MONEY
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row">
+    <div class="col-lg-12 heading">
+        <h2 class="designer-header line"> FEATURED STORES</h2>
+        <h3 class="designer-copy">Incredible prices you don’t want to miss</h3>
+    </div>
+    <div class="col-lg-12 col-md-12 isFeatured">
+        @Html.Partial("_IsFeatured")
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 heading">
+        <h2 class="designer-header line"> CATEGORIES</h2>
+        <h3 class="designer-copy">Browse your favourite stores</h3>
+    </div>
+    @Html.Action("HomepageCategories", "Catalog")
+
+</div>
+
+<div class=" row-full">
+
+
+
+    <div class="col-lg-12">
+
+
+
+
+        <figure class="static-banner">
+            <picture data-alt="Download our Apps today!" data-picture="">
+                <source media="(min-width: 768px)" srcset="~/Themes/Prisma/Content/img/banner-apps.png">
+                <source media="(max-width:767px)" srcset="~/Themes/Prisma/Content/img/mobile-banner.png">
+                <img alt="" srcset="~/Themes/Prisma/Content/img/banner-apps.png"  usemap="#babycats">
+            </picture>
+            <div class="iOS">
+                <a href="https://itunes.apple.com/us/app/gomobishop/id1441632028?mt=8" target="_blank"></a>
+            </div>
+            <div class="android">
+                <a href="https://play.google.com/store/apps/details?id=com.growonline.gomobishop" target="_blank"></a>
+            </div>
+        
+        </figure>
+        
+
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-lg-12 heading">
+
+        <h2 class="designer-header line"> DESIGNERS</h2>
+        <h3 class="designer-copy">The lastest trends 2018 view our designers catalog</h3>
+
+
+    </div>
+    <div class="col-lg-12">
+        @Html.Partial("_Designers")
+    </div>
+</div>
+
+<div class=" row-full">
+  
+        <div class="col-lg-12">
+            <div class="home-intro-video-wrap">
+                <div class="home-motion-wrap" id="home-motion-wrap">
+                    <div id="video-motion" style="background:url(https://wearespry.com/wp-content/uploads/2018/07/HomeBGPlaceholder.jpg) no-repeat center center; background-size:cover;">
+                        <video loop muted autoplay id="mainmotion" class="themotion videoformat" style="display: inline;">
+                            <source src="/Themes/Prisma/Content/video/ad1.mp4" type="video/mp4">
+                            <source src="/Themes/Prisma/Content/video/ad1.ogv" type="video/ogg">
+                        </video>
+                    </div>
+                </div>
+
+          
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-lg-12 heading">
+
+            <h2 class="designer-header line"> RECOMMENDED BRANDS FOR YOU  </h2>
+            <h3 class="designer-copy">Your favourite brands now just click away!</h3>
+
+        </div>
+        <div class="col-lg-12">
+            @Html.Partial("_BRANDS")
+        </div>
+    </div>
+
+
+    <div class="row-full hidden-xs">
+        <div class="cms-static-policy policy home-policy">
+            <div class="container">
+                <div class="policy-wrap clearfix">
+                    <div class="row">
+                        <div class="policy-box col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="box-content">
+                                <a class="position-link" href="#"><span class="hidden">hidden</span></a>
+                                <div class="icon-service">
+                                    <span class="icons service-icon buzz_effect hhicon-truck"><em class="hidden">hidden</em></span>
+
+                                   
+
+
+                                </div>
+                                <div class="service-content">
+                                    <div class="info-title">
+                                        <h3>Free Delivery</h3>
+                                    </div>
+                                    <div class="sub-title"><span>on various products</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="policy-box col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="box-content">
+                                <a class="position-link" href="#"><span class="hidden">hidden</span></a>
+                                <div class="icon-service">
+                                    <span class="icons service-icon buzz_effect pe-7s-credit"><em class="hidden">hidden</em></span>
+                                </div>
+                                <div class="service-content">
+                                    <div class="info-title">
+                                        <h3>Secure Payment</h3>
+                                    </div>
+                                    <div class="sub-title"><span>All cards accepted</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="policy-box col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="box-content">
+                                <a class="position-link" href="#"><span class="hidden">hidden</span></a>
+                                <div class="icon-service">
+                                    <span class="icons service-icon buzz_effect pe-7s-headphones"><em class="hidden">hidden</em></span>
+                                </div>
+                                <div class="service-content">
+                                    <div class="info-title">
+                                        <h3>Help Center</h3>
+                                    </div>
+                                    <div class="sub-title"><span>24/7 Support System</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="policy-box col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="box-content">
+                                <a class="position-link" href="#"><span class="hidden">hidden</span></a>
+                                <div class="icon-service">
+                                    <span class="icons service-icon buzz_effect pe-7s-refresh-2"><em class="hidden">hidden</em></span>
+                                </div>
+                                <div class="service-content">
+                                    <div class="info-title">
+                                        <h3>Trustpay</h3>
+                                    </div>
+                                    <div class="sub-title"><span>Easy Return Policy</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>

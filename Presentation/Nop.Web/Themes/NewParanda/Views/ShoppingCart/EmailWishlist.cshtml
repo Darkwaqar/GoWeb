@@ -1,0 +1,82 @@
+﻿@model WishlistEmailAFriendModel
+@using Nop.Web.Models.ShoppingCart;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.WishlistEmailAFriend").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-email-a-friend-page");
+}
+
+
+
+
+
+<div class="woocommerce">
+    <div class="woocommerce-notices-wrapper"></div><div class="pageCheckout">
+        <div class="paddedContainer grid-x">
+            <div class="paddedContainer__wrapper small-28 medium-24 xlarge-offset-4 large-28 xlarge-15">
+                <div class="paddedContainer__col">
+
+                    <div class="page-title">
+                        <h1>@T("Wishlist.EmailAFriend.Title")</h1>
+                    </div>
+
+                    <div class="page-body opc">
+                        @if (Model.SuccessfullySent)
+                        {
+                            <div class="result">
+                                @Model.Result
+                            </div>
+                        }
+                        else
+                        {
+                            using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                var validationSummary = Html.ValidationSummary(true);
+                                if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                                {
+                                    <div class="message-error">@validationSummary</div>
+                                }
+                               
+                                    <div class="form-fields">
+                                        <div class="input-field">
+                                            @Html.LabelFor(model => model.FriendEmail)
+                                            @Html.TextBoxFor(model => model.FriendEmail, new { @class = "friend-email", placeholder = T("Wishlist.EmailAFriend.FriendEmail.Hint") })
+                                            @Html.ValidationMessageFor(model => model.FriendEmail)
+                                        </div>
+                                        <div class="input-field">
+                                            @Html.LabelFor(model => model.YourEmailAddress)
+                                            @Html.TextBoxFor(model => model.YourEmailAddress, new { @class = "your-email", placeholder = T("Wishlist.EmailAFriend.YourEmailAddress.Hint") })
+                                            @Html.ValidationMessageFor(model => model.YourEmailAddress)
+                                        </div>
+                                        <div class="input-field-text">
+                                            @Html.LabelFor(model => model.PersonalMessage)
+                                            @Html.TextAreaFor(model => model.PersonalMessage, new { @class = "personal-message", placeholder = T("Wishlist.EmailAFriend.PersonalMessage.Hint") })
+                                            @Html.ValidationMessageFor(model => model.PersonalMessage)
+                                        </div>
+                                        @if (Model.DisplayCaptcha)
+                                        {
+                                            <div class="captcha-box">
+                                                @Html.Raw(Html.GenerateCaptcha())
+                                            </div>
+                                        }
+                                    </div>
+                               
+                                <div class="buttons">
+                                    <button type="submit" name="send-email" class="hollow button" value="@T("Wishlist.EmailAFriend.Button")"> @T("Wishlist.EmailAFriend.Button")</button>
+</div>
+                            }
+                        }
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

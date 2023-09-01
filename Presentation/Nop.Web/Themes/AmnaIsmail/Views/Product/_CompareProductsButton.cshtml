@@ -1,0 +1,9 @@
+﻿@model ProductDetailsModel
+@using growonline.Web.Models.Catalog;
+@{
+    var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
+}
+@if (Model.CompareProductsEnabled)
+{
+    <button class="btn-orignal btn-orignal-md" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"><i class="glyphicon glyphicon-retweet text-muted"></i> @T("Products.Compare.AddToCompareList")</button>
+}

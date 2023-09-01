@@ -1,0 +1,16 @@
+﻿@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+@if (!String.IsNullOrWhiteSpace(Model.StockAvailability) || Model.DisplayBackInStockSubscription)
+{
+
+    if (!String.IsNullOrWhiteSpace(Model.StockAvailability))
+    {
+
+        
+
+<p class="stock out-of-stock">@Model.StockAvailability</p>
+
+    }
+    @Html.Partial("_BackInStockSubscription", Model)
+
+}

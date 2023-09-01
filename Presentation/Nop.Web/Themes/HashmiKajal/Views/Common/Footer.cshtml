@@ -1,0 +1,263 @@
+﻿@model FooterModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Common;
+@using Nop.Services.Configuration;
+@{
+    var storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+    var removeDesignedBy = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("tiffanythemesettings.removedesignedby", false, storeId, true);
+    var removeCopyright = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("tiffanythemesettings.removecopyright", false, storeId, true);
+}
+@*<div class="grid-Footer">
+        <div class="item1">
+            <ul class="sociallinks-Footer ">
+                <li><a href="https://twitter.com/hashmisince1794"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.facebook.com/hashmisince1794/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.instagram.com/hashmimajesticblack"><i class="fa fa-instagram" aria-hidden="true"></i> </a></li>
+            </ul>
+        </div>
+        <div class="item2">
+            <ul class="menuheader-footer">
+                @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                {
+                    <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                }
+            </ul>
+        </div>
+        <div class="item3">
+            <ul class="ecommerce-Footer">
+                <li><a href="https://www.gomobishop.com/share?sid=77"><i class="fa fa-apple" aria-hidden="true"> </i> </a></li>
+                <li><a href="https://www.gomobishop.com/share?sid=77"><i class="fa fa-android" aria-hidden="true"> </i></a></li>
+            </ul>
+        </div>
+    </div>*@
+
+<div class="footer Footer-set-Bottom">
+
+    @*<div class="footer-upper">
+            <div class="center">
+                @Html.Action("NewsletterBox", "Newsletter")
+            </div>
+        </div>
+        <div class="footer-middle">
+            <div class="center">
+                <div class="footer-block contacts">
+                    <h2 class="title">@T("ContactUs")</h2>
+                    <ul>
+                        <li class="fax"><span>@T("SevenSpikes.Themes.Tiffany.Common.Fax")</span></li>
+                        <li class="mobile"><span>@T("SevenSpikes.Themes.Tiffany.Common.Mobile")</span></li>
+                        <li class="mail"><span>@T("SevenSpikes.Themes.Tiffany.Common.Email")</span></li>
+                        <li class="location"><span>@T("SevenSpikes.Themes.Tiffany.Common.Location")</span></li>
+                        <li class="skype"><span>@T("SevenSpikes.Themes.Tiffany.Common.Skype")</span></li>
+                    </ul>
+                </div>
+                <div class="footer-block about-us">
+                    <h2 class="title">@T("SevenSpikes.Themes.Tiffany.Footer.AboutUs.Title")</h2>
+                    <p>@T("SevenSpikes.Themes.Tiffany.Footer.AboutUs")</p>
+                </div>
+                <div class="footer-block pinterest-plugin">
+                    <!--include pinterest plugin-->
+                    @Html.Widget("tiffany_pinterest_profile_widget_footer")
+                </div>
+            </div>
+        </div>*@
+    <div class="footer-lower eskido">
+        <div class="footer-div-row">
+            <div class="footer-div-item-about">
+                <p>
+                    Mohammad Hashim Tajir Surma, was established by Hakeem Mohammad Hashim in 1794 at Bareilly,
+                    India with a handful of spirited people more than two centuries ago 
+<span> <a style="color: #d0be7c;" href="/about-us-3">read more..</a></span>
+                </p>
+                <div class="social">
+                    @Html.Action("Social", "Common")
+                </div>
+            </div>
+            <div class="footer-div-item footer-div-item-links">
+                <ul class="information-links-ul">
+                    <li class=""> <a href="/" class=""><span> Home</span></a> </li>
+                    <li class=""> <a href="/about-us-3" class=""><span> Legacy</span></a> </li>
+                    <li class=""> <a href="/women-fashion-2" class=""><span> Shop</span></a> </li>
+                    <li class=""> <a href="/kajal-majestic-black" class=""><span> Majestic Black</span></a> </li>
+                    <li class=""> <a href="/hashmikajalmedia" class=""><span> Media</span></a> </li>
+                </ul>
+            </div>
+            <div class="footer-div-item footer-div-item-links">
+
+                <ul class="information-links-ul">
+                    @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                    {
+                        <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                    }
+                    @if (Model.SitemapEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</a></li>
+                    }
+                    @if (Model.AllowCustomersToApplyForVendorAccount)
+                    {
+                        <li><a href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</a></li>
+                    }
+                    <li><a href="@Url.RouteUrl("contactus")">Contact Us</a></li>
+
+                </ul>
+            </div>
+            <div class="footer-div-item">
+                <div class="Social_apps">
+                    <h2 class="titl">Download Free Apps</h2>
+                    <div class="social">
+                        <a href="https://www.gomobishop.com/share?sid=77" target="_blank">
+                            <img src="~/Themes/HashmiKajal/Content/img/img/android.jpg" />
+                        </a>
+                        <a href="https://www.gomobishop.com/share?sid=77" target="_blank">
+                            <img src="~/Themes/HashmiKajal/Content/img/img/IOS.jpg" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-div-row">
+            <ul class="accepted-payment-methods">
+                <li class="method1"></li>
+                <li class="method2"></li>
+                @*<li class="method3"></li>*@
+                <li class="method4"></li>
+            </ul>
+            @*<div class="footer-store-theme">
+                    @Html.Action("StoreThemeSelector", "Common")
+                </div>*@
+
+            <div class="footer-powered-by">
+                <span>
+                    <a style="text-decoration:none; color: #888;" href="https://growonline.pk/" target="_blank">
+                        Powered by
+                        <span>
+                            <img class="grow" src="/Themes/HashmiKajal/Content/img/img/GrowOnline-logo.png" style="width: 22px; vertical-align: middle;">
+                        </span>
+                        GROW ONLINE
+                    </a>
+                </span>
+            </div>
+
+            @if (Model.DisplayTaxShippingInfoFooter)
+            {
+                var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+                <div class="footer-tax-shipping">
+                    @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+                </div>
+            }
+        </div>
+    </div>
+
+    @*<div class="footer-lower">
+            <div class="menu-links-footer">
+                <ul class="information-links">
+                    <li class=""> <a href="/" class=""><span> Home</span></a> </li>
+                    <li class=""> <a href="/about-us-3" class=""><span> Legacy</span></a> </li>
+                    <li class=""> <a href="/women-fashion-2" class=""><span> Shop</span></a> </li>
+                    <li class=""> <a href="/kajal-majestic-black" class=""><span> Majestic Black</span></a> </li>
+                    <li class=""> <a href="/hashmikajalmedia" class=""><span> Media</span></a> </li>
+                </ul>
+            </div>
+            <div class="center">
+                <div class="Social_apps">
+                    <h2 class="title">@T("Footer.FollowUs")</h2>
+                    <div class="social">
+                        @Html.Action("Social", "Common")
+                    </div>
+                </div>
+                @* <div class="Social_apps">
+                             <h2 class="title">About us</h2>
+                             <p style="max-width: 300px; color: #fff; line-height: 1.4; font-size: 12px; letter-spacing: 0.2em;">
+                         @T("SevenSpikes.Themes.Tiffany.Footer.AboutUs")
+                     </p>
+                    </div>*-@
+
+                <div class="Social_apps">
+                    <h2 class="title">Download Our Apps</h2>
+                    <div class="social">
+                        <a href="https://www.gomobishop.com/share?sid=77" target="_blank">
+                            <img src="~/Themes/HashmiKajal/Content/img/img/android.jpg" />
+                        </a>
+                        <a href="https://www.gomobishop.com/share?sid=77" target="_blank">
+                            <img src="~/Themes/HashmiKajal/Content/img/img/IOS.jpg" />
+                        </a>
+                    </div>
+                </div>
+                <ul class="information-links">
+                    @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                    {
+                        <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                    }
+                    @if (Model.SitemapEnabled)
+                    {
+                        <li><a href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</a></li>
+                    }
+                    @if (Model.AllowCustomersToApplyForVendorAccount)
+                    {
+                        <li><a href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</a></li>
+                    }
+                    <li><a href="@Url.RouteUrl("contactus")">Contact Us</a></li>
+
+                </ul>
+
+                <ul class="accepted-payment-methods">
+                    <li class="method1"></li>
+                    <li class="method2"></li>
+                    @*<li class="method3"></li>*-@
+                    <li class="method4"></li>
+                </ul>
+                <div class="links-bottom-left">
+                    @if (!removeCopyright)
+                    {
+                        <div class="footer-powered-by">
+                            Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a>
+                            @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
+                                Please find more info at http://www.nopcommerce.com/copyrightremoval.aspx*-@
+                        </div>
+                    }
+                    @if (!removeDesignedBy)
+                    {
+                        <div class="footer-designed-by">
+                            Designed by <a href="http://www.nop-templates.com/" target="_blank">Nop-Templates.com</a>
+                        </div>
+                    }
+
+                </div>
+
+                <div class="footer-disclaimer">
+                    @* @T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)*-@
+                </div>
+                <div class="footer-store-theme">
+                    @Html.Action("StoreThemeSelector", "Common")
+                </div>
+                <div class="footer-powered-by">
+                    <span>
+                        <a style="text-decoration:none; color: #888;" href="https://growonline.pk/" target="_blank">
+                            Powered by
+                            <span>
+                                <img class="grow" src="/Themes/HashmiKajal/Content/img/img/GrowOnline-logo.png" style="width: 22px; vertical-align: middle;">
+                            </span>
+                            GROW ONLINE
+                        </a>
+                    </span>
+                </div>
+
+                @if (Model.DisplayTaxShippingInfoFooter)
+                {
+                    var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+                    <div class="footer-tax-shipping">
+                        @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+                    </div>
+                }
+            </div>
+        </div>*@
+
+    @Html.Widget("footer")
+    <script>
+        $(document).ready(function () {
+            $(".Footer-set-Bottom").css("position","unset");
+        });
+    </script>
+</div>
+

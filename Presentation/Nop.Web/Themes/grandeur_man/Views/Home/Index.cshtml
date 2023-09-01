@@ -1,0 +1,95 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+
+    string FirsttimeUser = string.Empty;
+    HttpCookie reqCookies = Request.Cookies["User"];
+    if (reqCookies == null)
+    {
+
+
+        //string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+        //if (domainName == "https://sheearns.gomobishop.com")
+        //{
+        //    HttpCookie user = new HttpCookie("User");
+        //    user["FirsttimeUser"] = "true";
+        //    Response.Cookies.Add(user);
+        //    Response.Redirect("~/vendor/all?sheearns=true");
+        //}
+
+        //string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+        //if (domainName == "https://moazzamkhancouture.com/sale" || domainName == "https://www.moazzamkhancouture.com/sale")
+        //{
+        //    Response.Redirect("https://sales.moazzamkhancouture.com/");
+        //}
+    }
+}
+<div class="page home-page">
+    <div class="page-body">
+        @Html.Widget("home_page_top")
+        @*@Html.Action("HomepageCategories", "Catalog")*@
+        @Html.Partial("_Personality-home")
+
+        @Html.Action("TopicBlock", "Topic", new { systemName = "homepageAboutBannerGrand" })
+        @Html.Action("TopicBlock", "Topic", new { systemName = "homepageBannersGrand" })
+        @Html.Action("TopicBlock", "Topic", new { systemName = "homepageCatagoryTopGrand" })
+        @Html.Action("HomepageProducts", "Product")
+        @Html.Action("TopicBlock", "Topic", new { systemName = "homepageSquareDealContainer" })
+       
+        <div class="weekly-shoes">
+            <h1 class="Montserrat-Light">The Grandeur Weekly</h1>
+            <img src="~/Themes/grandeur_man/Content/images/imgs/casual-wear.jpeg" width="100%" />
+        </div>
+
+        @*@Html.Widget("home_page_before_categories")*@
+
+
+        @*@Html.Action("TopicBlock", "Topic", new { systemName = "homepageLimitedEditionBanner" })*@
+
+        @*<div class="limited-edition-banner home-banner">
+            <div class="shell section__shell home-banner-body">
+                <div class="section__content">
+                    <h3 class="section__title Allexis">Limited Edition</h3>
+                    <!-- /.section__title -->
+                    <h2 class="section-title-2 POPPINS-SEMIBOLD">Coniston</h2>
+                    <!-- /.section__title -->
+                    <div class="section__entry ">
+                        <p>Crockett &amp; Jones has created its first ever UNSTRUCTURED Collection by further refining its unlined construction process with a trio of lightweight loafers – SALCOMBE, SEATON &amp; SOLENT. Made in our own Northampton factory, the collection remains Goodyear welted using flexi-welts, lightweight ribbing and the new SUPERFLEX leather sole! Four further loafers complete the SS21 collection for full details click below.</p>
+                    </div>
+                    <!-- /.section__entry -->
+                    <div class="section__actions"><a class="nivo-slider btn" href="/men-31">View Product</a></div>
+                    <!-- /.section__actions -->
+                </div>
+                <!-- /.section__content -->
+            </div>
+        </div>*@
+
+        @*@Html.Widget("home_page_before_products")*@
+        @*Catagory banners
+        @Html.Action("TopicBlock", "Topic", new { systemName = "homepageCatagorybottomGrand" })*@
+
+        @*@Html.Widget("home_page_before_best_sellers")*@
+        @*Made In Pakistan
+        @Html.Action("TopicBlock", "Topic", new { systemName = "homepageAfterbottomGrand" })*@
+        @* The Articles*@
+        @*@Html.Widget("home_page_bottom")*@
+        @* Store Locator*@
+        @*@Html.Action("TopicBlock", "Topic", new { systemName = "homepageStoreLocatorGrand" })*@
+
+        <div class="home-ista-feed">
+           @* <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+            <div class="elfsight-app-e0f91af3-9023-4110-a6d1-c2ff14da8370"></div>*@
+	   <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+	   <div class="elfsight-app-18e44c33-2578-4de3-9203-eeaa755fef47"></div>
+        </div>
+
+        @*@Html.Action("HomepageBestSellers", "Product")*@
+        @*@Html.Widget("home_page_before_news")*@
+        @*@Html.Action("HomePageNews", "News")*@
+        @*@Html.Widget("home_page_before_poll")*@
+        @*@Html.Action("HomePagePolls", "Poll")*@
+
+    </div>
+</div>

@@ -1,0 +1,6 @@
+﻿@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Domain.Orders;
+<div class="add-to-wishlist">
+    <input type="button" class="button-2 add-to-chat-button" value="@(T("Products.Wishlist.AddToChat").Text)" onclick="Chat.sendProductToChat(@Model.Id)" />
+</div>

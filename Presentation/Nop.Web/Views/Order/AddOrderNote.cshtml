@@ -1,0 +1,43 @@
+﻿@model AddOrderNoteModel
+@using Nop.Web.Models.Order
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.AddOrderNote").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-contact-page");
+}
+<div class="page contact-page">
+    <div class="page-title">
+        <h1>@T("PageTitle.AddOrderNote")</h1>
+    </div>
+    <div class="page-body">
+        @Html.Action("TopicBlock", "Topic", new { systemName = "AddOrderNote" })
+        @Html.Widget("ordernote_top")
+       
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                var validationSummary = Html.ValidationSummary(true);
+                if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                {
+                    <div class="message-error">@validationSummary</div>
+                }
+                <div class="fieldset">
+                    <div class="form-fields">
+                        <div class="inputs">
+                            @Html.LabelFor(model => model.Note)
+                            @Html.TextBoxFor(model => model.Note, new { @class = "note", placeholder = T("Order.Note.Hint") })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Note)
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <input type="submit" name="send-email" class="button-1 contact-us-button" value="@T("Order.Note.Add.Button")" />
+                </div>
+            }
+        @Html.Widget("ordernote_bottom")
+    </div>
+</div>

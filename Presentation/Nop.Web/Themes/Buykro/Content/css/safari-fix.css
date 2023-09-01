@@ -1,0 +1,69 @@
+/* FLIP EFFECT RESSET */
+
+#topcartlink,
+.previous-product a, 
+.next-product a,
+.social-sharing a,
+.share-post a {
+    -webkit-transform-style: flat !important;
+    transform-style: flat !important;
+}
+.cart-wrapper .ico-cart,
+.cart-wrapper .ico-cart-total,
+.next-product-label,
+.previous-product-label,
+.cart-wrapper:hover #topcartlink,
+.next-product-title,
+.previous-product-title,
+.previous-product a:hover, 
+.next-product a:hover,
+.social-sharing a .flip,
+.social-sharing a .flop,
+.social-sharing a:hover,
+.share-post a:hover,
+.share-post a .flip,
+.share-post a .flop {
+    -webkit-transform: none !important;
+    transform: none !important;
+}
+.cart-wrapper .ico-cart-total,
+.next-product-title,
+.previous-product-title,
+.social-sharing a .flop,
+.share-post a .flop {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+.cart-wrapper:hover .ico-cart-total,
+.next-product a:hover .next-product-title,
+.previous-product a:hover .previous-product-title,
+.social-sharing a:hover .flop,
+.share-post a:hover .flop {
+    opacity: 1;
+}
+.cart-wrapper .ico-cart,
+.next-product a .next-product-label,
+.previous-product a .previous-product-label {
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+.cart-wrapper:hover .ico-cart,
+.next-product a:hover .next-product-label,
+.previous-product a:hover .previous-product-label {
+    opacity: 0;
+}
+.social-sharing a,
+.share-post a {
+    position: relative;
+}
+.cart-wrapper .ico-cart-total span{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

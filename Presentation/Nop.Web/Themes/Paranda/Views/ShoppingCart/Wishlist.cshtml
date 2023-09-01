@@ -1,0 +1,403 @@
+@model WishlistModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.ShoppingCart
+@{
+   Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+   //title
+   //Html.AddTitleParts(T("PageTitle.Wishlist").Text);
+   Html.AddTitleParts("FAVOURITE");
+}
+<script>
+    fbq('track', 'AddToWishlist')
+</script>
+   <div class="page-header page-header-custom">
+       <h3 class="text-center">
+           @if (Model.IsEditable)
+           {
+               @*@T("Wishlist")*@<p>FAVOURITE</p>
+           }
+           else
+           {
+               @String.Format(T("Wishlist.WishlistOf").Text, Model.CustomerFullname)
+           }
+       </h3>
+   </div>
+   <div class="page-body"> 
+       @if (Model.Items.Count > 0)
+       {
+        <div class="wishlist-content">
+            @if (Model.Warnings.Count > 0)
+            {
+                <div class="text-danger">
+                    <ul class="list-unstyled">
+                        @foreach (var warning in Model.Warnings)
+                        {
+                            <li>@warning</li>
+                        }
+                    </ul>
+                </div>
+            }
+            @using (Html.BeginRouteForm("Wishlist", FormMethod.Post))
+            {
+
+                <div class="col-md-12 nopadding">
+
+                    @if (Model.IsEditable)
+                    {
+
+                    }
+                    @if (Model.DisplayAddToCart)
+                    {
+
+                    }
+                    @if (Model.ShowSku)
+                    {
+
+                    }
+                    @if (Model.ShowProductImages)
+                    {
+
+                    }
+
+
+                            @*<thead>*@
+                            <div class="col-md-12 " style="border-top:1px solid #aaa;border-bottom:1px solid #aaa;padding-top:18px">
+
+                                <div class="col-md-1 hidden-xs text-center">
+                                    @if (Model.IsEditable)
+                                    {
+
+                                        @T("ShoppingCart.Remove")
+
+                                    }
+                                </div>
+                                <div class="col-md-2 hidden-xs text-center">
+                                    @if (Model.DisplayAddToCart)
+                                    {
+
+                                        @T("ShoppingCart.AddToCart")
+
+                                    }
+                                </div>
+
+                                <div class="col-md-1 hidden-xs text-center ">
+                                    @if (Model.ShowSku)
+                                    {
+
+                                        @T("ShoppingCart.SKU")
+
+                                    }
+                                </div>
+                                <div class="col-md-3 hidden-xs text-center ">
+                                    @if (Model.ShowProductImages)
+                                    {
+
+                                        @T("ShoppingCart.Image")
+
+                                    }
+                                </div>
+                                <div class="col-md-2 hidden-xs text-center ">
+                                    @T("ShoppingCart.Product(s)")
+                                </div>
+
+                                <div class="col-md-1 hidden-xs text-center ">
+                                    @T("ShoppingCart.UnitPrice")
+                                </div>
+
+
+                                <div class="col-md-1 hidden-xs text-center ">
+                                    @T("ShoppingCart.Quantity")
+                                </div>
+
+                                <div class="col-md-1 hidden-xs text-center ">
+                                    @T("ShoppingCart.ItemTotal")
+                                </div>
+
+                            </div>
+
+
+                    
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="col-md-12  bgforfav" style="border-bottom:1px solid #aaa">
+                            <tr>
+
+                                <div class="col-md-3  text-center hidden-lg hidden-md forfavimg ">
+                                    @if (Model.ShowProductImages)
+                                    {
+                                        <td class="product-picture">
+                                            <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })"><img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" /></a>
+                                        </td>
+                                    }
+                                </div>
+
+
+
+                                <div class="col-md-2  text-left hidden-lg hidden-md favproductdetail ">
+                                    <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })" class="product-name">@item.ProductName</a>
+                                    @if (!String.IsNullOrEmpty(item.AttributeInfo))
+                                    {
+                                        <div class="">
+                                            @Html.Raw(item.AttributeInfo)
+                                        </div>
+                                    }
+                                </div>
+
+
+
+
+                                <div class="col-md-1  text-left hidden-md hidden-lg skforfav ">
+                                    @if (Model.ShowSku)
+                                    {<div class="skn hidden-lg hidden-md">SKU</div>
+                                        <td class="sku">
+                                            @*<label class="td-title">@T("ShoppingCart.SKU"):</label>*@
+                                            <span class="sku-number">@item.Sku</span>
+                                        </td>
+                                    }
+                                </div>
+
+
+                                <div class="col-md-1  text-center hidden-md hidden-lg qtysecforfav">
+                                    <td class="quantity">
+                                        @*<div class="qtyy hidden-lg hidden-md qtyforfav ">QTY</div>*@
+                                        @*<label class="td-title">@T("ShoppingCart.Quantity"):</label>*@
+                                        @*@if (Model.IsEditable)
+                                        {
+                                            if (item.AllowedQuantities.Count > 0)
+                                            {
+                                                <select name="itemquantity@(item.Id)" class="form-control">
+                                                    @foreach (var qty in item.AllowedQuantities)
+                                                    {
+                                                        <option selected="@qty.Selected" value="@qty.Value">@qty.Value</option>
+                                                    }
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <input name="itemquantity@(item.Id)" type="text" value="@(item.Quantity)" class="form-control-wishlist minWidth50" />
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="product-quantity">@item.Quantity</span>
+                                        }*@
+                                    </td>
+                                </div>
+
+                                <div class="col-md-1  text-center hidden-xs ">
+                                    <div class="adt hidden-lg hidden-md">REMOVE</div>
+                                    @if (Model.IsEditable)
+                                    {
+                                        <td class="remove-from-cart">
+                                            @*<label class="td-title">@T("ShoppingCart.Remove"):</label>*@
+                                            <input type="checkbox" name="removefromcart" value="@(item.Id)" />
+                                        </td>
+                                    }
+
+                                </div>
+
+                                <div class="col-md-1 hidden-md hidden-lg " style="padding-top:22px">
+                                    <div class="adt hidden-lg hidden-md">REMOVE</div>
+                                    @if (Model.IsEditable)
+                                    {
+                                        <td class="remove-from-cart">
+                                            @*<label class="td-title">@T("ShoppingCart.Remove"):</label>*@
+                                            <input type="checkbox" name="removefromcart" value="@(item.Id)" />
+                                        </td>
+                                    }
+
+                                </div>
+
+                                <div class="col-md-2  text-center hidden-xs ">
+                                    @if (Model.DisplayAddToCart)
+                                    { <div class="rem hidden-lg hidden-md">ADD TO CART</div>
+                                        <td class="add-to-cart">
+                                            @*<label class="td-title">@T("ShoppingCart.AddToCart"):</label>*@
+                                            <input type="checkbox" name="addtocart" value="@(item.Id)" />
+                                        </td>
+                                    }
+                                </div>
+
+
+                                <div class="col-md-1 hiddden-md hidden-lg " style="float: left; z-index:1000000">
+                                    @if (Model.DisplayAddToCart)
+                                    { <div class="rem hidden-lg hidden-md">ADD TO CART</div>
+                                        <td class="add-to-cart">
+                                            @*<label class="td-title">@T("ShoppingCart.AddToCart"):</label>*@
+                                            <input type="checkbox" name="addtocart" value="@(item.Id)" />
+                                        </td>
+                                    }
+                                </div>
+
+                                <div class="col-md-1  text-center hidden-xs">
+                                    @if (Model.ShowSku)
+                                    {<div class="skn hidden-lg hidden-md hidden-xs ">SKU</div>
+                                        <td class="sku">
+                                            @*<label class="td-title">@T("ShoppingCart.SKU"):</label>*@
+                                            <span class="sku-number">@item.Sku</span>
+                                        </td>
+                                    }
+                                </div>
+                                <div class="col-md-3  text-center hidden-xs ">
+                                    @if (Model.ShowProductImages)
+                                    {
+                                        <td class="product-picture">
+                                            <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })"><img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" /></a>
+                                        </td>
+                                    }
+                                </div>
+
+                                <td class="product">
+                                    <div class="col-md-2  text-center hidden-xs ">
+                                        <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })" class="product-name">@item.ProductName</a>
+                                        @if (!String.IsNullOrEmpty(item.AttributeInfo))
+                                        {
+                                            <div class="">
+                                                @Html.Raw(item.AttributeInfo)
+                                            </div>
+                                        }
+                                    </div>
+
+                                    @*<div class="col-md-1">
+                        @if (!String.IsNullOrEmpty(item.RecurringInfo))
+                        {
+                            <div class="recurring-info">
+                                @Html.Raw(item.RecurringInfo)
+                            </div>
+                        }</div>
+                        @if (!String.IsNullOrEmpty(item.RentalInfo))
+                        {
+                            <div class="rental-info">
+                                @Html.Raw(item.RentalInfo)
+                            </div>
+                        }
+                        @if (item.Warnings.Count > 0)
+                        {
+                            <div class="text-danger">
+                                <ul class="list-unstyled">
+                                    @foreach (var warning in item.Warnings)
+                                    {
+                                        <li>@warning</li>
+                                    }
+                                </ul>
+                            </div>
+                        }*@
+                                </td>
+                                <div class="col-md-1  text-center  ">
+                                    <td class="unit-price">
+                                        @*<label class="td-title">@T("ShoppingCart.UnitPrice"):</label>*@
+                                        <span class="product-unit-price">@item.UnitPrice</span>
+                                    </td>
+                                </div>
+
+
+                                <div class="col-md-1  text-center hidden-lg hidden-md ">
+                                    <td class="subtotal">
+                                        <div class="stot hidden-lg hidden-md ">TOTAL</div>
+                                        @*<label class="td-title">@T("ShoppingCart.ItemTotal"):</label>*@
+                                        <span class="product-subtotal">@item.SubTotal</span>
+                                        @if (!String.IsNullOrEmpty(item.Discount))
+                                        {
+                                            <div class="discount">
+                                                @T("ShoppingCart.ItemYouSave"): @item.Discount
+                                            </div>
+                                        }
+                                    </td>
+                                </div>
+                                
+
+
+                                <div class="col-md-1 col-xs-3  text-center qty-response">
+                                    <td class="quantity">
+                                        <div class="qtyy hidden-lg hidden-md " style="text-align:left;padding-bottom:5px">QTY</div>
+                                        @*<label class="td-title">@T("ShoppingCart.Quantity"):</label>*@
+                                        @if (Model.IsEditable)
+                                        {
+                                            if (item.AllowedQuantities.Count > 0)
+                                            {
+                                                <select name="itemquantity@(item.Id)" class="form-control">
+                                                    @foreach (var qty in item.AllowedQuantities)
+                                                    {
+                                                        <option selected="@qty.Selected" value="@qty.Value">@qty.Value</option>
+                                                    }
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <input name="itemquantity@(item.Id)" type="text" value="@(item.Quantity)" class="form-control-wishlist minWidth50" />
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="product-quantity">@item.Quantity</span>
+                                        }
+                                    </td>
+                                </div>
+                                @*<hr class="hidden-md hidden-lg">*@
+                                <div class="col-md-1  text-center hidden-xs ">
+                                    <td class="subtotal">
+                                        <div class="stot hidden-lg hidden-md ">TOTAL</div>
+                                        @*<label class="td-title">@T("ShoppingCart.ItemTotal"):</label>*@
+                                        <span class="product-subtotal">@item.SubTotal</span>
+                                        @if (!String.IsNullOrEmpty(item.Discount))
+                                        {
+                                            <div class="discount">
+                                                @T("ShoppingCart.ItemYouSave"): @item.Discount
+                                            </div>
+                                        }
+                                    </td>
+                                </div>
+                            </tr>
+                             </div>
+                        }
+
+                   
+
+                        </div>
+                  
+
+                if (Model.Items.Count > 0 && Model.DisplayTaxShippingInfo)
+                {
+                    var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+                    //tax info is already included in the price (incl/excl tax). that's why we display only shipping info here
+                    //of course, you can modify appropriate locales to include VAT info there
+               <div class="tax-shipping-info">
+                   @T(inclTax ? "Wishlist.TaxShipping.InclTax" : "Wishlist.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+               </div>
+               }
+               <div class="row no-margin text-center" style="margin-top:50px;margin-bottom:50px">
+                   @if (Model.IsEditable)
+{
+    <input type="submit" name="updatecart" value="UPDATE FAVOURITE" class="btn-med" style="margin-top: 27px; padding: 5px 16px" />
+}
+                   @if (Model.DisplayAddToCart)
+{
+    <input type="submit" name="addtocartbutton" value="@T("ShoppingCart.AddToCart")" class="btn-med" style="padding:5px 41px" />
+}
+                   @if (Model.IsEditable && Model.EmailWishlistEnabled)
+                   {
+                       <input type="button" value="@T("Wishlist.EmailAFriend")" class="btn-med" onclick="setLocation('@Url.RouteUrl("EmailWishlist")')" />
+                   }
+               </div>
+               }
+           </div>
+       }
+       else
+       {
+           <div class="minHeight250" style="margin-bottom:200px;text-align:center">
+               @*@T("Wishlist.CartIsEmpty")*@
+               THERE ARE NO FAVOURITE ITEMS
+           </div>
+       }
+       
+       @*@if (Model.IsEditable && Model.Items.Count > 0)
+       {
+           <div class="row no-margin text-center marginTop15" style="margin-top:30px;margin-bottom:30px">
+               <span class="share-label">YOUR SHOE RACK URL FOR SHARING:</span>
+               <a href="@Url.RouteUrl("Wishlist", new { customerGuid = Model.CustomerGuid })" class="share-link">@Url.RouteUrl("Wishlist", new { customerGuid = Model.CustomerGuid }, "http")</a>
+           </div>
+       }*@
+   </div>

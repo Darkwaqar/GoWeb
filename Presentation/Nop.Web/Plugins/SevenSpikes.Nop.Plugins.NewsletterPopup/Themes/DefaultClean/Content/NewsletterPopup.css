@@ -1,0 +1,129 @@
+﻿/*
+* Copyright 2016 Seven Spikes Ltd. All rights reserved. (http://www.nop-templates.com)
+* http://www.nop-templates.com/t/licensinginfo
+*/
+
+.newsletter-subscribe-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1070;
+}
+.newsletter-subscribe-popup {
+    position: fixed;
+    top: 30px;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: 90%;
+    max-width: 800px;
+    min-height: 480px;
+    margin: auto;
+    padding: 30px;
+    background-color: #fff;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1110;
+}
+.newsletter-subscribe-popup .newsletter-subscribe {
+    height: 230px;
+}
+
+/*Remove coment if you want to hide the subscribe form after sending*/
+/*.newsletter-subscribe-popup .newsletter-subscribe.hidden { 
+    display: none;
+}*/
+
+.newsletter-subscribe-popup .newsletter-subscribe-popup-title {
+    padding: 15px 0;
+}
+.newsletter-subscribe-popup .newsletter-subscribe-popup-title span {
+    font-size: 28px;
+    font-weight: normal;
+}
+.newsletter-subscribe-popup .newsletter-subscribe-description-wrapper {
+    height: 52px;
+    overflow: hidden;
+    margin: 0 0 10px;
+}
+.newsletter-subscribe-popup .newsletter-subscribe-popup-description {
+    font-size: 15px;
+    color: #888;
+}
+
+.newsletter-subscribe-popup .newsletter {
+    margin-bottom: 20px;
+}
+.newsletter-subscribe-popup .newsletter-subscribe-popup-description span {
+    font-size: 40px;
+    color: #c89a76;
+}
+.newsletter-subscribe-popup .newsletter-email {
+    display: inline-block;
+    width: 300px;
+    max-width: 100%;
+}
+.newsletter-subscribe-popup .newsletter-email input[type="text"] {
+    width: 100%;
+    float: none;
+    height: 40px;
+    margin: 0 0 10px;
+}
+.newsletter-subscribe-popup .newsletter-subscribe-button {
+    width: 100%;
+    height: 40px;
+}
+.newsletter-subscribe-popup .newsletter-validation,
+.newsletter-subscribe-popup .newsletter-result {
+    margin: 10px 0;
+    max-height: 80px;
+    overflow: hidden;
+} 
+
+.newsletter-subscribe-popup .close-popup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 40px;
+    width: 40px;
+    background: url(./img/popup-close.png) no-repeat center;
+    font-size: 0;
+}
+.newsletter-subscribe-popup .newspetter-popup-inputs {
+    margin: 0 0 20px;
+    color: #888;
+}
+
+@media (max-width: 1001px) {
+
+    /*Remove Comment if you want to hide background image on mobile resolutions*/
+    /*.newsletter-subscribe-popup  {
+        background-image: none;
+    }*/     
+
+    .newsletter-subscribe-popup .newsletter-email .options,
+    .newsletter-subscribe-popup .newspetter-popup-inputs {
+        color: #444;
+    }
+
+}
+
+@media (min-width: 1001px) {
+
+    .newsletter-subscribe-popup {
+        top: 0;
+        bottom: 0;
+        max-height: 470px;
+        padding: 50px;
+    }
+    .newsletter-subscribe-popup .newsletter-description-wrapper {
+    }
+    .newsletter-subscribe-popup .newsletter-subscribe-popup-description {
+    }
+
+}

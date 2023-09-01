@@ -1,0 +1,73 @@
+﻿@using Nop.Core;
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Framework.UI
+@{  
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+
+    //add browser specific CSS files
+    var browser = Request.Browser;
+    if (browser.Browser == "IE" && browser.MajorVersion == 8)
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/ie8.css", themeName));
+    }
+    //add main CSS file
+    if (supportRtl)
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.rtl.css", themeName));
+    }
+    else
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.css", themeName));
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/vendor.css", themeName));
+
+        //bootstrap
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/bootstrap/bootstrap.min.css", themeName));
+	if (isHomePage)
+        {
+            //Owl Carousel
+            Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/owlcarousel/owl.carousel.min.css", themeName));
+            // js
+            Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/owl.carousel.js", themeName));
+        }
+        //Owl Carousel
+        //Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/owlcarousel/owl.carousel.min.css", themeName));
+
+        //Sadaf Amir Css
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/SA/animate.css", themeName));
+        //Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/SA/drift-basic.css", themeName));
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/SA/main.css", themeName));
+        // Html.AppendCssFileParts("https://s3-us-west-2.amazonaws.com/s.cdpn.io/43033/owl.carousel.css");
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/swipper/css/swiper.css", themeName));
+    }
+
+    //add jQuery UI css file
+    Html.AppendCssFileParts("~/Content/jquery-ui-themes/smoothness/jquery-ui-1.10.3.custom.min.css");
+
+    if (browser.Browser == "IE" && browser.MajorVersion == 8)
+    {
+        Html.AddScriptParts("~/Scripts/selectivizr.min.js");
+        Html.AddScriptParts("~/Scripts/respond.min.js");
+    }
+    //Sadaf Amir Js
+
+
+    //Html.AppendScriptParts("//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js");
+    Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/bootstrap.min.js", themeName));
+    //Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/Drift.min.js", themeName));
+    //Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/owl.carousel.js", themeName));
+    //Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/OwlCarousel2Thumbs.min.js", themeName));
+    Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/script.js", themeName));
+    //Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/prisma.js", themeName));
+    Html.AddScriptParts(string.Format("~/Themes/{0}/Content/swipper/js/swiper.min.js", themeName));
+
+
+
+
+
+}
+

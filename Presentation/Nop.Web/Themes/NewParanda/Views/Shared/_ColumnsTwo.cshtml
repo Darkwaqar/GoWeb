@@ -1,0 +1,119 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.cshtml";
+}
+@{
+    //current category ID
+    int currentCategoryId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("category", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentCategoryId = Convert.ToInt32(Url.RequestContext.RouteData.Values["categoryId"].ToString());
+    }
+
+
+    //current manufacturer ID
+    int currentManufacturerId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("manufacturer", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentManufacturerId = Convert.ToInt32(Url.RequestContext.RouteData.Values["manufacturerId"].ToString());
+    }
+
+
+    //current product ID
+    int currentProductId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("product", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("productdetails", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentProductId = Convert.ToInt32(Url.RequestContext.RouteData.Values["productId"].ToString());
+    }
+}
+@if (IsSectionDefined("Breadcrumb"))
+{
+    @section Breadcrumb {
+        @RenderSection("Breadcrumb")
+    } 
+}
+@*<div class="side-2">
+  
+    @*else
+        {
+            @Html.Widget("left_side_column_before")
+            @Html.Action("CategoryNavigation", "Catalog", new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
+            @Html.Widget("left_side_column_after_category_navigation")
+            @Html.Action("ManufacturerNavigation", "Catalog", new { currentManufacturerId = currentManufacturerId })
+            @Html.Action("VendorNavigation", "Catalog")
+            @Html.Action("RecentlyViewedProductsBlock", "Product", new { productThumbPictureSize = 64 })
+            @Html.Action("PopularProductTags", "Catalog")
+            @Html.Action("PollBlock", "Poll", new { systemKeyword = "LeftColumnPoll" })
+            @Html.Widget("left_side_column_after")
+        }*@
+
+
+
+
+
+
+
+
+<div class="woocommerce">
+    <div class="myAccount">
+        <div class="paddedContainer">
+            <div class="grid-x grid-padding-x">
+                <div class="myAccount__col cell small-27 medium-8 large-6">
+
+                    <nav class="woocommerce-MyAccount-navigation">
+                      
+
+                        @if (IsSectionDefined("left"))
+                        {
+                            @RenderSection("left")
+                        }
+
+
+
+                    </nav>
+
+                </div>
+
+                <div class="myAccount__col cell small-28 medium-17 large-15 paddedContainer__col">
+                    <div class="paddedContainer__col__wrapper">
+                        <div class="woocommerce-notices-wrapper"></div>
+                        @*<p>Hello <strong>aamirusmani82</strong> (not <strong>aamirusmani82</strong>? <a href="https://madinavisconti.com/my-account/customer-logout/?_wpnonce=6e0869f215">Log out</a>)</p>
+
+        <p>From your account dashboard you can view your <a href="https://madinavisconti.com/my-account/orders/">recent orders</a>, manage your <a href="https://madinavisconti.com/my-account/edit-address/">shipping and billing addresses</a>, and <a href="https://madinavisconti.com/my-account/edit-account/">edit your password and account details</a>.</p>*@
+                        @Html.Widget("main_column_before")
+                        @RenderBody()
+                        @Html.Widget("main_column_after")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

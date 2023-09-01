@@ -1,0 +1,36 @@
+﻿@model IList<ProductOverviewModel>
+    @using Nop.Web.Models.Catalog;
+    @{
+        int i = 0;
+
+    }
+    
+                    @foreach (var item in Model)
+                    {
+                        if (i == 0)
+                        {
+                            <div class="item active">
+                                <a href="/@item.SeName">
+                                    <img src="@item.DefaultPictureModel.ImageUrl" alt="Chania">
+                                    <p class="hover-box-text font-chronicle">@item.Name</p>
+                                    <p class="hover-box-text-price font-chronicle">@Html.Raw(item.ProductPrice.Price)</p>
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="item">
+                                <a href="/@item.SeName">
+                                    <img src="@item.DefaultPictureModel.ImageUrl" alt="Chania">
+                                    <p class="hover-box-text font-chronicle">@item.Name</p>
+                                    <p class="hover-box-text-price font-chronicle">@Html.Raw(item.ProductPrice.Price)</p>
+                                </a>
+                            </div>
+                           
+                        }
+                        i++;
+                    }
+
+
+
+

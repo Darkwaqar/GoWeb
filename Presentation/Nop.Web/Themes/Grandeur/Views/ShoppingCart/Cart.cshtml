@@ -1,0 +1,29 @@
+﻿@model ShoppingCartModel
+@using Nop.Web.Models.Checkout
+@using Nop.Web.Models.ShoppingCart;
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ShoppingCart").Text);
+}
+
+@section left
+{
+    <div class="logo"></div>
+    <h1>@T("ShoppingCart")</h1>
+    @if (!Model.OnePageCheckoutEnabled)
+    {
+        @Html.Action("CheckoutProgress", "Checkout", new { step = CheckoutProgressStep.Cart })
+    }
+    @if (Model.IsEditable)
+    {
+        @Html.Action("CrossSellProducts", "Product")
+    }
+    <span class="down"></span>
+}
+<div class="page shopping-cart-page">
+    <div class="page-body">
+        @Html.Partial("OrderSummary", Model)
+    </div>
+</div>

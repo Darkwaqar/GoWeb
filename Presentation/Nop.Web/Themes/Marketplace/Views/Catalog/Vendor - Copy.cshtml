@@ -1,0 +1,148 @@
+﻿@model VendorModel
+
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-vendor-page");
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var vendorUrl = Url.RouteUrl("Vendor", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(vendorUrl);
+    }
+
+}
+
+@{
+    //current category ID
+    int currentCategoryId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("category", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentCategoryId = Convert.ToInt32(Url.RequestContext.RouteData.Values["categoryId"].ToString());
+    }
+
+
+    //current manufacturer ID
+    int currentManufacturerId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("manufacturer", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentManufacturerId = Convert.ToInt32(Url.RequestContext.RouteData.Values["manufacturerId"].ToString());
+    }
+
+
+    //current product ID
+    int currentProductId = 0;
+    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("product", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.RequestContext.RouteData.Values["action"].ToString().Equals("productdetails", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentProductId = Convert.ToInt32(Url.RequestContext.RouteData.Values["productId"].ToString());
+    }
+}
+
+<div class="container-fluid">
+    <br />
+    <div class="row">
+        <div class="col-md-3 col-lg-2 no-right">
+            @Html.Widget("left_side_column_before")
+            @Html.Action("CategoryNavigation", "Catalog", new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
+            @Html.Widget("left_side_column_after_category_navigation")
+            @Html.Action("ManufacturerNavigation", "Catalog", new { currentManufacturerId = currentManufacturerId })
+            @Html.Action("VendorNavigation", "Catalog")
+            @Html.Action("RecentlyViewedProductsBlock", "Product", new { productThumbPictureSize = 64 })
+            @Html.Action("PopularProductTags", "Catalog")
+            @Html.Action("PollBlock", "Poll", new { systemKeyword = "LeftColumnPoll" })
+            @Html.Widget("left_side_column_after")
+        </div>
+        <div class="col-md-9 col-lg-10">
+            <div class="row">
+                <div class="col-md-5" style="overflow:hidden; max-height:300px">
+                    <img src="@Model.PictureModel.ImageUrl" class="img-responsive" width="100%" />
+
+                </div>
+                <div class="col-md-7 vendor-desc">
+                    <h1>@Model.Name</h1>
+                    <h4>@Html.Raw(Model.Description)</h4>
+                    @if (Model.AllowCustomersToContactVendors)
+                    {
+                        <div class="vendor-content">
+                            <span class="glyhicon glyphicon-envelope"></span> <a href="javascript:" onclick="setLocation('@Url.RouteUrl("ContactVendor", new { vendorId = Model.Id })')">Contact Vendor</a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="vendor-collection-link">
+                        <a href="#">Shop @Model.Name All Collection</a>
+                    </div>
+                </div>
+            </div>
+            @Html.Widget("main_column_before")
+
+            <div class="page-body">
+                @Html.Widget("vendordetails_top", Model.Id)
+                @*description*@
+                @*@if (!String.IsNullOrWhiteSpace(Model.Description))
+                {
+                        <div class="vendor-description">
+                            @Html.Raw(Model.Description)
+                        </div>
+                }*@
+                @*contact vendor*@
+                @*@if (Model.AllowCustomersToContactVendors)
+                {
+                    <div class="contact-vendor">
+                        <input type="button" value="@T("ContactVendor")" class="button-2 contact-vendor-button" onclick="setLocation('@Url.RouteUrl("ContactVendor", new { vendorId = Model.Id })')" />
+                    </div>
+                }*@
+                @if (Model.Products.Count > 0)
+                {
+                    @Html.Partial("_CatalogSelectors", Model.PagingFilteringContext, new ViewDataDictionary())
+                }
+                @*product list*@
+                @if (Model.Products.Count > 0)
+                {
+                    <div class="@(Model.PagingFilteringContext.ViewMode == "list" ? "product-list" : "product-grid")">
+                        <div class="row">
+                            @foreach (var product in Model.Products)
+                            {
+                                <div class="col-md-4 col-lg-3">
+                                    @Html.Partial("_ProductBox", product)
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                @{
+                    var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+                }
+                @if (!pager.IsEmpty())
+                {
+                    <div class="pager">
+                        @pager
+                    </div>
+                }
+                @Html.Widget("vendordetails_bottom", Model.Id)
+            </div>
+            @Html.Widget("main_column_after")
+        </div>
+    </div>
+
+    <div class="side-2">
+
+    </div>
+    <div class="center-2">
+
+    </div>
+</div>

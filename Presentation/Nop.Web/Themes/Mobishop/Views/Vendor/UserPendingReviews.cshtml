@@ -1,0 +1,55 @@
+﻿@model Nop.Web.Models.Vendors.PublicPendingReviewDisplayModel
+@{
+    var pendingReviews = Model.PendingReviews;
+}
+@if (pendingReviews.Count() == 0)
+{
+    <div class="infobox red">You don't have any pending reviews.</div>
+}
+else
+{
+    foreach (var review in pendingReviews)
+    {
+        var orderModel = review.Key;
+        var productModelList = review.Value;
+
+        <div class="pending-review-block">
+          
+
+            <div class="review-details">
+                @foreach (var pm in productModelList)
+                {
+                    <div class="product-review-block">
+
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <img src="@pm.ProductImageUrl" width="75" />
+                            </div>
+                            <div class="col-md-10">
+                                <div class="title-review">
+                                    <a class="product-link" href="@Url.RouteUrl("Product", new { SeName = pm.ProductSeName })">@pm.ProductName</a>
+                                    <div class="rating-data"><div class="process-raty" data-readonly="true" data-score="0"></div></div>
+                                    <div class="order-no">Order# <a href="@Url.RouteUrl("OrderDetails", new { orderId = orderModel.OrderId })">@orderModel.OrderId</a></div>
+                                    <a class="btn-outline" href="@Url.RouteUrl("VendorEditReviewPublic", new { OrderId = orderModel.OrderId, ProductId = pm.ProductId })">Rate Now</a>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                }
+            </div>
+        </div>
+
+
+    }
+}

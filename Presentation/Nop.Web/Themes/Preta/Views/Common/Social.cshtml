@@ -1,0 +1,59 @@
+﻿@model Nop.Web.Models.Common.SocialModel
+
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Configuration
+@{
+    var storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+    var settingService = EngineContext.Current.Resolve<ISettingService>();
+    var instagramUrl = settingService.GetSettingByKey("pavilionthemesettings.instagramurl", String.Empty, storeId, true);
+    var pinterestUrl = settingService.GetSettingByKey("pavilionthemesettings.pinteresturl", String.Empty, storeId, true);
+}
+
+
+
+@if (!string.IsNullOrEmpty(Model.FacebookLink))
+{
+    <a href="@Model.FacebookLink" target="_blank" data-svg="#0c66cc">
+        <img src="~/Themes/preta/Content/images/facebook-icon.svg">
+    </a>
+}
+@if (!string.IsNullOrEmpty(Model.TwitterLink))
+{
+    <a href="@Model.TwitterLink" target="_blank" data-svg="#33ccff">
+        <img src="~/Themes/preta/Content/images/twitter-icon.svg">
+    </a>
+}
+
+<a href="@pinterestUrl" target="_blank" data-svg="#cc0006">
+    <img src="~/Themes/preta/Content/images/pin-interest-icon.svg">
+</a>
+
+@if (!string.IsNullOrEmpty(Model.GooglePlusLink))
+{
+    <a href="@Model.GooglePlusLink" target="_blank" data-svg="#db4e3f">
+        <img src="~/Themes/preta/Content/images/google-plus-icon.svg">
+    </a>
+
+}
+
+<a href="@instagramUrl" target="_blank" data-svg="#923DA3">
+    <img src="~/Themes/preta/Content/images/instagram-icon.svg">
+</a>
+
+@if (!string.IsNullOrEmpty(Model.YoutubeLink))
+{
+    <a href="@Model.YoutubeLink" target="_blank" data-svg="#E62E28">
+        <img src="~/Themes/preta/Content/images/youtube-icon.svg">
+    </a>
+
+}
+
+
+
+
+
+
+
+
+

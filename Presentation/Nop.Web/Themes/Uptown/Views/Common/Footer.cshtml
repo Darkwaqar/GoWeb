@@ -1,0 +1,358 @@
+﻿@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Services.Configuration
+@using Nop.Web.Models.Common
+
+@model FooterModel
+
+@{
+    var storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+    var settingService = EngineContext.Current.Resolve<ISettingService>();
+    var footerLayout = settingService.GetSettingByKey("uptownthemesettings.footerlayout", "footer-1", storeId, true);
+    var isFooter1 = string.Compare(footerLayout, "footer-1", StringComparison.InvariantCultureIgnoreCase) == 0;
+
+   // Html.AddScriptParts("~/Themes/Uptown/Content/scripts/insta-feed.js");
+    Html.AddCssFileParts("~/Themes/Uptown/Content/css/SocialFeed.css");
+}
+
+@helper RenderFooterLower(int storeId, ISettingService settingService)
+{
+    var removeCopyright = settingService.GetSettingByKey("uptownthemesettings.removecopyright", false, storeId, true);
+    var removeDesignedBy = settingService.GetSettingByKey("uptownthemesettings.removedesignedby", false, storeId, true);
+
+    <div class="footer-disclaimer footer-disclaimer-left">
+        <span>@T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)</span>
+    </div>
+    <div class="footer-disclaimer footer-disclaimer-right">
+        <span>
+            <a style="text-decoration:none; color: #888;" href="https://growonline.pk/" target="_blank">
+                Powered by
+                <span>
+                    <img class="grow" src="~/Themes/Uptown/Content/img/GrowOnline-logo.png" style="width: 22px; vertical-align: middle;">
+                </span>
+                GROW ONLINE
+            </a>
+        </span>
+    </div>
+    if (Model.DisplayTaxShippingInfoFooter)
+    {
+        var inclTax = EngineContext.Current.Resolve<IWorkContext>().TaxDisplayType == TaxDisplayType.IncludingTax;
+        <div class="footer-tax-shipping">
+            @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+        </div>
+    }
+    if (!removeCopyright)
+    {
+        <div class="footer-powered-by">
+            Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a>
+            @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
+                Find more info here http://www.nopcommerce.com/copyrightremoval.aspx*@
+        </div>
+
+    }
+    if (!removeDesignedBy)
+    {
+        <div class="footer-designed-by">
+            Designed by <a href="http://www.nop-templates.com/" target="_blank">Nop-Templates.com</a>
+        </div>
+    }
+    <div class="footer-store-theme">
+        @Html.Action("StoreThemeSelector", "Common")
+    </div>
+}
+
+@helper RenderFooterBlocks(bool isFooter1, int storeId, ISettingService settingService)
+{
+    if (isFooter1)
+    {
+        <div class="footer-block first">
+            <h3 class="title title-first">
+                <span>@T("SevenSpikes.Themes.Uptown.Find-us-on")</span>
+            </h3>
+            @Html.Action("Social", "Common")
+            <div class="Download-our-Apps">
+                <h3 class="title">
+                    @*<span>@T("SevenSpikes.Themes.Uptown.ContactInfo")</span>*@
+                    <span>Download Our Apps</span>
+                </h3>
+                <ul>
+                    <li>
+                        <a href="https://www.gomobishop.com/share?sid=281" target="_blank">
+                            @*<img alt="sabar kar bhai" />*@
+                            <img src="/Themes/Uptown/Content/img/android.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.gomobishop.com/share?sid=281" target="_blank">
+                            @*<img alt="sabar kar bhai" />*@
+                            <img src="/Themes/Uptown/Content/img/ios.jpg">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+	        <div class="centificat">
+                <h3 class="title"><span>Security Standards</span></h3>
+                <ul class="accepted-methods">
+                    <li class="centificat1"></li>
+                    <li class="centificat2"></li>
+                    <li class="centificat3"></li>
+                    <li class="centificat4"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-block">
+            <h3 class="title">
+                <span>@T("SevenSpikes.Themes.Uptown.ContactInfo")</span>
+            </h3>
+            <ul class="footer-menu footer-collapse">
+                <li class="address">
+                    @* <span>@T("SevenSpikes.Themes.Uptown.Common.Address")</span>*@
+                </li>
+                <li class="phone">
+                    <a style="text-decoration: none;" href="tel:0213-4330-809" target="_blank">
+                        <span>@T("SevenSpikes.Themes.Uptown.Common.Phone") </span>
+                    </a>
+                </li>
+		<li class="adress">
+                    <h3 class="title">
+                        <span>Head Office</span>
+                    </h3>
+                    <span>
+                        Kawish Crown Plaza <br />
+                        3rd floor Suit no 301-305 <br />
+                        Shahrah-e-faisal karachi
+                    </span>
+                </li>
+		<li class="timeing">
+                    <h3 class="title">
+                        <span> Timings </span>
+                    </h3>
+                    <span> Monday To Saturday<br /> 10:00am-6:00pm </span>
+                </li>
+                
+                @*<li class="email">
+                        <span>@T("SevenSpikes.Themes.Uptown.Common.EmailName")@T("SevenSpikes.Themes.Uptown.Common.EmailAt")@T("SevenSpikes.Themes.Uptown.Common.EmailDomain")</span>
+                    </li>*@
+            </ul>
+
+        </div>
+    }
+    else
+    {
+        <div class="footer-block first">
+            <a href="@Url.RouteUrl("HomePage")" class="logo">
+                @Html.Widget("uptown_theme_footer_logo")
+            </a>
+            <h3 class="title">
+                <span>@T("SevenSpikes.Themes.Uptown.AboutUs.Title")</span>
+            </h3>
+            <p class="footer-about-us footer-collapse">@T("SevenSpikes.Themes.Uptown.AboutUs")</p>
+            @Html.Action("NewsletterBox", "Newsletter")
+        </div>
+    }
+    <div class="footer-block">
+        <h3 class="title">
+            <span>@T("Footer.MyAccount")</span>
+        </h3>
+        <ul class="footer-menu footer-collapse">
+	   @{
+                var username = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer.Email;
+            }
+            @if (username == null)
+            {
+                <li><a href="@Url.RouteUrl("CustomerInfo")">Register/Login</a></li>
+            }
+            else
+            {
+                <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.CustomerInfo")</a></li>
+                <li><a href="@Url.RouteUrl("CustomerAddresses")">@T("Account.CustomerAddresses")</a></li>
+                <li><a href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</a></li>
+            }
+
+            @if (Model.ShoppingCartEnabled)
+            {
+                <li><a href="@Url.RouteUrl("ShoppingCart")">@T("ShoppingCart")</a></li>
+            }
+            @if (Model.WishlistEnabled)
+            {
+                <li><a href="@Url.RouteUrl("Wishlist")">@T("Wishlist")</a></li>
+            }
+            @if (Model.AllowCustomersToApplyForVendorAccount)
+            {
+                @* <li><a href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</a></li>*@
+            }
+            @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
+            {
+                <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+            }
+        </ul>
+    </div>
+
+
+
+    <div class="footer-block">
+        <h3 class="title">
+            <span>@T("SevenSpikes.Themes.Uptown.Information")</span>
+        </h3>
+        <ul class="footer-menu footer-collapse">
+            @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+            {
+                <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+            }
+            @*<li><a href="@Url.RouteUrl("ManufacturerList")">@T("Manufacturers")</a></li>*@
+            <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+        </ul>
+    </div>
+    if (isFooter1)
+    {
+        <div class="footer-block last">
+            <h3 class="title">
+                <span>@T("SevenSpikes.Themes.Uptown.AboutUs.Title")</span>
+            </h3>
+            <p class="footer-about-us footer-collapse">@T("SevenSpikes.Themes.Uptown.AboutUs")</p>
+            @*@RenderPayments()*@
+            @Html.Action("NewsletterBox", "Newsletter")
+            <div class="Download-our-Apps-mobile">
+                @*<h3 class="title">
+                        @*<span>@T("SevenSpikes.Themes.Uptown.ContactInfo")</span>*
+                        <span>Download Our Apps</span>
+                    </h3>*@
+                <ul>
+                    <li>
+                        <a href="https://www.gomobishop.com/share?sid=281" target="_blank">
+                            @*<img alt="sabar kar bhai" />*@
+                            <img src="/Themes/Uptown/Content/img/android.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.gomobishop.com/share?sid=281" target="_blank">
+                            @*<img alt="sabar kar bhai" />*@
+                            <img src="/Themes/Uptown/Content/img/ios.jpg">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="centificat-mobile">
+                <h3 class="title"><span>Security Standards</span></h3>
+                <ul class="accepted-methods">
+                    <li class="centificat1"></li>
+                    <li class="centificat2"></li>
+                    <li class="centificat3"></li>
+                    <li class="centificat4"></li>
+                </ul>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="footer-block last">
+            <h3 class="title">
+                <span>@T("SevenSpikes.Themes.Uptown.ContactInfo")</span>
+            </h3>
+            <ul class="footer-menu footer-collapse">
+                <li class="address">
+                    <span>@T("SevenSpikes.Themes.Uptown.Common.Address")</span>
+                </li>
+                <li class="phone">
+                    <span>@T("SevenSpikes.Themes.Uptown.Common.Phone")</span>
+                </li>
+                <li class="email">
+                    <span>@T("SevenSpikes.Themes.Uptown.Common.EmailName")@T("SevenSpikes.Themes.Uptown.Common.EmailAt")@T("SevenSpikes.Themes.Uptown.Common.EmailDomain")</span>
+                </li>
+            </ul>
+        </div>
+    }
+}
+
+@helper RenderPayments()
+{
+    <ul class="accepted-payment-methods">
+        @*<li class="method1"></li>
+            <li class="method2"></li>
+            <li class="method3"></li>*@
+        @*<li class="method4"></li>*@
+        <li class="method5"></li>
+        <li class="method6"></li>
+    </ul>
+}
+
+<div class="footer @footerLayout">
+    <div class="footer-upper">
+        @if (isFooter1)
+        {
+            <div class="instagram-feed social-feed" data-ieoldversion="False" data-rtl="False">
+                <h2 class="title">
+                    <span class="title-text">Instagram</span>
+                </h2>
+                @*<div class="feed-body">
+                    <div class="post-list-wrap" style=" margin-top: 78px;">
+                        <ul id="instafeed" class="post-list"></ul>
+                    </div>
+                </div> *@
+		<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+		<div class="elfsight-app-fa565084-9e5c-4e3d-9439-312d8c119055"></div>
+            </div>
+            @*<script type="text/javascript">
+                var feed = new Instafeed({
+                    get: 'user',
+                    userId: '8212203566',
+                    clientId: '738f5843277e471a8d0a8dbc9d2d82d3',
+                    accessToken: '8212203566.1677ed0.738f5843277e471a8d0a8dbc9d2d82d3',
+                    template: '<li class="post-item"> <a class="post-link" href="{{link}}" target="_blank"> <img class="post-img" src="{{image}}" /> </a> </li>',
+                    resolution: 'standard_resolution',
+                    limit: '6'
+                });
+                feed.run();
+            </script> *@
+            @*@Html.Widget("uptown_footer_social_feed")*@
+            @*@Html.Action("NewsletterBox", "Newsletter")*@
+        }
+        else
+        {
+            <div class="footer-centering">
+                @RenderFooterBlocks(isFooter1, storeId, settingService)
+            </div>
+        }
+    </div>
+
+    @if (isFooter1)
+    {
+        <div class="footer-middle">
+            <div class="footer-centering">
+                @RenderFooterBlocks(isFooter1, storeId, settingService)
+            </div>
+        </div>
+    }
+
+    <div class="footer-lower">
+        @if (isFooter1)
+        {
+            @RenderFooterLower(storeId, settingService)
+        }
+        else
+        {
+            <div class="footer-centering">
+                <div class="footer-lower-right">
+                    @RenderPayments()
+                </div>
+                <div class="footer-lower-left">
+                    @RenderFooterLower(storeId, settingService)
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5de145cf43be710e1d1fc856/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->

@@ -1,0 +1,186 @@
+﻿@model SearchModel
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Search").Text);
+}
+@using growonline.Web.Models.Catalog;
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#@Html.FieldIdFor(model => model.adv)").click(toggleAdvancedSearch);
+
+        toggleAdvancedSearch();
+    });
+
+    function toggleAdvancedSearch() {
+
+        if ($('#@Html.FieldIdFor(model => model.adv)').is(':checked')) {
+            $('#advanced-search-block').show();
+        }
+        else {
+            $('#advanced-search-block').hide();
+        }
+    }
+</script>
+<div style="text-align:center; text-transform:uppercase">
+    <h3>@T("Search")</h3>
+    <br />
+
+</div>
+<div >
+    <div class="search-input">
+        @using (Html.BeginRouteForm("ProductSearch", FormMethod.Get))
+{
+    <div class="row no-margin">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+                <div class="basic-search">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.q, new { @class = "col-sm-4 control-label" }, ":")
+                        <div class="col-sm-4">
+                            @Html.TextBoxFor(model => model.q, new { @class = "tb" })
+                        </div>
+                    </div>
+                    @Html.Widget("productsearch_page_basic")
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-4">
+                            <div class="checkbox">
+                                <label class="lbl-cb">
+                                    @Html.CheckBoxFor(model => model.adv) @T("Search.AdvancedSearch")
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="advanced-search" id="advanced-search-block">
+                    @if (Model.AvailableCategories.Count > 0)
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.cid, new { @class = "col-sm-4 control-label" }, ":")
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.cid, Model.AvailableCategories, new { @class = "ddl" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-4">
+                                <div class="checkbox">
+                                    <label class="lbl-cb">
+                                        @Html.CheckBoxFor(model => model.isc) @T("Search.IncludeSubCategories")
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.AvailableManufacturers.Count > 0)
+                    {
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.mid, new { @class = "col-sm-4 control-label" }, ":")*@
+                            <p class="col-md-4 control-label" style="font-weight:700"> Brands</p> 
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.mid, Model.AvailableManufacturers, new { @class = "ddl" })
+                            </div>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <div class="col-sm-4 control-label">
+                            <label>@T("Search.PriceRange"):</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-inline">
+                                <div class="">
+                                    <span class="lbl-cb">@T("Search.PriceRange.From")</span>
+
+                                    @Html.TextBoxFor(model => model.pf, new { @class = "tb" })
+                                    <span class="lbl-cb">
+                                        @T("Search.PriceRange.To")
+                                    </span>
+                                    @Html.TextBoxFor(model => model.pt, new { @class = "tb" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-4">
+                            <div class="checkbox">
+                                <label class="lbl-cb">
+                                    @Html.CheckBoxFor(model => model.sid) @T("Search.SearchInDescriptions")
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.Widget("productsearch_page_advanced")
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-4 text-right">
+                        <input type="submit" class="btn-orignal bg-black" value="@T("Search")" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+    </div>
+    @if (Model.Products.Count > 0)
+{
+          <hr />
+    <div class="row no-margin">
+        <div class="col-md-12">
+          
+            @Html.Partial("_CatalogSelectors", Model.PagingFilteringContext, new ViewDataDictionary())
+           
+        </div>
+    </div>
+         <hr />
+}
+    @Html.Widget("productsearch_page_before_results")
+    <div class="search-results">
+        @if (!String.IsNullOrEmpty(Model.Warning))
+            {
+            <div class="warning">
+                @Model.Warning
+            </div>
+        }
+        @if (Model.NoResults)
+            {
+            <div class="no-result">
+                @T("Search.NoResultsText")
+            </div>
+        }
+
+        @if (Model.Products.Count > 0)
+            {
+
+            <div class="row no-margin">
+                @foreach (var product in Model.Products)
+                {
+                    if (Model.PagingFilteringContext.ViewMode == "list")
+                    {
+                        <div class="col-xs-12">
+                            @Html.Partial("_ProductBoxList", product)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-xs-12 col-sm-6 col-md-2 nopadding">
+                            @Html.Partial("_ProductBox", product)
+                        </div>
+                    }
+                }
+            </div>
+        }
+        @{
+            var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber").BooleanParameterName("adv").BooleanParameterName("isc").BooleanParameterName("sid").RenderEmptyParameters(true);
+        }
+        @if (!pager.IsEmpty())
+            {
+            <div class="pager">
+                @pager
+            </div>
+        }
+    </div>
+    @Html.Widget("productsearch_page_after_results")
+</div>

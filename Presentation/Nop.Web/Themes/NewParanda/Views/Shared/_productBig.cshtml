@@ -1,0 +1,106 @@
+﻿@model ProductOverviewModel
+@using Nop.Core
+@using Nop.Core.Domain.Catalog
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Catalog;
+@{
+    //prepare "Add to cart" AJAX link
+    string addtocartlink = "";
+    var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+    var quantity = 1;
+    if (Model.ProductPrice.ForceRedirectionAfterAddingToCart)
+    {
+        addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity, forceredirection = Model.ProductPrice.ForceRedirectionAfterAddingToCart });
+    }
+    else
+    {
+        addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
+    }
+
+    var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
+    var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
+}
+
+
+
+@*<div class="productsGrid__product__image">
+	<img width="600" height="800" src="@Model.DefaultPictureModel.ImageUrl" class="" alt="" sizes="(max-width: 600px) 100vw, 600px">
+</div>
+<a href="@Url.RouteUrl(" Product", new {SeName=Model.SeName})" class="productsGrid__product__details">
+	<div class="productName override">
+		@Model.Name
+	</div>
+	<div class="priceWrap">
+
+		<span class="woocommerce-Price-amount amount">@Model.ProductPrice.Price<span class="woocommerce-Price-currencySymbol"></span></span>
+
+	</div>
+	<div class="cta">
+		Shop Now
+	</div>
+</a>*@
+
+
+@*<div class="productsGrid__product cell small-14 related post-2897 product type-product status-publish has-post-thumbnail product_cat-rings pa_material-natural-bronze product_collection-ivy first instock purchasable product-type-simple is-selected" aria-selected="true" style="">
+	<div class="productsGrid__product__image">
+		<img width="600" height="800" src="@Model.DefaultPictureModel.ImageUrl" class="" alt="" sizes="(max-width: 600px) 100vw, 600px">
+	</div>
+	<a href="@Url.RouteUrl(" Product", new {SeName=Model.SeName})" class="productsGrid__product__details">
+		<div class="productName override">
+			@Model.Name
+		</div>
+		<div class="priceWrap">
+
+			<span class="woocommerce-Price-amount amount">@Model.ProductPrice.Price<span class="woocommerce-Price-currencySymbol"></span></span>
+
+		</div>
+		<div class="cta">
+			Shop Now
+		</div>
+	</a>
+</div>*@
+
+
+
+
+
+
+    <div class="productsGrid__collectionIntro copy cell small-28 medium-7 inViewDone inView" data-termid="26">
+        <div class="productsGrid__collectionIntro__sizer">
+            <div class="contents">
+
+                <div class="name">@Model.Name</div>
+
+
+                <div class="info">@Model.ShortDescription</div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="productsGrid__product copy productsGrid__product--highlight cell small-14 medium-15 productsGrid__product--editorial medium-offset-1 post-4703 product type-product status-publish has-post-thumbnail product_cat-earrings product_collection-astri-2 first instock shipping-taxable purchasable product-type-simple inView inViewDone">
+        <a href="@Url.RouteUrl("Product", new {SeName=Model.SeName})">
+            <div class="productsGrid__product__image">
+                <img width="4016" height="2471" src="@Model.DefaultPictureModel.ImageUrl" class="wider-image" alt="">
+                <img width="1000" height="1340" src="@Model.DefaultPictureModel.ImageUrl" class="" alt="">
+            </div>
+            <div class="productsGrid__product__details">
+                <div class="productName override">
+                    @Model.Name
+                </div>
+                <div class="priceWrap">
+
+                    <span class="woocommerce-Price-amount amount">@Model.ProductPrice.Price<span class="woocommerce-Price-currencySymbol"></span></span>
+
+                </div>
+                <div class="cta">
+                    Shop Now
+                </div>
+            </div>
+        </a>
+    </div>
+
+    
+

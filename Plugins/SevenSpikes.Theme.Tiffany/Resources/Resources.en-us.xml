@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language Name="English">
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Menu.MenuName">
+    <Value>Tiffany</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings">
+    <Value>Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Admin.SettingsSubmenu.Tiffany">
+    <Value>Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="Sevenspikes.Themes.Admin.ManageResources.Tiffany">
+    <Value>Manage Resources</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings">
+    <Value>Tiffany Theme Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.Preset">
+    <Value>Preset</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.Preset.Hint">
+    <Value>Choose your color preset of the theme.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.DefaultCategoryNavigationEnabled">
+    <Value>Enable default nopCommerce category navigation</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.DefaultCategoryNavigationEnabled.Hint">
+    <Value>When checked the default nopCommerce category navigation will be displayed</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.DefaultManufacturerNavigationEnabled">
+    <Value>Enable default nopCommerce manufacturer navigation</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.DefaultManufacturerNavigationEnabled.Hint">
+    <Value>When checked the default nopCommerce manufacturer navigation will be displayed</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.DefaultVendorNavigationEnabled">
+    <Value>Enable default nopCommerce vendor navigation</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.DefaultVendorNavigationEnabled.Hint">
+    <Value>When checked the default nopCommerce vendor navigation will be displayed</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.PinterestUserUrl">
+    <Value>Pinterest profile url for the footer widget</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.PinterestUserUrl.Hint">
+    <Value>Url of the profile in Pinterest for the widget in the footer</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.HeaderLayout">
+    <Value>Header layout design</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.HeaderLayout.Hint">
+    <Value>Choose one of the two predefined header layout designs</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.CategoriesLayout">
+    <Value>Categories layout design</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.CategoriesLayout.Hint">
+    <Value>Choose one of the two predefined layout designs for home page categories and subcategories</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.RollOverEnabled">
+    <Value>Enable Roll Over</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.RollOverEnabled.Hint">
+    <Value>Enable product image roll over functionality on hover.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.ItemBoxHoverEffect">
+    <Value>Item box hover effect</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.ItemBoxHoverEffect.Hint">
+    <Value>Choose one of the two predefined item box hover effects for products displayed in grid</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.CatalogPagesLayout">
+    <Value>Catalog pages layout</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.CatalogPagesLayout.Hint">
+    <Value>Choose one of the two predefined catalog pages layouts - one column or two column design</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.QuickTabsLayout">
+    <Value>Nop Quick Tabs layout</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Admin.Settings.ThemeSettings.QuickTabsLayout.Hint">
+    <Value>Choose one of the three predefined layout designs for the nop quick tabs on the product page</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Common.GoTo">
+    <Value>Go to...</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Common.GoToPage">
+    <Value>Product's page</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Common.Mobile">
+    <Value>+333 (Mobile) 012345</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Common.Skype">
+    <Value>skype_tiffany</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Common.Fax">
+    <Value>+222 (Fax) 192837465</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Common.Location">
+    <Value>Paris, France</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Common.Email">
+    <Value>info [at] store.com</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Common.FAQ">
+    <Value>FAQ</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Common.Top">
+    <Value>top</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Common.FeaturedCategories">
+    <Value>Featured Categories</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Footer.AboutUs.Title">
+    <Value>About Us</Value>
+  </LocaleResource>
+  <LocaleResource Name="SevenSpikes.Themes.Tiffany.Footer.AboutUs">
+    <Value>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Newsletter.Title">
+    <Value>Stay up to date</Value>
+  </LocaleResource>
+  <LocaleResource Name="newsletter.email.placeholder">
+    <Value>Enter Email</Value>
+  </LocaleResource>
+</Language>

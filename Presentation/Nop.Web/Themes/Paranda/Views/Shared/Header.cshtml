@@ -1,0 +1,611 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@using Nop.Web.Framework.Themes
+@using Nop.Services.Common
+@{
+
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    var logoPath = System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/" + currentThemeName + "/Content/images/logo.png";
+    var SmalllogoPath = System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/" + currentThemeName + "/Content/images/logo-sm.png";
+    var storeName = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.GetLocalized(x => x.Name);
+}
+
+<!-- Search Panel-->
+
+<section>
+    <div id="SearchPanel" style="display:none">
+        <div>
+            <h3>
+                <b>FIND YOUR STUFF</b>
+                <br /><small>Search for products, brand and categories.</small>
+            </h3>
+
+        </div>
+    </div>
+</section>
+
+<div class="row no-margin" id="AuthPanel3" style="display:none">
+    <div class="col-md-12">
+        <div>
+            <div class="col-md-12"> <a href="#" id="authBtn4">  <img src=@(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/" + @currentThemeName + "/content/images/cancel.png") style="float:right;height:40px;margin-top:20px" /></a></div>
+
+            <div class="col-md-4" id="hidesection"></div>
+            <div class="col-md-4" id="hidesection" style="padding-bottom:20px">
+                <h4 style="padding-bottom:14px" onclick="document.getElementById('authBtn4').click()">APPLY FOR VENDOR ACCOUNT</h4>
+                <h5 id="sellerheadmessage" style="font-size:15px"></h5>
+
+                <div class="form-group">
+                    <input class="textbox2  uppercase" placeholder="Name" id="ContactName" name="ContactName" type="text" value="" required>
+                    <input class="textbox2  uppercase" placeholder="Contact Number" data-val="true" id="ContactNumber" name="ContactNumber" type="number" value="" required>
+                    <input placeholder="EMAIL" class="textbox2 uppercase" data-val="true" data-val-email="Wrong email" data-val-required="Email is required." id="ContactEmail" name="ContactEmail" type="email" value="" required>
+                </div>
+                <button id="btn-Seller" type="submit" class="btn-med">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="row no-margin" id="AuthPanel" style="display:none">
+        <div class="col-md-12" style="">
+            <div>
+                <div class="row">
+                    <div class="col-md-4 hidden-xs">
+                        <h4>JOIN THE PARANDA COMMUNITY</h4>
+                        <h5 style="padding-bottom:12px;padding-top:2px;color:#222">SIGN UP NOW FOR THE BEST IN FASHION NEWS <br /> STRAIGHT TO YOUR INBOX:</h5>
+                        <div class="row">
+                            <div class="thumbs col-md-6" style="height: 20px; border: 0px; padding: 0px 20px">
+                                <img src="~/Themes/paranda/Content/images/en.png" style="WIDTH:52PX">
+                                <p>
+                                    RECEIVE<br />
+                                    EXCLUSIVE<br>
+                                    NEWSLETTER
+                                </p>
+                            </div>
+                            <div class="thumbs col-md-6" style="height: 20px; padding: 0px 20px;border-left:0px;border-right:0px">
+                                <img src="~/Themes/paranda/Content/images/tr.png" style="WIDTH:52PX">
+                                <p style="margin-right: 25px;">
+                                    SHOP<br>
+                                    FASTER
+                                </p>
+                            </div>
+                            <div class="thumbs col-md-6" style="height: 20px; padding: 0px 20px">
+                                <img src="~/Themes/paranda/Content/images/ch.png" style="WIDTH:52PX">
+                                <p>
+                                    CHECK YOUR<br>
+                                    ORDER  STATUS
+                                </p>
+                            </div>
+                            <div class="thumbs col-md-6" style="height: 20px; padding: 0px 20px">
+                                <img src="~/Themes/paranda/Content/images/first.png">
+                                <p style="margin-right: 25px;">
+                                    NEWS,LATEST<br>
+                                    TRENDS & OFFERS
+                                </p>
+                            </div>
+                            <div class="thumbs col-md-12" style="height: 20px; padding: 0px 20px;text-align:center">
+
+                                <p style="padding-left:18px;font-size:14px">
+                                    ...AND MUCH MORE
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="hidesection">
+                        <h4 style="padding-bottom:14px">My Account/LOG IN</h4>
+                        <h5 id="loginheadmessage" style="font-size:15px"></h5>
+                        <div>
+                            <input id="txtloginid" type="email" name="Email" class="textbox uppercase" placeholder="EMAIL" required />
+                            <span class="field-validation-error" data-valmsg-for="Username" data-valmsg-replace="true" style="color: #b56969"><span for="Username" class=""></span></span>
+                            <input id="txtpassword" type="password" name="Password" class="textbox" placeholder="PASSWORD" required />
+                            <span class="field-validation-error" data-valmsg-for="Password" data-valmsg-replace="true" style="color: #b56969"><span for="Password" class=""></span></span>
+                        </div>
+                        <div>
+                            <h5><a href="javascript:" onclick="hideandshow();">Forgot password? </a></h5>
+
+                        </div>
+                        <br />
+                        <label>
+                            <input id="chkremember" data-val="true" data-val-required="'Remember Me' must not be empty." id="RememberMe" name="RememberMe" type="checkbox" value="true"><input name="RememberMe" type="hidden" value="false"> REMEMBER IN FUTURE
+                        </label>
+                        <br />
+                        <div>
+                            <button type="submit" class="btn-med" id="btnlogin" onclick="javascript: btnlogin();">LOG IN</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 hide" id="showsection" style="border: solid 1px #ccc;">
+                        <h4>FORGOT PASSWORD?</h4>
+                        <h5 style="padding-top:12px;color:#555">PROVIDE YOUR ACCOUNT EMAIL AND WE WILL SEND YOU A LINK TO RESET YOUR PASSWORD.</h5>
+                        <h3 id="emailnotfound" style="color: #a94442;text-transform:uppercase;font-size:16px"></h3>
+                        <div>
+                            <input type="email" name="Email" id="txtemail" class="tb_pr uppercase" placeholder="EMAIL" data-val-length-min="6" required />
+                            <span class="field-validation-error" data-valmsg-for="Email" data-valmsg-replace="true"><span for="Email" class=""></span></span>
+                            <input type="submit" id="btnemailsend" onclick="javascript:btnemailsending();" name="send-email" class="btn-pr btn-med" value="SEND" style="position:static;padding-top:4px;height:32px" />
+                            <h5 style="margin-top:132px"><a href="javascript:" onclick="hideForgetPasswrod()" style="color: #051C3B;font-size:21px;text-decoration:none"><< BACK</a></h5>
+                        </div>
+                        <br />
+                        <br />
+                        <div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="sectionpasswordrecoverystatus" style="display: none; border: solid 1px #ccc;padding-top:30px">
+                        <h2 id="headmessage" style="font-size:18px;border-bottom:1px solid rgb(204,204,204);padding-bottom:17px"></h2>
+                        <label id="lblmessage" style="font-size:12px;padding-top:5px">
+                        </label>
+                        <div style="margin-top:44px"> <a href="/">GO TO THE HOMEPAGE</a></div>
+                    </div>
+                    <div class="col-md-4 bg-1">
+                        <div id="register-anti-forgery" class="hidden">@Html.AntiForgeryToken()</div>
+                        <a href="#" id="authBtn2" onclick="javascript:abcd();">  <img src=@(System.Configuration.ConfigurationManager.AppSettings["assetsdomain"] + "/Themes/" + @currentThemeName + "/content/images/cross.png") style="float:right;height:40px;margin-top:-14px" /></a>
+                        <h4 style="padding-bottom:1px">NEW CUSTOMER</h4>
+                        <h5 id="registerheadmessage" style="font-size:15px;"></h5>
+                        <div>
+                            <div class="uppercase">
+                                <span class="col-xs-3 control-label nopadding" style="">GENDER:</span>
+                                <div class="col-xs-9">
+                                    <label class="radio-inline">
+                                        <input id="gender-male" name="Gender" type="radio" value="M">
+                                        <label for="gender-male"><span></span></label>
+                                        MALE
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input id="gender-female" name="Gender" type="radio" value="F">
+                                        <label for="gender-female"><span></span></label>
+                                        FEMALE
+                                    </label>
+                                </div>
+                            </div>
+                            <input class="textbox2  uppercase" placeholder="Name" data-val="true" data-val-required="Name is required." id="txtUsername" name="Username" type="hidden" value=".">
+                            <input class="textbox2  uppercase" placeholder="FIRST NAME" data-val="true" data-val-required="Name is required." id="txtFirstName" name="FirstName" type="text" value="">
+                            <span class="field-validation-error" data-valmsg-for="FirstName" data-valmsg-replace="true" style="color: #b56969"><span for="FirstName" class=""></span></span>
+                            <input class="textbox2  uppercase" placeholder="LAST NAME" data-val="true" data-val-required="First name is required." id="txtLastName" name="LastName" type="text">
+
+                            <input placeholder="EMAIL" class="textbox2 uppercase" data-val="true" data-val-email="Wrong email" data-val-required="Email is required." id="txtEmail" name="Email" type="text" value="">
+                            <span class="field-validation-error" data-valmsg-for="Email" data-valmsg-replace="true" style="color: #b56969"><span for="Email" class=""></span></span>
+                            <input placeholder="PASSWORD" class="textbox13" data-val="true" data-val-length="The password should have at least 6 characters." data-val-length-max="999" data-val-length-min="6" data-val-required="Password is required." id="txtPassword" name="Password" type="password">
+                            <span class="field-validation-error" data-valmsg-for="Password" data-valmsg-replace="true" style="color: #b56969"><span for="Password" class=""></span></span>
+                            <input placeholder="CONFIRM PASSWORD" class="textbox13" data-val="true" data-val-equalto="The password and confirmation password do not match." data-val-equalto-other="*.Password" data-val-required="Password is required." id="txtConfirmPassword" name="ConfirmPassword" type="password">
+                            <span class="field-validation-error" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true" style="color: #b56969"><span for="ConfirmPassword" class=""></span></span>
+                        </div>
+                        <br />
+                        <br />
+                        <div>
+                            <button type="submit" class="btn-med" id="btnregister">REGISTER</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<!-- Second navbar for search -->
+<nav class="navbar topheader">
+    <div class="container-fluit">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header responsive-width">
+            <div class="hidden-lg hidden-md  text-center">
+                <a href="/cart" class="pull-right responsive-top-cart" style="float:left!important"><span class="fa fa-shopping-cart"></span> <div class="counter">0</div></a>
+            </div>
+            <div class=" hidden-lg hidden-md flres" style="text-align:center;margin-right:70px">
+                <a href="/">   <img title="" alt="Paranda" src="@Url.Content(logoPath)" style="margin-left: -3%;"></a>
+            </div>
+            <a class="navbar-brand hidden-xs hidden-sm" href="/">
+                <img class="logo-image" title="" alt="Paranda" src="@Url.Content(logoPath)">
+            </a>
+            <button type="button" onclick="openNav()" class="menu-title-new collapsed pull-left btn-topmenu hidden-lg hidden-md" data-toggle="collapse" data-target="#top-menu" style="color:white;border:none;background:transparent;margin-top:-33px;float:right!important;margin-right:3px;  font-size: 1.5rem; line-height: 1.33; letter-spacing: 0.1em;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span>MENU</span>
+            </button>
+        </div>
+
+        @Html.Action("HeaderLinks", "Common")
+
+    </div>
+</nav>
+<script>
+    function hideForgetPasswrod() {
+
+        $("#showsection").addClass("hide");
+        $("#hidesection").show();
+    }
+
+
+    $(document).ready(function () {
+        $("#authBtn").on("click", function () {
+            if (document.getElementById("AuthPanel").style.display == "none") {
+                closeIfOpened("SearchPanel");
+                $("#AuthPanel").show("slow");
+                //$("#AuthPanel3").hide("slow");
+                return;
+            }
+            //$("#AuthPanel").hide("slow");
+        });
+        $("#searchBtn").on("click", function () {
+            if (document.getElementById("SearchPanel").style.display == "none") {
+                closeIfOpened("AuthPanel");
+                $("#SearchPanel").show("slow");
+                return;
+            }
+            $("#SearchPanel").hide("slow");
+        });
+
+    });
+
+    function closeIfOpened(name) {
+
+        if (document.getElementById(name).style.display != "none") {
+            $("#" + name).hide("slow");
+
+        }
+
+    }
+
+    $(".btn-topmenu").on("click", function () {
+        $("#leftmenu").animate({ width: 'slideRight' }, 350);
+
+
+    })
+</script>
+<script>
+    function hideandshow() {
+        $("#hidesection").hide();
+        $("#showsection").removeClass('hide');
+        $("#showsection").addClass('active');
+
+    }
+</script>
+<script>
+
+
+    $(document).ready(function () {
+            $('#btnemailsend').click(function (e) {
+
+                var email = $("#txtemail").val();
+
+                var jsonObject = {
+                    "Email": email
+                };
+
+                $.ajax({
+                    url: "@(Url.RouteUrl("PasswordRecoveryExternal"))",
+                    type: "POST",
+                    data: JSON.stringify(jsonObject),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    error: function (response) {
+                        if (response.success == false) {
+                            $("#showsection").hide();
+                        }
+                        alert(response);
+                    },
+                    success: function (response) {
+                        if (response.success == true) {
+                            $("#showsection").hide();
+                            $("#hidesection").hide();
+                            $("#sectionpasswordrecoverystatus").show();
+                            $("#sectionpasswordrecoverystatus").css("display", "block");
+                            $("#lblmessage").text(response.message);
+                            $("#headmessage").text("THANKS FOR SUBMITTING YOUR EMAIL ADDRESS");
+                        }
+                        else {
+                            $("#emailnotfound").text(response.message);
+                        }
+                    }
+                });
+
+            });
+        });
+
+    $(document).ready(function () {
+            $('#btnlogin').click(function (e) {
+
+                var loginid = $("#txtloginid").val();
+                var password = $("#txtpassword").val();
+                var x = document.getElementById("txtloginid").value;
+                var atpos = x.indexOf("@@");
+                var dotpos = x.lastIndexOf(".");
+
+                if (document.getElementById("chkremember").checked) {
+                    var rememberme = true;
+                }
+                else {
+                    var rememberme = false;
+                }
+
+
+                if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= x.length) {
+                    $("#loginheadmessage").text("Please Enter Valid Email").css("color", "red");
+                    return;
+                }
+
+                var jsonObject = {
+                    "Email": loginid,
+                    "Password": password,
+                    "RememberMe": rememberme
+                };
+
+                $.ajax({
+                    url: "@(Url.RouteUrl("loginExternal"))",
+                    type: "POST",
+                    data: JSON.stringify(jsonObject),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    error: function (response) {
+                        if (response.success == false) {
+                            $("#loginheadmessage").text(response);
+                        }
+                        //alert(response);
+                    },
+                    success: function (response) {
+                        if (response.success == true) {
+                            $("#loginheadmessage").text("Successfully Logged In").css("color", "green");
+                            location.href = "@(Url.RouteUrl("HomePage"))";
+                        }
+                        else {
+                            $("#loginheadmessage").text(response.message).css("color", "red");
+                        }
+                    }
+                });
+
+            });
+        });
+
+    $(document).ready(function () {
+            $('#btn-Seller').click(function (e) {
+
+
+                if ($("#ContactName").val() == "") {
+                    $("#sellerheadmessage").text("Please Enter Valid name").css("color", "red");
+                    return;
+                }
+
+                if ($("#ContactNumber").val() == "") {
+                    $("#sellerheadmessage").text("Please Enter Contact Number").css("color", "red");
+                    return;
+                }
+
+                var ContactName = $("#ContactName").val();
+                var ContactNumber = $("#ContactNumber").val();
+                var ContactEmail = $("#ContactEmail").val();
+                var x = document.getElementById("ContactEmail").value;
+
+
+                var atpos = x.indexOf("@@");
+                var dotpos = x.lastIndexOf(".");
+
+
+
+                if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= x.length) {
+                    $("#sellerheadmessage").text("Please Enter Valid Email").css("color", "red");
+                    return;
+                }
+
+                var body = "<p> New Vandor Request From the User " + ContactName + "</p><p> Email : " + ContactEmail + "</p><p> Contact number : " + ContactNumber + " </p>";
+                var subject = "Vendor Request on Paranda"
+
+                var jsonObject = {
+                    "Email": ContactEmail,
+                    "FirstName": ContactName,
+                    "subject": subject,
+                    "Enquiry": body
+                };
+
+                $("#btn-Seller").prop("disable", true);
+                $.ajax({
+                    url: "@(Url.RouteUrl("ContactVendor", "common"))",
+                    type: "POST",
+                    data: JSON.stringify(jsonObject),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    error: function (response) {
+                        $("#btn-Seller").prop("disable", false)
+                        $("#sellerheadmessage").text(response.Result);
+
+                    },
+                    success: function (response) {
+
+                        console.log(response)
+                        if (response.SuccessfullySent == true) {
+                            $("#sellerheadmessage").text("We Will Contact You soon").css("color", "green");
+
+                        }
+                        else {
+                            $("#btn-Seller").prop("disable", false);
+                            $("#sellerheadmessage").text(response.Result).css("color", "red");
+                        }
+                    }
+                });
+
+            });
+        });
+
+
+</script>
+
+<script>
+
+ $(function () {
+        $('#btnregister').click(function (e) {
+            var gender = null;
+            var Username = $("#txtFirstName").val();
+            var lastName = $("#txtLastName").val();
+            var firstName = $("#txtFirstName").val();
+            var Email = $("#txtEmail").val();
+            var Password = $("#txtPassword").val();
+            var confirmPassword = $("#txtConfirmPassword").val();
+            if ($("#gender-female").is(":checked"))
+            {
+                gender = "F";
+            }
+            else if ($("#gender-male").is(":checked"))
+            {
+                gender = "M";
+            }
+            else
+            {
+                $("#registerheadmessage").text("PLEASE SELECT GENDER").css("color","red");
+                return;
+                //Gender = "M";
+            }
+
+            if (firstName == "") {
+                $("#registerheadmessage").text("FIRST NAME IS REQUIRED").css("color", "red");
+                return;
+            }
+
+            if (lastName == "") {
+                $("#registerheadmessage").text("LAST NAME IS REQUIRED").css("color", "red");
+                return;
+            }
+
+            if (Password.length < 6) {
+                $('#registerheadmessage').text("PASSWORD REQUIRED MINIMUM SIX CHARACTERS").css("color", "red", "font-size", "15px");;
+                return;
+            }
+
+            if (confirmPassword != Password)
+            {
+                $('#registerheadmessage').text("PASSWORD DOES NOT MATCH").css("color", "red","font-size","15px");;
+                return;
+            }
+
+            var jsonObject = {
+                __RequestVerificationToken: $("#register-anti-forgery").val(),
+                captchaValid: true,
+                "Gender": gender,
+                "Username": Username,
+                "FirstName": firstName,
+                "LastName": lastName,
+                "Email": Email,
+                "Password": Password,
+                "ConfirmPassword": confirmPassword
+            };
+
+            $.ajax({
+                url: "@(Url.RouteUrl("RegisterExternal"))",
+                type: "POST",
+                data: JSON.stringify(jsonObject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    if (response.success == false) {
+                        $("#registerheadmessage").text(response);
+                    }
+                    //alert(response);
+                },
+                success: function (response) {
+                    if (response.success == true) {
+                        $("#registerheadmessage").text("SUCCESSFULLY REGISTERED").css("color", "green");
+                        location.href="@(Url.RouteUrl("HomePage"))";
+                    }
+                    else {
+                        $("#registerheadmessage").text(response.message).css("color", "red");
+                    }
+                }
+            });
+
+        });
+    });
+
+    $(document).ready(function () {
+        $("#authBtn3").on("click", function () {
+            if (document.getElementById("AuthPanel3").style.display == "none") {
+
+                closeIfOpened("SearchPanel");
+                $("#AuthPanel3").show("slow");
+                $("#AuthPanel").hide("slow")
+                return;
+            }
+
+
+        });
+        $("#searchBtn").on("click", function () {
+            if (document.getElementById("SearchPanel").style.display == "none") {
+                closeIfOpened("AuthPanel3");
+                $("#SearchPanel").show("slow");
+                return;
+            }
+            $("#SearchPanel").hide("slow");
+        });
+
+        $("#authBtn4").on("click", function () {
+            if (document.getElementById("AuthPanel3").style.display == "none") {
+                closeIfOpened("SearchPanel");
+                $("#AuthPanel3").show("slow");
+                return;
+            }
+            //$("#AuthPanel3").hide("slow");
+
+        });
+
+     });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("#authBtn5").on("click", function () {
+            if (document.getElementById("AuthPanel5").style.display == "none") {
+
+                closeIfOpened("SearchPanel");
+                $("#AuthPanel5").show("slow");
+                $("#AuthPanel").hide("slow")
+                return;
+            }
+            //$("#AuthPanel3").hide("slow");
+        });
+        $("#searchBtn").on("click", function () {
+            if (document.getElementById("SearchPanel").style.display == "none") {
+                closeIfOpened("AuthPanel5");
+                $("#SearchPanel").show("slow");
+                return;
+            }
+            $("#SearchPanel").hide("slow");
+        });
+
+    });
+    $(document).ready(function () {
+        $("#authBtn6").on("click", function () {
+            if (document.getElementById("AuthPanel5").style.display == "none") {
+                closeIfOpened("SearchPanel");
+                $("#AuthPanel5").show("slow");
+                return;
+            }
+            $("#AuthPanel5").hide("slow");
+        });
+
+
+    });
+
+</script>
+
+<script type="text/javascript">
+            function performSearch2()
+            {
+                $('#fldSearch2').toggle('fast'); doSearch2();
+                $('#inputSearch2').focus();
+            }
+            $("#small-search-box-form2").submit(function(event) {
+                if ($("#inputSearch2").val() == "") {
+                    alert('@Html.Raw(HttpUtility.JavaScriptStringEncode(T("Search.EnterSearchTerms").Text))');
+                    $("#inputSearch2").focus();
+                    event.preventDefault();
+                }
+            });
+</script>
+
+<script>
+            function doSearch2() {
+                var txt = $("#inputSearch2").val();
+                if (txt.length > 0) {
+                    window.location = "/Search?q=" + txt;
+                }
+            }
+</script>

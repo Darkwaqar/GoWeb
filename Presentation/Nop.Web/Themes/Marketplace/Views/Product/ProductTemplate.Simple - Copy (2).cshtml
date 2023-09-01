@@ -1,0 +1,825 @@
+﻿@model ProductDetailsModel
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Domain.Orders;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-product-details-page");
+
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>
+    ();
+
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+    var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+    Html.AddCanonicalUrlParts(productUrl);
+    }
+
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+    }
+   
+    }
+    @*@Html.Partial("_Notifications")*@
+
+    @*<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">*@
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/custom-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/my-instagram-gallery.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/odometer-theme-default.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/prettyPhoto.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/carousel-my.css">
+    <link rel="stylesheet" href="assets/css/article-carousel.css">
+
+
+    <script src="assets/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+<style>
+    .fadeaccor {
+    height:0px;
+    opacity:0;
+    }
+
+</style>
+@using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+                {
+<div id="sticky-cart" class="container-fluid hidden hidden-sm hidden-xs">
+    <div class="row center-block stickey-cart-row">
+        <div class="col-xs-5">
+            <div class="col-xs-8" style="margin-top: 8px">
+                <h4 class="font-chronicle" style="font-weight: 600;">@Model.Name</h4>
+                <h5 class="font-chronicle" style="margin-top: -9px;font-size:11px">
+                    @if (!String.IsNullOrEmpty(Model.ShortDescription))
+                    {
+                        @Html.Raw(Model.ShortDescription)
+                    }
+                </h5>
+                @*<p class="font-chronicle" style="margin-top: -18px">*@
+                    @{
+                        @*var dataDictPrice = new ViewDataDictionary();
+                        dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", Model.Id);
+                        @Html.Partial("_ProductPrice", Model.ProductPrice, dataDictPrice)*@
+
+
+
+                    }
+                @*</p>*@
+            </div>
+            <div class="col-xs-4">
+                @Html.Partial("FixHeader",Model)
+            </div>
+        </div>
+        <div class="col-xs-7" style="margin-top: 30px;">
+            <div class="col-xs-2">
+                <label style="font-size: 10px;margin-top:7px">QUANTITY:</label>
+                @*<select class="form-control" name="EnteredQuantity">
+                    <option value="" class="text-muted">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                </select>*@
+                @*@Html.TextBox(string.Format("addtocart_{0}.EnteredQuantity", Model.Id), 1, new { @class = "textbox1 qty-input form-control", style="width:65%", Type = "number", size = 1, min = 1, max = 100, onkeypress ="return isNumberKey(event)" })*@
+                @*@Html.DropDownListFor(model => model.EnteredQuantity, 10 , new { @class = "textbox1 qty-input form-control", style = "width:65%"})*@
+                @*@{
+                    var maxQty = 100;
+                }
+                @if (maxQty <= 10)
+                {
+                var selectList = new List<selectlistitem>
+                    (maxQty);
+                    for (var i = 1; i <= maxQty; i++)
+                    {
+                    selectList.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+                    }
+                    @Html.DropDownListFor(model => model.EnteredQuantity, selectList, new { @class = "qty-input" })
+                    }
+                    else
+                    {
+                    @Html.TextBoxFor(model => model.EnteredQuantity, new { @class = "qty-input" })
+                    }*@
+</div>
+            <div class="col-xs-3">
+                <label style="font-size: 10px;display:none">SIZE:</label>
+               @* <select class="form-control">
+        <option value="" class="text-muted">Select Size</option>
+        <option value="">2</option>
+        <option value="">3</option>
+        <option value="">4</option>
+        <option value="">5</option>
+    </select>*@
+                @{
+                    var dataDictAttributes = new ViewDataDictionary();
+                    dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", Model.Id);
+                    @Html.Partial("_ProductAttributes", Model.ProductAttributes, dataDictAttributes)
+                }
+            </div>
+           
+            <div style="margin-top: 23px" class="col-xs-3">
+                <a href="javascript:" class="btn wishlist-cart" data-productid="@Model.AddToCart.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("addproducttocart-details", new { productid=Model.AddToCart.ProductId, shoppingcarttypeid=(int)ShoppingCartType.Wishlist })', '#product-details-form' );return false;">
+                    Add To WISHLIST
+                </a>
+            </div>
+            <div style="margin-top: 23px" class="col-xs-3">
+                <a href="javascript:" class="btn add-to-bag-cart" data-productid="@Model.AddToCart.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("addproducttocart-details", new { productid=Model.AddToCart.ProductId, shoppingcarttypeid=(int)ShoppingCartType.ShoppingCart })', '#product-details-form' );return false;">
+                    Add To Bag
+                </a>
+            </div>
+            @*<div style="margin-top: 23px" class="col-xs-1">
+                <a href="#">
+                    <i class="fa fa-shopping-bag"></i> 0
+                </a>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+   <div class="row hidden-lg hidden-md" style="margin-top: 35%;"></div>
+
+<section id="customSlider" class="xvDeals style1 family-poppins pb-0">
+    <!--product slider on hover - right (starts)-->
+    <div class="hidden-xs hidden-sm customBox">
+        <div class="pull-right">
+            <button id="prod-hover-btn-left" class="fa fa-angle-left fa-2x product-btn-rg"></button>
+            <button id="prod-hover-btn-right" class="fa fa-angle-right fa-2x product-btn-lf"></button>
+        </div>
+        <div class="hover-box hidden pull-right">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    @Html.Action("ProductLineCategory", "Product", new { productId = Model.Id })
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"
+                   style="position: relative;top: -150px !important;left: -16px;">
+                    <span class="fa fa-angle-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"
+                   style="position: relative;top: -150px !important;left: 153px;">
+                    <span class="fa fa-angle-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!--product slider on hover - right (ends)-->
+
+    <div class="container">
+        <div class="col-md-12 hidden-md hidden-lg" style="height: 20px;"></div>
+        <div class="col-md-12" id="DivToBeFixedOnScroll">
+            <div class="row">
+               
+                @Html.Partial("_ProductDetailsPictures", Model)
+                <div class="col-md-1"></div>
+                <div class="col-md-6" id="fixedDiv">
+                    <div class="col-md-12" style="padding-top: 5%;">
+                        <h1 class="product-name font-chronicle" style="color: black; font-size: 3.00rem; font-weight: 700;">
+                            @Model.Name
+                        </h1>
+                        <p class="font-chronicle" style="font-size: 12px;text-transform:lowercase;line-height:14px">
+                            @if (!String.IsNullOrEmpty(Model.ShortDescription))
+                            {
+                                @Html.Raw(Model.ShortDescription)
+                            }
+                        </p>
+                        <p class="font-chronicle" style="font-size: 15px; font-weight: 600;">@Html.Raw(Model.ProductPrice.Price)</p><br>
+                    </div>
+                    <div class="col-md-2">
+                        <p style="font-size: 10px; margin-bottom: -3px;margin-left: 5px;">QUANTITY:</p>
+                        @*<select class="textbox1 qty-input form-control">
+                            <option value="1" class="text-muted">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>*@
+                        @Html.TextBox(string.Format("addtocart_{0}.EnteredQuantity", Model.Id), 1, new { @class = "textbox1 qty-input ", Type = "number", size = 1, min = 1, max = 100, onkeypress = "return isNumberKey(event)" })
+                   @{
+    List<SelectListItem> listQuantity = new List<SelectListItem>();
+    listQuantity.Add(new SelectListItem
+         {
+             Text = "1",
+             Value = "1",
+             Selected = true
+         });
+    listQuantity.Add(new SelectListItem
+         {
+             Text = "2",
+             Value = "2"
+             
+         });
+    listQuantity.Add(new SelectListItem
+         {
+             Text = "3",
+             Value = "3"
+         });
+    listQuantity.Add(new SelectListItem
+    {
+        Text = "4",
+        Value = "4"
+    });
+       listQuantity.Add(new SelectListItem
+         {
+             Text = "5",
+             Value = "5"
+         });
+        // string strQty = string.Format("addtocart_{0}.EnteredQuantity", Model.Id);
+}
+
+@*@Html.DropDownList(string.Format("addtocart_{0}.EnteredQuantity", Model.Id), listQuantity, new { @class = "textbox1 qty-input form-control" })*@
+                    </div>
+                    <div class="col-md-4">
+                        @*<p style="font-size: 10px; margin-bottom: -3px;margin-left: 5px;">SIZE:</p>*@
+                        @{
+                            var dataDictAttributesSecond = new ViewDataDictionary();
+                            dataDictAttributesSecond.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", Model.Id);
+                            @Html.Partial("_ProductAttributes", Model.ProductAttributes, dataDictAttributesSecond)
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <p style="margin-top: 25px; font-size: 14px;"><u>Size Guide&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></p>
+                        <img src="http://assets.matchesfashion.com/images/ab_testing/size-guide-ruler-desktop.jpg" style="width: 31px; height: 11px; margin: -72px 0px 0px 73px;">
+                    </div>
+                    <div class="col-md-6">
+                        @*<a id="addToCart" href="javascript:" class="btn btn-primary center-block add-to-bag" style="font-size: 12px; font-weight: bold;margin-top: -5px;margin-bottom: 5px;" data-productid="@Model.AddToCart.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("addproducttocart-details", new { productid=Model.AddToCart.ProductId, shoppingcarttypeid=(int)ShoppingCartType.ShoppingCart })', '#product-details-form' );return false;">
+                            Add to Bag
+                        </a>*@
+                        @if (!Model.DisplayBackInStockSubscription)
+                        {
+
+                            var dataDictAddToCart = new System.Web.Mvc.ViewDataDictionary();
+                            dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+
+                            @Html.Partial("_AddToCart", Model.AddToCart, dataDictAddToCart)
+
+
+
+                        }
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row" style="margin-top: 15px;">
+                            <div class="col-md-6">
+                                <a href="javascript:" class="btn btn-primary center-block wishlist" style="font-size: 12px; font-weight: bold;margin-top: -5px;margin-bottom: 5px;" data-productid="@Model.AddToCart.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("addproducttocart-details", new { productid=Model.AddToCart.ProductId, shoppingcarttypeid=(int)ShoppingCartType.Wishlist })', '#product-details-form' );return false;">
+                                    WISHLIST
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="javascript:" class="btn btn-primary center-block shop-look" style="font-size: 12px; font-weight: bold;margin-top: -5px;margin-bottom: 5px;">
+                                    SHOP THE LOOK
+                                </a>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="col-md-12" style="padding-top: 2%;">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default" style="border-radius: 0px;border: 0 !important;">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title font-chronicle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">
+                                        <a role="button" class="panel-text" href="javascript:" onclick="collapseOne();">
+                                            DESCRIPTION
+                                            <i class="more-less glyphicon glyphicon-plus pull-right"></i>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body font-gerogia" style="font-size: 12px;">
+                                        Bring an artistic twist to new-season looks with Stella McCartney's off-kilter single earring. It's made in the UK and features an abstract-shaped drop sculpted from speckled pale-pink brass. Wear it with a colour-pop sweater for contemporary impact.<br>
+                                        <br>Shown here with Shown here with <u><a href="#">Stella McCartney Asymmetric-hemline wool sweater</a></u><br>
+                                        <br>Product number: <b>1074815</b>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default" style="border-radius: 0px;border: 0 !important;">
+                                <div class="panel-heading" role="tab" id="headingTwo" style="border-top: 0px solid;">
+                                    <h4 class="panel-title font-chronicle" style="font-size: 14px; font-weight: 700; margin-top: -8px; margin-bottom: 8px;">
+                                        <a role="button"class="panel-text" href="javascript:" onclick="collapsetwo();">
+                                            DETAILS
+                                            <i class="more-less glyphicon glyphicon-plus pull-right"></i>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse fadeaccor" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body" style="font-size: 12px; font-family:georgia, serif">
+                                        Slip on by the pool with a kaftan or wear after dark with a printed maxi dress; these nude patent wedges are a one stop style for holiday dressing. Heel measures 120mm/4.7
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default" style="border-radius: 0px;border: 0 !important;">
+                                    <div class="panel-heading" role="tab" id="headingThree" style="border-top: 0px solid;">
+                                        <h4 class="panel-title font-chronicle" style="font-size: 14px; font-weight: 700; margin-top: -3px; margin-bottom: 8px;">
+                                            <a role="button" class="panel-text" href="javascript:" onclick="collapsethree();">
+                                                SIZE AND FIT
+                                                <i class="more-less glyphicon glyphicon-plus pull-right"></i>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse fadeaccor" role="tabpanel" aria-labelledby="headingThree">
+                                        <div class="panel-body" style="font-size: 12px; font-family: " georgia", serif">
+                                            Europe €15.00 (1-4 working days)<br>
+                                            International €25.00 (2-5 working days)<br>
+                                            <br>
+                                            Please note; the above delivery times exclude pre-orders and made-to-order items.
+                                            <br>
+                                            Shop with confidence with free returns.<br>
+                                            Fragrance is non-refundable and shipping restrictions apply.<br>
+                                            See full <a href="#" target="_blank" class="js-delivery-link" title="link opens in a new tab">delivery and returns information</a>.<br>
+                                            <br>
+                                            <b>NEED MORE HELP?</b><br>
+                                            Email our Customer Care Team on <a href="#">customercare@jimmychooonline.com</a><br>
+                                            or call us on +44 (0) 800 044 3221<br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="padding-top: 5%;">
+                                <a href="#">
+                                    <i class="fa fa-facebook social-icons-custom"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-twitter social-icons-custom"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-pinterest social-icons-custom"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-google-plus social-icons-custom"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-envelope social-icons-custom"></i>
+                                </a>
+                            </div>
+                            <div class="col-md-6" style="padding-top: 5%;">
+                                <ul style="font-size: 11px;">
+                                    <li style="list-style: none; padding-bottom: 18px;">
+                                        <span>VIEW ALL</span> <span><a href="#"><u><b>Stella McCartney</b></u></a></span>
+                                    </li>
+                                    <li style="list-style: none;">
+                                        <span>VIEW ALL</span> <span><a href="#"><u><b>Fashion Jewellery</b></u></a></span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-12" style="font-size: 12px; font-weight: 700;">
+                                <br>
+                                <span>Need more information?</span> <span><a href="#"><u>Contact us</u></a></span>
+                                <br><br>
+                                <span>VIEW</span> <span><a href="#"><u><b>RETURNS</b></u></a></span> <span>AND</span> <span><a href="#"><u><b>DELEVIRY</b></u></a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</section>
+}
+<section class="xvDeals style1 family-poppins pb-0">
+    <div class="container" style="border-bottom: 1px solid black;">
+    </div>
+</section>
+
+<section class="xvDeals style1 family-poppins pb-0">
+    <div class="container">
+        <div class="row">
+            @*<div class="col-md-12">
+                <div class="col-md-3 col-md-offset-3">
+                    <h4 class="text-center" style="font-size: 16px;">
+                        <a href="#tab1default" data-toggle="tab">RELATED PRODUCTS</a>
+                    </h4>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="text-center" style="font-size: 16px;">
+                        <a href="#tab2default" data-toggle="tab">RECENTLY VIEWED</a>
+                    </h4>
+                </div>
+            </div>*@
+            <div class="col-md-12">
+                <div class="col-md-6" style="padding-right: 0px;">
+                    <h4 class="text-center" style="font-size: 16px;">
+                        <a href="#tab1default" data-toggle="tab" class="btn btn-primary recently-view" style="font-size: 12px; font-weight: bold;width: 100%;">YOU MAY ALSO LIKE</a>
+                        <!--<a href="#tab1default" data-toggle="tab">YOU MAY ALSO LIKE</a>-->
+                    </h4>
+                </div>
+                <div class="col-md-6" style="padding-left: 0px;">
+                    <h4 class="text-center" style="font-size: 16px;">
+                        <a href="#tab2default" data-toggle="tab" class="btn btn-primary may-also-like" style="font-size: 12px; font-weight: bold;width: 100%;">RECENTLY VIEWED</a>
+                        <!--<a href="#tab2default" data-toggle="tab">RECENTLY VIEWED</a>-->
+                    </h4>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="panel with-nav-tabs panel-default" style="border: none;">
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade" id="tab1default">
+
+                                @Html.Action("RelatedProducts", "Product", new { productId = Model.Id })
+                            </div>
+                            <div class="tab-pane fade in active" id="tab2default">
+                                @Html.Action("RecentlyViewedProductsDetail", "Product")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="xvDeals style1 family-poppins pb-0 hidden-sm hidden-xs">
+    <div class="container similar-product-div">
+        <div class="col-md-12" style="border-top: 1px solid black;">
+            <h5 class="text-center">SIMILAR PRODUCTS</h5>
+        </div>
+
+        @Html.Action("ProductLine", "Product", new { productId = Model.Id })
+    </div>
+</section>
+
+<section class="xvDeals style1 family-poppins pb-0 hidden-sm hidden-xs" style="margin-bottom: 20px; margin-top: -50px;">
+    <div class="container">
+        <div class="col-md-12">
+            <button class="btn btn-primary view-more-btn center-block view-more view-close" type="button" id="view" style="width: 100%;">View More</button>
+        </div>
+    </div>
+</section>
+
+@Html.Action("TopicBlock", "Topic", new { systemName = "ProductDetailBottomBanner" })
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/packery.pkgd.min.js"></script>
+<script src="assets/js/masonry.pkgd.min.js"></script>
+<script src="assets/js/isotope.pkgd.min.js"></script>
+<script src="assets/js/jquery.stellar.min.js"></script>
+<script src="assets/js/my-instagram-gallery.js"></script>
+<script src="assets/js/slick.min.js"></script>
+<script src="assets/js/jquery.inview.js"></script>
+<script src="assets/js/odometer.min.js"></script>
+<script src="assets/js/tweetie.min.js"></script>
+<script src="assets/js/jquery.timeago.js"></script>
+<script src="assets/js/jquery.knob.min.js"></script>
+<script src="assets/js/css3-animate-it.js"></script>
+<script src="assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="assets/js/jquery.prettyPhoto.js"></script>
+<script src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/slick/slick.min.js"></script>
+<script src="assets/js/jquery.elevatezoom.js"></script>
+
+<script>
+    $("#accordion").find('.panel-collapse:first').addClass("in");
+    $('.zoom_01').elevateZoom({
+        zoomType: "inner",
+        cursor: "crosshair",
+        zoomWindowFadeIn: 500,
+        zoomWindowFadeOut: 750
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.variable-width').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            centerMode: true,
+            variableWidth: true
+        });
+
+        $(document).on("click", "#customSlider .customImage", function () {
+            //$('.variable-width').slickGoTo( $(this).index() ); //not working
+            //$("#customSlider  .slick-dots button").eq($(this).index()).trigger("click"); //working but it isn't proper
+            $('.variable-width').slick('slickGoTo', $(this).index());
+        });
+
+        $(document).on('click', 'a[href=#tab1default]', function () {
+            $(this).css("color", "black");
+            $("a[href=#tab2default]").css("color", "grey");
+        });
+
+        $(document).on('click', 'a[href=#tab2default]', function () {
+            $(this).css("color", "black");
+            $("a[href=#tab1default]").css("color", "grey");
+        });
+
+        /*
+        // For one than a link click which has href starts with '#tab'
+        $(document).on('click', 'a[href^=#tab]', function(){
+            $(this).parent().parent().parent().find("a[href^=#tab]").css("color", "grey");
+            $(this).css("color", "black");
+        });*/
+
+        $('.variable-width').on('afterChange', function (event, slick, currentSlide, nextSlide) {
+            setzoomImages();
+        });
+
+        function setzoomImages() {
+            $("#customSlider .customMadeImage").removeClass("zoom_01");
+            $(".zoomContainer").remove();
+            $("#customSlider .customMadeImage").each(function () {
+                var parent = $(this).parent();
+                if (parent.hasClass("slick-current") && parent.hasClass("slick-active") && parent.hasClass("slick-center")) {
+                    $(this).addClass("zoom_01");
+                    $('.zoom_01').elevateZoom({
+                        zoomType: "inner",
+                        cursor: "crosshair",
+                        zoomWindowFadeIn: 500,
+                        zoomWindowFadeOut: 750
+                    });
+                }
+            });
+        }
+        setzoomImages();
+    });
+
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".view-more").click(function () {
+            if ($(".view-more").hasClass("view-close")) {
+                $(".similar-product-div").animate({ height: "1020px" });
+                document.getElementById("view").innerHTML = "View Less";
+                $(".view-more").addClass("view-open");
+                $(".view-more").removeClass("view-close");
+            }
+            else if ($(".view-more").hasClass("view-open")) {
+                $(".similar-product-div").animate({ height: "510px" });
+                document.getElementById("view").innerHTML = "View More";
+                $(".view-more").addClass("view-close");
+                $(".view-more").removeClass("view-open");
+            }
+        });
+
+        $("#img00").click(function () {
+
+        });
+
+
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.center').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            slidesToShow: 3,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: true,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: true,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
+    });
+
+</script>
+<script>
+
+    $("#hideSmallThumb").click(function () {
+        $('.smallThumbs').addClass('hidden');
+        $('.largeThumbs').removeClass('hidden');
+    });
+    $("#hideLargeThumb").click(function () {
+        $('.largeThumbs').addClass('hidden');
+        $('.smallThumbs').removeClass('hidden');
+    });
+
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        function calculateVisibilityForDiv(a) {
+            var div$ = a;
+            var windowHeight = $(window).height(),
+                docScroll = $(document).scrollTop(),
+                divPosition = div$.offset().top,
+                divHeight = div$.height(),
+                hiddenBefore = docScroll - divPosition,
+                hiddenAfter = (divPosition + divHeight) - (docScroll + windowHeight);
+
+            if ((docScroll > divPosition + divHeight) || (divPosition > docScroll + windowHeight)) {
+                return 0;
+            } else {
+                var result = 100;
+
+                if (hiddenBefore > 0) {
+                    result -= (hiddenBefore * 100) / divHeight;
+                }
+
+                if (hiddenAfter > 0) {
+                    result -= (hiddenAfter * 100) / divHeight;
+                }
+
+                return result;
+            }
+        }
+        function fixDiv() {
+            var $cache = $('#fixedDiv');
+            if ($(window).width() > 990 && $('.largeThumbs').css('display') != 'none') {
+                var divWidth = $("#DivToBeFixedOnScroll").width() / 2;
+                var divTop = $("#DivToBeFixedOnScroll").position().top;
+                var divBottom = $(document).height() - divTop - $("#scrollImages").height();
+                if ($(window).scrollTop() > divTop && !(($(document).height() - $(window).scrollTop() - divBottom) <= $(window).height()) && calculateVisibilityForDiv($("#scrollImages")) >= 0) {
+                    $cache.css({
+                        'position': 'fixed',
+                        'top': '0px',
+                        'width': divWidth + "px",
+                        'height': $(window).height(),
+                        'margin-top': '0',
+                        'left': ($("#DivToBeFixedOnScroll").width() / 2) + (($("#customSlider").width() - $("#DivToBeFixedOnScroll").width()) / 2)
+                    });
+                    $('#fixedDiv > div').eq(0).css({ "padding-top": "0%" });
+                }
+                else if (calculateVisibilityForDiv($("#scrollImages")) > 0 && calculateVisibilityForDiv($("header")) < 1) {
+                    var topPos = $("#scrollImages").height() - $("#fixedDiv").height() - 90;
+                    $cache.css({
+                        'position': 'relative',
+                        'top': topPos,
+                        'width': divWidth + "px",
+                        'margin-top': '0',
+                        'height': $(window).height(),
+                        'left': 'auto'
+                    });
+                    $('#fixedDiv > div').eq(0).css({ "padding-top": "0%" });
+                }
+                else {
+                    $cache.css({
+                        'position': 'relative',
+                        'top': 'auto',
+                        'width': divWidth + "px",
+                        'margin-top': '0',
+                        'height': 'auto',
+                        'left': 'auto'
+                    });
+                    $('#fixedDiv > div').eq(0).css({ "padding-top": "5%" });
+                }
+            } else {
+                $cache.css({
+                    'position': 'relative',
+                    'top': 'auto',
+                    'width': divWidth + "px",
+                    'margin-top': '0',
+                    'height': 'auto',
+                    'left': 'auto'
+                });
+                $('#fixedDiv > div').eq(0).css({ "padding-top": "5%" });
+            }
+        }
+        $(window).load(fixDiv);
+        $(window).scroll(fixDiv);
+        fixDiv();
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#prod-hover-btn-left").hover(function () {
+            $('.hover-box').removeClass('hidden');
+        });
+        $("#prod-hover-btn-right").hover(function () {
+            $('.hover-box').removeClass('hidden');
+        });
+        $(".hover-box").hover(function () {
+            $('.hover-box').removeClass('hidden');
+        });
+        $(window).on('click', function (e) {
+            if (e.target != $(".hover-box")) {
+                if (!$(e.target).parents(".customBox").length) {
+                    $(".hover-box").addClass("hidden");
+                }
+            }
+        });
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > $("#addToCart").offset().top) {
+                $("#sticky-cart").removeClass("hidden");
+                $("#sticky-cart").css({
+                    "position": "fixed",
+                    "background-color": "white",
+                    "z-index": "99999",
+                    "width": "100%",
+                    "top": "0px",
+                    "box-shadow": "0px 0px 5px 0px #c5c5c5"
+                });
+            } else {
+                $("#sticky-cart").addClass("hidden");
+            }
+        });
+
+    });
+</script>
+<script>
+    
+    var removeClass = false;
+    var removeClass1 = false;
+    var removeClass2 = false;
+
+    function collapsetwo(){
+
+        if (removeClass == false) {
+            removeClass = true;
+
+            $('#collapseTwo').animate({ 'opacity': '1','height':'69px' }, 800, function () {
+                $('#collapseTwo').delay(500).fadeIn(500);
+            });
+
+        } else {
+            removeClass = false;
+            $('#collapseTwo').animate({ 'opacity': '0', 'height': '0px' }, 800, function () {
+                $('#collapseTwo').delay(500).fadeIn(500);
+            });
+        }
+        
+    }
+
+    function collapsethree() {
+
+        if (removeClass1 == false) {
+            removeClass1 = true;
+
+            $('#collapseThree').animate({ 'opacity': '1', 'height': '200px' }, 800, function () {
+                $('#collapseThree').delay(500).fadeIn(500);
+            });
+
+        } else {
+            removeClass1 = false;
+            $('#collapseThree').animate({ 'opacity': '0', 'height': '0px' }, 800, function () {
+                $('#collapseThree').delay(500).fadeIn(500);
+            });
+        }
+
+    }
+
+
+    function collapseOne() {
+
+        if (removeClass2 == false) {
+            removeClass2 = true;
+            $('#collapseOne').animate({ 'opacity': '0', 'height': '0px' }, 800, function () {
+                $('#collapseOne').delay(500).fadeIn(500);
+            });
+           
+
+        } else {
+            removeClass2 = false;
+           
+            $('#collapseOne').animate({ 'opacity': '1', 'height': '145px' }, 800, function () {
+                $('#collapseOne').delay(500).fadeIn(500);
+            });
+        }
+
+    }
+   
+
+</script>
+

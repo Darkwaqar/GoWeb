@@ -1,0 +1,133 @@
+﻿.vendor-banner img {
+    width: 100% !important;
+}
+
+.item-box .picture {
+    background: transparent;
+}
+
+    .item-box .picture img {
+        width: 85%;
+        margin: 0;
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.69);
+    }
+    .three-per-row .item-box .picture img {
+        width: 88%;
+    }
+
+
+.item-box .details {
+    width: 90%;
+    height: 70%;
+    position: absolute !important;
+    bottom: 0;
+    right: 0;
+    background: black;
+    color: #FFF;
+    background-color: #202020;
+    box-shadow: -1px -1px 3px rgba(0,0,0,0.5);
+    padding: 10px;
+}
+
+.item-box .product-title, .item-box .title {
+    position: absolute;
+    bottom: 0;
+    color: #909090;
+    height: 23px;
+    font-size: 10px;
+}
+
+.item-box .old-price {
+    font-size: 12px;
+}
+
+.productbox-vendor {
+    position: absolute;
+    bottom: 0;
+    font-size: 14px;
+}
+
+.add-info {
+    position: absolute;
+    bottom: 10%;
+    right: 15%;
+}
+
+.three-per-row .add-info {
+    position: absolute;
+    bottom: 10%;
+    right: 12%;
+}
+
+.item-box .actual-price {
+    color: white;
+    font-size: 10px;
+}
+
+.item-box .prices {
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+}
+
+.vendor-page .product-grid {
+    background: transparent;
+}
+
+
+@media (min-width: 1025px) {
+    .product-grid .item-box .details {
+    }
+}
+
+.item-box .buttons-wrapper button, .bestsellers.product-grid .item-box .product-box-add-to-cart-button {
+    background: transparent !important;
+    font-size: 0 !important;
+    color: #909090;
+    width: 35px;
+    height: 35px;
+}
+
+.item-type-2 .product-grid .item-box .product-box-add-to-cart-button {
+    position: relative !important;
+    width: 35px;
+    height: 35px;
+}
+
+.product-list .item-box .product-box-add-to-cart-button:before, .bestsellers.product-grid .item-box .product-box-add-to-cart-button:before, .item-type-2 .item-box .product-box-add-to-cart-button:before {
+    margin-right: 0px;
+}
+
+.item-type-2 .product-grid .item-box .product-box-add-to-cart-button:hover {
+    background: transparent;
+}
+
+.item-type-2 .product-grid .item-box .buttons {
+    background: transparent;
+    border: 0px;
+    transform: none !important;
+    width: 35px;
+    height: 35px;
+}
+
+.ajax-cart-button-wrapper {
+    display: block;
+}
+
+.item-box .buttons-wrapper button:hover:after {
+    color: #fff;
+}
+
+
+@media (max-width: 481px) {
+    .item-box .picture img {
+        width: 100%;
+    }
+    .item-box .details {
+    width:100%;
+    box-shadow:none;
+    }
+    .item-box .picture a:before {
+        padding-top: 165%;
+    }
+}

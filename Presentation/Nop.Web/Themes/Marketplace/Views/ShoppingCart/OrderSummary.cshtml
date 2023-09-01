@@ -1,0 +1,189 @@
+@model ShoppingCartModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.ShoppingCart;
+@using Nop.Core.Domain.Orders;
+@{
+
+
+    var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+}
+
+
+<style>
+    .shoppingbag-side{
+
+        margin-top: -182px;
+}
+</style>
+
+@Html.Widget("order_summary_content_before")
+@Html.Partial("_OrderReviewData", Model.OrderReviewData)
+
+@if (Model.Items.Count > 0)
+{
+    if (Model.Warnings.Count > 0)
+    {
+        <div class="message-error">
+            <ul>
+                @foreach (var warning in Model.Warnings)
+                {
+                    <li>@warning</li>
+                }
+            </ul>
+        </div>
+    }
+
+
+      
+
+    using (Html.BeginRouteForm("ShoppingCart", FormMethod.Post, new { enctype = "multipart/form-data", id = "shopping-cart-form" }))
+    {<div class="col-md-8" style="margin-bottom:9px;">
+
+         
+             <div class="col-md-12 hidden-xs">
+                 <button type="submit" id="checkout" name="checkout" value="checkout" class="pull-right btn btn-check" style="margin-bottom: 10px; margin-top: 10px;    font-weight: normal;">
+                     PROCEED TO CHECKOUT
+                 </button>
+             </div>
+        
+    @Html.AntiForgeryToken()
+
+    @foreach (var item in Model.Items)
+    {
+
+
+
+        <div class="col-md-12" style="border: 1px solid #d9d9d9; margin-bottom:12px;">
+            <div class="col-md-12 hidden-lg hidden-md" style="z-index:100;">
+                <button type="submit" id="checkout" name="checkout" value="checkout" class="pull-right btn btn-check" style="margin-bottom: 10px; margin-top: 10px;    font-weight: normal;">
+                    PROCEED TO CHECKOUT
+                </button>
+            </div>
+            <div class="col-md-3" style="padding:0;">
+                @if (Model.ShowProductImages)
+                {
+                <div class="col-md-12">
+                    <div class="shoppingcart-header2"><span class="sku-number"><a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })"><img class="img-length" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" /></a></span></div>
+                </div>
+                }
+            </div>
+            <div class="col-md-4">
+                <p style="line-height: 20px; padding-top: 10px;">
+                    @item.ProductName<br>
+                    SKU: @item.Sku<br>
+                    @Html.Raw(item.AttributeInfo)
+                    <div class="hidden-lg hidden-md" style="    margin-top: -12px;">Quantity @item.Quantity</div>
+                </p>
+
+                <p style="font-size: 1rem;">
+                    <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })" style="text-decoration: underline;">EDIT</a>
+
+                    <a href="#" onclick="RemoveCartItem('chkbox@(item.Id)')" style="text-decoration: underline;">REMOVE</a>
+                    <input type="checkbox" name="removefromcart" id="chkbox@(item.Id)" style="display:none" value="@(item.Id)" />
+                    <input type="submit" name="updatecart" style="padding-left:0px;background:none;border:none;text-decoration:underline" class="button-2 update-cart-button update-shoppingcart hidden-xs" id="updatecart" value="UPDATE CART" />
+                    @*<input type="button" id="add-to-wishlist-button-@item.ProductId" class="button button-white" style="margin-top:0px;font-size:11px" value="Wishlist" data-productid="@item.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new {productId = item.ProductId, shoppingCartTypeId = (int) ShoppingCartType.Wishlist})', '#product-details-form');return false;" />*@
+
+           
+
+                    @*<a href="#" id="add-to-wishlist-button-163" value="Wishlist" data-productid="@item.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new {productId = item.ProductId, shoppingCartTypeId = (int) ShoppingCartType.Wishlist})', '#product-details-form');return false;" style="text-decoration: underline;">ADD TO WISHLIST</a>*@
+</p>
+
+            </div>
+            <div class="col-md-3 hidden-xs" style="text-align:center">
+                <p style="line-height: 20px; padding-top: 10px; text-transform: capitalize;" class="text-center">Quantity</p>
+                @if (Model.IsEditable)
+                {
+                    if (item.AllowedQuantities.Count > 0)
+                    {
+                        <select name="itemquantity@(item.Id)" class="qty-dropdown">
+                            @foreach (var qty in item.AllowedQuantities)
+                            {
+                                <option selected="@qty.Selected" value="@qty.Value">@qty.Value</option>
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <input name="itemquantity@(item.Id)" type="number" min="1" max="11" value="@(item.Quantity)" class="qty-input" />
+                    }
+
+                }
+                else
+                {
+                    <span class="product-quantity">@item.Quantity</span>
+                }
+            </div>
+            <div class="col-md-2 hidden-xs">
+                <p style="line-height: 20px; padding-top: 10px; text-transform: capitalize;" class="text-center">@item.UnitPrice</p>
+            </div>
+        </div>
+
+
+
+          
+         
+    }
+
+
+    <div class="col-md-12">
+
+        <div class="col-md-4 col-md-offset-4">
+            @*<a href="#" name="continueshopping" class="pull-right btn btn-primary" style="margin-bottom: 10px; margin-top: 10px; background-color: #eeeeee; color: black;">CONTINUE SHOPPING</a>*@
+            @*<input type="submit" name="continueshopping" value="@T("ShoppingCart.ContinueShopping")" class="pull-right btn btn-primary" style="margin-bottom: 10px; margin-top: 10px; background-color: #eeeeee; color: black;" />*@
+        </div>
+        <div class="col-md-4" style="padding-right:0;">
+            <button type="submit" id="checkout" name="checkout" value="checkout" class="pull-right btn btn-check" style="margin-bottom: 10px; margin-top: 10px;    font-weight: normal;">
+                PROCEED TO CHECKOUT
+            </button>
+            @*<a href="OnePageCheckout" class="pull-right btn btn-check" style="margin-bottom: 10px; margin-top: 10px;">PROCEED TO CHECKOUT</a>*@
+        </div>
+      
+
+        
+   
+
+    </div>
+</div>
+<div class="col-md-4" style="background-color: #333; color: white;">
+    @Html.Action("OrderTotals", "ShoppingCart", new { isEditable = Model.IsEditable })
+
+   @Html.Action("TopicBlock", "Topic", new { systemName = "Ordertotal" })
+</div>
+    }
+
+
+       
+
+
+
+}
+
+else
+{
+    <div class="no-data col-md-12">
+        <h5>Your Shoping Bag is empty</h5>
+</div>
+}
+
+
+
+
+
+<script>
+    function RemoveCartItem(checkbox) {
+
+        $("#" + checkbox).prop('checked', true);
+        $("#updatecart").click();
+
+    }
+    function updateCart() {
+        $("#updatecart").click();
+    }
+
+
+    $(".qty-input").on('keyup mouseup', function () {
+
+    });
+</script>

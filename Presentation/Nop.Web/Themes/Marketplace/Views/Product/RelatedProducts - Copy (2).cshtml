@@ -1,0 +1,89 @@
+﻿@model IList<ProductOverviewModel>
+
+    @using Nop.Web.Models.Catalog;
+
+ 
+
+
+
+    @*---------------------test code--------------*@
+    <section class="xvDeals style1 family-poppins pb-0 hidden-sm hidden-xs">
+        <div class="container similar-product-div">
+            <div class="col-md-12" style="border-top: 1px solid black;">
+                <h5 class="text-center" style="font-size:21px">SIMILAR PRODUCTS</h5>
+            </div>
+            <div class="col-md-12" style="padding-top: 10px;">
+                @*<div class="col-md-2 col-md-offset-1">
+                    <img src="assets/img/model/model-1.jpg" alt="" class="img-responsive">
+                    <h6 class="text-center">PRIVACY PLEASE</h6>
+                    <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                </div>*@
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-3" style="padding-bottom:30px">
+                        <div class="item-box">@Html.Partial("_ProductBoxCopy", item)</div>
+                    </div>
+                }
+
+                @*<div class="col-md-2 col-md-offset-1">
+                    <img src="https://is4.revolveassets.com/images/p4/n/c/1STR-WD45_V1.jpg" alt="" class="img-responsive">
+                    <h6 class="text-center">PRIVACY PLEASE</h6>
+                    <p class="text-center" style="margin-top: -15px;">Rs 16,364.55</p>
+                </div>*@
+            </div>
+
+        </div>
+    </section>
+    <section class="xvDeals style1 family-poppins pb-0 hidden-sm hidden-xs" style="margin-bottom: 20px; margin-top: -50px;">
+        <div class="container">
+            <div class="col-md-12">
+                <button class="btn btn-primary view-more-btn center-block view-more view-close view-more-button" id="view" style="width: 100%;">View More</button>
+            </div>
+        </div>
+    </section>
+                <section class="xvDeals style1 family-poppins pb-0" style="margin-bottom: 20px; margin-top: -50px;"> 
+                <div class="container"> 
+                <div class="col-md-12"> 
+                <img src="assets/img/banner/jimmychoo.png" alt="" class="img-responsive"> 
+                </div> 
+                </div> 
+                 </section> 
+    
+
+<div class="center">
+    <div>
+        <img src="assets/img/jimmyshoe/jimmy-1.jpg" alt="">
+        <p class="text-center">
+            PORTIA 120<br>
+            425.00 €
+        </p>
+    </div>
+    <div>
+        <img src="assets/img/jimmyshoe/jimmy-2.jpg" alt="">
+        <p class="text-center">
+            PORTIA 120<br>
+            425.00 €
+        </p>
+    </div>
+    <div>
+        <img src="assets/img/jimmyshoe/jimmy-3.jpg" alt="">
+        <p class="text-center">
+            PORTIA 120<br>
+            425.00 €
+        </p>
+    </div>
+    <div>
+        <img src="assets/img/jimmyshoe/jimmy-4.jpg" alt="">
+        <p class="text-center">
+            PORTIA 120<br>
+            425.00 €
+        </p>
+    </div>
+    <div>
+        <img src="assets/img/jimmyshoe/jimmy-5.jpg" alt="">
+        <p class="text-center">
+            PORTIA 120<br>
+            425.00 €
+        </p>
+    </div>
+</div>

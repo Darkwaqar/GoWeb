@@ -1,0 +1,318 @@
+﻿@model SearchModel
+@{
+    Layout = "~/Views/Shared/_MyColumns.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Search").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-search-page");
+}
+@using Nop.Web.Models.Catalog;
+@*<script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#@Html.FieldIdFor(model => model.adv)").click(toggleAdvancedSearch);
+
+            toggleAdvancedSearch();
+        });
+
+        function toggleAdvancedSearch() {
+
+            if ($('#@Html.FieldIdFor(model => model.adv)').is(':checked')) {
+                $('#advanced-search-block').show();
+            }
+            else {
+                $('#advanced-search-block').hide();
+            }
+        }
+    </script>*@
+
+
+
+@{
+    // Shows the range of products for pagination.
+    // @productRange displays nothing if there are no products in the category
+    // For example: 31 products, 10 per page (4 pages)
+    // page1: (Products 1-10 of 31)
+    // page2: (Products 11-20 of 31)
+    // page3: (Products 21-30 of 31)
+    // page4: (Product 31 of 31)
+
+    string productRange = string.Empty;
+
+    // ensure there are products
+    if (Model.PagingFilteringContext.TotalItems > 0)
+    {
+        int firstProduct = 0;
+        int lastProduct = 0;
+
+        // first product number
+        // first page
+        if (Model.PagingFilteringContext.PageNumber == 1)
+        {
+            firstProduct = 1;
+        }
+        // other pages
+        else
+        {
+            firstProduct = (Model.PagingFilteringContext.PageNumber - 1) *
+                            Model.PagingFilteringContext.PageSize + 1;
+        }
+
+        // last product number
+        // last page (also if there is only one page)
+        if (Model.PagingFilteringContext.TotalPages == Model.PagingFilteringContext.PageNumber)
+        {
+            // on the last page, the last product is the count of items
+            lastProduct = Model.PagingFilteringContext.TotalItems;
+        }
+        else
+        {
+            // on the first page, the last product is the page size
+            if (Model.PagingFilteringContext.PageNumber == 1)
+            {
+                lastProduct = Model.PagingFilteringContext.PageSize;
+            }
+            // for other pages, the last product is pageNumber x pageSize
+            else
+            {
+                lastProduct = Model.PagingFilteringContext.PageNumber *
+                              Model.PagingFilteringContext.PageSize;
+            }
+        }
+
+        // use different text if there is only one product on the page
+        if (firstProduct == lastProduct)
+        {
+            productRange = String.Format("{0} Items",
+                Model.PagingFilteringContext.TotalItems);
+        }
+        else
+        {
+            productRange = String.Format("{0} Items",
+                Model.PagingFilteringContext.TotalItems);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="page search-page">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="breadcrumb" style="border-bottom:none;">
+                <ul>
+                    <li>
+                        <a href="@Url.RouteUrl("HomePage")" title="@T("Categories.Breadcrumb.Top")">@T("Categories.Breadcrumb.Top")</a>
+                        <span class="delimiter"></span>
+                    </li>
+                    @*@foreach (var cat in Model.CategoryBreadcrumb)
+                    {
+                        var isLastCategory = cat.Id == Model.Id;
+                        <li>
+                            @if (isLastCategory)
+                            {
+                                <strong class="current-item">@cat.Name</strong>
+                            }
+                            else
+                            {
+                                <a href="@Url.RouteUrl("Category", new { SeName = cat.SeName })" title="@cat.Name">@cat.Name</a>
+                                <span class="delimiter"></span>
+                            }
+                        </li>
+                    }*@
+
+                    <li><strong class="current-item">Search</strong></li>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class="page-body">
+        <div class="search-input" style="display:none;">
+            @using (Html.BeginRouteForm("ProductSearch", FormMethod.Get))
+            {
+                <div class="fieldset">
+                    <div class="form-fields">
+                        <div class="basic-search">
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.q, new { }, ":")
+                                @Html.TextBoxFor(model => model.q, new { @class = "search-text" })
+                            </div>
+                            @Html.Widget("productsearch_page_basic")
+                            <div class="inputs reversed">
+                                @Html.CheckBoxFor(model => model.adv)
+                                @Html.LabelFor(model => model.adv)
+                            </div>
+                        </div>
+                        <div class="advanced-search" id="advanced-search-block">
+                            @if (Model.AvailableCategories.Count > 0)
+                            {
+                                <div class="inputs">
+                                    @Html.LabelFor(model => model.cid, new { }, ":")
+                                    @Html.DropDownListFor(model => model.cid, Model.AvailableCategories)
+                                </div>
+                                <div class="inputs reversed">
+                                    @Html.CheckBoxFor(model => model.isc)
+                                    @Html.LabelFor(model => model.isc)
+                                </div>
+                            }
+                            @if (Model.AvailableManufacturers.Count > 0)
+                            {
+                                <div class="inputs">
+                                    @Html.LabelFor(model => model.mid, new { }, ":")
+                                    @Html.DropDownListFor(model => model.mid, Model.AvailableManufacturers)
+                                </div>
+                            }
+                            @if (Model.asv && Model.AvailableVendors.Count > 0)
+                            {
+                                <div class="inputs">
+                                    @Html.LabelFor(model => model.vid, new { }, ":")
+                                    @Html.DropDownListFor(model => model.vid, Model.AvailableVendors)
+                                </div>
+                            }
+                            <div class="inputs">
+                                <label>@T("Search.PriceRange"):</label>
+                                <span class="price-range">
+                                    @T("Search.PriceRange.From")
+                                    @Html.TextBoxFor(model => model.pf, new { @class = "price-from" })
+                                    @T("Search.PriceRange.To")
+                                    @Html.TextBoxFor(model => model.pt, new { @class = "price-to" })
+                                </span>
+                            </div>
+                            <div class="inputs reversed">
+                                @Html.CheckBoxFor(model => model.sid)
+                                @Html.LabelFor(model => model.sid)
+                            </div>
+                            @Html.Widget("productsearch_page_advanced")
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <input type="submit" class="button-1 search-button" value="@T("Search.Button")" />
+                </div>
+            }
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="product-filter">
+                    @Html.Widget("left_side_column_before")
+
+                </div>
+
+
+            </div>
+            <div class="col-md-9">
+                <div class="page-title">
+                    <h1>Search Results</h1>
+                    <p>Your search results for the keyword "@Model.q"</p>
+                </div>
+                <div class="head-select">
+                    <div class="product-Range">
+                        @productRange
+                    </div>
+                    @if (Model.Products.Count > 0)
+                    {
+                        @Html.Partial("_CatalogSelectors", Model.PagingFilteringContext, new ViewDataDictionary())
+                    }
+
+
+                </div>
+                @Html.Widget("productsearch_page_before_results")
+
+
+                <div class="search-results">
+                    @if (!String.IsNullOrEmpty(Model.Warning))
+                    {
+                        <div class="warning">
+                            @Model.Warning
+                        </div>
+                    }
+                    @if (Model.NoResults)
+                    {
+                        <div class="no-result">
+                            @T("Search.NoResultsText")
+                        </div>
+                    }
+
+                    @if (Model.Products.Count > 0)
+                    {
+                        <div class="@(Model.PagingFilteringContext.ViewMode == "list" ? "product-list" : "product-grid")">
+                            <div class="item-grid">
+                                @foreach (var product in Model.Products)
+                                {
+                                    <div class="item-box">
+                                        @Html.Partial("_ProductBox", product)
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    @{
+                        var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber").BooleanParameterName("adv").BooleanParameterName("isc").BooleanParameterName("sid").RenderEmptyParameters(true);
+                    }
+                    @if (!pager.IsEmpty())
+                    {
+                        <div class="pager">
+                            @pager
+                        </div>
+                    }
+                </div>
+                @Html.Widget("productsearch_page_after_results")
+
+
+            </div>
+        
+        
+        
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+               
+            </div>
+        </div>

@@ -1,0 +1,61 @@
+﻿@model PollCategoryModel
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-PollCategory-page");
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var PollCategoryUrl = Url.RouteUrl("PollCategory", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(PollCategoryUrl);
+    }
+
+    var breadcrumbDelimiter = EngineContext.Current.Resolve<CommonSettings>().BreadcrumbDelimiter;
+}
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Polls;
+@*PollCategory breadcrumb*@
+<div class="page PollCategory-page">
+    <div class="page-title" style="background-image:url(@(Model.AlternativePictureModel.FullSizeImageUrl))">
+        <h1>@Model.Name</h1>
+    </div>
+    <div class="page-body">
+        @Html.Widget("PollCategorydetails_top", Model.Id)
+        @*description*@
+        @if (!String.IsNullOrWhiteSpace(Model.Description))
+        {
+            <div class="PollCategory-description">
+                @Html.Raw(Model.Description)
+            </div>
+        }
+        @Html.Widget("PollCategorydetails_before_subcategories", Model.Id)
+        @Html.Widget("PollCategorydetails_before_featured_Polls", Model.Id)
+        @Html.Widget("PollCategorydetails_after_featured_Polls", Model.Id)
+        @Html.Widget("PollCategorydetails_before_filters", Model.Id)
+        @Html.Widget("PollCategorydetails_before_Poll_list", Model.Id)
+
+        @if (Model.Polls.Count > 0)
+        {
+            <div>
+                <div class="item-grid">
+                    @foreach (var Poll in Model.Polls)
+                    {
+                        <div class="item-box">
+                            @Html.Partial("_poll", Poll)
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @Html.Widget("PollCategorydetails_bottom", Model.Id)
+    </div>
+</div>

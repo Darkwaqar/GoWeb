@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="scrollRail--enabled">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>multiscroll.js - split multi-scrolling pages plugin</title>
+	<meta name="author" content="Alvaro Trigo Lopez" />
+	<meta name="description" content="multiscroll plugin by Alvaro Trigo. Create divided multi-scrolling pages with two splited vertical layouts or panels." />
+	<meta name="keywords"  content="multiscroll,jquery,alvaro,trigo,plugin,divided,splitscreen,screen,panels,layouts,vertical,split,splited" />
+	<meta name="Resource-type" content="Document" />
+	<link rel="stylesheet" type="text/css" href="multiscroll.js-master/jquery.multiscroll.css" />
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript" src="multiscroll.js-master/vendors/jquery.easings.min.js"></script>
+	<script type="text/javascript" src="multiscroll.js-master/jquery.multiscroll.js"></script>
+	<script type="text/javascript" src="js/slideout.js"></script>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<link href="/css/fontawesome.css" rel="stylesheet"  >
+
+
+
+</head>
+<body>
+
+
+  <div id="menuMain" class="menu sidenav sidebarBase__container">
+
+
+  			<div class=" sidebarBase__title ">
+  			<div class="sidebarBase__close" data-assistencetoggle="">  <a href="javascript:void(0)" class="closebtn" onclick="closeNav('menuMain')"><i class="fal fa-times"></i></a></div>
+  </div>
+
+
+  			<div class="sidebarBase__contents" >
+
+
+  			      <div class="assistance__sections" data-turbolinks="false" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+
+
+
+
+  			        <div class="assistence__section">
+
+  			          <div class="content">
+  			<a href="shop.html" detailsbar="">Shop</a>
+  			<a href="collection.html" detailsbar="">Collections</a>
+  			<a href="about.html" detailsbar="">About</a>
+  			<a href="#" onclick="closeNav('menuMain'); openNav('assist');"  detailsbar="">Assistance</a>
+
+
+
+  			          </div>
+  			        </div>
+  			      </div>
+  			    </div>
+  </div>
+
+
+  <div id="assist" class="menu sidenav sidebarBase__container">
+
+
+  			<div class=" sidebarBase__title ">Assistance
+  			<div class="sidebarBase__close" data-assistencetoggle="">  <a href="javascript:void(0)" class="closebtn" onclick="closeNav('assist')"><i class="fal fa-times"></i></a></div>
+  </div>
+
+
+  			<div class="sidebarBase__contents" >
+
+
+  			      <div class="assistance__sections" data-turbolinks="false" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+  			        <div class="assistence__section">
+  			          <div class="name">Contact</div>
+  			          <div class="content">
+  			            Customer service<br>
+  			Phone: + 39 02 841 901 34<br>
+  			Mail: contact@paranda.com<br>
+  			Hours: Monday - Friday: 09.30 - 13.30/14.30-18.30<br>
+  			<br>
+  			Store<br>
+  			Address: Tariq Road, Main<br>
+  			Phone:  + 39 02 841 901 34<br>
+  			Mail: contact@paranda.com<br>
+  			Hours: Monday - Friday: 09.30 - 13.30/14.30-18.30
+  			          </div>
+  			        </div>
+
+  			        <div class="assistence__section">
+  			          <div class="name">Information</div>
+  			          <div class="content">
+  			            <a href="#" detailsbar="">Clothing Care</a>
+  			<a href="#" detailsbar="">Delivery and Returns</a>
+
+  			          </div>
+  			        </div>
+
+
+
+  			        <div class="assistence__section">
+  			          <div class="name">Legal</div>
+  			          <div class="content">
+  			            <a href="#" detailsbar="">Privacy Policy</a>
+  			<a href="#" detailsbar="">Cookies Policy</a>
+  			          </div>
+  			        </div>
+
+  			        <div class="assistence__section">
+  			          <div class="name">Terms &amp; Conditions</div>
+  			          <div class="content">
+  			              <a href="#" detailsbar="">Dealer company and site owner</a>
+  			<a href="#" detailsbar="">Orders</a>
+  			<a href="#" detailsbar="">Conclusion of contract</a>
+  			<a href="#" detailsbar="">Object of the contract</a>
+  			<a href="#" detailsbar="">Price of products and other expenses</a>
+  			<a href="#" detailsbar="">Shipping</a>
+  			<a href="#" detailsbar="">Time and means of delivery</a>
+  			<a href="#" detailsbar="">How to deal with the delivery of the products</a>
+  			<a href="#" detailsbar="">Liability and limitation of liability</a>
+  			<a href="#" detailsbar="">Right of&nbsp;withdrawal and implementation procedure</a>
+  			<a href="#" detailsbar="">Customer Support</a>
+  			<a href="#" detailsbar="">Technical Information and Changes</a>
+  			<a href="#" detailsbar="">Applicable Law</a>
+  			<a href="#" detailsbar="">Jurisdiction in the event of dispute</a>
+
+
+
+
+
+
+
+
+
+
+  			          </div>
+  			        </div>
+  			      </div>
+  			    </div>
+
+
+
+
+  </div>
+  <div id="search1" class="search sidenav sidebarBase__container">
+
+
+  	<div class=" sidebarBase__title ">Search
+  	<div class="sidebarBase__close" data-assistencetoggle="">  <a href="javascript:void(0)" style="color:#000;" class="closeSearch" onclick="closeNav('search1')"><i class="fal fa-times"></i></a>
+
+  	</div>
+  </div>	<div class="sidebarBase__contents">
+  			        <div class="searchBar__contents" data-singleproduct="product" data-multiproduct="products" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+  			          <div class="searchBar__query">
+  			            <input type="text" name="search" placeholder="Search Products...">
+  			          </div>
+  			          <div class="searchBar__count grid-x grid-padding-x">
+  			            <div class="cell small-16 medium-auto">Your search</div>
+  			            <div class="cell auto"><span><i data-searchcount="">0</i> <span class="countlabel">products</span></span></div>
+  			          </div>
+  			          <div class="searchBar__items" data-turbolinks="true"></div>
+  			          <div class="searchBar__empty" style="display: none;">Sorry, No products found</div>
+  			      </div>
+  			      </div>
+
+  </div>
+
+
+
+  <main id="panel1" class="panel  ">
+    <div class="mainHeader">
+        <a href="#" class="mainHeader__logo">
+            <img class="img-logo" src="img/logo.png" alt="Paranda" />
+        </a>
+        <div class="mainHeader__menu">
+
+            <div class="mainHeader__menu__item show-for-large">
+                <p class="freetext">Free Shipping on all orders! </p>
+            </div>
+            <div class="mainHeader__menu__item show-for-large">
+                <a data-turbolinks="false" href="#">
+                    <span>
+                                                My Account                                    </span>
+                </a>
+            </div>
+            <div class="mainHeader__menu__item hide-for-large" data-togglesearch="">
+              <a data-turbolinks="false" onclick="openNav('search1')">
+                  <i class="fal fa-search"></i>
+              </a>
+                </div>
+            <div class="mainHeader__menu__item">
+                <a class="" data-turbolinks="false" data-toggleminicart="" id="cartcount" href="#">
+                    <span class="show-for-large">Shopping bag</span>
+                    <span class="hide-for-large"><i class="fal fa-shopping-bag"></i></span>
+                    <span class="count show-for-large">0</span>
+                </a>
+            </div>
+            <div class="mainHeader__menu__item show-for-large">
+                <a data-togglewishlist="" class="" title="Wishlist" href="#">
+                    <span class="show-for-large">Wishlist</span>
+                    <span class="hide-for-large">
+                        <i class="fal fa-heart"></i>
+                    </span>
+                    <span data-turbolinks-permanent="" id="wishlistcount" class="count" data-wishlishtcount="">0</span>
+                </a>
+            </div>
+            <div class="mainHeader__menu__item mobileMenuToggle hide-for-large" data-togglemenu="">
+                  <a href="#" onclick="openNav('menuMain')" ><i class="fal fa-bars toggle"></i></a>
+                <i class="fal fa-times close"></i>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+<div class="floatingMenu right">
+    <div class="floatingMenu__content">
+        <div class="floatingMenu__contentWrap">
+            <ul>
+                <li>
+                    <a href="#"  onclick="openNav('search1')" class="js-slideout-toggle-search">Search</a>
+                </li>
+                <li>
+                    <a href="#"  onclick="openNav('assist')"  class="js-slideout-toggle">Assistance</a>
+                </li>
+
+            </ul>
+                    </div>
+    </div>
+</div>
+
+<div class="floatingMenu left" id="leftfloating">
+    <div class="floatingMenu__content">
+        <div class="floatingMenu__contentWrap">
+            <ul>
+                                    <li>
+                        <a href="shop.html" class="">Shop</a>
+                                            </li>
+
+                                                        <li>
+                                            <a href="collection.html">Collections</a>
+                    </li>
+
+            </ul>
+            <ul id="floatingNavLeft" class="floatingNav"><li id="menu-item-43" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-43"><a href="about.html">About</a></li>
+</ul>        </div>
+    </div>
+</div>
+
+
+
+
+<div id="wrapperMain" style="">
+
+       <div class="pageAbout">
+      <div class="scrollRails activated" data-component="ScrollRails">
+          <div class="scrollRails__rail">
+            <div class="scrollRails__railContent">
+              <div class="pageAbout__gallery" data-component="Slider" medium-down-slider="">
+                                                        <img width="1055" height="1426" src="img/one.jpg" class="responsiveImage rail-el-inview rail-el-entered" alt="" check-in-view=""  sizes="(max-width: 1055px) 100vw, 1055px">
+                                                </div>
+            </div>
+          </div>
+
+          <div class="scrollRails__rail">
+            <div class="scrollRails__railContent">
+              <div class="pageAbout__about">
+                <div class="grid-x grid-padding-x">
+                  <div class="cell small-28 medium-20 xlarge-18 medium-offset-4 large-offset-4">
+                    <h1> Our Story</h1>
+                    <p class="intro">
+                      Paranda is a venture by a young mother who was obsessed with the local craft since her childhood, during many of her visits to rural areas, she used to be awed by the array of locally crafted products by such talented artisans.
+                    </p>
+                    <div class="pageAbout__body">
+                        <p class="head">From then on, all her pieces have reflected a dualism that can be found in nature, being both strong and romantic at the same time.</p>
+<p> A few years later she realized these unnamed artists have given birth to fashion accessories but unfortunately, such hand-crafted goods often go without any appreciation for the producer – the true inspiration behind the online shopping platform, Paranda – which was later announced in Pakistan Fashion Week, London.<br>
+<br>
+The result is a sophisticated and enduring piece.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+        </div>
+
+
+
+
+
+
+
+</main>
+
+
+<script>
+
+
+  function openNav(id) {
+    document.getElementById(id).style.width = "300px";
+
+  }
+
+  function closeNav(id) {
+    document.getElementById(id).style.width = "0";
+  }
+
+
+
+</script>
+
+
+</body>
+</html>

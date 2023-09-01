@@ -1,0 +1,227 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+    var controllerName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
+    var isHomePage = controllerName.Equals("home", StringComparison.InvariantCultureIgnoreCase);
+
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+
+@if (isHomePage)
+{
+   <div class="VideoHome-">
+
+        @* <div class="videoBody">
+            <video id="myvideo" width="100%" autoplay controls loop playsinline preload="yes" muted>
+                <source src="~/Content/Images/uploaded/moazzam/MKONEWEBSITE_2.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <div class="AfterVideo">
+            <div class="btnExperience">
+                <p>click to experience</p>
+            </div>
+        </div> *@
+
+        <script>
+            
+            $(document).ready(function () {
+                //Home Page Video Height
+                $(".videoBody video").css("height", $(window).height() - 100);
+                $(".VideoHome").css("height", $(window).height());
+
+                setInterval(function () {
+                    $(".bannerTextBody").css("height", $(".eapps-instagram-feed-content").height() + "px");
+                }, 3000);
+                //app icons
+                
+                $(".btnExperience").click(function () {
+
+    		    $("body,html").animate(
+                        {
+                            scrollTop: $(".master-wrapper-page").offset().top
+                        },
+                        800 //speed
+                    );
+                });
+            });
+
+            $(window).resize(function () {
+                //app icons
+                $(".bannerTextBody").css("height", $(".eapps-instagram-feed-content").height() + "px");
+
+                //Home Page Video Height
+                $(".VideoHome").css("height", $(window).height());
+         		    $(".videoBody video").css("height", $(window).height() - 100);
+                });
+
+	            if ($(window).height() < 668 && $(window).width() < 1350) {
+                    $(".videoBody").css("max-height", "568px");
+                }
+        </script>
+    </div>
+
+    //page class
+    @*<video class="VideoHome main-page-video" controls="controls" autoplay loop muted>
+        <source src="~/Content/Images/uploaded/moazzam/MKONEWEBSITE_2.mp4" type="video/mp4" />
+    </video>
+    <div class="AfterVideo">
+        <div class="btnExperience">
+            <p>click to experience</p>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $(".btnExperience").click(function () {
+                    document.getElementsByClassName("main-page-video")[0].pause();
+                    $("body,html").animate(
+                        {
+                            scrollTop: $(".AfterVideo").offset().top
+                        },
+                        800 //speed
+                    );
+                });
+            });
+        </script>
+
+    </div> *@
+}
+
+<!-- Modal -->
+<div class="modal fade" id="VideoContainer" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div id="myModalVideo">
+
+            <div id="vidBox" style="display:none;">
+                <a class="close-video">X</a>
+                <video style="position:relative;" autoplay id="v1" loop controls="controls"></video>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@*<div style="background-color: #000;position: fixed;top: 0;width: 100%;z-index: 1000;height: 20px;">
+        <h3 style="padding: 4px 0 0; font-size: 14px; margin: 0; color: #fff;">
+            <marquee behavior="scroll" direction="left">
+                <span>Free Shipping Worldwide </span>
+                <span style="margin-left: 300px;">Free Shipping Worldwide  </span>
+                <span style="margin-left: 300px;">Free Shipping Worldwide </span>
+            </marquee>
+        </h3>
+    </div>*@
+
+<div class="master-wrapper-page">
+
+    <script>
+        $(window).load(function () {
+            $("#about-us-ft-video").attr('autobuffer', '')
+            $("#about-us-ft-video").attr('playsinline', '')
+            $("#about-us-ft-video").attr('autoplay', '')
+        });
+    </script>
+    <script>
+        $(window).load(function () {
+            var anchor = window.location.hash;
+            $(anchor).collapse('show');
+        });
+        window.addEventListener('hashchange', function () {
+            var anchor = window.location.hash;
+            $(".collapse").collapse('hide');
+            $(anchor).collapse('show');
+        });
+    </script>
+    @Html.Action("AdminHeaderLinks", "Common")
+    @Html.Partial("Header")
+    <nav style=" position: relative;">
+	<div class="navbar" role="navigation" id="myHeader">
+        <div class="in-mobile">
+            <a href="/">
+                <img src="/Themes/grandeurman/Content/images/moazzam/logo/Moazzamlogo.png">
+            </a>
+        </div>
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <div class="nav-icon navbar-toggle">
+                <div></div>
+            </div>
+           @* @Html.Action("Logo", "Common") *@
+
+            <div class="mobile-icons">
+                <ul class="icon-menu">
+                    @*<li><a href="#"><img src="~/Themes/moazzamKhanCo/Content/images/book.png" /></a></li>*@
+                    @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="/login" class="my-account-icon"></a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.RouteUrl("CustomerInfo")" class="my-account-icon"></a></li>
+                    }
+                    @*<li class="view-clc-btn"><a href="#">Book an appointment </a></li>*@
+                    <li><a href="/cart" class="my-cart-icon"></a></li>
+                    @*<li><a onclick="openNav()"><img src="~/Themes/SadafAmir/Content/images/img/search-btn.png" /></a></li>*@
+
+                </ul>
+            </div>
+            <div class="search-div">
+                @Html.Action("CurrencySelector", "Common")
+                @Html.Action("SearchBox", "Catalog")
+            </div>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="navbar-collapse" id="navbar-brand-centered">
+            @Html.Widget("content_before")
+            <ul class="navbar-nav navbar-right customnav-right header-links">
+                @*<li class="view-clc-btn"><a href="/bookappointment">Book an appointment </a></li> *@
+                <li>
+                    @Html.Action("CurrencySelector", "Common")
+                </li>
+                <li>
+                    <div class="search-desktop test" style="display:inline-block;"><a onclick="openNav()"><img src="~/Themes/moazzamKhanCo/Content/images/img/search-btn.png" /></a></div>
+                </li>
+                @*<li class="dropdown">
+                        <a class="dropdown-toggle user-show" data-toggle="dropdown" href="#">
+                            <img src="~/Themes/SadafAmir/Content/images/img/user-icon.png" alt="User Image" />
+                        </a>
+                    </li>*@
+                @Html.Action("HeaderLinks", "Common")
+                @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+                @*<li> <a href="#"><img src="images/cart-icon.png" alt="Cart"></a> </li>*@
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+        <div class="header-logo-bot">
+            <div class="logo-bot">
+                <a href="/">
+                    <img src="~/Themes/grandeurman/Content/images/moazzam/logo/Moazzamlogo.png" />
+                </a>
+            </div>
+        </div>
+	</div>
+    </nav>
+    <script type="text/javascript">
+        AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+    </script>
+
+    <div class="master-wrapper-content">
+        @if (IsSectionDefined("Breadcrumb"))
+            {
+            @RenderSection("Breadcrumb")
+        }
+        <div class="master-column-wrapper">
+            @RenderBody()
+            @Html.Widget("content_after")
+            @Html.Action("Footer", "Common")
+        </div>
+    </div>
+</div>
+@Html.Action("EuCookieLaw", "Common")
+@*@Html.Action("Index", "PrivateMessages")*@
+@if (isHomePage)
+{
+    @Html.Widget("body_end_html_tag_before")
+}

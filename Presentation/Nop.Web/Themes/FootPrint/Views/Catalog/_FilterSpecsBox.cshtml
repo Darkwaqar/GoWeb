@@ -1,0 +1,185 @@
+﻿@model CatalogPagingFilteringModel
+@using Nop.Web.Models.Catalog;
+
+@{
+    var notFilteredItemsGroups = Model.SpecificationFilter.NotFilteredItems.GroupBy(x => x.SpecificationAttributeName);
+    var alreadyFilteredItemsGroups = Model.SpecificationFilter.AlreadyFilteredItems.GroupBy(x => x.SpecificationAttributeName);
+
+}
+
+@if (Model.SpecificationFilter.Enabled)
+{
+    <div class="product-filter product-spec-filter">
+
+        <div class="filter-content">
+            @if (Model.SpecificationFilter.NotFilteredItems.Count > 0)
+            {
+                <div class="row no-margin" style="margin-bottom:10px">
+
+                    <div class="col-md-12 nopadding-left">
+
+                        @foreach (var group in notFilteredItemsGroups)
+                        {
+                            var groupList = group.ToList();
+
+
+                            <div class="col-md-2 nopadding filter-bar filterbar-responsive">
+
+
+                                <span style="cursor:pointer"> <span class="fa fa-angle-down hidden-md hidden-lg" id="filterArrowx" style="font-size:16px;padding-right:8px"></span>@groupList[0].SpecificationAttributeName </span>
+
+                                <div class="filter-panel filter-hide">
+
+
+                                    @foreach (var spec in groupList)
+                                    {
+
+                                        <div>
+
+                                            <a class="fakecheck" id="@spec.FilterUrl" href="javascript:"></a>
+
+                                                @if (String.IsNullOrEmpty(spec.SpecificationAttributeOptionColorRgb))
+                                                {
+                                                    <span class="fakechecktext">
+                                                        @spec.SpecificationAttributeOptionName
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@spec.FilterUrl">
+                                                    <div class="attribute-squares color-squares">
+                                                        <span class="attribute-square-container" title="@spec.SpecificationAttributeOptionName">
+                                                            <span class="attribute-square" style="background-color: @(spec.SpecificationAttributeOptionColorRgb);">&nbsp;</span>
+                                                        </span>
+                                                    </div>
+                                                    </a>
+                                                }
+                                            
+                                        </div>
+                                    }
+
+                                </div>
+
+
+                            </div>
+                        }
+                        <div class="col-md-2 text-left nopadding">
+                            @Html.Partial("_CatalogSelectors", Model, new ViewDataDictionary())
+
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+
+
+                    <a href="javascript:" id="btn-filter-close2" class="btn-med" style="padding:5px 40px;background-color:#8DA7A8">Close</a>
+                    <a href="javascript:" id="btn-filter" class="btn-med">REFINE</a>
+
+
+
+                </div>
+
+            }
+            @if (Model.SpecificationFilter.AlreadyFilteredItems.Count > 0)
+            {
+                <hr />
+                <div class="filtered-items">
+                    <ul>
+                        <li class="title">
+                            @T("Filtering.SpecificationFilter.CurrentlyFilteredBy")
+                        </li>
+
+                        @foreach (var group in alreadyFilteredItemsGroups)
+                        {
+
+                            <li class="item">
+                                <strong>@group.First().SpecificationAttributeName</strong>:
+                                @group.ToList().Aggregate(string.Empty, (current, next) =>
+                                    string.Format("{0}{1}", string.IsNullOrEmpty(current) ? string.Empty
+                                    : string.Format("{0} {1}", current, T("Filtering.SpecificationFilter.Separator")), next.SpecificationAttributeOptionName))
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="remove-filter">
+                    <a  href="@Model.SpecificationFilter.RemoveFilterUrl">@T("Filtering.SpecificationFilter.Remove")</a>
+                </div>
+            }
+            <div class="text-center" id="btnfilterClose" style="padding:20px 0px; display:none"><button type="button" class="btn-orignal bg-black">Close</button></div>
+        </div>
+
+    </div>
+}
+
+<script>
+
+    (function () {
+        var attrs = [];
+        var isSelected = false;
+
+        $(".fakecheck").toggle(
+function () {
+    // odd clicks
+    attrs.push(this.id);
+
+    $(this).css("background-color", "#000");
+},
+function () {
+    // even clicks
+    attrs.pop(this.id);
+
+    $(this).css("background-color", "#F2EEEE");
+});
+
+
+
+
+        function closeFilter() {
+            $(".filter-panel").hide("slow");
+        }
+
+
+
+        function doFilter() {
+
+
+            var url = '@Request.Url.AbsoluteUri';
+            var param = "?specs=";
+            var queryIndex = url.indexOf(param);
+            var queryVals = "";
+
+
+            if (queryIndex != -1) {
+                queryVals = url.substr(queryIndex + param.length, url.length) + ",";
+                url = url.substr(0, queryIndex);
+
+            }
+            window.location = attrs.toString().split(","+url + "?specs=").join(",");
+
+
+
+
+        }
+
+        $("#btn-filter").on("click", function () {
+            doFilter();
+        });
+
+        $(".filter-panel").on("click", function () {
+            $("#btn-filter-close2").removeClass("hide");
+        });
+
+		$("#btn-filter-close").on("click",function(){
+			closeFilter();
+		})
+
+		$("#btn-filter-close2").on("click", function () {
+		    closeFilter();
+		})
+
+
+    }());
+
+
+</script>
+

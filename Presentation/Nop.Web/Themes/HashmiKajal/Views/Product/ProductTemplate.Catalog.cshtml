@@ -1,0 +1,322 @@
+﻿@model ProductDetailsModel
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+
+@using Nop.Web.Models.Common;
+
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-product-details-page");
+
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+    Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");
+
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+        var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(productUrl);
+    }
+
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+    }
+}
+
+<style>
+    body {
+        position:relative;
+    }
+    .continueShoppingLink,
+    .nivo-caption {
+        display: none !important;
+    }
+    .button-1.contact-us-button,
+    .productAddedToCartWindowCheckout,
+    .productAddedToCartWindowCheckout:hover {
+        background-color: #e72122 !important;
+        color: #fff;
+        width: 67%;
+        max-width: 974px;
+    }
+
+    .productAddedToCartWindowDescription {
+        text-align: center;
+    }
+
+    .button-1.contact-us-button {
+        margin: 15px 0 0;
+    }
+
+    .page-title h1 {
+        color: #2c3381;
+        background: none;
+        font-family: 'MuseoSans_500-webfont';
+        font-weight: 600;
+        font-size: 24px;
+        text-transform: uppercase;
+        padding: 10px 0;
+    }
+
+</style>
+@Html.Widget("productdetails_after_breadcrumb", Model.Id)
+<div class="page product-details-page landing">
+    <div class="page-body">
+        @Html.Widget("content_before")
+        @Html.Widget("productdetails_top", Model.Id)
+        @using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+        {
+            <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
+                <div class="product-essential">
+                    @Html.Widget("productdetails_before_pictures", Model.Id)
+                    <!--product pictures-->
+                    @*@Html.Partial("_ProductDetailsPictures", Model)*@
+                    @Html.Widget("Hashmikajal_homePage_Banner2")
+                    @{
+                        ContactUsModel com = new ContactUsModel();
+                    }
+                    @Html.Partial("_ContactUs", com)
+                    @Html.Widget("productdetails_after_pictures", Model.Id)
+                    <div class="overview">
+                        @Html.Partial("_Discontinued", Model)
+                        @*<div class="product-name">
+                                <h1 itemprop="name" style=" text-align: center; ">
+                                    @Model.Name
+                                </h1>
+                            </div>*@
+                        @if (!String.IsNullOrEmpty(Model.ShortDescription))
+                        {
+                            <div class="short-description">
+                                @Html.Raw(Model.ShortDescription)
+                            </div>
+                        }
+                        @Html.Widget("productdetails_overview_top", Model.Id)
+
+                        <!--product manufacturers-->
+                        @Html.Partial("_ProductManufacturers", Model.ProductManufacturers)
+                        <!--compare, email a friend-->
+                        <div class="overview-buttons">
+                            @Html.Widget("productdetails_inside_overview_buttons_before", Model.Id)
+
+                            @Html.Widget("productdetails_inside_overview_buttons_after", Model.Id)
+                        </div>
+                        @* @Html.Partial("_ShareButton", Model) *@
+                        @Html.Widget("productdetails_overview_bottom", Model.Id)
+                    </div>
+                    @if (!String.IsNullOrEmpty(Model.FullDescription))
+                    {
+                        <div class="full-description" itemprop="description">
+                            @Html.Raw(Model.FullDescription)
+                        </div>
+                    }
+                </div>
+                @Html.Widget("productdetails_before_collateral", Model.Id)
+                <div class="product-collateral">
+                    <!--associated products-->
+                    <div class="product-variant-list">
+                        @*<div class="HeadingProduct">
+                                <h1>Jeet Ko Chahye Fitness </h1>
+                                <p>
+                                    Order Lahore Qalandars Jar aur Shamil hojae Lucky Draw mei
+                                </p>
+                            </div>*@
+                        @foreach (var variant in Model.AssociatedProducts)
+                        {
+                            <div class="product-variant-line" data-productid="@variant.Id">
+                                <div class="variant-name-div">
+                                    <div class="variant-name-div-text">
+                                        @if (!String.IsNullOrWhiteSpace(variant.ShortDescription))
+                                        {
+                                            <div class="variant-description description-short variant-text">
+                                                @Html.Raw(variant.ShortDescription)
+                                            </div>
+                                        }
+                                        @if (!String.IsNullOrWhiteSpace(variant.Name))
+                                        {
+                                            <div class="variant-name name-color variant-text">
+                                                @variant.Name
+                                            </div>
+                                        }
+                                        <!--price & add to cart-->
+                                        @{
+                                            var dataDictPrice = new ViewDataDictionary();
+                                            dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", variant.Id);
+                                            @Html.Partial("_ProductPrice", variant.ProductPrice, dataDictPrice)
+                                        }
+                                    </div>
+                                </div>
+                                @if (!String.IsNullOrWhiteSpace(variant.DefaultPictureModel.ImageUrl))
+                                {
+                                    <div class="variant-picture product">
+                                        <img alt="@variant.DefaultPictureModel.AlternateText" src="@variant.DefaultPictureModel.ImageUrl"
+                                             title="@variant.DefaultPictureModel.Title" id="main-product-img-@variant.Id" />
+                                    </div>
+                                }
+                                <div class="variant-overview">
+                                    <!--availability-->
+                                    @Html.Partial("_Availability", variant)
+                                    <!--SKU, MAN, GTIN, vendor-->
+                                    @*@Html.Partial("_SKU_Man_GTIN_Ven", variant)*@
+                                    <!--delivery-->
+                                    @Html.Partial("_DeliveryInfo", variant)
+                                    <!--sample download-->
+                                    @Html.Partial("_DownloadSample", variant)
+                                    <!--attributes-->
+                                    @{
+                                        var dataDictAttributes = new ViewDataDictionary();
+                                        dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", variant.Id);
+                                        @Html.Partial("_ProductAttributes", variant.ProductAttributes, dataDictAttributes)
+                                    }
+                                    <!--gift card-->
+                                    @{
+                                        var dataDictGiftCard = new ViewDataDictionary();
+                                        dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = string.Format("giftcard_{0}", variant.Id);
+                                        @Html.Partial("_GiftCardInfo", variant.GiftCard, dataDictGiftCard)
+                                    }
+                                    <!--rental info-->
+                                    @{
+                                        var dataDictRental = new ViewDataDictionary();
+                                        dataDictRental.TemplateInfo.HtmlFieldPrefix = string.Format("rental_{0}", variant.Id);
+                                        @Html.Partial("_RentalInfo", variant, dataDictRental)
+                                    }
+
+                                    <!--price breaks-->
+                                    @Html.Partial("_ProductTierPrices", variant.TierPrices)
+                                    @if (!String.IsNullOrWhiteSpace(variant.FullDescription))
+                                    {
+                                        <div class="variant-description">
+                                            @Html.Raw(variant.FullDescription)
+                                        </div>
+                                    }
+                                    @{
+                                        var dataDictAddToCart = new ViewDataDictionary();
+                                        dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", variant.Id);
+                                        @Html.Partial("_AddToCart", variant.AddToCart, dataDictAddToCart)
+                                    }
+                                </div>
+                            </div>
+                        }
+                        @if (Model.AssociatedProducts.Count == 0)
+                        {
+                            <div class="no-associated-products">
+                                @T("Products.NoAssociatedProducts")
+                            </div>
+                        }
+                    </div>
+                    @Html.Partial("_ProductSpecifications", Model.ProductSpecifications)
+                    @Html.Partial("_ProductTags", Model.ProductTags)
+                </div>
+                <div class="img-prise-banner">
+                    <div class="img-prise">
+                        @*<img class="prices" src="~/Themes/HashmiKajal/Content/img/img/Prizes.png" />*@
+                        <div class="txtholder">
+            <h3>Terms and Conditions</h3>
+            <h4>General Terms and Conditions:</h4>
+            <p>1. This campaign is organized by Hashmi Group.</p>
+            <p>2. Contestants are eligible to participate in this campaign in accordance to the eligibility criteria mentioned. </p>
+            <p>3. The logo, name and graphics of Hashmi Group and its products and services are the trademarks of Hashmi Group. All other company names, brand names, trademarks and logos mentioned on this website are the property of their respective owners and do not constitute or imply endorsement, sponsorship or recommendation thereof by Hashmi Group, and do not constitute or imply endorsement, sponsorship or recommendation of Hashmi Group by the respective trademark owner. </p>
+            </div>
+                        <p id="myModalbtn" ><span>Terms &amp; Conditions</span></p>
+                    </div>
+                </div>
+
+            </div>
+        }
+        @Html.Widget("productdetails_bottom", Model.Id)
+    </div>
+    <script>
+        $(window).load(function () {
+            $("#goToTop").remove();
+        })
+        //$("body").addClass("modal-open");
+        $(document).ready(function () {
+            $("#myModalbtn").click(function () {
+                $("#myModal").show();
+                $("body").addClass("modal-open");
+            })
+            $("#myModal").click(function () {
+                $("#myModal").hide();
+                $("body").removeClass("modal-open");
+            })
+        })
+    </script>
+</div>
+
+<div id="myModal" class="modal-landing fade in" >
+    <div class="modal-dialog termfull">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Terms and Conditions</h4>
+            </div>
+<div class="modal-body">
+        <p>1. This campaign is organized by Hashmi Group.</p>
+        <p>2. Contestants are eligible to participate in this campaign in accordance to the eligibility criteria mentioned.</p>
+        <p>3. The logo, name and graphics of Hashmi Group and its products and services are the trademarks of Hashmi Group. All other company names, brand names, trademarks and logos mentioned on this website are the property of their respective owners and do not constitute or imply endorsement, sponsorship or recommendation thereof by Hashmi Group, and do not constitute or imply endorsement, sponsorship or recommendation of Hashmi Group by the respective trademark owner.</p>
+        <p>4. Information available in this website is authentic and valid. Hashmi Group shall not be responsible for any misleading or incorrect information about the campaign. Hashmi Group will not be liable for any loss suffered by the participant based on the representation, terms, conditions and information presented or displayed on any other source other than this website.</p>
+
+        <p>5. Participants must include valid name of maximum 14 characters.</p>
+        <p>6. To participate in this campaign the contestants must meet the following criteria:</p>
+          <ul>
+            <li>Must have a valid contact number</li>
+            <li>Must have a valid email address</li>
+            <li>Participants should send a valid CNIC</li>
+          </ul>
+
+        <p>7. This campaign is open to individuals only.</p>
+        <p>8. Corporate agencies and any non-human legal entities are not entitled to participate in this campaign. </p>
+
+        <p>9. Winners will be announced on a daily basis.</p>
+        <p>10.  Hashmi Group will not be responsible for any copyright violations done by the participants.</p>
+        <p>11.  Hashmi Group reserves the right to cancel the campaign and/or amend these Terms at any stage, if deemed necessary or in the event of unforeseeable circumstances.</p>
+
+         <h4>For the Winner:</h4>
+
+         <p>12. The winner will be contacted via the contact details provided by them at the time of submission of their entry for this specific campaign.</p>
+         <p>13. Hashmi Group will take all the necessary steps to contact the winner.</p>
+         <p>14. In order to claim the prize, each winner must respond to the relevant and correct details such as; Full name, delivery address, contact number, CNIC number and valid email address within (1) week.</p>
+         <p>15. It is the responsibility of the winner to provide correct personal information. Hashmi Ispaghol (Pakistan) is not liable for any non-delivery of the winning prizes due to provision of incorrect contestant details.</p>
+         <p>16. Prizes will be delivered in a minimum of 6 days after successful confirmation/acceptance from the winner.</p>
+
+         <h4>Prizes:</h4>
+
+        <p>17.  Signed ball by the players of Lahore Qalandars</p>
+        <p>18.  Customized T-Shirts of Lahore Qalandars, with name of the winner</p>
+        <p>19.  Signed Bats by the players of Lahore Qalandars</p>
+        <p>20.  All prizes are exclusive of taxes.</p>
+        <p>21.  Prizes must be taken as stated and may not be deferred.</p>
+        <p>22.  There will be no cash alternatives; however Hashmi Ispaghol (Pakistan) reserves the right to substitute any Prize with a prize of a similar value.</p>
+      </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

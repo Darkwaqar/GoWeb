@@ -1,0 +1,113 @@
+﻿@model CustomerActionConditionModel
+
+<div class="panel-group">
+    @if (Model.Id > 0)
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="categories-grid"></div>
+                <script>
+                    $(document).ready(function () {
+                        $("#categories-grid").kendoGrid({
+                        dataSource:
+                        {
+                            transport:
+                            {
+                                read:
+                                {
+                                    url: "@Html.Raw(Url.Action("ConditionCategory", "CustomerAction", new { customerActionId = Model.CustomerActionId, conditionId = Model.Id }))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    },
+                                    destroy:
+                                {
+                                    url: "@Html.Raw(Url.Action("ConditionDeletePosition", "CustomerAction", new { customerActionId = Model.CustomerActionId, conditionId = Model.Id }))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    }
+                            },
+                                schema:
+                            {
+                                data: "Data",
+                                    total: "Total",
+                                    errors: "Errors",
+                                    model:
+                                {
+                                    id: "Id",
+                                    }
+                            },
+                                error: function(e) {
+                                display_kendoui_grid_error(e);
+                                // Cancel the changes
+                                this.cancelChanges();
+                            },
+                                serverPaging: true,
+                                serverFiltering: true,
+                                serverSorting: true
+                            },
+                            pageable:
+                        {
+                            refresh: true,
+                                numeric: false,
+                                previousNext: false,
+                                info: false
+                            },
+                            editable:
+                        {
+                            confirmation: false,
+                                mode: "inline"
+                            },
+                            scrollable: false,
+                            columns: [
+                            {
+                                    field: "CategoryName",
+                                    title: "@T("Admin.Customers.CustomerActionCondition.Fields.CategoryName")",
+                                    width: 300,
+                                    template: '<a class="k-link" >#=kendo.htmlEncode(CategoryName)#</a>',
+                            },
+                            {
+                                    field: "Id",
+                                    title: "@T("Admin.Common.Edit")",
+                                    width: 80,
+                                    headerAttributes: { style: "text-align:center" },
+                                    attributes: { style: "text-align:center" },
+                                    template: '<a class="btn btn-default" href="@Url.Content("~/Admin/Category/Edit/")#=Id#"><i class="fa fa-pencil"></i>@T("Admin.Common.Edit")</a>'
+                            },
+                            {
+                                    command: { name: "destroy", text: "@T("Admin.Common.Delete")" },
+                                    title: "@T("Admin.Common.Delete")",
+                                    width: 100
+                            }]
+                        });
+                });
+                </script>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" id="btnAddNewCategory" onclick="javascript:OpenWindow('@(Url.Action("CategoryAddPopup", "CustomerAction", new { customerActionId = Model.CustomerActionId, conditionId = Model.Id, btnId = "btnRefreshProducts",  formId = "customer-action-condition-form" }))    ', 800, 800, true); return false;" class="k-button">
+                    <i class="fa fa-plus"></i>&nbsp;
+                    @T("Admin.Customers.CustomerActionCondition.Category.AddNew")
+                </button>
+                <input type="submit" id="btnRefreshCategories" style="display: none" />
+                <script type="text/javascript">
+                     $(document).ready(function () {
+                         $('#btnRefreshCategories').click(function () {
+                             var grid = $("#categories-grid").data('kendoGrid');
+                             grid.dataSource.read();
+                             return false;
+                         });
+                     });
+                </script>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @T("Admin.Customers.CustomerActionCondition.SaveBeforeEdit")
+            </div>
+        </div>
+    }
+</div>

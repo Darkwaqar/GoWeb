@@ -1,0 +1,113 @@
+﻿@model ProductDetailsModel
+@using Nop.Web.Models.Catalog;
+@{
+    Html.AddScriptParts("~/Scripts/jquery.magnific-popup.min.js");
+    Html.AddCssFileParts("~/Content/magnific-popup/magnific-popup.css");
+}
+<link href="~/Themes/Urban/Content/css/owlcarousel/owl.carousel.min.css" rel="stylesheet" />
+<link href="~/Themes/Urban/Content/css/owlcarousel/owl.theme.default.min.css" rel="stylesheet" />
+
+<script src="~/Themes/Urban/Content/scripts/owl.carousel.min.js"></script>
+<script src="~/Themes/Urban/Content/scripts/wheelzoom.js"></script>
+
+@*<script src='~/Themes/Urban/Content/scripts/jquery.min.js'></script> *@
+<style>
+    .owl-prev {
+        background-image: url(Themes/Urban/Content/img/picture-thumbs/arrow-left.png) !important;
+        width: 70px;
+        height: 70px;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        float: left;
+    }
+    .owl-next {
+        background-image: url(Themes/Urban/Content/img/picture-thumbs/arrow-right.png) !important;
+        width: 70px;
+        height: 70px;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        float: right;
+    }
+</style>
+<div class="gallery">
+    <div class="picture">
+        @if (Model.DefaultPictureZoomEnabled)
+        {
+            <a href="@Model.DefaultPictureModel.FullSizeImageUrl" title="@Model.DefaultPictureModel.Title" id="main-product-img-lightbox-anchor-@Model.Id">
+                <img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" itemprop="image" id="main-product-img-@Model.Id" />
+            </a>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#main-product-img-lightbox-anchor-@Model.Id').magnificPopup(
+                    {
+                        type: 'image',
+                        removalDelay: 300,
+                        gallery: {
+                            enabled: true,
+                            tPrev: '@T("Media.MagnificPopup.Previous")',
+                            tNext: '@T("Media.MagnificPopup.Next")',
+                            tCounter: '@T("Media.MagnificPopup.Counter")'
+                        },
+                        tClose: '@T("Media.MagnificPopup.Close")',
+                        tLoading: '@T("Media.MagnificPopup.Loading")'
+                    });
+                });
+            </script>
+        }
+        else
+        {
+            <img onmouseout="restImg()" class="zoom" alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" itemprop="image" id="main-product-img-@Model.Id" />
+        }
+    </div>
+    @if (Model.PictureModels.Count > 1)
+    {
+        <div class="picture-thumbs owl-carousel">
+            @foreach (var picture in Model.PictureModels)
+            {
+                <div class="thumb-item">
+                    <img src="@picture.ThumbImageUrl" alt="@picture.AlternateText" title="@picture.Title" data-defaultsize="@picture.ImageUrl" data-fullsize="@picture.FullSizeImageUrl"/>
+                </div>
+            }
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.thumb-item img').on('click', function () {
+                    $('#main-product-img-@Model.Id').attr('src', $(this).attr('data-defaultsize'));
+                    $('#main-product-img-@Model.Id').attr('title', $(this).attr('title'));
+                    $('#main-product-img-@Model.Id').attr('alt', $(this).attr('alt'));
+                    $('#main-product-img-lightbox-anchor-@Model.Id').attr('href', $(this).attr('data-fullsize'));
+                    $('#main-product-img-lightbox-anchor-@Model.Id').attr('title', $(this).attr('title'));
+                });
+                // assign wheelzoom
+                wheelzoom(document.querySelector('img.zoom'));
+
+                $(".owl-carousel").owlCarousel({
+                    loop: true,
+                    margin: 5,
+                    nav: true,
+                    dots: false,
+		    mouseDrag:false,
+ 		    autoWidth:true,
+                    responsive: {
+                        0: {
+                            items: 4
+                        },
+                        600: {
+                            items: 3
+                        },
+                        1000: {
+                            items: 3
+                        },
+                    }
+                });
+            });
+
+            function restImg(){
+                // zooming out can be triggered by calling 'wheelzoom.reset'
+                document.querySelector('img.zoom').dispatchEvent(new CustomEvent('wheelzoom.reset'));
+            }
+
+        </script>
+        
+    }
+</div>

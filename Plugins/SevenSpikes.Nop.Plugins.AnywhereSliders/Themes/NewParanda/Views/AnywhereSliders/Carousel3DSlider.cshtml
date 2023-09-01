@@ -1,0 +1,125 @@
+﻿@** Copyright 2015 Seven Spikes Ltd. All rights reserved. (http://www.nop-templates.com)
+    * http://www.nop-templates.com/t/licensinginfo
+*@
+
+@using SevenSpikes.Nop.Plugins.AnywhereSliders.Models.Carousel3D
+
+@model Carousel3DModel
+
+@{
+    /**/
+
+    Layout = null;
+    if (Model.SliderImages != null && Model.SliderImages.Count > 0)
+    {
+        // add css
+        //Html.AppendCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.AnywhereSliders/Themes/" + Model.Theme + "/Content/css/owl.carousel.min.css");
+        //// add javascript
+        //Html.AddScriptParts("~/Plugins/SevenSpikes.Nop.Plugins.AnywhereSliders/Themes/" + Model.Theme + "/Content/js/owl.carousel.js");
+
+
+
+        foreach (var sliderImage in Model.SliderImages.Take(1))
+        {
+
+            var url = "#";
+            if (!string.IsNullOrWhiteSpace(sliderImage.Url))
+            {
+                url = sliderImage.Url;
+            }
+
+            <a href="@url" class="collections__collection rail-el-inview rail-el-entered" check-in-view="" data-turbolinks="false">
+                <div class="collections__collection__image bg-setter" style="background-image: url(&quot; @sliderImage.PicturePath &quot;); background-position-y: 0px;">
+                    <img width="1000" height="1300" src="@sliderImage.PicturePath" class="attachment-full size-full" alt="" sizes="(max-width: 1000px) 100vw, 1000px">
+                </div>
+                <div class="collections__collection__title bl">
+                    <span class="label">discover the collection</span>
+                    <span class="title">@Html.Raw(sliderImage.Alt)</span>
+                </div>
+               
+            </a>
+
+            }
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        @*<div class="banner">
+            <div class="owl-carousel owl-theme"
+                 data-sliderHtmlElementId="@Model.SliderHtmlElementId"
+                 data-yRadius="@Model.Settings.YRadius"
+                 data-xPos="@Model.Settings.XPosition"
+                 data-yPos="@Model.Settings.YPosition"
+                 data-speed="@Model.Settings.Speed"
+                 data-mouseWheel="@Model.Settings.MouseWheel"
+                 data-autoRotateDelay="@Model.Settings.AutoRotateDelay"
+                 data-autoRotate="@Model.Settings.AutoRotate.ToString().ToLowerInvariant()">
+                @foreach (var sliderImage in Model.SliderImages)
+                {
+                    <div id="@Model.SliderHtmlElementId" class="item">
+                        @{
+                            var url = "#";
+                            if (!string.IsNullOrWhiteSpace(sliderImage.Url))
+                            {
+                                url = sliderImage.Url;
+                            }
+                        }
+
+                        <div class="banner-text no-bg">
+                            @Html.Raw(sliderImage.DisplayText)
+                        </div>
+
+
+                        <a href="@url" class="title">
+                            <img src="@sliderImage.PicturePath" alt="@sliderImage.Alt" />
+                        </a>
+
+                    </div>
+                }
+            </div>
+            <div class="banner-text no-color"></div>
+        </div>
+
+        <script>
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                loop: true,
+                autoplay: false,
+                autoplayTimeout: 5000,
+                autoplaySpeed: 1000,
+                autoplayHoverPause: true,
+                thumbs: false,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 1
+                    },
+                    1000: {
+                        items: 1
+                    }
+                }
+            })
+        </script>
+    }
+}*@

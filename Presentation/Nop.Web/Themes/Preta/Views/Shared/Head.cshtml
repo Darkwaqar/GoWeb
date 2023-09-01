@@ -1,0 +1,75 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.UI
+
+@{
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+
+    var browser = Request.Browser;
+    if (browser.Browser == "IE" && browser.MajorVersion >= 9)
+    {
+        Html.AppendCssFileParts("~/Themes/Prisma/Content/css/ie9-fix.css");
+    }
+
+    Html.AppendCssFileParts("~/Plugins/SevenSpikes.Core/Styles/perfect-scrollbar.min.css");
+
+    if (supportRtl)
+    {
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/1280.rtl.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/1024.rtl.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/768.rtl.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/480.rtl.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/mobile.rtl.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/styles.rtl.css");
+    }
+    else
+    {
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/1280.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/1024.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/768.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/480.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/mobile.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/CSS/styles.css");
+
+
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/font-awesome.min.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/custom-icons.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/my-instagram-gallery.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/odometer-theme-default.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/slick.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/animate.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/main.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/carousel-my.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/mobile-responsive.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/style.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/carousel-my.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/carousel-my.css");
+        Html.AppendCssFileParts("~/Themes/Preta/Content/assets/css/bootstrap.min.css");
+    }
+
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/footable.js");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/perfect-scrollbar.min.js");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/sevenspikes.core.min.js");
+    Html.AddScriptParts("~/Plugins/SevenSpikes.Core/Scripts/sevenspikes.theme.min.js");
+
+    Html.AddScriptParts("~/Themes/Preta/Content/scripts/prisma.js");
+
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/modernizr-2.6.2-respond-1.1.0.min.js");
+
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/bootstrap.min.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/packery.pkgd.min.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/masonry.pkgd.min.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/jquery.stellar.min.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/slick.min.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/slick.min.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/odometer.min.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/tweetie.min.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/jquery.timeago.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/jquery.knob.min.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/css3-animate-it.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/imagesloaded.pkgd.min.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/jquery.prettyPhoto.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/main.js");
+    Html.AddScriptParts("~/Themes/Preta/Content/assets/js/my-instagram-gallery.js");
+
+}

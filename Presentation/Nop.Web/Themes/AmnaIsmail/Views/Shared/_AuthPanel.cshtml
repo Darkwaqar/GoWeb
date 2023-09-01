@@ -1,0 +1,32 @@
+﻿@using growonline.Web.Models.Common;
+
+
+
+<ul class="list-inline">
+    @Html.Widget("header_links_before")
+
+    @*@Html.Action("TaxTypeSelector", "Common")
+        @Html.Action("CurrencySelector", "Common")
+        @Html.Action("LanguageSelector", "Common")*@
+    @Html.Widget("header_selectors")
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-3">
+        <ul class="nav navbar-nav navbar-right top-left-menu" style="margin-right:6px">
+
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a style="color:white" href="/logout" id="authBtn">Sign Out</a></li>
+                <li><a style="color:white" href="/CUSTOMER/INFO" id="authBtn">MY ACCOUNT</a></li>
+            }
+            else
+            {
+                <li style="margin-right:12px;"><a style="color:white" href="#" id="authBtn">Login / Register</a></li>
+            }
+            <li><a style="color:white" href="tell:0331-2888190">0331-2888192</a></li>
+
+        </ul>
+    </div>
+
+
+

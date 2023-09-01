@@ -1,0 +1,134 @@
+﻿@model CatalogPagingFilteringModel.SpecificationFilterModel
+@using growonline.Web.Models.Catalog;
+@{
+    var notFilteredItemsGroups = Model.NotFilteredItems.GroupBy(x => x.SpecificationAttributeName);
+}
+@if (Model.Enabled)
+{
+    <div>
+        @*<div class="panel-heading hidden-xs">
+                <strong>@T("Filtering.SpecificationFilter")</strong>
+            </div>*@
+        <div>
+          @*  @if (Model.NotFilteredItems.Count > 0)            {*@
+
+                @foreach (var group in notFilteredItemsGroups)
+                {
+                    var groupList = group.ToList();
+                    <div class="navbar navbar-default panel panel-default left-custom-panel-attr left-custom-panel">
+                        <div class="panel-heading " onclick="toggleAttr(this)">
+                            <strong> @T(groupList[0].SpecificationAttributeName) </strong>
+                            <div class="left-custom-panel-icon p">+</div>
+                        </div>
+
+                        <div class=" left-panel-body panel-body" style="display:none">
+                            <div class="left-panel-navbar-collapse">
+                                <ul class="list-unstyled">
+                                    @foreach (var spec in groupList)
+                                    {
+                                        <li class="inactive">
+                                            <input type="checkbox" id="spflt_@spec.SpecificationAttributeOptionId" @(spec.selected ? "checked" : "")  onchange="toggleSpecFilter(this,'@spec.FilterUrl');" /> <label for="spflt_@spec.SpecificationAttributeOptionId"> @spec.SpecificationAttributeOptionName</label>
+                                            @*<a href="@spec.FilterUrl">@spec.SpecificationAttributeOptionName</a>*@
+</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    @*<select class="form-control input-sm filter-select" onchange="window.location=this.value">
+                            @foreach (var spec in groupList)
+                            {
+                                <option value="@spec.FilterUrl">@spec.SpecificationAttributeOptionName</option>
+                            }
+                        </select>*@
+
+                }
+
+
+
+           @* } 
+            @if (Model.AlreadyFilteredItems.Count > 0)
+            {
+                <div class=" left-panel-body panel-body">
+                    <div class="left-panel-navbar-collapse">
+                        <ul class="list-unstyled">
+                            <li class="inactive  left-panel-inactive">
+                                <strong>@T("Filtering.SpecificationFilter.CurrentlyFilteredBy")</strong>
+                            </li>
+                            @foreach (var item in Model.AlreadyFilteredItems)
+                            {
+                                <li class="inactive left-panel-inactive">
+                                    @(item.SpecificationAttributeName):  @item.SpecificationAttributeOptionName
+                                </li>
+                            }
+                        </ul>
+
+                        <div class="inactive">
+                            <a href="@Model.RemoveFilterUrl">@T("Filtering.SpecificationFilter.Remove")</a>
+                        </div>
+                    </div>
+                </div>
+            }
+         </div>
+
+
+
+
+
+
+
+
+        <div class="filter-content">
+    @if (Model.NotFilteredItems.Count > 0)
+    {
+        <div class="form-inline">
+            @foreach (var group in notFilteredItemsGroups)
+            {
+                var groupList = group.ToList();
+
+                <div class="form-group">
+                    <label class="filter-label">@groupList[0].SpecificationAttributeName: </label>
+                    <select class="form-control input-sm filter-select" onchange="window.location=this.value">
+                        @foreach (var spec in groupList)
+                        {
+                            <option value="@spec.FilterUrl">@spec.SpecificationAttributeOptionName</option>
+                        }
+                    </select>
+                </div>
+            }
+
+        </div>
+
+    }
+    @if (Model.AlreadyFilteredItems.Count > 0)
+    {
+        <div class="filtered-items">
+            <ul>
+                <li class="title">
+                    @T("Filtering.SpecificationFilter.CurrentlyFilteredBy")
+                </li>
+                @foreach (var item in Model.AlreadyFilteredItems)
+                {
+                    <li class="item">
+                        <strong>@(item.SpecificationAttributeName):</strong> @item.SpecificationAttributeOptionName
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="remove-filter">
+            <a href="@Model.RemoveFilterUrl">@T("Filtering.SpecificationFilter.Remove")</a>
+        </div>
+    }*@
+            </div>
+        <br />
+    </div>
+}
+
+
+
+<script language="javaScript">
+    $(document).ready(
+        function () {
+            flt();
+        });
+</script>

@@ -1,0 +1,188 @@
+﻿@model CategoryModel
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Domain.Customers;
+@using Nop.Services.Common;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var categoryUrl = Url.RouteUrl("Category", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(categoryUrl);
+    }
+    string theme = "/Themes/FootPrint/";
+    var breadcrumbDelimiter = EngineContext.Current.Resolve<CommonSettings>().BreadcrumbDelimiter;
+    var currentCustomer = EngineContext.Current.Resolve<Nop.Core.IWorkContext>().CurrentCustomer;
+    var email = currentCustomer.Email;
+    var username = currentCustomer.GetAttribute<string>(SystemCustomerAttributeNames.FirstName);
+}
+
+
+
+@using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+{
+    <input Type="hidden" class="" id="EnteredQuantity" max="100" min="1" value="1" />
+
+    string fieldPrefix = string.Format("giftcard_{0}.", Model.Id);
+
+    <div class="gift-voucher">
+
+        <div class="row no-margin">
+            <div class="col-md-12 nopadding">
+                <img src="@theme/content/images/gifttop.jpg" class="img-responsive" width="100%" />
+            </div>
+        </div>
+
+        <div class="row no-margin bg-2">
+            <div class="col-md-6">
+
+
+                <div class="row" style="margin-top:0px;">
+                    <div class="col-md-12 giftimg " style="padding-right:0px; padding-left:0px;">
+                        <img src="@theme/content/images/Gift-Card.jpg" class="img-responsive" width="100%" />
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6" style="    MARGIN-TOP: 9PX;">
+                <div class="col-md-6 col-xs-12 zubi">
+                    <div class="amount">
+
+
+
+                        <select class="ddl" onchange="setGiftVoucher(this)">
+                            <option value="|giftcard_0" hidden>Select Value</option>
+                            @foreach (var product in Model.Products)
+                            {
+                                <option value="@product.SeName|giftcard_@product.Id">
+                                    @product.ProductPrice.Price.Replace(".00", "")
+                                </option>
+                            }
+                        </select>
+                    </div><br /><br /><br />
+                    <p style="margin-top: -8px;font-size: 9px; color: darkgrey;float:left;width:100%">MINIMUM 5000 RS</p>
+                </div>
+
+
+
+
+
+                <div class="col-xs-12 col-md-6" style="z-index:1000000;">
+
+                    <div class="info-date-picker select" style="padding-right:0px">
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="row col-md-6">
+
+                            <div class="col-md-12 nopadding">
+                                <label>To</label><br>
+                                <input type="text" name="@(fieldPrefix)RecipientName" id="recname" class="textbox3" placeholder="Recipient Name" style="padding-top:15px;padding-bottom:15px" />
+
+                            </div>
+                            <div class="col-md-12  nopadding">
+
+                                <input type="text" name="@(fieldPrefix)RecipientEmail" id="recemail" class="textbox3" placeholder="Recipient Email" style="padding-top:15px;padding-bottom:15px" />
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+
+                        <div class="row col-md-6 forinputfields">
+
+
+                            <div class="col-md-12 nopadding">
+                                <label>From</label>
+                                <input type="text" value="@username" name="@(fieldPrefix)SenderName" id="senname" class="textbox3" placeholder="Your Name" style="padding-top:15px;padding-bottom:15px;width:100%" />
+                            </div>
+                            <div class="col-md-12 nopadding">
+
+                                <input type="text" value="@email" name="@(fieldPrefix)SenderEmail" id="senemail" class="textbox3" placeholder="Your Email" style="padding-top:15px;padding-bottom:15px;width:100%" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Message (Optional)</label>
+                        <textarea name="@(fieldPrefix)Message" id="msg" class="textbox3" placeholder="MESSAGE"></textarea>
+
+                    </div>
+                </div>
+                <!--Buttons -->
+                <br />
+                <br />
+                <div class="row" style="    margin-top: -27px;">
+                    <div class="col-md-12 text-center">
+                        <a href="/gift-vouchers" class="btn-big" style="background-color:#8DA7A8;line-height:35px">RESET</a>
+                        <button type="button" id="send-button" class="btn-big gift-color" value="Add to cart" style=" background-color: #051c3b;">ADD TO CART</button>
+
+
+                    </div>
+
+                    <div class="clickhere">  <p>TERM AND CONDITION <span><a style="color: #051C3B" href="/faqs#giftpolicy">CLICK HERE</a></span></p> </div>
+                </div>
+                <br />
+                <br />
+            </div>
+        </div>
+        <div class="row no-margin">
+            <div class="col-md-12 nopadding">
+                <img src="@theme/content/images/gft.jpg" class="img-responsive" width="100%" />
+            </div>
+        </div>
+
+    </div>
+    @Html.Action("TopicBlock", "Topic", new { systemName = "GiftPageBottomBanner" })
+
+}
+<script>
+
+
+    var voucher_id = 0;
+    function setGiftVoucher(option) {
+        var se_name = $(option).val().split("|")[0];
+        voucher_id = $(option).val().split("|")[1];
+     
+        $("#recname").attr("name", voucher_id + ".RecipientName");
+        $("#recemail").attr("name", voucher_id + ".RecipientEmail");
+        $("#recemail2").attr("name", voucher_id + ".RecipientEmail");
+        $("#senname").attr("name", voucher_id + ".SenderName");
+        $("#senemail").attr("name", voucher_id + ".SenderEmail");
+        $("#msg").attr("name", voucher_id + ".Message");
+        $("#EnteredQuantity").attr("name", voucher_id + ".EnteredQuantity");
+    }
+
+
+    $("#send-button").on("click", function () {
+
+
+        if (voucher_id == "0") {
+            displayBarNotification("Please select the voucher", 'success', 3500);
+            return;
+        }
+        var getId = voucher_id.split("_")[1];
+        AjaxCart.addproducttocart_details('/addproducttocart/details/' + getId + '/1', '#product-details-form');
+    })
+
+
+</script>

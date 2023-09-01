@@ -1,0 +1,30 @@
+﻿@model CategoryNavigationModel
+@using Nop.Web.Models.Catalog;
+
+
+
+    
+
+@{
+    string CatSeName = Model.CurrentCategoryName.ToUpper();
+    var category = Model.Categories.Where(i => i.IncludeInTopMenu && i.Name.ToUpper() == CatSeName).FirstOrDefault();
+}
+
+@if (category != null)
+{
+   
+       
+    
+                                      <h6 Onclick="setLocation('/@category.SeName')">@category.Name</h6>
+                                        <ul>
+                                            @foreach (var subcat in category.SubCategories)
+                                            {
+                                               
+                                            
+                                            <li><a href="/@subcat.SeName">@subcat.Name</a></li>
+                                            }
+                                        </ul>
+
+
+
+}

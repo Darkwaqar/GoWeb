@@ -1,0 +1,94 @@
+﻿@model IList<ProductOverviewModel>
+
+@using Nop.Web.Models.Catalog;
+@{ 
+
+    Html.AppendCssFileParts("~/Themes/HashmiKajal/Content/css/owl.carousel.min.css");
+    Html.AddScriptParts("~/Themes/HashmiKajal/Content/scripts/owl.carousel.min.js");
+}
+@if (Model.Count > 0)
+{
+    int counter = 0;
+    int numberOfDiv = 6;
+    <div class="owl-carousel owl-theme home-page-products">
+        @foreach (var item in Model)
+        {
+             <div class="item">
+                <div class="home-product-item">
+                    @if (counter % numberOfDiv == 0)
+                    {
+                        <div class="item-box GiveHeight">
+                            @Html.Widget("Hashmikajal_homePage_Banner1")
+                        </div>
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", item)
+                        </div>
+
+                    } else if (counter % numberOfDiv == 1)
+                    {                
+                        <div class="item-box GiveHeight">
+                            @Html.Widget("Hashmikajal_homePage_Banner2")
+                        </div>
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", item)
+                        </div>
+                    }else if (counter % numberOfDiv == 2)
+                    {                
+                        <div class="item-box GiveHeight">
+			    @Html.Widget("Hashmikajal_homePage_Banner3")
+                        </div>
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", item)
+                        </div>
+                    } else if (counter % numberOfDiv == 3)
+                    {                
+                        <div class="item-box GiveHeight">
+                            @Html.Widget("Hashmikajal_homePage_Banner4")
+                        </div>
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", item)
+                        </div>
+                    } else if (counter % numberOfDiv == 4)
+                    {                
+                        <div class="item-box GiveHeight">
+                            @Html.Widget("Hashmikajal_homePage_Banner5")
+                        </div>
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", item)
+                        </div>
+                    } else if (counter % numberOfDiv == 5)
+                    {                
+                        <div class="item-box GiveHeight">
+                            @Html.Widget("Hashmikajal_homePage_Banner6")
+                        </div>
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", item)
+                        </div>
+		    }
+                </div>
+             </div>
+            counter++;
+        }
+    </div>
+    
+
+    <script>
+        $(document).ready(function () {
+
+            /*$(".product-box-add-to-cart-button").attr('value', 'View this product');
+            $(".product-box-add-to-cart-button").attr('title', 'View this product');
+
+            $(".nopAjaxCartProductListAddToCartButton").attr('value', 'View this product');
+            $(".nopAjaxCartProductListAddToCartButton").attr('title', 'View this product');*/
+
+
+            $('.owl-carousel').owlCarousel({
+                loop: false,
+                margin: 10,
+                items: 1,
+                nav: true,
+            });
+        });
+    </script>
+
+}

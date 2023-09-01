@@ -1,0 +1,1514 @@
+﻿@model VendorModel
+
+@Html.ValidationSummary(false)
+@Html.HiddenFor(model => model.Id)
+
+
+<script>
+    $(document).ready(function () {
+        bindBootstrapTabSelectEvent('vendor-edit');
+    });
+</script>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12 clearfix">
+                <div class="pull-left">
+                    @Html.Action("Mode", "Setting", new { modeName = "vendor-advanced-mode" })
+                </div>
+            </div>
+        </div>
+        <div id="vendor-edit" class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                @Html.RenderBootstrapTabHeader("tab-info", @T("Admin.Vendors.Info"), true)
+                @Html.RenderBootstrapTabHeader("tab-extend-info", @T("Admin.Vendors.Extend.Info"))
+                @Html.RenderBootstrapTabHeader("tab-vendor-mobile-setting", @T("Admin.Vendors.VendorMobileAppSetting"))
+                @Html.RenderBootstrapTabHeader("tab-vendor-social", @T("Admin.Vendors.Social"))
+                @Html.RenderBootstrapTabHeader("tab-vendor-payment-details", @T("Admin.Vendors.PaymentDetails"))
+                @Html.RenderBootstrapTabHeader("tab-seo", @T("Admin.Common.SEO"), customCssClass: "advanced-setting")
+                @if (Model.Id > 0)
+                {
+                    @Html.RenderBootstrapTabHeader("tab-vendor-notes", @T("Admin.Vendors.VendorNotes"), customCssClass: "advanced-setting")
+                    @Html.RenderBootstrapTabHeader("tab-banner", @T("Admin.Vendors.VendorBannerImageTab"))
+                    @Html.RenderBootstrapTabHeader("tab-reviews", @T("Admin.Vendors.ReviewTab"))
+                    @Html.RenderBootstrapTabHeader("tab-payouts", @T("Admin.Vendors.PayoutTab"))
+
+                }
+            </ul>
+            <div class="tab-content">
+                @Html.RenderBootstrapTabContent("tab-info", @TabInfo(), true)
+                @Html.RenderBootstrapTabContent("tab-extend-info", @TabExtendInfo())
+                @Html.RenderBootstrapTabContent("tab-vendor-mobile-setting", @TabMobileAppSettings())
+                @Html.RenderBootstrapTabContent("tab-vendor-social", @TabSocialLinks())
+                @Html.RenderBootstrapTabContent("tab-vendor-payment-details", @TabPayment())
+                @Html.RenderBootstrapTabContent("tab-seo", @TabSeo())
+                @if (Model.Id > 0)
+                {
+                    @Html.RenderBootstrapTabContent("tab-vendor-notes", @TabVendorNotes())
+                    @Html.RenderBootstrapTabContent("tab-banner", @TabBannerImages())
+                    @Html.RenderBootstrapTabContent("tab-reviews", @TabReviews())
+                    @Html.RenderBootstrapTabContent("tab-payouts", @TabPayouts())
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    //custom tabs
+    var eventMessage = new AdminTabStripCreated(this.Html, "vendor-edit");
+    EngineContext.Current.Resolve<IEventPublisher>().Publish(eventMessage);
+    foreach (var eventBlock in eventMessage.BlocksToRender)
+    {
+    @eventBlock
+    }
+}
+
+@*save selected tab name*@
+<input type="hidden" id="selected-tab-name" name="selected-tab-name" value="@(Html.GetSelectedTabName())">
+
+@helper TabInfo()
+{
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#@Html.FieldIdFor(model => model.AllowCustomersToSelectPageSize)").click(togglePageSize);
+            $("#@Html.FieldIdFor(model => model.StandAloneAppAndroid)").click(toggleStandAloneAndroid);
+            $("#@Html.FieldIdFor(model => model.StandAloneAppIos)").click(toggleStandAloneIos);
+            $("#@Html.FieldIdFor(model => model.MobileAppSettingModel.AppintmentEnable)").click(toggleAppointmentPicture);
+            togglePageSize();
+            toggleStandAloneAndroid();
+            toggleStandAloneIos();
+            toggleAppointmentPicture();
+        });
+
+        function togglePageSize() {
+            if ($('#@Html.FieldIdFor(model => model.AllowCustomersToSelectPageSize)').is(':checked')) {
+                $('#pnlPageSize').hide();
+                $('#pnlPageSizeOptions').show();
+            } else {
+                $('#pnlPageSize').show();
+                $('#pnlPageSizeOptions').hide();
+            }
+        }
+
+        function toggleStandAloneAndroid() {
+            if ($('#@Html.FieldIdFor(model => model.StandAloneAppAndroid)').is(':checked')) {
+                $('#pnlstandaloneandroid').show();
+            } else {
+                $('#pnlstandaloneandroid').hide();
+            }
+        }
+        function toggleStandAloneIos() {
+            if ($('#@Html.FieldIdFor(model => model.StandAloneAppIos)').is(':checked')) {
+                $('#pnlstandaloneios').show();
+                $('#pnlstandaloneschemesios').show();
+            } else {
+                $('#pnlstandaloneios').hide();
+                $('#pnlstandaloneschemesios').hide();
+            }
+        }
+        function toggleAppointmentPicture() {
+            if ($('#@Html.FieldIdFor(model => model.MobileAppSettingModel.AppintmentEnable)').is(':checked')) {
+                $('#appointmentPicture').show();
+            } else {
+                $('#appointmentPicture').hide();
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $("#@Html.FieldIdFor(model => model.Address.CountryId)").change(function() {
+                    var selectedItem = $(this).val();
+                    var ddlStates = $("#@Html.FieldIdFor(model => model.Address.StateProvinceId)");
+
+                    var postData = {
+                        countryId: selectedItem,
+                        addSelectStateItem: "true"
+                    };
+
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: "@(Url.Action("GetStatesByCountryId", "Country"))",
+                        data: postData,
+                        success: function(data) {
+                            ddlStates.html('');
+                            $.each(data, function(id, option) {
+                                ddlStates.append($('<option></option>').val(option.id).html(option.name));
+                            });
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            alert('Failed to retrieve states.');
+                        }
+                    });
+                });
+            });
+    </script>
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @(Html.LocalizedEditor<VendorModel, VendorLocalizedModel>("vendor-info-localized",
+                    @<div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Locales[item].Name)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.Locales[item].Name)
+                                @Html.ValidationMessageFor(model => model.Locales[item].Name)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Locales[item].Description)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Locales[item].Description, "RichEditor")
+                                @Html.ValidationMessageFor(model => model.Locales[item].Description)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <p>About Us</p>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Locales[item].Description, "RichEditor")
+                                @Html.ValidationMessageFor(model => model.Locales[item].Description)
+                            </div>
+                        </div>
+
+                        @Html.HiddenFor(model => model.Locales[item].LanguageId)
+                    </div>
+    ,
+                    @<div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Name)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.Name, required: true)
+                                @Html.ValidationMessageFor(model => model.Name)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Description)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(x => x.Description, "RichEditor")
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+
+
+                        </div>
+                    </div>
+                      ))
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Email)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Email, required: true)
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                @if (Model.Id > 0)
+                {
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.AssociatedCustomers)
+                        </div>
+                        <div class="col-md-9">
+                            @if (Model.AssociatedCustomers.Count > 0)
+                            {
+                                for (int i = 0; i < Model.AssociatedCustomers.Count; i++)
+                                {
+                                @Html.ActionLink(Model.AssociatedCustomers[i].Email, "Edit", "Customer", new { id = Model.AssociatedCustomers[i].Id }, new { })
+                                    if (i != Model.AssociatedCustomers.Count - 1)
+                                    {
+                                <text>,  </text>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                @T("Admin.Vendors.Fields.AssociatedCustomerEmails.None")
+                            }
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group advanced-setting">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Active)
+
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Active)
+                        @Html.ValidationMessageFor(model => model.Active)
+
+                    </div>
+
+                </div>
+
+                <div class="form-group advanced-setting">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.PictureId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.PictureId)
+                        @Html.ValidationMessageFor(model => model.PictureId)
+                    </div>
+                </div>
+
+                <div class="form-group advanced-setting">
+
+
+
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AdminComment)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopTextAreaFor(model => model.AdminComment)
+                        @Html.ValidationMessageFor(model => model.AdminComment)
+                    </div>
+                </div>
+
+                <div class="form-group advanced-setting">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AllowCustomersToSelectPageSize)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(x => x.AllowCustomersToSelectPageSize)
+                        @Html.ValidationMessageFor(model => model.AllowCustomersToSelectPageSize)
+                    </div>
+                </div>
+                <div class="form-group advanced-setting" id="pnlPageSize">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.PageSize)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(x => x.PageSize)
+                        @Html.ValidationMessageFor(model => model.PageSize)
+                    </div>
+                </div>
+                <div class="form-group advanced-setting" id="pnlPageSizeOptions">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.PageSizeOptions)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(x => x.PageSizeOptions)
+                        @Html.ValidationMessageFor(model => model.PageSizeOptions)
+                    </div>
+                </div>
+
+
+                <div class="form-group advanced-setting">
+
+
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.DisplayOrder)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.DisplayOrder)
+                        @Html.ValidationMessageFor(model => model.DisplayOrder)
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="panel panel-default advanced-setting">
+            <div class="panel-heading">
+                @T("Admin.Vendors.Address")
+            </div>
+            <div class="panel-body">
+                @Html.EditorFor(model => model.Address, "Address")
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabExtendInfo()
+{
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Advance Options
+            </div>
+            <div class="panel-body">
+                @{
+                    Boolean yes = true;
+                    Boolean No = false;
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Yes",
+                        Value = yes.ToString()
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "No",
+                        Value = No.ToString(),
+                        Selected = true
+                    });
+                }
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.IsSmsVerified)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopDropDownList("IsSmsVerified", listItems)
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.CoverPictureId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.CoverPictureId)
+                        @Html.ValidationMessageFor(model => model.CoverPictureId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.mpLogo)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.mpLogo)
+                        @Html.ValidationMessageFor(model => model.mpLogo)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ShopBanner)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.ShopBanner)
+                        @Html.ValidationMessageFor(model => model.ShopBanner)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ContactNumber)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.ContactNumber)
+                        @Html.ValidationMessageFor(model => model.ContactNumber)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ContactDescription)
+
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopTextAreaFor(model => model.ContactDescription, new { @maxlength = "300" })
+                        @Html.ValidationMessageFor(model => model.ContactDescription)
+                        @Html.Label("Maximum 300 characters are allowed")
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.TermAndConditionsUrl)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.TermAndConditionsUrl)
+                        @Html.ValidationMessageFor(model => model.TermAndConditionsUrl)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ReturnAndRefundUrl)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.ReturnAndRefundUrl)
+                        @Html.ValidationMessageFor(model => model.ReturnAndRefundUrl)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.DeliveryPolicyUrl)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.DeliveryPolicyUrl)
+                        @Html.ValidationMessageFor(model => model.DeliveryPolicyUrl)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ShippingInformationUrl)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.ShippingInformationUrl)
+                        @Html.ValidationMessageFor(model => model.ShippingInformationUrl)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ReturnAndExchangePolicyUrl)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.ReturnAndExchangePolicyUrl)
+                        @Html.ValidationMessageFor(model => model.ReturnAndExchangePolicyUrl)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.PaymentSecurityUrl)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.PaymentSecurityUrl)
+                        @Html.ValidationMessageFor(model => model.PaymentSecurityUrl)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.FaqUrl)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.FaqUrl)
+                        @Html.ValidationMessageFor(model => model.FaqUrl)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.StandAloneAppAndroid )
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.StandAloneAppAndroid)
+                        @Html.ValidationMessageFor(model => model.StandAloneAppAndroid)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlstandaloneandroid">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.StandAloneAppPackageIdAndroid)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.StandAloneAppPackageIdAndroid)
+                        @Html.ValidationMessageFor(model => model.StandAloneAppPackageIdAndroid)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.StandAloneAppIos)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.StandAloneAppIos)
+                        @Html.ValidationMessageFor(model => model.StandAloneAppIos)
+                    </div>
+                </div>
+
+                <div class="form-group" id="pnlstandaloneios">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.StandAloneAppPackageIdIos)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.StandAloneAppPackageIdIos)
+                        @Html.ValidationMessageFor(model => model.StandAloneAppPackageIdIos)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlstandaloneios">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.StandAloneAppIdIos)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.StandAloneAppIdIos)
+                        @Html.ValidationMessageFor(model => model.StandAloneAppIdIos)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlstandaloneschemesios">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.StandAloneAppUrlSchemesIos)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.StandAloneAppUrlSchemesIos)
+                        @Html.ValidationMessageFor(model => model.StandAloneAppPackageIdIos)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Facebook Developer Options
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.FacebookAppId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.FacebookAppId)
+                        @Html.ValidationMessageFor(model => model.FacebookAppId)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Payouts Options
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ShippingCharge)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.ShippingCharge)
+                        @Html.ValidationMessageFor(model => model.ShippingCharge)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.CommissionPercentage)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.CommissionPercentage)
+                        @Html.ValidationMessageFor(model => model.CommissionPercentage)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.FreeShippingOverXEnabled)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.FreeShippingOverXEnabled)
+                        @Html.ValidationMessageFor(model => model.FreeShippingOverXEnabled)
+                    </div>
+                </div>
+                <div class="form-group" id="pnlValueOfX">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.FreeShippingOverXValue)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.FreeShippingOverXValue)
+                        @Html.ValidationMessageFor(model => model.FreeShippingOverXValue)
+                    </div>
+                </div>
+                <div class="form-group advanced-setting" id="pnlValueOfXincltax">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.FreeShippingOverXIncludingTax)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.FreeShippingOverXIncludingTax)
+                        @Html.ValidationMessageFor(model => model.FreeShippingOverXIncludingTax)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#@Html.FieldIdFor(model => model.FreeShippingOverXEnabled)").click(toggleFreeShippingOverX);
+                            toggleFreeShippingOverX();
+                        });
+                        function toggleFreeShippingOverX() {
+                            if ($('#@Html.FieldIdFor(model => model.FreeShippingOverXEnabled)').is(':checked')) {
+                                $('#pnlValueOfX').show();
+                                $('#pnlValueOfXincltax').show();
+                            } else {
+                                $('#pnlValueOfX').hide();
+                                $('#pnlValueOfXincltax').hide();
+                            }
+                        }
+
+        </script>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Vendor Specifications
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ThemeColor)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopDropDownListFor(model => model.ThemeColor, Model.AvaliableThemeColor)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.IsFeatured)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.IsFeatured)
+                        @Html.ValidationMessageFor(model => model.IsFeatured)
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Brand)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Brand)
+                        @Html.ValidationMessageFor(model => model.Brand)
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Designer)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Designer)
+                        @Html.ValidationMessageFor(model => model.Designer)
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Emerging)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Emerging)
+                        @Html.ValidationMessageFor(model => model.Emerging)
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.Stablish)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Stablish)
+                        @Html.ValidationMessageFor(model => model.Stablish)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.SheEarns)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.SheEarns)
+                        @Html.ValidationMessageFor(model => model.SheEarns)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.TopBrand)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.TopBrand)
+                        @Html.ValidationMessageFor(model => model.TopBrand)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.WomenBrand)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.WomenBrand)
+                        @Html.ValidationMessageFor(model => model.WomenBrand)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.MenBrand)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.MenBrand)
+                        @Html.ValidationMessageFor(model => model.MenBrand)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.TopShoesBrand)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.TopShoesBrand)
+                        @Html.ValidationMessageFor(model => model.TopShoesBrand)
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Vendor Mapping
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AboutUs)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.EditorFor(x => x.AboutUs, "RichEditor")
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.SelectedMappedCategoryIds)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.SelectedMappedCategoryIds, new { SelectList = Model.AvailableCategories })
+
+                        <script>
+                                $(document).ready(function() {
+
+                                    var categoryIdsInput = $('#@Html.FieldIdFor(model => model.SelectedMappedCategoryIds)').data("kendoMultiSelect");
+                                    categoryIdsInput.setOptions({
+                                        autoClose: false,
+
+                                    });
+
+
+                                    @if (Model.AvailableCategories.Count == 0)
+                            {
+                                <text>
+                                    categoryIdsInput.setOptions({
+                                        enable: false,
+                                        placeholder: '@T("Admin.Catalog.Products.Fields.Categories.NoCategoriesAvailable")'
+                                    });
+                                    categoryIdsInput._placeholder();
+                                    categoryIdsInput._enable();
+                                    </text>
+                            }
+                                });
+                        </script>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.SelectedStoreIds)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.SelectedStoreIds, new { SelectList = Model.AvailableStores })
+                                <script>
+                                $(document).ready(function() {
+                                    var storesIdsInput = $('#@Html.FieldIdFor(model => model.SelectedStoreIds)').data("kendoMultiSelect");
+                                    storesIdsInput.setOptions({
+                                        autoClose: false
+                                    });
+
+                                    @if (Model.AvailableStores.Count == 0)
+                                    {
+                                        <text>
+                                    storesIdsInput.setOptions({
+                                        enable: false,
+                                        placeholder: 'No stores available'
+                                    });
+                                    storesIdsInput._placeholder();
+                                    storesIdsInput._enable();
+                                    </text>
+                                    }
+                                });
+                                </script>
+                            </div>
+                            <div class="col-md-8">
+                                @Html.Action("MultistoreDisabledWarning", "Common")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.SelectedPlatformIds)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.SelectedPlatformIds, new { SelectList = Model.AvailablePlatform })
+                                <script>
+                                $(document).ready(function() {
+                                    var platformIdsInput = $('#@Html.FieldIdFor(model => model.SelectedPlatformIds)').data("kendoMultiSelect");
+                                    platformIdsInput.setOptions({
+                                        autoClose: false
+                                    });
+
+                                    @if (Model.AvailablePlatform.Count == 0)
+                                    {
+                                        <text>
+                                    platformIdsInput.setOptions({
+                                        enable: false,
+                                        placeholder: 'No Platform available'
+                                    });
+                                    platformIdsInput._placeholder();
+                                    platformIdsInput._enable();
+                                    </text>
+                                    }
+                                });
+                                </script>
+                            </div>
+                            <div class="col-md-8">
+                                @Html.Action("MutilPlatFormDisabledWarning", "Common")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabSeo()
+{
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @(Html.LocalizedEditor<VendorModel, VendorLocalizedModel>("vendor-seo-localized",
+                    @<div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Locales[item].MetaKeywords)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.Locales[item].MetaKeywords)
+                                @Html.ValidationMessageFor(model => model.Locales[item].MetaKeywords)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Locales[item].MetaDescription)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopTextAreaFor(model => model.Locales[item].MetaDescription)
+                                @Html.ValidationMessageFor(model => model.Locales[item].MetaDescription)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Locales[item].MetaTitle)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.Locales[item].MetaTitle)
+                                @Html.ValidationMessageFor(model => model.Locales[item].MetaTitle)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.Locales[item].SeName)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.Locales[item].SeName)
+                                @Html.ValidationMessageFor(model => model.Locales[item].SeName)
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#@Html.FieldIdFor(model => model.Locales[item].SeName)').on('input propertychange paste', function () {
+                                var parameters = {
+                                    entityId: '@Model.Id',
+                                    entityName: 'Vendor',
+                                    seName: $(this).val()
+                                };
+                                warningValidation('@Url.Action("UrlReservedWarning", "Common")', '@Html.FieldNameFor(model => model.Locales[item].SeName)', parameters);
+                            });
+                        });
+                        </script>
+                        @Html.HiddenFor(model => model.Locales[item].LanguageId)
+                    </div>
+    ,
+                    @<div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.MetaKeywords)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(x => x.MetaKeywords)
+                                @Html.ValidationMessageFor(model => model.MetaKeywords)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.MetaDescription)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopTextAreaFor(x => x.MetaDescription)
+                                @Html.ValidationMessageFor(model => model.MetaDescription)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.MetaTitle)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(x => x.MetaTitle)
+                                @Html.ValidationMessageFor(model => model.MetaTitle)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.SeName)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(x => x.SeName)
+                                @Html.ValidationMessageFor(model => model.SeName)
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#@Html.FieldIdFor(model => model.SeName)').on('input propertychange paste', function () {
+                                var parameters = {
+                                    entityId: '@Model.Id',
+                                    entityName: 'Vendor',
+                                    seName: $(this).val()
+                                };
+                                warningValidation('@Url.Action("UrlReservedWarning", "Common")', '@Html.FieldNameFor(model => model.SeName)', parameters);
+                            });
+                        });
+                        </script>
+                    </div>))
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabMobileAppSettings()
+{
+    <div class="panel-group">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @Html.HiddenFor(model => model.MobileAppSettingModel.Id)
+                    @Html.HiddenFor(model => model.MobileAppSettingModel.VendorId)
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.TabAnimation)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.MobileAppSettingModel.TabAnimation, Model.MobileAppSettingModel.AvailableTabAnimation)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.ShopTheLookEnabled)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.MobileAppSettingModel.ShopTheLookEnabled)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.CatalogEnabled)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.MobileAppSettingModel.CatalogEnabled)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.SalesTabEnabled)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.MobileAppSettingModel.SalesTabEnabled)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.NewTabEnabled)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.MobileAppSettingModel.NewTabEnabled)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.LoyalityEnabled)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.MobileAppSettingModel.LoyalityEnabled)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.AboutUsEnabled)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.MobileAppSettingModel.AboutUsEnabled)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.ImageAspectRatio)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.MobileAppSettingModel.ImageAspectRatio, Model.MobileAppSettingModel.AvailableImageAspectRatio)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.CallToOrderEnabled)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.MobileAppSettingModel.CallToOrderEnabled)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.ShortcutEnabled)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.MobileAppSettingModel.ShortcutEnabled)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.ShopTheLookType)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.MobileAppSettingModel.ShopTheLookType, Model.MobileAppSettingModel.AvailableShopTheLookType)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.HomeTabType)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopDropDownListFor(model => model.MobileAppSettingModel.HomeTabType, Model.MobileAppSettingModel.AvailableHomeTabType)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.AppintmentEnable)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.MobileAppSettingModel.AppintmentEnable)
+                        </div>
+                    </div>
+                    <div class="form-group" id="appointmentPicture">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.MobileAppSettingModel.AppointmentPictureId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.MobileAppSettingModel.AppointmentPictureId)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabSocialLinks()
+{
+    <div class="panel-group">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.SocialLinks.Id)
+                        @Html.HiddenFor(model => model.SocialLinks.VendorId)
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.FaceboolMobile)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.FaceboolMobile)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.FaceboolWebURL)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.FaceboolWebURL)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.InstagramMobile)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.InstagramMobile)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.InstagramWebURL)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.InstagramWebURL)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.LinkedInMobile)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.LinkedInMobile)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.LinkedWebURL)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.LinkedWebURL)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.TwitterMobile)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.TwitterMobile)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.TwitterWebURL)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.TwitterWebURL)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.WhatsappMobile)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.WhatsappMobile)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.WhatsappWebURL)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.WhatsappWebURL)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.YoutubeMobile)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.YoutubeMobile)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.SocialLinks.YoutubeWebURL)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.SocialLinks.YoutubeWebURL)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    Social Links
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.Url)
+
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.Url)
+                            @Html.ValidationMessageFor(model => model.Url)
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.AboutUsPageUrl)
+
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.AboutUsPageUrl)
+                            @Html.ValidationMessageFor(model => model.AboutUsPageUrl)
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.BlogUrl)
+
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.BlogUrl)
+                            @Html.ValidationMessageFor(model => model.BlogUrl)
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.FacebookPage)
+
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.FacebookPage)
+                            @Html.ValidationMessageFor(model => model.FacebookPage)
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.LinkedInPage)
+
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.LinkedInPage)
+                            @Html.ValidationMessageFor(model => model.LinkedInPage)
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@helper TabPayment()
+{
+    <div class="panel-group">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.PaymentInfo.Id)
+                        @Html.HiddenFor(model => model.PaymentInfo.VendorId)
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.PaymentInfo.AccountNumber)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.PaymentInfo.AccountNumber)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.PaymentInfo.BankDetails)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.PaymentInfo.BankDetails)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.PaymentInfo.BankName)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.PaymentInfo.BankName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.PaymentInfo.Branch)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.PaymentInfo.Branch)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.PaymentInfo.CheckCopyImageId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.PaymentInfo.CheckCopyImageId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.PaymentInfo.CNIC)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.PaymentInfo.CNIC)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.NopLabelFor(model => model.PaymentInfo.MobileNumber)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.NopEditorFor(model => model.PaymentInfo.MobileNumber)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@helper TabVendorNotes()
+{
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="vendornotes-grid"></div>
+                <script>
+                    $(document).ready(function() {
+                        $("#vendornotes-grid").kendoGrid({
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    read: {
+                                        url:
+                                            "@Html.Raw(Url.Action("VendorNotesSelect", "Vendor", new {vendorId = Model.Id}))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    },
+                                    destroy: {
+                                        url:
+                                            "@Html.Raw(Url.Action("VendorNoteDelete", "Vendor", new {vendorId = Model.Id}))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    }
+                                },
+                                schema: {
+                                    data: "Data",
+                                    total: "Total",
+                                    errors: "Errors",
+                                    model: {
+                                        id: "Id",
+                                        fields: {
+                                            //do not implicitly specify all fields
+                                            //we do it only for fields which implicitly require it
+                                            //otherwise, they'll be formatted wrong way
+                                            CreatedOn: { type: "date" }
+                                        }
+                                    }
+                                },
+                                error: function(e) {
+                                    display_kendoui_grid_error(e);
+                                    // Cancel the changes
+                                    this.cancelChanges();
+                                },
+                                serverPaging: true,
+                                serverFiltering: true,
+                                serverSorting: true
+                            },
+                            pageable: {
+                                refresh: true,
+                                numeric: false,
+                                previousNext: false,
+                                info: false,
+                                @Html.Partial("_GridPagerMessages")
+                            },
+                            editable: {
+                                confirmation: "@T("Admin.Common.DeleteConfirmation")",
+                                mode: "inline"
+                            },
+                            scrollable: false,
+                            columns: [
+                                {
+                                    field: "CreatedOn",
+                                    title: "@T("Admin.Vendors.VendorNotes.Fields.CreatedOn")",
+                                    width: 200,
+                                    type: "date",
+                                    format: "{0:G}"
+                                }, {
+                                    field: "Note",
+                                    title: "@T("Admin.Vendors.VendorNotes.Fields.Note")",
+                                    encoded: false
+                                }, {
+                                    command: { name: "destroy", text: "@T("Admin.Common.Delete")" },
+                                    title: "@T("Admin.Common.Delete")",
+                                    width: 100
+                                }
+                            ]
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @T("Admin.Vendors.VendorNotes.AddTitle")
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AddVendorNoteMessage)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopTextAreaFor(model => model.AddVendorNoteMessage)
+                        @Html.ValidationMessageFor(model => model.AddVendorNoteMessage)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <button type="button" id="addVendorNote" class="btn btn-primary">@T("Admin.Vendors.VendorNotes.AddButton")</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#addVendorNote').click(function() {
+                var vendorNoteMessage = $("#@Html.FieldIdFor(model => model.AddVendorNoteMessage)").val();
+                $('#addVendorNote').attr('disabled', true);
+
+                var postData = {
+                    message: vendorNoteMessage,
+                    vendorId: @Model.Id
+                };
+                addAntiForgeryToken(postData);
+
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "@( Url.Action("VendorNoteAdd", "Vendor"))",
+                    data: postData,
+                    success: function(data) {
+                        var grid = $("#vendornotes-grid").data('kendoGrid');
+                        grid.dataSource.read();
+                        $('#addVendorNote').attr('disabled', false);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert('Failed to add vendor note.');
+                        $('#addVendorNote').attr('disabled', false);
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+@helper TabBannerImages()
+{
+   @Html.Partial("_CreateOrUpdate.Banners", Model)
+}
+
+
+@helper TabReviews()
+{
+    @Html.Partial("_TabViewReviews", Model.Id)
+}
+
+@helper TabPayouts()
+{
+    @Html.Partial("_TabViewPayouts", Model.Id)
+}
+
+@helper TabCategory()
+{
+    @Html.Partial("_TabViewCategory", Model)
+}

@@ -1,0 +1,223 @@
+﻿@model CategoryModel
+@{
+    //Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var categoryUrl = Url.RouteUrl("Category", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(categoryUrl);
+    }
+    string theme = "/Themes/ShoesTemplate/";
+    var breadcrumbDelimiter = EngineContext.Current.Resolve<CommonSettings>().BreadcrumbDelimiter;
+}
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@*category breadcrumb*@
+@section Breadcrumb
+{
+    @if (Model.DisplayCategoryBreadcrumb)
+    {
+        <style>
+            .modal-header {
+                min-height: 100%;
+                padding: 15px;
+                border-bottom: 0px solid #e5e5e5;
+            }
+        </style>
+
+        <div class="container-full no-margin nopadding">
+
+          
+            @Html.Widget("categorydetails_after_breadcrumb", Model.Id)
+        </div>
+    }
+}
+
+<div class="page-body ">
+    <div id="qview" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content" id="quickviewContent">
+            </div>
+        </div>
+    </div>
+
+    @if (!String.IsNullOrWhiteSpace(Model.Description))
+    {
+        <div class="page-description" style="display:none" id="catimg">
+            @Html.Raw(Model.Description)
+        </div>
+    }
+    else
+    {
+        <span style="display:none">&nbsp;</span>
+    }
+
+   
+
+       
+        @if (Model.Products.Count > 0)
+        {
+
+            <div class="row no-margin">
+
+
+                <div id="catalog-carousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        @{
+            bool isFirstItem = true;
+                        }
+
+                        @foreach (var product in Model.Products)
+                        {
+                            if (isFirstItem)
+                            {
+                                isFirstItem = false;
+                                <div class="item active">
+                                            <img src="@product.DefaultPictureModel.FullSizeImageUrl" alt="Chania">
+                                    </div> 
+                            }else
+                            { 
+                                <div class="item ">
+                                            <img src="@product.DefaultPictureModel.FullSizeImageUrl" alt="Chania">
+                                    </div> 
+
+                            }
+
+
+                        }
+
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#catalog-carousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#catalog-carousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+               
+            </div>
+        }
+      
+
+
+
+
+
+
+
+ 
+  
+   
+    
+    @{
+        var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+    }
+    @if (!pager.IsEmpty())
+    {
+        <div class="pager">
+            @pager
+        </div>
+    }
+    @Html.Widget("categorydetails_bottom", Model.Id)
+
+</div>
+
+
+<!-- Modal -->
+
+<script>
+    var loading = "<div class='text-center'><img src='@theme/content/images/loading2.gif' /></div>";
+
+
+
+    function quickView_close() {
+        //$("#qview").hide();
+        //$("#qview").html(loading);
+
+    }
+    function QuickView(sname, id) {
+        $("#quickviewContent").html(loading);
+
+        // var pos = $("#box" + id).offset();
+        // var top  = pos.top  ;
+        // $("#qview").css("bottom", ($(window).height() - $("#qview").height()) / 2 + 'px');
+
+        // $("#qview").show();
+        $.get("/" + sname, function (r) {
+            $("#quickviewContent").html(r);
+
+
+            //$("#img").attr("src", r.DefaultPictureModel.ImageUrl);
+            //$("#ptitle").text(r.DefaultPictureModel.Title);
+            //alert(JSON.stringify(r));
+            //var specs = r.ProductSpecifications;
+            //alert(specs);
+            //var temp = ""
+            //for (var i = 0; i < specs.length; i++) {
+            //    alert(specs[i].SpecificationAttributeName);
+            //    if (specs[i].SpecificationAttributeName.toUpperCase() == "COLOR"){
+            //        temp += "<span style='background-color:" + specs[i].ValueRaw + "'></span>";
+            //    }
+            //}
+
+            //$("#colors").html(temp);
+            //    alert(JSON.stringify(r));
+        })
+
+    }
+
+
+
+    $(".filter-bar").on("click", function () {
+
+
+        $(".filter-panel").slideToggle("normal", function () {
+            var isVisible = $(this).is(":visible");
+            if (isVisible) {
+                $("#filterArrow").removeClass("fa-angle-down");
+                $("#filterArrow").addClass("fa-angle-up");
+                return;
+            }
+            $("#filterArrow").removeClass("fa-angle-up");
+            $("#filterArrow").addClass("fa-angle-down");
+
+            // Animation complete.
+        });
+
+        //if ($('.filter-panel').css('display') == 'none') {
+        //    $(".filter-panel").show("normal");
+        //    $("#filterArrow").removeClass("fa-angle-down");
+        //    $("#filterArrow").addClass("fa-angle-up");
+        //    setTimeout(fu)
+        //    $("#btnfilterClose").fadeIn("slow");
+        //    return;
+        //}
+        //$(".filter-panel").hide("normal");
+        //$("#filterArrow").removeClass("fa-angle-up");
+        //$("#filterArrow").addClass("fa-angle-down");
+        //$("#btnfilterClose").fadeOut("slow");
+
+    });
+</script>

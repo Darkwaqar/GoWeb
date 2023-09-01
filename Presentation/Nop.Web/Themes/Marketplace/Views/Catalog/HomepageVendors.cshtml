@@ -1,0 +1,306 @@
+﻿@model IList<VendorModel>
+    @{
+        Layout = null;
+    }
+
+    <style>
+        .nav-tabs > li > a {
+            line-height: 5.828571;
+        }
+
+        .dismissModal {
+        
+        display:none !important;
+        }
+
+        .undismissModal {
+            display: block !important;
+        }
+    </style>
+
+
+
+    @using Nop.Web.Models.Catalog;
+    @{
+        int count = 1;
+        int count2 = 1;
+    }
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        @foreach (var item in Model)
+        {
+            if (count > 4)
+            {
+                continue;
+            }
+
+    <li class="@((count == 1)?"active":"")" id="@(item.Products.Count() > 0 ? item.Products[0].Id : -1)">
+        <a href="#@item.Name.Replace(" ","")" data-toggle="tab">
+            <img src="@item.PictureModel.ImageUrl" alt="">
+
+        </a>
+    </li>
+    count += 1;
+}
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        @foreach (var item in Model)
+        {
+            if (count2 > 4)
+            {
+                continue;
+            }
+            <div class="tab-pane @((count2 == 1)?"active":"") row" id="@item.Name.Replace(" ","")" style="padding-left: 13px;padding-right: 13px;">
+
+                <div class="col-md-8" style="margin-top:-2%;padding:0;padding-right: 15px;">
+                    @Html.Raw(item.Description)
+                    <img src="@item.PictureModel.FullSizeImageUrl" alt="@item.Id" class="img-responsive">
+
+                    <div class="t1-GalleryHeight hidden-sm hidden-xs">
+                        <div class="row hidden-sm hidden-xs" style="padding-top: 12px;">
+                            @foreach (var prod in item.Products)
+                            {
+                                <div class="col-md-5ths" style="width:20%; padding-bottom:14px;padding-right: 0;">
+                                    <img src="@prod.DefaultPictureModel.ImageUrl" alt="" class="img-responsive thumb" onclick="thumbPicture('@item.Id', '@prod.SeName', this, '@prod.Id');" style="height: 172px;
+    width: 92px;">
+                                    <!--style="height: 81px; width: 55px;"-->
+                                </div>
+                            }
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-sm-12 hidden-md hidden-lg" style="height: 20px;"></div>
+                <div class="col-md-4 force-padding">
+                    @{
+            int c = 0;
+                    }
+                    @foreach (var prods in item.Products)
+                    {
+                        if (c == 1)
+                        {
+                            continue;
+                        }
+                        <img src="@prods.DefaultPictureModel.FullSizeImageUrl" alt="" class="img-responsive thumb3" id="placesrc-@item.Id" style="width: 100% !important;     height: 502px;">
+                        if (c == 0)
+                        {
+                            <div class="col-md-12" style="background-color: #1a1a1a; color: white; margin-top: -20px;">
+                                @*<div id="default-id">@prods.Id</div>*@
+                                <h6 style="margin: 12px;color:white" onclick="onModalOpen();">
+                                    @item.Name
+                                    @*<a href="/@prods.SeName" id="ProductsLink-copy" data-toggle="modal" data-target="#myModal">
+                                            <span class="pull-right">View Detail</span>
+                                        </a>*@
+                                    <a href="javascript:" id="ProductsLink-copy" data-toggle="modal" data-target="#myModal">
+                                        <span class="pull-right">View Detail</span>
+                                    </a>
+                                </h6>
+                                <!-- Modal -->
+                                <!-- Modal -->
+
+                            </div>
+                        }
+                        c++;
+                    }
+                    @*<img src="assets/img/newCollectionItems/item%20(1).jpg" alt="" class="img-responsive thumb3" id="placesrc" style="width: 100% !important; height:482px;">*@
+
+                </div>
+
+
+            </div>
+
+                    count2 += 1;
+
+        }
+     
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content" style="border-radius: 0;">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4 class="modal-title">SHOP THE LOOK</h4>
+                            </div>
+                            <div class="col-md-4">
+
+                                <a href="javascript:" class="add-to-cart-modal pull-right" id="addtocart" style="color: white;" data-dismiss="modal">
+                                    ADD
+                                    TO CART
+                                </a>
+
+
+
+
+
+                                @*<a href="#" class="add-to-cart-modal pull-right">
+                                    ADD
+                                    TO CART
+                                </a>*@
+                            </div>
+                        </div>
+                        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table-condensed table-responsive table-modal"
+                                       style="width: 100%;">
+                                    <tr style="border-top: 2px solid #cccccc; border-bottom: 2px solid #cccccc;">
+                                        <td class="text-center"
+                                            style="padding-bottom: 10px; padding-top: 10px; width: 10%;">
+                                            Item
+                                        </td>
+                                        <td class="text-center" style="width: 20%;">
+                                            Description
+                                        </td>
+                                        <td class="text-center" style="width: 15%;">
+                                            Colour
+                                        </td>
+                                        <td class="text-center" style="width: 15%;">
+                                            Size
+                                        </td>
+                                        <td class="text-center" style="width: 15%;">
+                                            Qty
+                                        </td>
+                                        <td class="text-center">Unit Price</td>
+                                        <td class="text-center">Item Total</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img id="modal-image" src="assets/img/home/modal/modal-item.png"
+                                                 alt="" class="center-block">
+                                        </td>
+                                        <td class="text-center" >
+                                            <span id="modal-name">
+                                                SAINT
+                                                LAURANT
+                                            </span><br><span id="modal-des" style="font-weight: 100;">Some description</span>
+                                        </td>
+                                        <td class="text-center" id="modal-color">---</td>
+                                        <td>
+                                            <center>
+                                                <select name="" style="width: 90%;" id="modal-size">
+                                                    <option value="">S</option>
+                                                    <option value="">M</option>
+                                                    <option value="">L</option>
+                                                </select>
+                                            </center>
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <select name="" style="width: 50%;" id="modal-qty">
+                                                    <option value="">1</option>
+                                                    <option value="">2</option>
+                                                    <option value="">3</option>
+                                                </select>
+                                            </center>
+                                        </td>
+                                        <td class="text-center" id="modal-unitPrice">$97.00</td>
+                                        <td class="text-center" id="modal-totalPrice">$97.00</td>
+                                    </tr>
+                                </table>
+                                <div class="row"
+                                     style="color: black; font-family: Raleway; margin-top: -20px;">
+                                    <div class="col-md-offset-8 col-md-2 text-center" id="modal-wishlistBtn" style="cursor:pointer">
+                                        Add to wishlist
+                                    </div>
+                                    @*<div class="col-md-2 text-center">
+                                        Remove Item x
+                                    </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="close" type="button" class="btn btn-default"
+                                data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+                <!-- Modal content-->
+            </div>
+        </div>
+
+    </div>
+    <script>
+
+        var mId;
+        var mVendorId;
+
+        function thumbPicture(id, link, clickedElement, proId) {
+            var thumbsrc = clickedElement.getAttribute('src');
+            var image = $("#placesrc-" + id);
+            image.fadeOut('fast', function () {
+                image.attr('src', thumbsrc);
+                image.fadeIn('fast');
+            });
+            $("#ProductsLink").attr('href', '/' + link);
+            mId = proId;
+            mVendorId = id; 
+        }
+
+        function onModalOpen() {
+            if (mId == undefined) {
+                console.log(mId);
+                mId = $("ul#tabs li.active").attr('id'); 
+                //mId = $('#default-id').html();
+            }
+            $.get("/soa/productx/ProductDetails?productId=" + mId, function (data, status) {
+
+                var model = data.Model;
+                $("#modal-name").html(model.Name);
+                $("#modal-des").html(model.ShortDescription);
+                $("#modal-unitPrice").html(model.ProductPrice.Price);
+                $("#modal-totalPrice").html(model.ProductPrice.Price);
+                $("#modal-image").attr('src', model.PictureModels[0].ImageUrl);
+
+
+                $.each(model.ProductAttributes, function (i, attr) {
+                    if (attr.Name == "Size") {
+                        $('#modal-size').empty();
+                        $.each(attr.Values, function (index, obj) {
+                            $('#modal-size')
+                                .append($("<option></option>")
+                                .attr("value", obj.Id)
+                                .text(obj.Name));
+                        });
+                    }
+                });
+
+            });
+        }
+    </script>
+    <script>
+        var mId = $("ul#tabs li.active").attr('id');
+       // console.log(mId);
+        $("#addtocart").click
+                   (function () {
+                      // alert("sdf");
+                       AjaxCart.addproducttocart_details('/ShoppingCart/AddProductToCart_Details?productid=' + mId + '&shoppingcarttypeid=1', '#product-details-form'); return false;
+                       document.getElementById("close").click();
+                   });
+
+        $("#addtocart").click
+                 (function () {
+                    
+                     document.getElementById("close").click();
+                 });
+
+        $("#modal-wishlistBtn").click
+                  (function () {
+                      // alert("sdf");
+                      AjaxCart.addproducttocart_details('/ShoppingCart/AddProductToCart_Details?productid=' + mId + '&shoppingcarttypeid=2', '#product-details-form'); return false;
+                  });
+
+        $("#modal-wishlistBtn").click
+                 (function () {
+                     // alert("sdf");
+                     document.getElementById("close").click();
+                 });
+    </script>

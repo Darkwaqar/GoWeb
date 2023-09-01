@@ -1,0 +1,214 @@
+﻿@model ProductDetailsModel
+@using Nop.Core.Domain.Seo;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Models.Catalog;
+@using Nop.Core.Domain.Catalog;
+@using Nop.Core.Domain.Orders;
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+
+    var seoSettings = EngineContext.Current.Resolve<SeoSettings>();
+
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+        var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(productUrl);
+    }
+
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + Request.Url.AbsoluteUri + "\" />");
+    }
+
+    var video = Model.VideoModels.FirstOrDefault();
+    var videoOverlay = Model.VideoModels.Skip(1).Take(1).FirstOrDefault();
+}
+@section left
+{
+    @Html.Action("RelatedProducts", "Product", new { productId = Model.Id })
+<a class="btn btn-gray btn-close" href="/"></a>
+    @*@Html.Partial("_ProductBreadcrumb", Model.Breadcrumb)*@
+
+    @*<a class="hire btn btn-cross" href="/" target="_blank">
+        <span>BECOME A TRADER</span>
+    </a>*@
+
+    @*<script type="text/template">
+            <video class="autoplay loop">
+                <source src="/Themes/Grandeur/Content/videos/sniper/loop.mp4?5391" type="video/mp4">
+            </video>
+
+            <video class="items-overlay" style="display: none">
+                <source src="/Themes/Grandeur/Content/videos/sniper/items.mp4?7258" type="video/mp4">
+            </video>
+        </script>*@
+    <script type="text/template">
+        @if (video != null)
+    {
+            <video class="autoplay loop">
+                <source src="@(video.VideoUrl)" type="video/mp4">
+            </video>
+        }
+        @if (videoOverlay != null)
+    {
+            <video class="items-overlay" style="display: none">
+                <source src="@(videoOverlay.VideoUrl)" type="video/mp4">
+            </video>
+        }
+    </script>
+    <div>
+        @foreach (var spec in Model.ProductSpecifications)
+    {
+            @Html.Raw(spec.ValueRaw)
+        }
+    </div>
+
+    @*<div>
+            <a href="#" class="marker hairbrush" data-from="13" data-to="28">
+                <b><span><i><i><i></i></i></i></span><s></s><s></s></b>
+            </a>
+            <a href="#" class="marker glasses" data-from="0" data-to="12.07">
+                <b><span><i><i><i></i></i></i></span><s></s><s></s></b>
+            </a>
+            <a href="#" class="marker tails" data-from="28" data-to="35.37">
+                <b><span><i><i><i></i></i></i></span><s></s><s></s></b>
+            </a>
+        </div>*@
+
+    <span class="down"></span>
+}
+
+<div class="intro vcenter">
+    <strong class="type">The type of a WELTRADE trader.</strong>
+
+    <header class="@(Model.SeName)">
+        <span></span>
+
+        @*<h1>SNIPER</h1>*@
+        <h1>@Model.Name</h1>
+
+        @Html.Raw(Model.ShortDescription)
+    </header>
+
+
+    <div class="frame">
+        <h3>
+            <span>5 principles of success</span>
+        </h3>
+
+        <div>
+            @*The maximum concentration<br />
+                Only the nice shots<br />
+                Only the necessary is in focus <br />
+                Being in a hurry is impossible, to wait is the best position<br />
+                Victory is for the most persistent*@
+            @Html.Raw(Model.FullDescription)
+        </div>
+    </div>
+
+    <div class="down"></div>
+
+</div>
+
+@foreach (var picture in Model.PictureModels)
+            {
+    <div class="item">
+        <div class="img" style="background-image: url('@picture.FullSizeImageUrl');"></div>
+
+        <div class="text vcenter">
+            <p class="letter-a">
+                 @Html.Raw(picture.AlternateText)
+            </p>
+        </div>
+    </div>
+}
+
+@*<div class="item">
+        <div class="img" style="background-image: url('/Themes/Grandeur/Content/images/slides/sniper/hairbrush.jpg');"></div>
+
+        <div class="text vcenter">
+            <p class="letter-a">
+                A pedant. Careful consideration of every next step is his style and guarantee of his accurate shot.
+            </p>
+        </div>
+    </div>
+    <div class="item">
+        <div class="img" style="background-image: url('/Themes/Grandeur/Content/images/slides/sniper/glasses.jpg');"></div>
+
+        <div class="text vcenter">
+            <p class="letter-r">
+                Reserved.  Always keeps schemes and methods for himself, that’s why his decisions are often unpredictable and deceptive.
+            </p>
+        </div>
+    </div>
+    <div class="item">
+        <div class="img" style="background-image: url('/Themes/Grandeur/Content/images/slides/sniper/tails.jpg');"></div>
+
+        <div class="text vcenter">
+            <p class="letter-s">
+                Self-disciplined and delicate. Carefully rounds all the controversial moments, but is always confident when “pulling the trigger".
+            </p>
+        </div>
+    </div>*@
+
+<div class="outro vcenter">
+
+    <div class="figure @(Model.SeName)" style="background-image: url('/Themes/Grandeur/Content/images/slides/@(Model.SeName)/small.jpg'); background-position: 0 0">
+        <span></span>
+    </div>
+
+    <p class="end-line">
+        Does this trade type sound  familiar to you?<br />
+        Check in practice —<br />
+        become a successful trader!
+    </p>
+    @using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
+    {
+
+        <!--attributes-->
+        {
+            var dataDictAttributes = new ViewDataDictionary();
+            dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", Model.Id);
+            @Html.Partial("_ProductAttributes", Model.ProductAttributes, dataDictAttributes)
+        }
+
+        <div class="call2action">
+            @*<a class="btn btn-cross" href="https://weltrade.com" target="_blank">
+                    <span>BECOME A TRADER</span>
+                </a>*@
+
+            <a class="btn btn-cross no-smoothState" id="add-to-cart-button-@Model.Id" value="ShoppingCart.AddToCart" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })', '#product-details-form');return false;">
+                <span>@T("ShoppingCart.AddToCart")</span>
+            </a>
+            <a class="btn btn-cross no-smoothState" id="add-to-wishlist-button-@Model.Id" value="ShoppingCart.AddToCart" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist })', '#product-details-form');return false;">
+                <span>@T("Products.Wishlist.AddToWishlist")</span>
+            </a>
+           @* <input type="button" id="add-to-wishlist-button-@Model.ProductId" class="button-2 add-to-wishlist-button" value="@addToWishlistText" data-productid="@Model.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new {productId = Model.ProductId, shoppingCartTypeId = (int) ShoppingCartType.Wishlist})', '#product-details-form');return false;" />*@
+            @*<input type="button" id="add-to-cart-button-@Model.Id" class="button-1 add-to-cart-button" value="@T("ShoppingCart.AddToCart")" data-productid="@Model.Id" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })', '#product-details-form');return false;" />*@
+        </div>
+    }
+    <div class="up"></div>
+</div>

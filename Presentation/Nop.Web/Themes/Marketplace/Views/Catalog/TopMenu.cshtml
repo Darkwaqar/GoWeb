@@ -1,0 +1,53 @@
+﻿@model TopMenuModel
+@using Nop.Web.Models.Catalog;
+ @{
+        var rootCategories = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
+    }
+	
+ <div class="row hidden-xs">
+	
+	@foreach(var item in rootCategories){
+	<div class="col-xs-12 col-md-2 col-md-offset-1 new-arrival-border">
+                                        <h6><a href="/@item.SeName">@item.Name</a></h6>
+										@{
+										var sub = item.SubCategories.Where(x => x.IncludeInTopMenu).ToList();
+										}
+										
+                                        <ul>
+										@foreach(var subitem in sub){
+										<li><a href="@subitem.SeName">@subitem.Name</a></li>
+										}
+                                            
+                                            
+                                        </ul>
+                                    </div>
+	
+	}
+
+	</div>
+
+
+
+    @foreach (var itemCat in rootCategories)
+{
+<li class="row hidden-md hidden-lg hidden-sm">
+    <a href="/@itemCat.SeName">@itemCat.Name</a>
+
+            @{
+    var subCat = itemCat.SubCategories.Where(x => x.IncludeInTopMenu).ToList();
+            }
+
+            <ul>
+                @foreach (var subitem in subCat)
+                {
+                    <li><a href="@subitem.SeName">@subitem.Name</a></li>
+                }
+
+
+            </ul>
+       
+        </li>
+    }
+
+
+

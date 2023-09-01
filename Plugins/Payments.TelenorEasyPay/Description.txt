@@ -1,0 +1,9 @@
+Group: 
+FriendlyName: Easy Pay
+SystemName: Payments.TelenorEasyPay
+Version: 1.0
+SupportedVersions: 3.90
+Author: Waqar Khan
+DisplayOrder: 1
+FileName: Nop.Plugin.Payments.TelenorEasyPay.dll
+Description: This plugin allows paying with Telenor Easy Pay

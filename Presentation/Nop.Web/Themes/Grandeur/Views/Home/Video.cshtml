@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    //title
+    Html.AddTitleParts("Trading Culture — WELTRADE");
+}
+<div id="main">
+    @Html.Action("TopMenu", "Catalog")
+
+    <section class="page-intro with-video-out">
+
+        <script type="text/template">
+            <video autoplay="autoplay" class="no-stop">
+                <source src="/Themes/Grandeur/Content/videos/intro-en.mp4" type="video/mp4">
+                <source src="/Themes/Grandeur/Content/videos/intro-en.webm" type="video/webm">
+            </video>
+        </script>
+
+        <a class="skip btn btn-cross" href="/men-fashion">
+            <span>SKIP</span>
+        </a>
+    </section>
+</div>

@@ -1,0 +1,556 @@
+@font-face {
+    font-family: "Bodoni", sans-serif;
+    src: url("../fonts/BodoniFLF-Italic.ttf");
+}
+
+@font-face {
+    font-family:  'PT Sans', sans-serif;
+    src: url("../fonts/PT_Sans-Web-Regular.ttf");
+}
+
+.PTsans {
+    font-family: 'PT Sans', sans-serif;
+    
+    padding: 5px 125px;
+}
+
+
+.inputSurprises {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid #000000;
+    color: #000000;
+    text-align: center;
+    font-size: small;
+    padding: 10px 100px;
+    border: 1px solid;
+    margin-top: 20px;
+}
+
+}
+
+body p{
+    font-family: 'PT Sans', sans-serif !important;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+a {
+color:black !important;
+}
+
+
+body {
+    overflow:hidden;
+}
+
+.back {
+    opacity: 0.2;
+    top: 0px;
+    width: 100%;
+}
+
+.text-day {
+    padding-top: 10%;
+}
+
+.img-left {
+    background: url(/Themes/GoFashionHouse/Content/img/new.jpg) no-repeat;
+    background-size: contain;
+    padding-top:150%;
+}
+
+.set {
+    position: absolute;
+    top: 0px;
+}
+
+.size1 {
+    background: transparent;
+    border: none;
+    background-image: url(/Themes/GoFashionHouse/Content/img/letsGo.jpg);
+    font-size: 0;
+    width: 124px;
+    height: 63px;
+    background-repeat: no-repeat;
+}
+
+.rel {
+    position: relative;
+    text-align: center;
+}
+
+div#tooltips {
+    opacity: 1;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    position: absolute;
+    top: 0px;
+    left: 0%;
+    width: 100%;
+    background-color: transparent;
+    height: 100%;
+}
+
+div#socialIcon {
+    margin-bottom: 40px;
+}
+@media screen and (max-width:767px) {
+    .rel {
+        position: relative;
+        text-align: center;
+        margin-top: -90px;
+    }
+
+    .row {
+        /* margin-right: -15px; */
+        /* margin-left: -15px; */
+        margin:0px !important;
+    }
+
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+
+    .text-day {
+        padding-top: 0%;
+    }
+
+
+    .PTsans {
+        font-family: 'PT Sans', sans-serif;
+        padding: 5px 30px;
+    }
+
+    .set {
+        position: absolute;
+        top: 0px;
+        left: 0;
+    }
+
+    .inputSurprises {
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        border-bottom: 1px solid #000000;
+        color: #000000;
+        text-align: center;
+        font-size: small;
+        padding: 10px 10px;
+        border: 1px solid;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+
+
+
+}
+
+.tooltip {
+    opacity: 1 !important;
+}
+
+@media screen and (min-width: 960px) {
+    .pdp-tooltips-wrap .pdp-tooltips, .pdp-tooltips-wrap-extra .pdp-tooltips {
+        background-size: auto 100%;
+        flex-basis: 60%;
+        background-size: contain;
+        background-color: transparent;
+        align-self: stretch;
+        max-width: 1000px;
+    }
+
+    .the_copy {
+        font-size: 16px;
+        left: -107px;
+        width: 250px;
+    }
+}
+
+.pdp-tooltips-wrap .pdp-tooltips, .pdp-tooltips-wrap-extra .pdp-tooltips {
+    flex-basis: 100%;
+    min-height: 100vh;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+   
+}
+
+@media screen and (min-width: 640px) {
+    .scrolled .the_container.initial {
+        -webkit-animation: pulse 2.5s infinite;
+    }
+}
+
+
+
+
+.closed .vertical {
+    transition: all 0.5s ease-in-out;
+    transform: rotate(-90deg);
+}
+
+.closed .horizontal {
+    transition: all 0.5s ease-in-out;
+    transform: rotate(-90deg);
+    opacity: 1;
+}
+
+.opened {
+    opacity: 1
+}
+
+    .opened
+    .vertical {
+        transition: all 0.5s ease-in-out;
+        transform: rotate(90deg);
+    }
+
+    .opened .horizontal {
+        transition: all 0.5s ease-in-out;
+        transform: rotate(90deg);
+        opacity: 0;
+    }
+
+
+.the_circle .horizontal {
+    position: absolute;
+    background-color: #000;
+    width: 10px;
+    height: 1px;
+    left: 50%;
+    margin-left: -5px;
+    top: 50%;
+    margin-top: -1.2px;
+}
+
+.the_circle .vertical {
+    position: absolute;
+    background-color: #000;
+    width: 1px;
+    height: 10px;
+    left: 50%;
+    margin-left: -1.2px;
+    top: 50%;
+    margin-top: -6px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 12px, 0);
+        transform: translate3d(0, 12px, 0)
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none
+    }
+}
+
+@keyframes fadeOutDown {
+    0% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 12px, 0);
+        transform: translate3d(0, 12px, 0)
+    }
+}
+
+
+@-webkit-keyframes pulse {
+    0% {
+        -moz-transform: scale(0.9);
+        -ms-transform: scale(0.9);
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9)
+    }
+
+    70% {
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        box-shadow: 0 0 0 50px rgba(241,238,229,0)
+    }
+
+    100% {
+        -moz-transform: scale(0.9);
+        -ms-transform: scale(0.9);
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+        box-shadow: 0 0 0 0 rgba(241,238,229,0)
+    }
+}
+
+.tooltip.tooltip_1 {
+    top: 105%;
+    left: 28%;
+    border-top: none;
+}
+
+.tooltip.tooltip_2 {
+    top: 20%;
+    left: 45%;
+}
+
+.tooltip.tooltip_4 {
+    top: 116%;
+    right: 23%;
+}
+
+.tooltip.tooltip_3 {
+    top: 20%;
+    right: 24%;
+}
+
+
+.the_container {
+    position: absolute;
+    box-shadow: 0 0 0 0 rgba(241,238,229,0.5);
+    border-radius: 50%;
+}
+
+
+.initial.plus .the_copy {
+    animation: none;
+    animation-fill-mode: none;
+}
+
+.plus .the_copy {
+    animation-name: fadeOutDown;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+}
+
+
+
+.the_copy {
+    background: #F2EFE6;
+    color: #292929;
+    padding: 15px;
+    display: inline-block;
+    border-radius: 1px;
+    position: absolute;
+    bottom: 100%;
+    left: -57px;
+    width: 150px;
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 15px;
+    text-align: center;
+    opacity: 0;
+    /*pointer-events: none;*/
+}
+
+
+    .the_copy:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid #F2EFE6;
+        top: 100%;
+        left: 50%;
+        margin-left: -8px;
+    }
+
+.scrolled .the_container .the_circle {
+    animation-name: fadeInUp;
+    animation-duration: 0.2s;
+    animation-timing-function: cubic-bezier(0.2, 0.3, 0.25, 1.1);
+    animation-fill-mode: forwards;
+}
+
+.the_container .the_circle {
+    opacity: 1;
+}
+
+.the_circle {
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    background: #F2EFE6;
+    position: relative;
+    cursor: pointer;
+}
+
+    .the_circle .icon {
+        height: 2px;
+        width: 18px;
+        background: #292929;
+        display: inline-block;
+        position: absolute;
+        top: 18px;
+        left: 9px;
+    }
+
+.plus .the_circle .icon:after {
+    content: "";
+    height: 2px;
+    width: 18px;
+    background: #292929;
+    display: inline-block;
+    position: absolute;
+    transform: rotate(90deg);
+}
+
+.the_circle .icon:after {
+    transition: 0.3s cubic-bezier(0.58, 0.22, 0.2, 1.38);
+}
+
+
+.pdp-tooltips-wrap .pdp-tooltips, .pdp-tooltips-wrap-extra .pdp-tooltips {
+    flex-basis: 100%;
+    min-height: 450px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+  
+}
+
+
+.scrolled .the_container:nth-child(3) .the_circle, .scrolled .the_container:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+
+
+/*@media screen and (max-width:767px) {
+
+    .tooltip.tooltip_4 {
+        top: 50%;
+        right: 18%;
+    }
+    .tooltip.tooltip_1 {
+        top: 60%;
+        left: 28%;
+        border-top: none;
+    }
+}*/
+
+
+@media screen and (max-width:320px) {
+
+    .tooltip.tooltip_4 {
+        top: 50%;
+        right: 18%;
+    }
+
+    .tooltip.tooltip_1 {
+        top: 60%;
+        left: 28%;
+        border-top: none;
+    }
+}
+
+@media screen and (max-width:376px ) and (min-width:321px) {
+
+    .tooltip.tooltip_4 {
+        top: 54%;
+        right: 25%;
+    }
+
+    .tooltip.tooltip_1 {
+        top: 60%;
+        left: 28%;
+        border-top: none;
+    }
+}
+
+
+@media screen and (max-width:426px ) and (min-width:376px) {
+
+    .tooltip.tooltip_4 {
+        top: 67%;
+        right: 23%;
+    }
+
+    .tooltip.tooltip_1 {
+        top: 60%;
+        left: 28%;
+        border-top: none;
+    }
+}
+
+
+
+@media screen and (max-width:769px ) and (min-width:426px) {
+
+    .tooltip.tooltip_4 {
+        top: 120%;
+        right: 23%;
+    }
+
+    .tooltip.tooltip_1 {
+        top: 113%;
+        left: 28%;
+        border-top: none;
+    }
+}
+
+@media screen and (max-width:1025px ) and (min-width:769px) {
+
+    .tooltip.tooltip_4 {
+        top: 110%;
+        right: 23%;
+    }
+
+    .tooltip.tooltip_1 {
+        top: 92%;
+        left: 28%;
+        border-top: none;
+    }
+
+    .img-left {
+        background: url(/Themes/GoFashionHouse/Content/img/new.jpg) no-repeat;
+        background-size: 100% 100%;
+        padding-top: 150%;
+    }
+
+
+}
+
+
+
+
+@media screen and (max-width:1441px ) and (min-width:1025px) {
+    .tooltip.tooltip_4 {
+        top: 115%;
+        right: 23%;
+    }
+    .tooltip.tooltip_1 {
+        top: 131%;
+        left: 28%;
+        border-top: none;
+    }
+
+}

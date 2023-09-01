@@ -1,0 +1,51 @@
+﻿@model List< ProductOverviewModel>
+@using Nop.Core
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Catalog;
+
+@using Nop.Web.Models.Catalog;
+
+@if (Model.Count > 0)
+{
+    <div class="row">
+        @*<div >
+            <h2>The Stype Report</h2>
+        </div>*@
+        <div class="homepage-products">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 nopadding hp-img "><img src="@item.DefaultPictureModel.ImageUrl" class="img-responsive" /></div>
+                        <div class="col-md-12 nopadding">
+
+
+                            <div class="hp-name">
+                                <a href="@Url.RouteUrl("Product", new { SeName = item.SeName })">  @item.Name</a>
+</div>
+                            @*<div class="hp-desc">
+                                @item.ShortDescription
+                            </div>*@
+                            @*<div class="hp-link">
+                                <a href="@Url.RouteUrl("Product", new { SeName = item.SeName })">View and Shop now</a><span class=""></span>
+                            </div>*@
+                            
+                          
+                             
+                           
+
+
+                        </div>
+                    </div>
+                    <br />
+
+
+                </div>
+
+            }
+        </div>
+        
+    </div>
+}
